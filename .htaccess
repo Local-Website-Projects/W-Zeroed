@@ -1,0 +1,16 @@
+# Enable Rewrite Engine
+RewriteEngine On
+
+# Specify the 404 Error Document
+ErrorDocument 404 /404.php
+
+# Redirect "Home" to "index.php"
+RewriteRule ^Home$ index.php [L]
+RewriteRule ^Login$ login.php [L]
+RewriteRule ^Register$ register.php [L]
+RewriteRule ^Set-Profile$ set_profile.php [L]
+
+# Ensure file paths match exactly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /404.php [L]
