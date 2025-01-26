@@ -56,24 +56,6 @@
                             <span class="text-surface1">Not registered yet?</span>
                             <a class="text-button hover:underline" href="Register">Sign Up</a>
                         </div>
-                        <div class="option-title relative text-center py-6">
-                            <span class="px-5 bg-white">or sign up with</span>
-                            <div class="line absolute top-1/2 -translate-y-1/2 left-0 w-full h-px bg-line z-[-1]"></div>
-                        </div>
-                        <div class="list-login grid sm:grid-cols-3 gap-3">
-                            <a class="bg-surface h-12 flex items-center justify-center gap-3 rounded border border-line duration-300 hover:bg-black hover:text-white" href="#!">
-                                <span class="ph-fill ph-facebook-logo text-[#3B5998] text-2xl"></span>
-                                <strong class="text-button">Facebook</strong>
-                            </a>
-                            <a class="bg-surface h-12 flex items-center justify-center gap-3 rounded border border-line duration-300 hover:bg-black hover:text-white" href="#!">
-                                <span class="ph ph-google-logo text-[#FF4B26] text-2xl"></span>
-                                <strong class="text-button">Google</strong>
-                            </a>
-                            <a class="bg-surface h-12 flex items-center justify-center gap-3 rounded border border-line duration-300 hover:bg-black hover:text-white" href="#!">
-                                <span class="ph ph-x-logo text-2xl"></span>
-                                <strong class="text-button">Twitter</strong>
-                            </a>
-                        </div>
                     </form>
                 </div>
             </div>

@@ -44,7 +44,7 @@
                             <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="lastName" type="text" placeholder="Enter last name" autocomplete="off" required />
                         </div>
                         <div class="profile">
-                            <label for="profile">Profile <span class="text-red">*</span></label>
+                            <label for="profile">Profile Image<span class="text-red">*</span></label>
                             <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="profile" type="file" required />
                         </div>
                         <div class="gender">
@@ -375,10 +375,6 @@
                             <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="Company Website Link" autocomplete="off" required />
                         </div>
                         <div class="jobLocation">
-                            <label for="jobLocation">Company Email</label>
-                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="Company Email" autocomplete="off" required />
-                        </div>
-                        <div class="jobLocation">
                             <label for="jobLocation">Start Date</label>
                             <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="date" required />
                         </div>
@@ -398,13 +394,55 @@
                             <label for="jobLocation">Accomplishments</label>
                             <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" required></textarea>
                         </div>
-                        <div class="jobLocation">
-                            <label for="jobLocation">Accomplishments</label>
-                            <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" required></textarea>
-                        </div>
-                        <button class="button-main -border mt-5">Add Another Experience</button>
-
                     </div>
+                    <h5 class="heading5 mt-5">Reference Check</h5>
+                    <div class="grid sm:grid-cols-3 gap-3">
+                        <div class="jobLocation">
+                            <label for="jobLocation">Reference Type</label>
+                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="HR Reporting Manager" required />
+                        </div>
+                        <div class="jobLocation">
+                            <label for="jobLocation">Designation</label>
+                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="Enter Designation" required />
+                        </div>
+                        <div class="jobLocation">
+                            <label for="jobLocation">Name</label>
+                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="Enter Name" required />
+                        </div>
+                        <div class="jobLocation">
+                            <label for="jobLocation">Email</label>
+                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="email" placeholder="Enter Email" required />
+                        </div>
+                    </div>
+                    <div class="grid sm:grid-cols-3 gap-3">
+                        <button class="w-full h-12 px-4 mt-2 button-main -border mt-5">Send Email</button>
+                        <button class="w-full h-12 px-4 mt-2 button-main -border mt-5">Add Another Experience</button>
+                        <button class="w-full h-12 px-4 mt-2 button-main -border mt-5">Record Video</button>
+                    </div>
+
+                    <h5 class="heading5 mt-5">Career Goals</h5>
+                    <div class="grid sm:grid-cols-3 gap-3">
+                        <div class="jobLocation">
+                            <label for="jobLocation">Role</label>
+                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="Enter career role" required />
+                        </div>
+                        <div class="jobLocation">
+                            <label for="jobLocation">Industry</label>
+                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="Enter career industry" required />
+                        </div>
+                        <div class="jobLocation">
+                            <lable for="jobLocation">NOC Number</lable>
+                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity))">
+                                <option>A</option>
+                                <option>B</option>
+                                <option>C</option>
+                                <option>D</option>
+                                <option>E</option>
+                                <option>F</option>
+                            </select>
+                        </div>
+                    </div>
+
 
 
 

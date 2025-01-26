@@ -38,39 +38,51 @@
 <section class="form_register lg:py-20 sm:py-14 py-10">
     <div class="container flex items-center justify-center">
         <div class="content sm:w-[448px] w-full">
-            <h3 class="heading3 text-center">Create a free account</h3>
+            <h3 class="heading3 text-center">Welcome to Zeroed – Get Hiring Ready!</h3>
+            <h3 class="text-center mt-5"> <span style="font-size: 18px; font-weight: bold">
+                        Sign Up Today and Claim Your Launch Offer
+                    Enjoy a FREE 1-Month Trial!
+                    </span></h3>
             <div class="menu_tab w-full mt-8">
                 <ul class="list grid grid-cols-2 gap-5 w-full" role="tablist">
                     <li role="presentation">
-                        <button class="tab_btn -fill -fill-primary w-full py-3 text-button text-center rounded bg-surface duration-300 hover:text-primary active" id="tab_candidate" role="tab" aria-controls="candidate" aria-selected="true">Candidate</button>
+                        <button class="tab_btn -fill -fill-primary w-full py-3 text-button text-center rounded bg-surface duration-300 hover:text-primary active" id="tab_candidate" role="tab" aria-controls="candidate" aria-selected="true">Looking for works</button>
                     </li>
                     <li role="presentation">
-                        <button class="tab_btn -fill -fill-primary w-full py-3 text-button text-center rounded bg-surface duration-300 hover:text-primary" id="tab_employer" role="tab" aria-controls="employer" aria-selected="false">Employer</button>
+                        <button class="tab_btn -fill -fill-primary w-full py-3 text-button text-center rounded bg-surface duration-300 hover:text-primary" id="tab_employer" role="tab" aria-controls="employer" aria-selected="false">Looking for hiring</button>
                     </li>
                 </ul>
             </div>
             <div id="candidate" class="tab_list active" role="tabpanel" aria-labelledby="tab_candidate" aria-hidden="false">
-                <form class="form mt-6">
+                <p style="color: red" class="mt-5">
+                    <span style="font-weight: bold">But wait,</span> there’s more!
+                    Invite 4 friends to join Zeroed and get 2 EXTRA months free!
+                    This is a Limited-Time Offer! Don’t miss your chance to level up your job search for free.
+                    Sign up now and start your journey with Zeroed today!</p>
+                <p style="color: red; font-weight: bold" class="mt-5"> Let’s get you hired, together.</p>
+                <form action="Insert" method="post" class="form mt-6">
                     <div class="form-group">
                         <label for="username">Candidate email address*</label>
-                        <input id="username" type="email" name="username" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="Email address*" required />
+                        <input id="username" type="email" name="email" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="Email address*" required />
                     </div>
                     <div class="form-group mt-6">
                         <label for="password">Password*</label>
                         <input id="password" type="password" name="password" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="Password*" required />
+                        <span id="password_error" style="color: red; display: none;">Minimum length of the password should be 8 characters.</span>
                     </div>
                     <div class="form-group mt-6">
                         <label for="confirmPassword">Confirm password*</label>
                         <input id="confirmPassword" type="password" name="confirmPassword" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="Confirm password*" required />
+                        <span id="candidate_error" style="color: red; display: none;">Password and confirm password have not matched</span>
                     </div>
                     <div class="flex items-center justify-between mt-6">
                         <div class="sub-input-checkbox flex items-center gap-2">
-                            <input id="checkbox" type="checkbox" name="checkbox" />
+                            <input id="checkbox" type="checkbox" name="checkbox" required/>
                             <label for="checkbox" class="text-surface1">I agree to the <a href="term-of-use.html" class="text-button hover:underline">Terms of User</a></label>
                         </div>
                     </div>
                     <div class="block-button mt-6">
-                        <button class="button-main bg-primary w-full text-center">Create a new account</button>
+                        <button class="button-main bg-primary w-full text-center" type="submit" id="candidate_signUp" name="candidate_signup">Create a new account</button>
                     </div>
                     <div class="navigate flex items-center justify-center gap-2 mt-6">
                         <span class="text-surface1">Already have an account?</span>
@@ -81,8 +93,12 @@
             <div id="employer" class="tab_list" role="tabpanel" aria-labelledby="tab_employer" aria-hidden="true">
                 <form class="form mt-6">
                     <div class="form-group">
-                        <label for="username">Employer email address*</label>
-                        <input id="username" type="email" name="username" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="Email address*" required />
+                        <label for="username">Full Name *</label>
+                        <input id="username" type="text" name="name" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="Full Name" required />
+                    </div>
+                    <div class="form-group mt-6">
+                        <label for="username">Email address*</label>
+                        <input id="username" type="email" name="email" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="Email address*" required />
                     </div>
                     <div class="form-group mt-6">
                         <label for="password">Password*</label>
@@ -91,6 +107,14 @@
                     <div class="form-group mt-6">
                         <label for="confirmPassword">Confirm password*</label>
                         <input id="confirmPassword" type="password" name="confirmPassword" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="Confirm password*" required />
+                    </div>
+                    <div class="form-group mt-6">
+                        <label for="confirmPassword">Organization Name*</label>
+                        <input id="confirmPassword" type="text" name="organization" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="Organization name" required />
+                    </div>
+                    <div class="form-group mt-6">
+                        <label for="confirmPassword">Position *</label>
+                        <input id="confirmPassword" type="text" name="position" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="position" required />
                     </div>
                     <div class="flex items-center justify-between mt-6">
                         <div class="sub-input-checkbox flex items-center gap-2">
@@ -116,6 +140,52 @@
 <?php include ('include/mobile_menu.php');?>
 
 <?php include ('include/script.php');?>
+
+<script>
+    const passwordField = document.getElementById("password");
+    const confirmPasswordField = document.getElementById("confirmPassword");
+    const errorSpan = document.getElementById("candidate_error");
+    const error = document.getElementById("password_error");
+    const submitButton = document.getElementById("candidate_signUp");
+
+    function passwordLength() {
+        const password = passwordField.value;
+        const isPasswordValid = password.length >= 8;
+
+        if (isPasswordValid) {
+            error.style.display = "none";
+            submitButton.disabled = false;
+        } else {
+            error.style.display = "block";
+            submitButton.disabled = true;
+        }
+    }
+
+    function validatePasswords() {
+        const password = passwordField.value;
+        const confirmPassword = confirmPasswordField.value;
+
+        // Check if password length is at least 8 characters
+        const isPasswordValid = password.length >= 8;
+
+        // Check if passwords match
+        const doPasswordsMatch = password === confirmPassword;
+
+        if (isPasswordValid && doPasswordsMatch) {
+            errorSpan.style.display = "none";
+            submitButton.disabled = false;
+            submitButton.classList.remove("disabled-btn");
+        } else {
+            errorSpan.style.display = "block";
+            submitButton.disabled = true;
+            submitButton.classList.add("disabled-btn");
+        }
+    }
+
+    // Add event listeners to input fields
+    passwordField.addEventListener("input", passwordLength);
+    confirmPasswordField.addEventListener("input", validatePasswords);
+</script>
 </body>
 
 </html>

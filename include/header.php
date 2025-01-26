@@ -7,7 +7,7 @@
                     <img src="assets/images/logo.png" alt="logo" class="logo-black md:h-[42px] h-8 w-auto hidden" />
                 </a>
             </h1>
-            <div class="category_block flex items-center relative h-full">
+            <!--<div class="category_block flex items-center relative h-full">
                 <button class="category_btn max-2xl:hidden flex items-center gap-1 px-3 py-2 rounded-lg bg-light text-white duration-300">
                     <span class="ph ph-stack text-2xl text-primary"></span>
                     <span>Categories</span>
@@ -423,7 +423,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
         </div>
         <div class="right flex items-center gap-6 h-full">
             <!--<div class="navigator h-full max-[1400px]:hidden">
@@ -837,8 +837,7 @@
                 </ul>
             </div>-->
             <div class="list_action flex items-center gap-7">
-                <a href="Register" class="button-main bg-white text-black max-sm:hidden">Join Us</a>
-                <div class="list_icon flex items-center gap-3">
+                <!--<div class="list_icon flex items-center gap-3">
                     <a href="Login" class="flex items-center gap-1 text-title text-white duration-300 hover:text-primary">
                         <span class="ph-bold ph-user"></span>
                         <span>Login</span>
@@ -847,7 +846,7 @@
                         <span class="ph-bold ph-plus-circle"></span>
                         <span>Register</span>
                     </a>
-                </div>
+                </div>-->
                 <div class="user_block relative max-sm:hidden">
                     <button class="user_infor flex items-center gap-2 text-white">
                         <img src="assets/images/avatar/IMG-7.webp" alt="IMG-7" class="user_avatar flex-shrink-0 w-9 h-9 rounded-full">
