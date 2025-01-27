@@ -8,6 +8,7 @@ ErrorDocument 404 /404.php
 RewriteRule ^Home$ index.php [L]
 RewriteRule ^Login$ login.php [L]
 RewriteRule ^Register$ register.php [L]
+RewriteRule ^Verify-Email$ email_verify.php [L]
 RewriteRule ^Set-Profile$ set_profile.php [L]
 RewriteRule ^Seller-Profile$ candidate_profile.php [L]
 RewriteRule ^Message$ candidates_messages.php [L]

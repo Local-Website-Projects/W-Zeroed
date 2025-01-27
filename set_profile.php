@@ -1,3 +1,16 @@
+<?php
+session_start();
+if(!isset($_SESSION['seller_id'])){
+    echo "
+    <script>
+    window.location.href='404.php'
+</script>
+    ";
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 

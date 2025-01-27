@@ -17,7 +17,21 @@ if(isset($_POST['candidate_signup'])){
     $password = $db_handle->checkValue($_POST['password']);
     $randomNumber = random_int(100000, 999999);
 
-    $subject = "Email Verification";
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $insert = $db_handle->insertQuery("INSERT INTO `sellers`(`email`, `password`, `verification_code`, `inserted_at`) VALUES ('$email','$hashedPassword','$randomNumber','$inserted_at')");
+    if($insert){
+        echo "<script>
+                document.cookie = 'alert = 3;';
+                window.location.href='Verify-Email?email=$email';
+                </script>";
+    } else {
+        echo "<script>
+                document.cookie = 'alert = 5;';
+                window.location.href='Login';
+                </script>";
+    }
+
+   /* $subject = "Email Verification";
     $messege = "<html>
 <body style='background-color: #eee; font-size: 16px;'>
 <div style='max-width: 600px; min-width: 200px; background-color: #ffffff; padding: 20px; margin: auto;'>
@@ -66,11 +80,23 @@ if(isset($_POST['candidate_signup'])){
         if ($mail->send()) {
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
             $insert = $db_handle->insertQuery("INSERT INTO `sellers`(`email`, `password`, `verification_code`, `inserted_at`) VALUES ('$email','$hashedPassword','$randomNumber','$inserted_at')");
+            if($insert){
+                echo "<script>
+                document.cookie = 'alert = 3;';
+                window.location.href='Verify-Password';
+                </script>";
+            } else {
+                echo "<script>
+                document.cookie = 'alert = 5;';
+                window.location.href='Login';
+                </script>";
+            }
         }
     } catch (Exception $e) {
         echo "<script>
        alert('Error sending email');
         </script>";
         exit;
-    }
+    }*/
 }
+

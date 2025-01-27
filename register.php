@@ -43,16 +43,6 @@
                         Sign Up Today and Claim Your Launch Offer
                     Enjoy a FREE 1-Month Trial!
                     </span></h3>
-            <div class="menu_tab w-full mt-8">
-                <ul class="list grid grid-cols-2 gap-5 w-full" role="tablist">
-                    <li role="presentation">
-                        <button class="tab_btn -fill -fill-primary w-full py-3 text-button text-center rounded bg-surface duration-300 hover:text-primary active" id="tab_candidate" role="tab" aria-controls="candidate" aria-selected="true">Looking for works</button>
-                    </li>
-                    <li role="presentation">
-                        <button class="tab_btn -fill -fill-primary w-full py-3 text-button text-center rounded bg-surface duration-300 hover:text-primary" id="tab_employer" role="tab" aria-controls="employer" aria-selected="false">Looking for hiring</button>
-                    </li>
-                </ul>
-            </div>
             <div id="candidate" class="tab_list active" role="tabpanel" aria-labelledby="tab_candidate" aria-hidden="false">
                 <p style="color: red" class="mt-5">
                     <span style="font-weight: bold">But wait,</span> there’s more!
@@ -83,47 +73,6 @@
                     </div>
                     <div class="block-button mt-6">
                         <button class="button-main bg-primary w-full text-center" type="submit" id="candidate_signUp" name="candidate_signup">Create a new account</button>
-                    </div>
-                    <div class="navigate flex items-center justify-center gap-2 mt-6">
-                        <span class="text-surface1">Already have an account?</span>
-                        <a class="text-button hover:underline" href="Login">Login</a>
-                    </div>
-                </form>
-            </div>
-            <div id="employer" class="tab_list" role="tabpanel" aria-labelledby="tab_employer" aria-hidden="true">
-                <form class="form mt-6">
-                    <div class="form-group">
-                        <label for="username">Full Name *</label>
-                        <input id="username" type="text" name="name" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="Full Name" required />
-                    </div>
-                    <div class="form-group mt-6">
-                        <label for="username">Email address*</label>
-                        <input id="username" type="email" name="email" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="Email address*" required />
-                    </div>
-                    <div class="form-group mt-6">
-                        <label for="password">Password*</label>
-                        <input id="password" type="password" name="password" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="Password*" required />
-                    </div>
-                    <div class="form-group mt-6">
-                        <label for="confirmPassword">Confirm password*</label>
-                        <input id="confirmPassword" type="password" name="confirmPassword" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="Confirm password*" required />
-                    </div>
-                    <div class="form-group mt-6">
-                        <label for="confirmPassword">Organization Name*</label>
-                        <input id="confirmPassword" type="text" name="organization" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="Organization name" required />
-                    </div>
-                    <div class="form-group mt-6">
-                        <label for="confirmPassword">Position *</label>
-                        <input id="confirmPassword" type="text" name="position" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="position" required />
-                    </div>
-                    <div class="flex items-center justify-between mt-6">
-                        <div class="sub-input-checkbox flex items-center gap-2">
-                            <input id="checkbox" type="checkbox" name="checkbox" />
-                            <label for="checkbox" class="text-surface1">I agree to the <a href="term-of-use.html" class="text-button hover:underline">Terms of User</a></label>
-                        </div>
-                    </div>
-                    <div class="block-button mt-6">
-                        <button class="button-main bg-primary w-full text-center">Create a new account</button>
                     </div>
                     <div class="navigate flex items-center justify-center gap-2 mt-6">
                         <span class="text-surface1">Already have an account?</span>

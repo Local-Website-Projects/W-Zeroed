@@ -3,5 +3,7 @@
 <link rel="stylesheet" href="assets/css/leaflet.css" />
 <link rel="stylesheet" href="assets/css/slick.css" />
 <link rel="stylesheet" href="assets/css/style.css" />
+<!-- Toastr -->
+<link rel="stylesheet" href="vendor/toastr/css/toastr.min.css">
 <link rel="stylesheet" href="dist/output-tailwind.css" />
 <link rel="stylesheet" href="dist/output-scss.css" />

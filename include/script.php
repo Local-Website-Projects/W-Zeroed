@@ -5,10 +5,13 @@
 <script src="assets/js/swiper-bundle.min.js"></script>
 <script src="assets/js/main.js"></script>
 
+<!-- Toastr -->
+<script src="vendor/toastr/js/toastr.min.js"></script>
+<script src="assets/js/plugins-init/toastr-init.js"></script>
+
 <script>
     const currentUrl = window.location.href;
     const urlObject = new URL(currentUrl);
-    console.log(urlObject.pathname);
     if (
         (urlObject.pathname !== '/W-Zeroed/' && urlObject.pathname !== '') && !urlObject.pathname.endsWith('Home')) {
         const myDiv = document.getElementById('header');
