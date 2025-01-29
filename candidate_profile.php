@@ -1,3 +1,14 @@
+<?php
+session_start();
+if(!isset($_SESSION['seller_id'])) {
+    echo "
+    <script>
+    window.location.href='Login'
+</script>
+    ";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,14 +33,11 @@
                         <strong class="text-button">Menu</strong>
                     </button>
                     <div class="heading flex flex-wrap items-center justify-between gap-4">
-                        <h4 class="heading4 max-lg:mt-3">Job Seeker Name</h4>
+                        <h4 class="heading4 max-lg:mt-3">Profile</h4>
                         <a href="#" class="button-main">Send Message</a>
                     </div>
                     <div class="profile_block overflow-hidden flex max-lg:flex-col-reverse gap-y-10 w-full mt-7.5">
-                        <div class="left flex-shrink-0 lg:w-[29.5%]">
-                            <div class="list_social p-8 mt-7.5 rounded-lg bg-white shadow-sm">
-                                <iframe src="assets/video/Snapinsta.mp4" style="width: 320px; height: 600px"></iframe>
-                            </div>
+                        <div class="left lg:w-[70.5%]">
                             <div class="info_overview p-8 rounded-lg bg-white shadow-sm mt-7.5">
                                 <h5 class="heading5">Full Name</h5>
                                 <ul class="candidates_info pt-1">
@@ -47,9 +55,8 @@
                                     </li>
                                 </ul>
                             </div>
-                        </div>
-                        <div class="right lg:w-[70.5%] lg:pl-7.5">
                             <div class="tools p-8 mt-7.5 rounded-lg bg-white shadow-sm">
+
                                 <h5 class="heading5">Core Skills</h5>
                                 <div class="list flex flex-wrap items-center gap-3 mt-5">
                                     <span class="tag bg-surface caption1">Sub-skills</span>
@@ -106,6 +113,11 @@
                                         <p class="desc text-secondary mt-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
                                     </li>
                                 </ul>
+                            </div>
+                        </div>
+                        <div class="right flex-shrink-0 lg:w-[29.5%] lg:pl-7.5">
+                            <div class="list_social mt-7.5 rounded-lg bg-white shadow-sm">
+                                <iframe src="assets/video/Snapinsta.mp4" style="height: 1200px; width: 100%"></iframe>
                             </div>
                         </div>
                     </div>

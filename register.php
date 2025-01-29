@@ -1,8 +1,18 @@
+<?php
+session_start();
+if(isset($_SESSION['seller_id'])){
+    echo "
+    <script>
+    window.location.href = 'Seller-Profile';
+    </script>
+    ";
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from freelanhub.vercel.app/Register by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 Jan 2025 07:12:34 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,74 +25,67 @@
 <!-- Header -->
 <?php include ('include/header.php');?>
 
-<!-- Breadcrumb -->
-<section class="breadcrumb">
-    <div class="breadcrumb_inner relative sm:mt-20 mt-16 lg:py-20 py-14">
-        <div class="breadcrumb_bg absolute top-0 left-0 w-full h-full">
-            <img src="assets/images/components/breadcrumb_candidate.webp" alt="breadcrumb_candidate" class="w-full h-full object-cover" />
-        </div>
-        <div class="container relative h-full">
-            <div class="breadcrumb_content flex flex-col items-start justify-center xl:w-[1000px] lg:w-[848px] md:w-5/6 w-full h-full">
-                <div class="list_breadcrumb flex items-center gap-2 animate animate_top" style="--i: 1">
-                    <a href="Home" class="caption1 text-white">Home</a>
-                    <span class="caption1 text-white opacity-40">/</span>
-                    <span class="caption1 text-white opacity-60">Register</span>
+
+<div class="container flex items-center justify-center min-h-screen mt-5" style="height: 100vh;">
+    <div class="grid sm:grid-cols-2 mt-5">
+        <div class="container flex items-center justify-center mt-5">
+                <div class="content sm:w-[448px] w-full align-middle">
+                    <h3 class="heading3">Welcome to Zeroed!</h3>
+                    <h4 class="heading4">Get Hiring Ready</h4>
+                    <h4 class="mt-5 heading5"> <span style="font-size: 18px; font-weight: bold">
+                        Grab attention on hiring managers with your verified skills,
+                            work experience and video intro.
+                    </span></h4>
+                    <h3 class="mt-5 heading5"> <span style="font-size: 18px; font-weight: bold">
+                        Sign up today to claim the launch offer!
+                    </span></h3>
+                    <h3 class="mt-5 heading5"> <span style="font-size: 18px; font-weight: bold">
+                        1 month free trial
+                    </span></h3>
                 </div>
-                <h3 class="heading3 text-white mt-2 animate animate_top" style="--i: 2">Register</h3>
             </div>
-        </div>
+        <section class="form_register lg:py-20 sm:py-14 py-10">
+            <div class="container flex items-center justify-center">
+                <div class="content sm:w-[448px] w-full">
+                    <div id="candidate" class="tab_list active" role="tabpanel" aria-labelledby="tab_candidate" aria-hidden="false">
+                        <form action="Insert" method="post" class="form mt-6">
+                            <div class="form-group">
+                                <label for="username">Candidate email address*</label>
+                                <input id="username" type="email" name="email" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="Email address*" required />
+                            </div>
+                            <div class="form-group mt-6">
+                                <label for="password">Password*</label>
+                                <input id="password" type="password" name="password" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="Password*" required />
+                                <span id="password_error" style="color: red; display: none;">Minimum length of the password should be 8 characters.</span>
+                            </div>
+                            <div class="form-group mt-6">
+                                <label for="confirmPassword">Confirm password*</label>
+                                <input id="confirmPassword" type="password" name="confirmPassword" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="Confirm password*" required />
+                                <span id="candidate_error" style="color: red; display: none;">Password and confirm password have not matched</span>
+                            </div>
+                            <div class="flex items-center justify-between mt-6">
+                                <div class="sub-input-checkbox flex items-center gap-2">
+                                    <input id="checkbox" type="checkbox" name="checkbox" required/>
+                                    <label for="checkbox" class="text-surface1">I agree to the <a href="term-of-use.html" class="text-button hover:underline">Terms of User</a></label>
+                                </div>
+                            </div>
+                            <div class="block-button mt-6">
+                                <button class="button-main bg-primary w-full text-center" type="submit" id="candidate_signUp" name="candidate_signup">Create a new account</button>
+                            </div>
+                            <div class="navigate flex items-center justify-center gap-2 mt-6">
+                                <span class="text-surface1">Already have an account?</span>
+                                <a class="text-button hover:underline" href="Login">Login</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
-</section>
+</div>
 
 <!-- Form Register -->
-<section class="form_register lg:py-20 sm:py-14 py-10">
-    <div class="container flex items-center justify-center">
-        <div class="content sm:w-[448px] w-full">
-            <h3 class="heading3 text-center">Welcome to Zeroed – Get Hiring Ready!</h3>
-            <h3 class="text-center mt-5"> <span style="font-size: 18px; font-weight: bold">
-                        Sign Up Today and Claim Your Launch Offer
-                    Enjoy a FREE 1-Month Trial!
-                    </span></h3>
-            <div id="candidate" class="tab_list active" role="tabpanel" aria-labelledby="tab_candidate" aria-hidden="false">
-                <p style="color: red" class="mt-5">
-                    <span style="font-weight: bold">But wait,</span> there’s more!
-                    Invite 4 friends to join Zeroed and get 2 EXTRA months free!
-                    This is a Limited-Time Offer! Don’t miss your chance to level up your job search for free.
-                    Sign up now and start your journey with Zeroed today!</p>
-                <p style="color: red; font-weight: bold" class="mt-5"> Let’s get you hired, together.</p>
-                <form action="Insert" method="post" class="form mt-6">
-                    <div class="form-group">
-                        <label for="username">Candidate email address*</label>
-                        <input id="username" type="email" name="email" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="Email address*" required />
-                    </div>
-                    <div class="form-group mt-6">
-                        <label for="password">Password*</label>
-                        <input id="password" type="password" name="password" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="Password*" required />
-                        <span id="password_error" style="color: red; display: none;">Minimum length of the password should be 8 characters.</span>
-                    </div>
-                    <div class="form-group mt-6">
-                        <label for="confirmPassword">Confirm password*</label>
-                        <input id="confirmPassword" type="password" name="confirmPassword" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="Confirm password*" required />
-                        <span id="candidate_error" style="color: red; display: none;">Password and confirm password have not matched</span>
-                    </div>
-                    <div class="flex items-center justify-between mt-6">
-                        <div class="sub-input-checkbox flex items-center gap-2">
-                            <input id="checkbox" type="checkbox" name="checkbox" required/>
-                            <label for="checkbox" class="text-surface1">I agree to the <a href="term-of-use.html" class="text-button hover:underline">Terms of User</a></label>
-                        </div>
-                    </div>
-                    <div class="block-button mt-6">
-                        <button class="button-main bg-primary w-full text-center" type="submit" id="candidate_signUp" name="candidate_signup">Create a new account</button>
-                    </div>
-                    <div class="navigate flex items-center justify-center gap-2 mt-6">
-                        <span class="text-surface1">Already have an account?</span>
-                        <a class="text-button hover:underline" href="Login">Login</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
+
 
 <?php include ('include/footer.php');?>
 

@@ -837,43 +837,55 @@
                 </ul>
             </div>-->
             <div class="list_action flex items-center gap-7">
-                <div class="list_icon flex items-center gap-3">
-                    <a href="Login" class="flex items-center gap-1 text-title text-white duration-300 hover:text-primary">
-                        <span class="ph-bold ph-user"></span>
-                        <span>Login</span>
-                    </a>
-                    <a href="Register" class="flex items-center gap-1 text-title text-white duration-300 hover:text-primary">
-                        <span class="ph-bold ph-plus-circle"></span>
-                        <span>Register</span>
-                    </a>
-                </div>
-                <div class="user_block relative max-sm:hidden">
-                    <button class="user_infor flex items-center gap-2 text-white">
-                        <img src="assets/images/avatar/IMG-7.webp" alt="IMG-7" class="user_avatar flex-shrink-0 w-9 h-9 rounded-full">
-                        <strong class="user_name text-title">Employer</strong>
-                        <span class="ph ph-caret-down"></span>
-                    </button>
-                    <ul class="list_action_user absolute w-[240px] p-3 top-14 right-0 bg-white rounded-lg">
-                        <li class="action_item">
-                            <a href="employers-dashboard.html" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
-                                <span class="ph ph-squares-four text-2xl text-secondary"></span>
-                                <strong class="text-title">Dashboard</strong>
-                            </a>
-                        </li>
-                        <li class="action_item">
-                            <a href="employers-profile.html" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
-                                <span class="ph ph-user-circle text-2xl text-secondary"></span>
-                                <strong class="text-title">My Profile</strong>
-                            </a>
-                        </li>
-                        <li class="action_item">
-                            <a href="login.html" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
-                                <span class="ph ph-sign-out text-2xl text-secondary"></span>
-                                <strong class="text-title">Log Out</strong>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+
+                <?php
+                if(isset($_SESSION['seller_id'])){
+                    ?>
+                    <div class="user_block relative max-sm:hidden">
+                        <button class="user_infor flex items-center gap-2 text-white">
+                            <img src="assets/images/avatar/IMG-7.webp" alt="IMG-7" class="user_avatar flex-shrink-0 w-9 h-9 rounded-full">
+                            <strong class="user_name text-title">Employer</strong>
+                            <span class="ph ph-caret-down"></span>
+                        </button>
+                        <ul class="list_action_user absolute w-[240px] p-3 top-14 right-0 bg-white rounded-lg">
+                            <li class="action_item">
+                                <a href="employers-dashboard.html" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                    <span class="ph ph-squares-four text-2xl text-secondary"></span>
+                                    <strong class="text-title">Dashboard</strong>
+                                </a>
+                            </li>
+                            <li class="action_item">
+                                <a href="employers-profile.html" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                    <span class="ph ph-user-circle text-2xl text-secondary"></span>
+                                    <strong class="text-title">My Profile</strong>
+                                </a>
+                            </li>
+                            <li class="action_item">
+                                <a href="Logout" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                    <span class="ph ph-sign-out text-2xl text-secondary"></span>
+                                    <strong class="text-title">Log Out</strong>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <?php
+                } else {
+                    ?>
+                    <div class="list_icon flex items-center gap-3">
+                        <a href="Login" class="flex items-center gap-1 text-title text-white duration-300 hover:text-primary">
+                            <span class="ph-bold ph-user"></span>
+                            <span>Login</span>
+                        </a>
+                        <a href="Register" class="flex items-center gap-1 text-title text-white duration-300 hover:text-primary">
+                            <span class="ph-bold ph-plus-circle"></span>
+                            <span>Register</span>
+                        </a>
+                    </div>
+                    <?php
+                }
+                ?>
+
+
                 <button class="humburger_btn min-[1400px]:hidden">
                             <span class="ph-bold ph-list text-white text-2xl block">
                                 <span class="blind">button open menu mobile</span>

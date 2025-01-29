@@ -3,7 +3,7 @@ session_start();
 if(!isset($_SESSION['seller_id'])){
     echo "
     <script>
-    window.location.href='404.php'
+    window.location.href='Login'
 </script>
     ";
 }

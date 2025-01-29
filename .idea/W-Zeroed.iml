@@ -4,6 +4,9 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/PHPMailer/src" isTestSource="false" packagePrefix="PHPMailer\PHPMailer\" />
       <sourceFolder url="file://$MODULE_DIR$/PHPMailer/test" isTestSource="true" packagePrefix="PHPMailer\Test\" />
+      <sourceFolder url="file://$MODULE_DIR$/libphonenumber/build" isTestSource="true" packagePrefix="libphonenumber\buildtools\" />
+      <sourceFolder url="file://$MODULE_DIR$/libphonenumber/src" isTestSource="false" packagePrefix="libphonenumber\" />
+      <sourceFolder url="file://$MODULE_DIR$/libphonenumber/tests" isTestSource="true" packagePrefix="libphonenumber\Tests\" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
