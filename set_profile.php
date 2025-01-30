@@ -392,51 +392,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="grid sm:grid-cols-3 gap-3">
                         <div class="education_level">
                             <label>Level of Education <span class="text-red">*</span></label>
-                            <div class="select_block flex items-center w-full h-12 pr-10 pl-4 mt-2 border border-line rounded-lg">
-                                <div class="select" id="education_level">
-                                    <span class="selected capitalize" data-title="Canada">Select level of education</span>
-                                    <ul class="list_option scrollbar_custom w-full max-h-[200px] bg-white">
-                                        <li class="capitalize" data-item="Canada">Canada</li>
-                                        <li class="capitalize" data-item="Australia">Australia</li>
-                                        <li class="capitalize" data-item="South Korea">South Korea</li>
-                                        <li class="capitalize" data-item="United Kingdom">United Kingdom</li>
-                                        <li class="capitalize" data-item="South Africa">South Africa</li>
-                                    </ul>
-                                </div>
-                                <span class="icon_down ph ph-caret-down right-3"></span>
-                            </div>
+                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
+                                <option selected>Select Level of Education</option>
+                                <option value="Less than high school">Less than high school</option>
+                                <option value="High school graduation">High school graduation</option>
+                                <option value="One year program">One year program</option>
+                                <option value="Two year program">Two year program</option>
+                                <option value="Bachelors Degree">Bachelors Degree</option>
+                                <option value="Masters Degree">Masters Degree</option>
+                                <option value="Doctoral Level">Doctoral Level</option>
+                            </select>
                         </div>
                         <div class="education_level">
                             <label>Field of Study <span class="text-red">*</span></label>
-                            <div class="select_block flex items-center w-full h-12 pr-10 pl-4 mt-2 border border-line rounded-lg">
-                                <div class="select" id="education_level">
-                                    <span class="selected capitalize" data-title="Canada">Select field of study</span>
-                                    <ul class="list_option scrollbar_custom w-full max-h-[200px] bg-white">
-                                        <li class="capitalize" data-item="Canada">Canada</li>
-                                        <li class="capitalize" data-item="Australia">Australia</li>
-                                        <li class="capitalize" data-item="South Korea">South Korea</li>
-                                        <li class="capitalize" data-item="United Kingdom">United Kingdom</li>
-                                        <li class="capitalize" data-item="South Africa">South Africa</li>
-                                    </ul>
-                                </div>
-                                <span class="icon_down ph ph-caret-down right-3"></span>
-                            </div>
+                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
+                                <option selected>Select Field of Study</option>
+                                <?php
+                                $fetch_field_study = $db_handle->runQuery("select * from field_of_study");
+                                foreach ($fetch_field_study as $row) {
+                                    ?>
+                                    <option value="<?php echo $row['field_study_id']?>"><?php echo $row['field_study']?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
                         </div>
                         <div class="education_level">
                             <label>Year of Graduation <span class="text-red">*</span></label>
-                            <div class="select_block flex items-center w-full h-12 pr-10 pl-4 mt-2 border border-line rounded-lg">
-                                <div class="select" id="education_level">
-                                    <span class="selected capitalize" data-title="Canada">Select year of graduation</span>
-                                    <ul class="list_option scrollbar_custom w-full max-h-[200px] bg-white">
-                                        <li class="capitalize" data-item="Canada">Canada</li>
-                                        <li class="capitalize" data-item="Australia">Australia</li>
-                                        <li class="capitalize" data-item="South Korea">South Korea</li>
-                                        <li class="capitalize" data-item="United Kingdom">United Kingdom</li>
-                                        <li class="capitalize" data-item="South Africa">South Africa</li>
-                                    </ul>
-                                </div>
-                                <span class="icon_down ph ph-caret-down right-3"></span>
-                            </div>
+                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required id="graduation-year">
+                                <option selected>Search Year of Graduation</option>
+                            </select>
                         </div>
                     </div>
 
@@ -444,83 +429,64 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="grid sm:grid-cols-3 gap-3">
                         <div class="education_level">
                             <label>College/University</label>
-                            <div class="select_block flex items-center w-full h-12 pr-10 pl-4 mt-2 border border-line rounded-lg">
-                                <div class="select" id="education_level">
-                                    <span class="selected capitalize" data-title="Canada">Select College/University</span>
-                                    <ul class="list_option scrollbar_custom w-full max-h-[200px] bg-white">
-                                        <li class="capitalize" data-item="Canada">Canada</li>
-                                        <li class="capitalize" data-item="Australia">Australia</li>
-                                        <li class="capitalize" data-item="South Korea">South Korea</li>
-                                        <li class="capitalize" data-item="United Kingdom">United Kingdom</li>
-                                        <li class="capitalize" data-item="South Africa">South Africa</li>
-                                    </ul>
-                                </div>
-                                <span class="icon_down ph ph-caret-down right-3"></span>
-                            </div>
+                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
+                                <option selected>Select College/University</option>
+                                <?php
+                                $fetch_university = $db_handle->runQuery("select * from universities");
+                                foreach ($fetch_university as $row) {
+                                    ?>
+                                    <option value="<?php echo $row['university_id']?>"><?php echo $row['university_name']?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
                         </div>
                         <div class="education_level">
                             <label>City</label>
-                            <div class="select_block flex items-center w-full h-12 pr-10 pl-4 mt-2 border border-line rounded-lg">
-                                <div class="select" id="education_level">
-                                    <span class="selected capitalize" data-title="Canada">Select City</span>
-                                    <ul class="list_option scrollbar_custom w-full max-h-[200px] bg-white">
-                                        <li class="capitalize" data-item="Canada">Canada</li>
-                                        <li class="capitalize" data-item="Australia">Australia</li>
-                                        <li class="capitalize" data-item="South Korea">South Korea</li>
-                                        <li class="capitalize" data-item="United Kingdom">United Kingdom</li>
-                                        <li class="capitalize" data-item="South Africa">South Africa</li>
-                                    </ul>
-                                </div>
-                                <span class="icon_down ph ph-caret-down right-3"></span>
-                            </div>
+                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
+                                <option selected>Select City</option>
+                                <?php
+                                $fetch_city = $db_handle->runQuery("select * from cities");
+                                foreach ($fetch_city as $row) {
+                                    ?>
+                                    <option value="<?php echo $row['city_id']?>"><?php echo $row['city_name']?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
                         </div>
                         <div class="education_level">
                             <label>Level of Education</label>
-                            <div class="select_block flex items-center w-full h-12 pr-10 pl-4 mt-2 border border-line rounded-lg">
-                                <div class="select" id="education_level">
-                                    <span class="selected capitalize" data-title="Canada">Select Level of Education</span>
-                                    <ul class="list_option scrollbar_custom w-full max-h-[200px] bg-white">
-                                        <li class="capitalize" data-item="Canada">Canada</li>
-                                        <li class="capitalize" data-item="Australia">Australia</li>
-                                        <li class="capitalize" data-item="South Korea">South Korea</li>
-                                        <li class="capitalize" data-item="United Kingdom">United Kingdom</li>
-                                        <li class="capitalize" data-item="South Africa">South Africa</li>
-                                    </ul>
-                                </div>
-                                <span class="icon_down ph ph-caret-down right-3"></span>
-                            </div>
+                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
+                                <option selected>Select Level of Education</option>
+                                <option value="Less than high school">Less than high school</option>
+                                <option value="High school graduation">High school graduation</option>
+                                <option value="One year program">One year program</option>
+                                <option value="Two year program">Two year program</option>
+                                <option value="Bachelors Degree">Bachelors Degree</option>
+                                <option value="Masters Degree">Masters Degree</option>
+                                <option value="Doctoral Level">Doctoral Level</option>
+                            </select>
                         </div>
                         <div class="education_level">
                             <label>Field of Study</label>
-                            <div class="select_block flex items-center w-full h-12 pr-10 pl-4 mt-2 border border-line rounded-lg">
-                                <div class="select" id="education_level">
-                                    <span class="selected capitalize" data-title="Canada">Select Field of Study</span>
-                                    <ul class="list_option scrollbar_custom w-full max-h-[200px] bg-white">
-                                        <li class="capitalize" data-item="Canada">Canada</li>
-                                        <li class="capitalize" data-item="Australia">Australia</li>
-                                        <li class="capitalize" data-item="South Korea">South Korea</li>
-                                        <li class="capitalize" data-item="United Kingdom">United Kingdom</li>
-                                        <li class="capitalize" data-item="South Africa">South Africa</li>
-                                    </ul>
-                                </div>
-                                <span class="icon_down ph ph-caret-down right-3"></span>
-                            </div>
+                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
+                                <option selected>Select Field of Study</option>
+                                <?php
+                                $fetch_field_study = $db_handle->runQuery("select * from field_of_study");
+                                foreach ($fetch_field_study as $row) {
+                                    ?>
+                                    <option value="<?php echo $row['field_study_id']?>"><?php echo $row['field_study']?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
                         </div>
                         <div class="education_level">
                             <label>Year of completion</label>
-                            <div class="select_block flex items-center w-full h-12 pr-10 pl-4 mt-2 border border-line rounded-lg">
-                                <div class="select" id="education_level">
-                                    <span class="selected capitalize" data-title="Canada">Select Year of completion</span>
-                                    <ul class="list_option scrollbar_custom w-full max-h-[200px] bg-white">
-                                        <li class="capitalize" data-item="Canada">Canada</li>
-                                        <li class="capitalize" data-item="Australia">Australia</li>
-                                        <li class="capitalize" data-item="South Korea">South Korea</li>
-                                        <li class="capitalize" data-item="United Kingdom">United Kingdom</li>
-                                        <li class="capitalize" data-item="South Africa">South Africa</li>
-                                    </ul>
-                                </div>
-                                <span class="icon_down ph ph-caret-down right-3"></span>
-                            </div>
+                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required id="graduation-year-2">
+                                <option selected>Search Year of Graduation</option>
+                            </select>
                         </div>
                         <div class="jobLocation">
                             <label for="jobLocation">GPA</label>
@@ -713,6 +679,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <?php include ('include/mobile_menu.php');?>
 
 <?php include ('include/script.php');?>
+
+<script>
+    const selectElement = document.getElementById('graduation-year');
+    const selectElement2 = document.getElementById('graduation-year-2');
+    const currentYear = new Date().getFullYear();
+
+    // Loop from current year down to 1996
+    for (let year = currentYear; year >= 1996; year--) {
+        const option = document.createElement('option');
+        option.value = year;
+        option.textContent = year;
+        selectElement.appendChild(option);
+    }
+
+    for (let year = currentYear; year >= 1996; year--) {
+        const option = document.createElement('option');
+        option.value = year;
+        option.textContent = year;
+        selectElement2.appendChild(option);
+    }
+</script>
 
 <!--<script>
     $(document).ready(function() {
