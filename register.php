@@ -32,14 +32,14 @@ if(isset($_SESSION['seller_id'])){
                 <div class="content sm:w-[448px] w-full align-middle">
                     <h3 class="heading3">Welcome to Zeroed!</h3>
                     <h4 class="heading4">Get Hiring Ready</h4>
-                    <h4 class="mt-5 heading5"> <span style="font-size: 18px; font-weight: bold">
+                    <h4 class="lg:mt-20 heading4"> <span style="font-size: 18px; font-weight: bold">
                         Grab attention on hiring managers with your verified skills,
                             work experience and video intro.
                     </span></h4>
-                    <h3 class="mt-5 heading5"> <span style="font-size: 18px; font-weight: bold">
+                    <h3 class="mt-5 heading4"> <span style="font-size: 18px; font-weight: bold">
                         Sign up today to claim the launch offer!
                     </span></h3>
-                    <h3 class="mt-5 heading5"> <span style="font-size: 18px; font-weight: bold">
+                    <h3 class="mt-5 heading4"> <span style="font-size: 18px; font-weight: bold">
                         1 month free trial
                     </span></h3>
                 </div>

@@ -160,7 +160,7 @@ input::-webkit-inner-spin-button {
 }
 
 .heading3 {
-  font-size: 36px;
+  font-size: 44px;
   line-height: 44px;
   font-weight: 600;
   text-transform: capitalize;
@@ -174,10 +174,17 @@ input::-webkit-inner-spin-button {
 }
 
 .heading5 {
-  font-size: 24px;
+  font-size: 28px;
   line-height: 30px;
-  font-weight: 600;
+  font-weight: 900;
   text-transform: capitalize;
+  background: #00c5ff;
+  padding: 20px 10px;
+  /* border: 1px solid; */
+  border-radius: 10px;
+  color: white;
+  margin-bottom: 20px;
+  margin-top: 40px;
 }
 
 .heading6 {
@@ -241,6 +248,11 @@ input::-webkit-inner-spin-button {
   line-height: 14px;
   font-weight: 500;
   text-transform: uppercase;
+}
+
+label{
+  font-weight: bold;
+  font-size: 18px;
 }
 
 .bg-linear {
