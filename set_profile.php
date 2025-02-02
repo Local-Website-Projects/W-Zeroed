@@ -515,11 +515,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                     </div>
                     <h5 class="heading5 mt-5">Skills</h5>
+
                     <div class="grid grid-cols-4 gap-3">
-                        <!-- First div: takes 1/4 of the width -->
+                        <!-- First set of core skills and sub-skills -->
                         <div class="education_level col-span-1">
-                            <label>Core Skills</label>
-                            <select id="coreSkills" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
+                            <label>Core Skills 1</label>
+                            <select id="coreSkills1" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
                                 <option selected>Select Core Skills</option>
                                 <?php
                                 $fetch_skills = $db_handle->runQuery("SELECT * FROM skills ORDER BY core_skill ASC");
@@ -531,64 +532,104 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 ?>
                             </select>
                         </div>
-
-                        <!-- Second div: takes 3/4 of the width -->
                         <div class="education_level" style="width: 300%">
-                            <label>Sub Skills</label>
-                            <input id="selectedSubSkills" type="hidden"/>
-                            <div class="selected-tags" id="selectedTags"></div>
-                            <div id="subSkillsList" type="hidden"></div>
+                            <div id="subSkillsLabel1" style="display: none;"> <!-- Initially hidden -->
+                                <label>Sub Skills 1</label>
+                            </div>
+                            <input id="selectedSubSkills1" type="hidden"/>
+                            <div id="subSkillsList1" type="hidden"></div>
+                            <div class="selected-tags" id="selectedTags1"></div>
                         </div>
                     </div>
+
+                    <!-- Repeat for the second and third sets -->
+                    <div class="grid grid-cols-4 gap-3 mt-4">
+                        <!-- Second set of core skills and sub-skills -->
+                        <div class="education_level col-span-1">
+                            <label>Core Skills 2</label>
+                            <select id="coreSkills2" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
+                                <option selected>Select Core Skills</option>
+                                <?php
+                                $fetch_skills = $db_handle->runQuery("SELECT * FROM skills ORDER BY core_skill ASC");
+                                foreach ($fetch_skills as $row) {
+                                    ?>
+                                    <option value="<?php echo $row['skill_id']?>"><?php echo $row['core_skill']?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="education_level" style="width: 300%">
+                            <div id="subSkillsLabel2" style="display: none;"> <!-- Initially hidden -->
+                                <label>Sub Skills 2</label>
+                            </div>
+                            <input id="selectedSubSkills2" type="hidden"/>
+                            <div class="selected-tags" id="selectedTags2"></div>
+                            <div id="subSkillsList2" type="hidden"></div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-4 gap-3 mt-4">
+                        <!-- Third set of core skills and sub-skills -->
+                        <div class="education_level col-span-1">
+                            <label>Core Skills 3</label>
+                            <select id="coreSkills3" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
+                                <option selected>Select Core Skills</option>
+                                <?php
+                                $fetch_skills = $db_handle->runQuery("SELECT * FROM skills ORDER BY core_skill ASC");
+                                foreach ($fetch_skills as $row) {
+                                    ?>
+                                    <option value="<?php echo $row['skill_id']?>"><?php echo $row['core_skill']?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="education_level" style="width: 300%">
+                            <div id="subSkillsLabel3" style="display: none;"> <!-- Initially hidden -->
+                                <label>Sub Skills 3</label>
+                            </div>
+                            <input id="selectedSubSkills3" type="hidden"/>
+                            <div class="selected-tags" id="selectedTags3"></div>
+                            <div id="subSkillsList3" type="hidden"></div>
+                        </div>
+                    </div>
+
+
                     <h5 class="heading5 mt-5">Work Experience</h5>
                     <div class="grid sm:grid-cols-3 gap-3">
                         <div class="education_level">
                             <label>Industry</label>
-                            <div class="select_block flex items-center w-full h-12 pr-10 pl-4 mt-2 border border-line rounded-lg">
-                                <div class="select" id="education_level">
-                                    <span class="selected capitalize" data-title="Canada">Search Industry</span>
-                                    <ul class="list_option scrollbar_custom w-full max-h-[200px] bg-white">
-                                        <li class="capitalize" data-item="Canada">Canada</li>
-                                        <li class="capitalize" data-item="Australia">Australia</li>
-                                        <li class="capitalize" data-item="South Korea">South Korea</li>
-                                        <li class="capitalize" data-item="United Kingdom">United Kingdom</li>
-                                        <li class="capitalize" data-item="South Africa">South Africa</li>
-                                    </ul>
-                                </div>
-                                <span class="icon_down ph ph-caret-down right-3"></span>
-                            </div>
+                            <select id="industry" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
+                                <option selected>Select Industry</option>
+                                <?php
+                                $fetch_industry = $db_handle->runQuery("SELECT * FROM industries ORDER BY industry ASC");
+                                foreach ($fetch_industry as $row) {
+                                    echo "<option value='{$row['industry_id']}'>{$row['industry']}</option>";
+                                }
+                                ?>
+                            </select>
                         </div>
+
                         <div class="education_level">
                             <label>Sub Industry</label>
-                            <div class="select_block flex items-center w-full h-12 pr-10 pl-4 mt-2 border border-line rounded-lg">
-                                <div class="select" id="education_level">
-                                    <span class="selected capitalize" data-title="Canada">Search Sub Industry</span>
-                                    <ul class="list_option scrollbar_custom w-full max-h-[200px] bg-white">
-                                        <li class="capitalize" data-item="Canada">Canada</li>
-                                        <li class="capitalize" data-item="Australia">Australia</li>
-                                        <li class="capitalize" data-item="South Korea">South Korea</li>
-                                        <li class="capitalize" data-item="United Kingdom">United Kingdom</li>
-                                        <li class="capitalize" data-item="South Africa">South Africa</li>
-                                    </ul>
-                                </div>
-                                <span class="icon_down ph ph-caret-down right-3"></span>
-                            </div>
+                            <select id="subindustry" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
+                                <option selected>Select Sub Industry</option>
+                            </select>
                         </div>
                         <div class="education_level">
                             <label>Country</label>
-                            <div class="select_block flex items-center w-full h-12 pr-10 pl-4 mt-2 border border-line rounded-lg">
-                                <div class="select" id="education_level">
-                                    <span class="selected capitalize" data-title="Canada">Search Country</span>
-                                    <ul class="list_option scrollbar_custom w-full max-h-[200px] bg-white">
-                                        <li class="capitalize" data-item="Canada">Canada</li>
-                                        <li class="capitalize" data-item="Australia">Australia</li>
-                                        <li class="capitalize" data-item="South Korea">South Korea</li>
-                                        <li class="capitalize" data-item="United Kingdom">United Kingdom</li>
-                                        <li class="capitalize" data-item="South Africa">South Africa</li>
-                                    </ul>
-                                </div>
-                                <span class="icon_down ph ph-caret-down right-3"></span>
-                            </div>
+                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity))" id="mySelect2">
+                                <option disabled selected>Please Select Country</option>
+                                <?php
+                                $fetch_country = $db_handle->runQuery("SELECT country_name FROM countries order by country_name ASC");
+                                foreach($fetch_country as $country){
+                                    ?>
+                                    <option value="<?php echo $country['country_name'];?>"><?php echo $country['country_name'];?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
                         </div>
                         <div class="jobLocation">
                             <label for="jobLocation">Job Title</label>
@@ -614,14 +655,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <label for="jobLocation">Accomplishments</label>
                             <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" required></textarea>
                         </div>
-                        <div class="jobLocation">
-                            <label for="jobLocation">Accomplishments</label>
-                            <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" required></textarea>
-                        </div>
-                        <div class="jobLocation">
-                            <label for="jobLocation">Accomplishments</label>
-                            <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" required></textarea>
-                        </div>
+
                     </div>
                     <h5 class="heading5 mt-5">Reference Check</h5>
                     <div class="grid sm:grid-cols-3 gap-3">
@@ -711,85 +745,130 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <script>
     $(document).ready(function() {
-        // Fetch sub-skills when core skill is selected
-        $('#coreSkills').change(function() {
-            var core_skill = $(this).val();
+        // Function to handle core skill change
+        function handleCoreSkillChange(coreSkillId, subSkillsListId, selectedTagsId, selectedSubSkillsId, subSkillsLabelId) {
+            $(`#${coreSkillId}`).change(function() {
+                var core_skill = $(this).val();
 
+                if (core_skill !== "Select Core Skills") {
+                    // Show the "Sub Skills" label
+                    $(`#${subSkillsLabelId}`).show();
+
+                    // Fetch sub-skills via AJAX
+                    $.ajax({
+                        url: 'fetch_sub_skills.php', // Path to your PHP script
+                        type: 'POST',
+                        data: { core_skill: core_skill },
+                        success: function(response) {
+                            $(`#${subSkillsListId}`).html(response); // Update the sub-skills list
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("AJAX Error: " + status + error);
+                            $(`#${subSkillsListId}`).html('<div class="error">Error loading sub-skills</div>');
+                        }
+                    });
+                } else {
+                    // Hide the "Sub Skills" label if no core skill is selected
+                    $(`#${subSkillsLabelId}`).hide();
+                    $(`#${subSkillsListId}`).html(''); // Clear the sub-skills list
+                }
+            });
+        }
+
+        // Function to handle sub-skill selection
+        function handleSubSkillSelection(subSkillsListId, selectedTagsId, selectedSubSkillsId) {
+            $(document).on('click', `#${subSkillsListId} .sub-skill-item`, function() {
+                var subSkill = $(this).text();
+                var subSkillValue = $(this).data('value');
+
+                // Replace spaces with underscores in subSkillValue
+                var safeSubSkillValue = subSkillValue.replace(/[\s\(\)]+/g, '_').replace(/[!#$^&*()+=\[\]{};':"\\|,.<>\/?]+/g, '\\$&');
+
+                // Add the selected sub-skill as a tag
+                $(`#${selectedTagsId}`).append(
+                    '<div class="tag">' + subSkill +
+                    '<span class="remove" data-value="' + subSkillValue + '">×</span></div>'
+                );
+
+                // Create a file upload input for this sub-skill
+                var fileUploadHTML = `
+                <div class="file-upload-container" id="fileUpload-${safeSubSkillValue}">
+                    <label for="file-${safeSubSkillValue}">Upload File for ${subSkill}:</label>
+                    <input type="file" name="file_${safeSubSkillValue}" id="file-${safeSubSkillValue}" class="w-full h-12 px-4 mt-2 border-line rounded-lg mb-3">
+                </div>
+            `;
+
+                $(`#${selectedTagsId}`).append(fileUploadHTML); // Add the file upload input under the tag
+
+                // Add the selected sub-skill value to the hidden input field
+                var selectedSubSkills = $(`#${selectedSubSkillsId}`).val();
+                if (selectedSubSkills) {
+                    selectedSubSkills += ',' + subSkillValue; // Append the new sub-skill
+                } else {
+                    selectedSubSkills = subSkillValue; // First selection
+                }
+                $(`#${selectedSubSkillsId}`).val(selectedSubSkills); // Update hidden input field
+
+                // Remove the sub-skill from the list
+                $(this).remove();
+            });
+        }
+
+        // Function to handle tag removal
+        function handleTagRemoval(selectedTagsId, subSkillsListId, selectedSubSkillsId) {
+            $(document).on('click', `#${selectedTagsId} .tag .remove`, function() {
+                var subSkillValue = $(this).data('value');
+
+                // Replace spaces with underscores in subSkillValue
+                var safeSubSkillValue = subSkillValue.replace(/[\s\(\)]+/g, '_').replace(/[!#$^&*()+=\[\]{};':"\\|,.<>\/?]+/g, '\\$&');
+
+                // Add the sub-skill back to the list
+                $(`#${subSkillsListId}`).append(
+                    '<div class="sub-skill-item" data-value="' + subSkillValue + '">' + subSkillValue + '</div>'
+                );
+
+                // Remove the tag and the associated file upload input
+                $(this).parent().remove();
+                $(`#fileUpload-${safeSubSkillValue}`).remove();  // Use the safeSubSkillValue here
+
+                // Update the hidden input field by removing the sub-skill value
+                var selectedSubSkills = $(`#${selectedSubSkillsId}`).val().split(',');
+                selectedSubSkills = selectedSubSkills.filter(function(value) {
+                    return value !== subSkillValue;
+                });
+                $(`#${selectedSubSkillsId}`).val(selectedSubSkills.join(',')); // Update hidden input field
+            });
+        }
+
+        // Initialize for each set of core skills and sub-skills
+        handleCoreSkillChange('coreSkills1', 'subSkillsList1', 'selectedTags1', 'selectedSubSkills1', 'subSkillsLabel1');
+        handleSubSkillSelection('subSkillsList1', 'selectedTags1', 'selectedSubSkills1');
+        handleTagRemoval('selectedTags1', 'subSkillsList1', 'selectedSubSkills1');
+
+        handleCoreSkillChange('coreSkills2', 'subSkillsList2', 'selectedTags2', 'selectedSubSkills2', 'subSkillsLabel2');
+        handleSubSkillSelection('subSkillsList2', 'selectedTags2', 'selectedSubSkills2');
+        handleTagRemoval('selectedTags2', 'subSkillsList2', 'selectedSubSkills2');
+
+        handleCoreSkillChange('coreSkills3', 'subSkillsList3', 'selectedTags3', 'selectedSubSkills3', 'subSkillsLabel3');
+        handleSubSkillSelection('subSkillsList3', 'selectedTags3', 'selectedSubSkills3');
+        handleTagRemoval('selectedTags3', 'subSkillsList3', 'selectedSubSkills3');
+    });
+</script>
+
+
+<script>
+    $(document).ready(function() {
+        $("#industry").change(function() {
+            var industry_id = $(this).val();
             $.ajax({
-                url: 'fetch_sub_skills.php', // Path to your PHP script
-                type: 'POST',
-                data: { core_skill: core_skill },
-                success: function(response) {
-                    $('#subSkillsList').html(response); // Update the sub-skills list
-                },
-                error: function(xhr, status, error) {
-                    console.error("AJAX Error: " + status + error);
-                    $('#subSkillsList').html('<div class="error">Error loading sub-skills</div>');
+                url: "get_subindustries.php",
+                method: "POST",
+                data: {industry_id: industry_id},
+                success: function(data) {
+                    $("#subindustry").html(data);
                 }
             });
         });
-
-// Handle sub-skill selection
-        $(document).on('click', '.sub-skill-item', function() {
-            var subSkill = $(this).text();
-            var subSkillValue = $(this).data('value');
-
-            // Replace spaces with underscores in subSkillValue
-            var safeSubSkillValue = subSkillValue.replace(/[\s\(\)]+/g, '_').replace(/[!#$^&*()+=\[\]{};':"\\|,.<>\/?]+/g, '\\$&');
-
-            // Add the selected sub-skill as a tag
-            $('#selectedTags').append(
-                '<div class="tag">' + subSkill +
-                '<span class="remove" data-value="' + subSkillValue + '">×</span></div>'
-            );
-
-            // Create a file upload input for this sub-skill
-            var fileUploadHTML = `
-    <div class="file-upload-container" id="fileUpload-${safeSubSkillValue}">
-        <label for="file-${safeSubSkillValue}">Upload File for ${subSkill}:</label>
-        <input type="file" name="file_${safeSubSkillValue}" id="file-${safeSubSkillValue}" class="w-full h-12 px-4 mt-2 border-line rounded-lg">
-    </div>
-    `;
-
-            $('#selectedTags').append(fileUploadHTML); // Add the file upload input under the tag
-
-            // Add the selected sub-skill value to the hidden input field
-            var selectedSubSkills = $('#selectedSubSkills').val();
-            if (selectedSubSkills) {
-                selectedSubSkills += ',' + subSkillValue; // Append the new sub-skill
-            } else {
-                selectedSubSkills = subSkillValue; // First selection
-            }
-            $('#selectedSubSkills').val(selectedSubSkills); // Update hidden input field
-
-            // Remove the sub-skill from the list
-            $(this).remove();
-        });
-
-// Handle tag removal
-        $(document).on('click', '.tag .remove', function() {
-            var subSkillValue = $(this).data('value');
-
-            // Replace spaces with underscores in subSkillValue
-            var safeSubSkillValue = subSkillValue.replace(/[\s\(\)]+/g, '_').replace(/[!#$^&*()+=\[\]{};':"\\|,.<>\/?]+/g, '\\$&');
-
-            // Add the sub-skill back to the list
-            $('#subSkillsList').append(
-                '<div class="sub-skill-item" data-value="' + subSkillValue + '">' + subSkillValue + '</div>'
-            );
-
-            // Remove the tag and the associated file upload input
-            $(this).parent().remove();
-            $('#fileUpload-' + safeSubSkillValue).remove();  // Use the safeSubSkillValue here
-
-            // Update the hidden input field by removing the sub-skill value
-            var selectedSubSkills = $('#selectedSubSkills').val().split(',');
-            selectedSubSkills = selectedSubSkills.filter(function(value) {
-                return value !== subSkillValue;
-            });
-            $('#selectedSubSkills').val(selectedSubSkills.join(',')); // Update hidden input field
-        });
-
     });
 </script>
 
