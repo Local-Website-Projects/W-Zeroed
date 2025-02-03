@@ -126,18 +126,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="list_category p-6 mt-7.5 rounded-lg bg-white">
                 <h5 class="heading5" style="margin-top: 0 !important;">Personal Information</h5>
                 <form class="form">
+                    <!--personal information section start-->
                     <div class="grid sm:grid-cols-3 gap-3">
                         <div class="firstName">
                             <label for="firstName">Firstname <span class="text-red">*</span></label>
-                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="firstName" type="text" placeholder="Enter first name" autocomplete="off" required />
+                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="firstName" type="text" placeholder="Enter first name" autocomplete="off" name="first_name" required />
                         </div>
                         <div class="lastName">
                             <label for="lastName">Lastname <span class="text-red">*</span></label>
-                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="lastName" type="text" placeholder="Enter last name" autocomplete="off" required />
+                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="lastName" type="text" placeholder="Enter last name" autocomplete="off" name="last_name" required />
                         </div>
                         <div class="profile">
                             <label for="profile">Profile Image<span class="text-red">*</span></label>
-                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="profile" type="file" required />
+                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="profile" type="file" name="profile_image" required />
                         </div>
                         <div class="gender">
                             <label for="gender">Gender <span class="text-red">* </span>:</label><br/>
@@ -150,7 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                         <div class="nationality">
                             <label>Nationality <span class="text-red">*</span></label>
-                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity))" id="mySelect2">
+                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity))" id="mySelect2" name="nationality" required>
                                 <option disabled selected>Please select your nationality</option>
                                 <?php
                                 $fetch_country = $db_handle->runQuery("SELECT id,nationality FROM countries order by country_name ASC");
@@ -164,26 +165,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                         <div class="country">
                             <label>Country <span class="text-red">*</span></label>
-                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg country_select" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity))" onchange="loadStates()">
+                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg country_select" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity))" onchange="loadStates()" name="country" required>
                                 <option selected>Please select your country</option>
                             </select>
                         </div>
                         <div class="state">
                             <label>Current State <span class="text-red">*</span></label>
-                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg state_select" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity))" onchange="loadCities()"">
+                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg state_select" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity))" onchange="loadCities()" name="state">
                                 <option selected>Please select state</option>
                             </select>
                         </div>
                         <div class="city">
                             <label>Current City <span class="text-red">*</span></label>
-                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg city_select" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity))">
+                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg city_select" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity))" name="city">
                                 <option selected>Please select city</option>
                             </select>
                         </div>
                         <div class="contactno">
                             <label for="contactno">Contact No <span class="text-red">*</span></label>
                             <div class="flex space-x-2">
-                                <select class="h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity)); width: 25%" required>
+                                <select class="h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity)); width: 25%" name="country_code" required>
                                     <option selected>Code</option>
                                     <option value="AF" <?php echo isset($country_code) && $country_code == 'AF' ? 'selected' : ''; ?>>Afghanistan (+93)</option>
                                     <option value="AL" <?php echo isset($country_code) && $country_code == 'AL' ? 'selected' : ''; ?>>Albania (+355)</option>
@@ -387,7 +388,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                         <div class="contactemail">
                             <label for="contactemail">Contact Email <span class="text-red">*</span></label>
-                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="contactemail" type="text" placeholder="enter contact email" required />
+                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="contact_email" type="text" placeholder="enter contact email" name="contact_email" required />
                         </div>
                         <div class="jobLocation">
                             <label for="jobLocation">Job preferred location <span class="text-red">*</span></label>
@@ -397,6 +398,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                    placeholder="Search job preferred location"
                                    list="locationList"
                                    autocomplete="off"
+                                   name="job_location"
                                    required />
                             <datalist id="locationList">
                                 <option value="Open for relocation"></option>
@@ -417,11 +419,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                     </div>
 
+
+                    <!--global education section starts-->
                     <h5 class="heading5 mt-5">Global Education</h5>
                     <div class="grid sm:grid-cols-3 gap-3">
                         <div class="education_level">
                             <label>Level of Education <span class="text-red">*</span></label>
-                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
+                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="global_level_of_education" required>
                                 <option selected>Select Level of Education</option>
                                 <option value="Less than high school">Less than high school</option>
                                 <option value="High school graduation">High school graduation</option>
@@ -434,7 +438,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                         <div class="education_level">
                             <label>Field of Study <span class="text-red">*</span></label>
-                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
+                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="global_field_of_study" required>
                                 <option selected>Select Field of Study</option>
                                 <?php
                                 $fetch_field_study = $db_handle->runQuery("select * from field_of_study");
@@ -448,15 +452,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                         <div class="jobLocation">
                             <label for="jobLocation">GPA</label>
-                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="10" required />
+                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="10"  name="global_gpa" required />
                         </div>
                     </div>
 
+
+                    <!--canadian education section starts-->
                     <h5 class="heading5 mt-5">Canadian Education</h5>
-                    <div class="grid sm:grid-cols-3 gap-3">
+                    <button type="button" class="toggle_btn"></button>
+                    <div id="educationFields" class="grid sm:grid-cols-3 gap-3">
                         <div class="education_level">
                             <label>Level of Education</label>
-                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
+                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="canadian_level_of_education" disabled>
                                 <option selected>Select Level of Education</option>
                                 <option value="Less than high school">Less than high school</option>
                                 <option value="High school graduation">High school graduation</option>
@@ -469,7 +476,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                         <div class="education_level">
                             <label>Field of Study</label>
-                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
+                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="canadian_field_of_study" disabled>
                                 <option selected>Select Field of Study</option>
                                 <?php
                                 $fetch_field_study = $db_handle->runQuery("select * from field_of_study");
@@ -483,7 +490,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                         <div class="education_level">
                             <label>College/University</label>
-                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
+                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="college" disabled>
                                 <option selected>Select College/University</option>
                                 <?php
                                 $fetch_university = $db_handle->runQuery("select * from universities");
@@ -497,7 +504,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                         <div class="education_level">
                             <label>Location</label>
-                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
+                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="canadian_study_location" disabled>
                                 <option selected>Select City</option>
                                 <?php
                                 $fetch_city = $db_handle->runQuery("select * from cities");
@@ -511,11 +518,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                         <div class="jobLocation">
                             <label for="jobLocation">GPA</label>
-                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="10" required />
+                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="10" name="canadian_gpa" disabled/>
                         </div>
                     </div>
-                    <h5 class="heading5 mt-5">Skills</h5>
 
+
+                    <!--skills section starts-->
+                    <h5 class="heading5 mt-5">Skills</h5>
                     <div class="grid grid-cols-4 gap-3">
                         <!-- First set of core skills and sub-skills -->
                         <div class="education_level col-span-1">
@@ -568,7 +577,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div id="subSkillsList2" type="hidden"></div>
                         </div>
                     </div>
-
                     <div class="grid grid-cols-4 gap-3 mt-4">
                         <!-- Third set of core skills and sub-skills -->
                         <div class="education_level col-span-1">
@@ -596,92 +604,103 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
 
 
-                    <h5 class="heading5 mt-5">Work Experience</h5>
-                    <div class="grid sm:grid-cols-3 gap-3">
-                        <div class="education_level">
-                            <label>Industry</label>
-                            <select id="industry" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
-                                <option selected>Select Industry</option>
-                                <?php
-                                $fetch_industry = $db_handle->runQuery("SELECT * FROM industries ORDER BY industry ASC");
-                                foreach ($fetch_industry as $row) {
-                                    echo "<option value='{$row['industry_id']}'>{$row['industry']}</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
+                    <!-- Work Experience Section Wrapper -->
+                    <div id="experience-container">
+                        <div class="experience-section">
+                            <h5 class="heading5 mt-5">Work Experience</h5>
+                            <div class="grid sm:grid-cols-3 gap-3">
+                                <div class="education_level">
+                                    <label>Industry</label>
+                                    <select id="industry" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
+                                        <option selected>Select Industry</option>
+                                        <?php
+                                        $fetch_industry = $db_handle->runQuery("SELECT * FROM industries ORDER BY industry ASC");
+                                        foreach ($fetch_industry as $row) {
+                                            echo "<option value='{$row['industry_id']}'>{$row['industry']}</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="education_level">
+                                    <label>Sub Industry</label>
+                                    <select id="subindustry" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
+                                        <option selected>Select Sub Industry</option>
+                                    </select>
+                                </div>
+                                <div class="education_level">
+                                    <label>Country</label>
+                                    <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" id="mySelect2">
+                                        <option disabled selected>Please Select Country</option>
+                                        <?php
+                                        $fetch_country = $db_handle->runQuery("SELECT country_name FROM countries ORDER BY country_name ASC");
+                                        foreach ($fetch_country as $country) {
+                                            echo "<option value='{$country['country_name']}'>{$country['country_name']}</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="jobLocation">
+                                    <label>Job Title</label>
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Software Engineer" required />
+                                </div>
+                                <div class="jobLocation">
+                                    <label>Company Name</label>
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Company Name" required />
+                                </div>
+                                <div class="jobLocation">
+                                    <label>Company Website Link</label>
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Company Website Link" required />
+                                </div>
+                                <div class="jobLocation">
+                                    <label>Start Date</label>
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" required />
+                                </div>
+                                <div class="jobLocation">
+                                    <label>End Date</label>
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" required />
+                                </div>
+                                <div class="jobLocation">
+                                    <label>Accomplishments</label>
+                                    <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required></textarea>
+                                </div>
+                            </div>
 
-                        <div class="education_level">
-                            <label>Sub Industry</label>
-                            <select id="subindustry" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
-                                <option selected>Select Sub Industry</option>
-                            </select>
-                        </div>
-                        <div class="education_level">
-                            <label>Country</label>
-                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity))" id="mySelect2">
-                                <option disabled selected>Please Select Country</option>
-                                <?php
-                                $fetch_country = $db_handle->runQuery("SELECT country_name FROM countries order by country_name ASC");
-                                foreach($fetch_country as $country){
-                                    ?>
-                                    <option value="<?php echo $country['country_name'];?>"><?php echo $country['country_name'];?></option>
-                                    <?php
-                                }
-                                ?>
-                            </select>
-                        </div>
-                        <div class="jobLocation">
-                            <label for="jobLocation">Job Title</label>
-                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="Software Engineer" autocomplete="off" required />
-                        </div>
-                        <div class="jobLocation">
-                            <label for="jobLocation">Company Name</label>
-                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="Company Name" autocomplete="off" required />
-                        </div>
-                        <div class="jobLocation">
-                            <label for="jobLocation">Company Website Link</label>
-                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="Company Website Link" autocomplete="off" required />
-                        </div>
-                        <div class="jobLocation">
-                            <label for="jobLocation">Start Date</label>
-                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="date" required />
-                        </div>
-                        <div class="jobLocation">
-                            <label for="jobLocation">End Date</label>
-                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="date" required />
-                        </div>
-                        <div class="jobLocation">
-                            <label for="jobLocation">Accomplishments</label>
-                            <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" required></textarea>
-                        </div>
-
-                    </div>
-                    <h5 class="heading5 mt-5">Reference Check</h5>
-                    <div class="grid sm:grid-cols-3 gap-3">
-                        <div class="jobLocation">
-                            <label for="jobLocation">Reference Type</label>
-                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="HR Reporting Manager" required />
-                        </div>
-                        <div class="jobLocation">
-                            <label for="jobLocation">Designation</label>
-                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="Enter Designation" required />
-                        </div>
-                        <div class="jobLocation">
-                            <label for="jobLocation">Name</label>
-                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="Enter Name" required />
-                        </div>
-                        <div class="jobLocation">
-                            <label for="jobLocation">Email</label>
-                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="email" placeholder="Enter Email" required />
+                            <h5 class="heading5 mt-5">Reference Check</h5>
+                            <div class="grid sm:grid-cols-3 gap-3">
+                                <div class="jobLocation">
+                                    <label>Reference Type</label>
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="HR Reporting Manager" required />
+                                </div>
+                                <div class="jobLocation">
+                                    <label>Designation</label>
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Enter Designation" required />
+                                </div>
+                                <div class="jobLocation">
+                                    <label>Name</label>
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Enter Name" required />
+                                </div>
+                                <div class="jobLocation">
+                                    <label>Email</label>
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="email" placeholder="Enter Email" required />
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="grid sm:grid-cols-3 gap-3">
                         <button class="w-full h-12 px-4 mt-2 button-main -border mt-5">Send Email</button>
-                        <button class="w-full h-12 px-4 mt-2 button-main -border mt-5">Add Another Experience</button>
+                        <button id="addExperience" class="w-full h-12 px-4 mt-2 button-main -border mt-5">Add Another Experience</button>
+                    </div>
+
+
+                    <!--video section-->
+                    <h5 class="heading5 mt-5">Video Section</h5>
+                    <div class="grid sm:grid-cols-3 gap-3">
+                        <button class="w-full h-12 px-4 mt-2 button-main -border mt-5">Upload Video</button>
                         <button class="w-full h-12 px-4 mt-2 button-main -border mt-5">Record Video</button>
                     </div>
 
+
+                    <!--career goal section-->
                     <h5 class="heading5 mt-5">Career Goals</h5>
                     <div class="grid sm:grid-cols-3 gap-3">
                         <div class="jobLocation">
@@ -695,16 +714,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="jobLocation">
                             <label for="jobLocation">NOC Number</label>
                             <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity))">
-                                <option>A</option>
-                                <option>B</option>
-                                <option>C</option>
-                                <option>D</option>
-                                <option>E</option>
-                                <option>F</option>
+                                <option selected>Please select NOC</option>
+                                <?php
+                                $fetch_noc = $db_handle->runQuery("select * from noc");
+                                foreach ($fetch_noc as $noc){
+                                    ?>
+                                    <option value="<?php echo $noc['noc_id']?>"><?php echo $noc['name'];?></option>
+                                    <?php
+                                }
+                                ?>
                             </select>
                         </div>
                     </div>
 
+                    <!--reset and submit section starts here-->
                     <div class="flex items-center col-span-full gap-5 mt-5">
                         <button class="button-main -border">Reset</button>
                         <button class="button-main">Publish</button>
@@ -742,7 +765,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         selectElement2.appendChild(option);
     }
 </script>
-
 <script>
     $(document).ready(function() {
         // Function to handle core skill change
@@ -854,8 +876,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         handleTagRemoval('selectedTags3', 'subSkillsList3', 'selectedSubSkills3');
     });
 </script>
-
-
 <script>
     $(document).ready(function() {
         $("#industry").change(function() {
@@ -871,7 +891,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         });
     });
 </script>
+<script>
+        $(document).ready(function () {
+        $("#addExperience").click(function (e) {
+            e.preventDefault();
+            let newExperience = $(".experience-section").first().clone(); // Clone the first experience section
+            newExperience.find("input, textarea, select").val(""); // Clear input values
+            $("#experience-container").append(newExperience); // Append to the container
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleButton = document.querySelector('.toggle_btn');
+        const educationFields = document.querySelectorAll('#educationFields select, #educationFields input');
 
+        toggleButton.addEventListener('click', function() {
+            const isActive = toggleButton.classList.contains('active');
+
+            if (isActive) {
+                educationFields.forEach(field => field.disabled = true);
+            } else {
+                educationFields.forEach(field => field.disabled = false);
+            }
+        });
+    });
+
+</script>
 </body>
 
 </html>

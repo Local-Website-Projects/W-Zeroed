@@ -109,3 +109,113 @@ if(isset($_POST['candidate_signup'])){
     }
 }
 
+
+
+
+/*insert the set_profile data*/
+if(isset($_POST['set_profile'])){
+    // Start transaction
+    $db_handle->startTransaction();
+
+    try {
+        $seller_id = $_SESSION['seller_id'];
+        $first_name = $db_handle->checkValue($_POST['first_name']);
+        $last_name = $db_handle->checkValue($_POST['last_name']);
+        $gender = $db_handle->checkValue($_POST['gender']);
+        $nationality = $db_handle->checkValue($_POST['nationality']);
+        $country = $db_handle->checkValue($_POST['country']);
+        $state = $db_handle->checkValue($_POST['state']);
+        $city = $db_handle->checkValue($_POST['city']);
+        $country_code = $db_handle->checkValue($_POST['country_code']);
+        $contact_number = $db_handle->checkValue($_POST['contact_number']);
+        $contact_email = $db_handle->checkValue($_POST['contact_email']);
+        $job_location = $db_handle->checkValue($_POST['job_location']);
+        $global_level_of_education = $db_handle->checkValue($_POST['global_level_of_education']);
+        $global_field_of_study = $db_handle->checkValue($_POST['global_field_of_study']);
+        $global_gpa = $db_handle->checkValue($_POST['global_gpa']);
+        $canadian_level_of_education = $db_handle->checkValue($_POST['canadian_level_of_education']);
+        $canadian_field_of_study = $db_handle->checkValue($_POST['canadian_field_of_study']);
+        $canadian_college = $db_handle->checkValue($_POST['college']);
+        $canadian_study_location = $db_handle->checkValue($_POST['canadian_study_location']);
+        $canadian_gpa = $db_handle->checkValue($_POST['canadian_gpa']);
+
+        $image = '';
+
+        if (!empty($_FILES['profile_image']['name'])) {
+            $RandomAccountNumber = mt_rand(1, 99999);
+            $file_name = $RandomAccountNumber . "_" . $_FILES['profile_image']['name'];
+            $file_size = $_FILES['profile_image']['size'];
+            $file_tmp  = $_FILES['profile_image']['tmp_name'];
+
+            $file_type = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+            if ($file_type != "jpg" && $file_type != "png" && $file_type != "jpeg") {
+                $attach_files = '';
+                echo "<script>
+                document.cookie = 'alert = 5;';
+                window.location.href='Set-Profile';
+                </script>";
+
+            } else {
+                move_uploaded_file($file_tmp, "assets/profile_image/" . $file_name);
+                $image = "assets/profile_image/" . $file_name;
+            }
+        }
+
+        $insert_personal_value = $db_handle->insertQuery("INSERT INTO `seller_personal_information`(`user_id`, `first_name`, `last_name`, `profile_image`, `gender`, `nationality`, `country`, `state`, `city`, `contact_no`, `country_code`, `contact_email`, `job_preferred_location`, `inserted_at`) VALUES ('$seller_id','$first_name','$last_name','$image','$gender','$nationality','$country','$state','$city','$contact_number','$country_code','$contact_email','$job_location','$inserted_at')");
+        if (!$insert_personal_value) {
+            throw new Exception("Error inserting dynamic field data.");
+        }
+
+        $insert_global_education = $db_handle->insertQuery("INSERT INTO `seller_global_education`(`user_id`, `global_level_of_education`, `global_field_of_study`, `global_gpa`, `inserted_at`) VALUES ('$seller_id','$global_level_of_education','$global_field_of_study','$global_gpa','$inserted_at')");
+        if (!$insert_global_education) {
+            throw new Exception("Error inserting dynamic field data.");
+        }
+
+        $insert_canadian_education = $db_handle->insertQuery("INSERT INTO `seller_canadian_education`(`user_id`, `can_level_of_education`, `can_field_of_study`, `can_college`, `can_location`, `can_gpa`, `inserted_at`) VALUES ('$seller_id','$canadian_level_of_education','$canadian_field_of_study','$canadian_college','$canadian_study_location','$canadian_gpa','$inserted_at')");
+        if (!$insert_canadian_education) {
+            throw new Exception("Error inserting dynamic field data.");
+        }
+
+
+
+        // Commit transaction
+        $db_handle->commitTransaction();
+
+        // Redirect with success message
+        echo "<script>
+        document.cookie = 'alert = 3;';
+        window.location.href='Seller-Profile';
+    </script>";
+    } catch (Exception $e) {
+        // Rollback transaction on error
+        $db_handle->rollbackTransaction();
+
+        // Redirect with error message
+        echo "<script>
+        document.cookie = 'alert = 5;';
+        window.location.href='Set-Profile';
+    </script>";
+    }
+    /*function uploadFile($file, $targetDir) {
+    $fileName = basename($file['name']);
+    $targetFilePath = $targetDir . $fileName;
+    $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+
+    // Validate file type and size
+    $allowedTypes = ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'mov'];
+    if (!in_array($fileType, $allowedTypes)) {
+        throw new Exception("Invalid file type.");
+    }
+    if ($file['size'] > 10 * 1024 * 1024) { // 10MB limit
+        throw new Exception("File size exceeds limit.");
+    }
+
+    // Upload file
+    if (!move_uploaded_file($file['tmp_name'], $targetFilePath)) {
+        throw new Exception("Error uploading file.");
+    }
+
+    return $targetFilePath;
+}*/
+}
+

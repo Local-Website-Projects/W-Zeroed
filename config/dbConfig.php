@@ -56,4 +56,19 @@ class DBController {
     function notify_email(){
         return $this->notification_email;
     }
+
+    // Method to start a transaction
+    function startTransaction() {
+        return mysqli_begin_transaction($this->conn);
+    }
+
+    // Method to commit a transaction
+    function commitTransaction() {
+        return mysqli_commit($this->conn);
+    }
+
+    // Method to rollback a transaction
+    function rollbackTransaction() {
+        return mysqli_rollback($this->conn);
+    }
 }
