@@ -118,6 +118,7 @@ if(isset($_POST['set_profile'])){
     $db_handle->startTransaction();
 
     try {
+        /*personal information*/
         $seller_id = $_SESSION['seller_id'];
         $first_name = $db_handle->checkValue($_POST['first_name']);
         $last_name = $db_handle->checkValue($_POST['last_name']);
@@ -129,15 +130,58 @@ if(isset($_POST['set_profile'])){
         $country_code = $db_handle->checkValue($_POST['country_code']);
         $contact_number = $db_handle->checkValue($_POST['contact_number']);
         $contact_email = $db_handle->checkValue($_POST['contact_email']);
-        $job_location = $db_handle->checkValue($_POST['job_location']);
+        $preferred_job_location = $db_handle->checkValue($_POST['preferred_job_location']);
+
+        /*global education section*/
         $global_level_of_education = $db_handle->checkValue($_POST['global_level_of_education']);
         $global_field_of_study = $db_handle->checkValue($_POST['global_field_of_study']);
         $global_gpa = $db_handle->checkValue($_POST['global_gpa']);
+
+        /*canadian education section*/
         $canadian_level_of_education = $db_handle->checkValue($_POST['canadian_level_of_education']);
         $canadian_field_of_study = $db_handle->checkValue($_POST['canadian_field_of_study']);
         $canadian_college = $db_handle->checkValue($_POST['college']);
         $canadian_study_location = $db_handle->checkValue($_POST['canadian_study_location']);
         $canadian_gpa = $db_handle->checkValue($_POST['canadian_gpa']);
+
+        /*Skills section*/
+        $core_skill_one = $db_handle->checkValue($_POST['core_skill_one']);
+        $core_skill_two = $db_handle->checkValue($_POST['core_skill_two']);
+        $core_skill_three = $db_handle->checkValue($_POST['core_skill_three']);
+
+        $sub_skills_one = $_POST['sub_skills_one'];
+        $sub_skills_one = explode(',', $sub_skills_one);
+        $sub_skills_one = array_map('trim', $sub_skills_one);
+
+        $sub_skills_two = $_POST['sub_skills_two'];
+        $sub_skills_two = explode(',', $sub_skills_two);
+        $sub_skills_two = array_map('trim', $sub_skills_two);
+
+        $sub_skills_three = $_POST['sub_skills_three'];
+        $sub_skills_three = explode(',', $sub_skills_three);
+        $sub_skills_three = array_map('trim', $sub_skills_three);
+
+        /*job experience section*/
+        $industry = $_POST['industry'];
+        $sub_industry = $_POST['sub_industry'];
+        $countries = $_POST['countries'];
+        $job_location = $_POST['job_location'];
+        $company_name = $_POST['company_name'];
+        $company_website = $_POST['company_website'];
+        $start_date = $_POST['start_date'];
+        $end_date = $db_handle->$_POST['end_date'];
+        $accomplishment = $_POST['accomplishment'];
+        $reporting_manager = $_POST['reporting_manager'];
+        $designation = $_POST['designation'];
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+
+
+        /*career section*/
+        $career_role = $db_handle->checkValue($_POST['career_role']);
+        $career_industry = $db_handle->checkValue($_POST['career_industry']);
+        $noc_number = $db_handle->checkValue($_POST['noc_number']);
+
 
         $image = '';
 
@@ -161,7 +205,7 @@ if(isset($_POST['set_profile'])){
             }
         }
 
-        $insert_personal_value = $db_handle->insertQuery("INSERT INTO `seller_personal_information`(`user_id`, `first_name`, `last_name`, `profile_image`, `gender`, `nationality`, `country`, `state`, `city`, `contact_no`, `country_code`, `contact_email`, `job_preferred_location`, `inserted_at`) VALUES ('$seller_id','$first_name','$last_name','$image','$gender','$nationality','$country','$state','$city','$contact_number','$country_code','$contact_email','$job_location','$inserted_at')");
+        $insert_personal_value = $db_handle->insertQuery("INSERT INTO `seller_personal_information`(`user_id`, `first_name`, `last_name`, `profile_image`, `gender`, `nationality`, `country`, `state`, `city`, `contact_no`, `country_code`, `contact_email`, `job_preferred_location`, `inserted_at`) VALUES ('$seller_id','$first_name','$last_name','$image','$gender','$nationality','$country','$state','$city','$contact_number','$country_code','$contact_email','$preferred_job_location','$inserted_at')");
         if (!$insert_personal_value) {
             throw new Exception("Error inserting dynamic field data.");
         }
@@ -176,46 +220,108 @@ if(isset($_POST['set_profile'])){
             throw new Exception("Error inserting dynamic field data.");
         }
 
+        $insert_skill_one = $db_handle->insertQuery("INSERT INTO `seller_core_skills`(`user_id`, `core_skill`, `inserted_at`) VALUES ('$seller_id','$core_skill_one','$inserted_at')");
+        if (!$insert_skill_one) {
+            throw new Exception("Error inserting dynamic field data.");
+        } else{
+            foreach ($sub_skills_one as $s_skill_one){
+                $subSkillValue = preg_replace('/[\s\(\)]+/', '_', $s_skill_one);
+                $subSkillValue = preg_replace('/[!#$^&*()+=\[\]{};\'":\\\\|,.<>\/?]+/', '\\\\$0', $subSkillValue);
+                $file_subskill = '';
+                if (!empty($_FILES[$subSkillValue]['name'])) {
+                    $RandomAccountNumber = mt_rand(1, 99999);
+                    $file_name = $RandomAccountNumber . "_" . $_FILES[$subSkillValue]['name'];
+                    $file_size = $_FILES[$subSkillValue]['size'];
+                    $file_tmp  = $_FILES[$subSkillValue]['tmp_name'];
+
+                    $file_type = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+                    move_uploaded_file($file_tmp, "assets/sub_skills/" . $file_name);
+                    $file_subskill = "assets/sub_skills/" . $file_name;
+                    }
+                $insert_sub_skill = $db_handle->insertQuery("INSERT INTO `seller_sub_skills`(`user_id`, `core_skill_id`, `sub_skill`, `s_skill_file`, `inserted_at`) VALUES ('$seller_id','$core_skill_one','$s_skill_one','$file_subskill','$inserted_at')");
+                if (!$insert_sub_skill) {
+                    throw new Exception("Error inserting dynamic field data.");
+                    }
+                }
+        }
+
+        if($core_skill_two != null){
+            $insert_skill_two = $db_handle->insertQuery("INSERT INTO `seller_core_skills`(`user_id`, `core_skill`, `inserted_at`) VALUES ('$seller_id','$core_skill_two','$inserted_at')");
+            if (!$insert_skill_two) {
+                throw new Exception("Error inserting dynamic field data.");
+            } else{
+                foreach ($sub_skills_two as $s_skill_two){
+                    $subSkillValue = preg_replace('/[\s\(\)]+/', '_', $s_skill_two);
+                    $subSkillValue = preg_replace('/[!#$^&*()+=\[\]{};\'":\\\\|,.<>\/?]+/', '\\\\$0', $subSkillValue);
+                    $file_subskill = '';
+                    if (!empty($_FILES[$subSkillValue]['name'])) {
+                        $RandomAccountNumber = mt_rand(1, 99999);
+                        $file_name = $RandomAccountNumber . "_" . $_FILES[$subSkillValue]['name'];
+                        $file_size = $_FILES[$subSkillValue]['size'];
+                        $file_tmp  = $_FILES[$subSkillValue]['tmp_name'];
+
+                        $file_type = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+                        move_uploaded_file($file_tmp, "assets/sub_skills/" . $file_name);
+                        $file_subskill = "assets/sub_skills/" . $file_name;
+                    }
+                    $insert_sub_skill = $db_handle->insertQuery("INSERT INTO `seller_sub_skills`(`user_id`, `core_skill_id`, `sub_skill`, `s_skill_file`, `inserted_at`) VALUES ('$seller_id','$core_skill_two','$s_skill_two','$file_subskill','$inserted_at')");
+                    if (!$insert_sub_skill) {
+                        throw new Exception("Error inserting dynamic field data.");
+                    }
+                }
+            }
+        }
+
+        if($core_skill_three != null){
+            $insert_skill_three = $db_handle->insertQuery("INSERT INTO `seller_core_skills`(`user_id`, `core_skill`, `inserted_at`) VALUES ('$seller_id','$core_skill_three','$inserted_at')");
+            if (!$insert_skill_three) {
+                throw new Exception("Error inserting dynamic field data.");
+            } else{
+                foreach ($insert_skill_three as $s_skill_three){
+                    $subSkillValue = preg_replace('/[\s\(\)]+/', '_', $s_skill_three);
+                    $subSkillValue = preg_replace('/[!#$^&*()+=\[\]{};\'":\\\\|,.<>\/?]+/', '\\\\$0', $subSkillValue);
+                    $file_subskill = '';
+                    if (!empty($_FILES[$subSkillValue]['name'])) {
+                        $RandomAccountNumber = mt_rand(1, 99999);
+                        $file_name = $RandomAccountNumber . "_" . $_FILES[$subSkillValue]['name'];
+                        $file_size = $_FILES[$subSkillValue]['size'];
+                        $file_tmp  = $_FILES[$subSkillValue]['tmp_name'];
+
+                        $file_type = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+                        move_uploaded_file($file_tmp, "assets/sub_skills/" . $file_name);
+                        $file_subskill = "assets/sub_skills/" . $file_name;
+                    }
+                    $insert_sub_skill = $db_handle->insertQuery("INSERT INTO `seller_sub_skills`(`user_id`, `core_skill_id`, `sub_skill`, `s_skill_file`, `inserted_at`) VALUES ('$seller_id','$core_skill_three','$s_skill_three','$file_subskill','$inserted_at')");
+                    if (!$insert_sub_skill) {
+                        throw new Exception("Error inserting dynamic field data.");
+                    }
+                }
+            }
+        }
+
+        for ($i= 0; $i<count($industry); $i++) {
+            $insert_experience = $db_handle->insertQuery("INSERT INTO `seller_experience_data`(`user_id`, `industry`, `sub_industry`, `countries`, `job_location`, `company_name`, `company_website`, `start_date`,`end_date`, `accomplishment`, `reporting_manager`, `designation`, `name`, `email`, `inserted_at`) VALUES ('$seller_id','$industry[$i]','$sub_industry[$i]','$countries[$i]','$job_location[$i]','$company_name[$i]','$company_website[$i]','$start_date[$i]','$end_date[$i]','$accomplishment[$i]','$reporting_manager[$i]','$designation[$i]','$name[$i]','$email[$i]','$inserted_at[$i]')");
+            if (!$insert_experience) {
+                throw new Exception("Error inserting dynamic field data.");
+            }
+        }
 
 
-        // Commit transaction
+        $insert_career = $db_handle->insertQuery("INSERT INTO `seller_career`(`seller_id`, `career_role`, `career_industry`, `noc_number`, `inserted_at`) VALUES ('$seller_id','$career_role','$career_industry','$noc_number','$inserted_at')");
+        if (!$insert_career) {
+            throw new Exception("Error inserting dynamic field data.");
+        }
         $db_handle->commitTransaction();
-
-        // Redirect with success message
         echo "<script>
         document.cookie = 'alert = 3;';
         window.location.href='Seller-Profile';
     </script>";
     } catch (Exception $e) {
-        // Rollback transaction on error
         $db_handle->rollbackTransaction();
-
-        // Redirect with error message
         echo "<script>
         document.cookie = 'alert = 5;';
         window.location.href='Set-Profile';
     </script>";
     }
-    /*function uploadFile($file, $targetDir) {
-    $fileName = basename($file['name']);
-    $targetFilePath = $targetDir . $fileName;
-    $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
-
-    // Validate file type and size
-    $allowedTypes = ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'mov'];
-    if (!in_array($fileType, $allowedTypes)) {
-        throw new Exception("Invalid file type.");
-    }
-    if ($file['size'] > 10 * 1024 * 1024) { // 10MB limit
-        throw new Exception("File size exceeds limit.");
-    }
-
-    // Upload file
-    if (!move_uploaded_file($file['tmp_name'], $targetFilePath)) {
-        throw new Exception("Error uploading file.");
-    }
-
-    return $targetFilePath;
-}*/
 }
 

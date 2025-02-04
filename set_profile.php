@@ -125,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <h4 class="heading4 max-lg:mt-3">Set Up Profile</h4>
             <div class="list_category p-6 mt-7.5 rounded-lg bg-white">
                 <h5 class="heading5" style="margin-top: 0 !important;">Personal Information</h5>
-                <form class="form">
+                <form class="form" method="post" action="Insert" enctype="multipart/form-data">
                     <!--personal information section start-->
                     <div class="grid sm:grid-cols-3 gap-3">
                         <div class="firstName">
@@ -141,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="profile" type="file" name="profile_image" required />
                         </div>
                         <div class="gender">
-                            <label for="gender">Gender <span class="text-red">* </span>:</label><br/>
+                            <label for="gender">Gender <span class="text-red">* </span></label><br/>
                             <input class="px-4 mt-2 border-line rounded-lg" id="gender" type="radio" name="gender" value="male" required />
                             <label for="gender" style="padding-right: 20px;">Male</label>
                             <input class="px-4 mt-2 border-line rounded-lg" id="gender" type="radio" name="gender" value="female" required />
@@ -398,7 +398,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                    placeholder="Search job preferred location"
                                    list="locationList"
                                    autocomplete="off"
-                                   name="job_location"
+                                   name="preferred_job_location"
                                    required />
                             <datalist id="locationList">
                                 <option value="Open for relocation"></option>
@@ -418,7 +418,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </datalist>
                         </div>
                     </div>
-
 
                     <!--global education section starts-->
                     <h5 class="heading5 mt-5">Global Education</h5>
@@ -455,7 +454,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="10"  name="global_gpa" required />
                         </div>
                     </div>
-
 
                     <!--canadian education section starts-->
                     <h5 class="heading5 mt-5">Canadian Education</h5>
@@ -522,14 +520,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                     </div>
 
-
                     <!--skills section starts-->
                     <h5 class="heading5 mt-5">Skills</h5>
                     <div class="grid grid-cols-4 gap-3">
                         <!-- First set of core skills and sub-skills -->
                         <div class="education_level col-span-1">
-                            <label>Core Skills 1</label>
-                            <select id="coreSkills1" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
+                            <label>Select Core Skill</label>
+                            <select id="coreSkills1" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="core_skill_one" required>
                                 <option selected>Select Core Skills</option>
                                 <?php
                                 $fetch_skills = $db_handle->runQuery("SELECT * FROM skills ORDER BY core_skill ASC");
@@ -542,22 +539,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </select>
                         </div>
                         <div class="education_level" style="width: 300%">
-                            <div id="subSkillsLabel1" style="display: none;"> <!-- Initially hidden -->
+                            <div id="subSkillsLabel1" style="display: none;">
                                 <label>Sub Skills 1</label>
                             </div>
-                            <input id="selectedSubSkills1" type="hidden"/>
+                            <input id="selectedSubSkills1" type="hidden" name="sub_skills_one"/>
                             <div id="subSkillsList1" type="hidden"></div>
                             <div class="selected-tags" id="selectedTags1"></div>
                         </div>
                     </div>
-
-                    <!-- Repeat for the second and third sets -->
                     <div class="grid grid-cols-4 gap-3 mt-4">
                         <!-- Second set of core skills and sub-skills -->
                         <div class="education_level col-span-1">
                             <label>Core Skills 2</label>
-                            <select id="coreSkills2" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
-                                <option selected>Select Core Skills</option>
+                            <select id="coreSkills2" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="core_skill_two">
+                                <option value="">Select Core Skill</option>
                                 <?php
                                 $fetch_skills = $db_handle->runQuery("SELECT * FROM skills ORDER BY core_skill ASC");
                                 foreach ($fetch_skills as $row) {
@@ -572,7 +567,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div id="subSkillsLabel2" style="display: none;"> <!-- Initially hidden -->
                                 <label>Sub Skills 2</label>
                             </div>
-                            <input id="selectedSubSkills2" type="hidden"/>
+                            <input id="selectedSubSkills2" type="hidden" name="sub_skills_two"/>
                             <div class="selected-tags" id="selectedTags2"></div>
                             <div id="subSkillsList2" type="hidden"></div>
                         </div>
@@ -580,9 +575,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="grid grid-cols-4 gap-3 mt-4">
                         <!-- Third set of core skills and sub-skills -->
                         <div class="education_level col-span-1">
-                            <label>Core Skills 3</label>
-                            <select id="coreSkills3" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
-                                <option selected>Select Core Skills</option>
+                            <label>Select Core Skills</label>
+                            <select id="coreSkills3" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="core_skill_three" >
+                                <option value="">Select Core Skills</option>
                                 <?php
                                 $fetch_skills = $db_handle->runQuery("SELECT * FROM skills ORDER BY core_skill ASC");
                                 foreach ($fetch_skills as $row) {
@@ -597,12 +592,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div id="subSkillsLabel3" style="display: none;"> <!-- Initially hidden -->
                                 <label>Sub Skills 3</label>
                             </div>
-                            <input id="selectedSubSkills3" type="hidden"/>
+                            <input id="selectedSubSkills3" type="hidden" name="sub_skills_three"/>
                             <div class="selected-tags" id="selectedTags3"></div>
                             <div id="subSkillsList3" type="hidden"></div>
                         </div>
                     </div>
-
 
                     <!-- Work Experience Section Wrapper -->
                     <div id="experience-container">
@@ -611,7 +605,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div class="grid sm:grid-cols-3 gap-3">
                                 <div class="education_level">
                                     <label>Industry</label>
-                                    <select id="industry" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
+                                    <select id="industry" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="industry[]" required>
                                         <option selected>Select Industry</option>
                                         <?php
                                         $fetch_industry = $db_handle->runQuery("SELECT * FROM industries ORDER BY industry ASC");
@@ -623,13 +617,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </div>
                                 <div class="education_level">
                                     <label>Sub Industry</label>
-                                    <select id="subindustry" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
+                                    <select id="subindustry" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="sub_industry[]" required>
                                         <option selected>Select Sub Industry</option>
                                     </select>
                                 </div>
                                 <div class="education_level">
                                     <label>Country</label>
-                                    <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" id="mySelect2">
+                                    <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="countries[]">
                                         <option disabled selected>Please Select Country</option>
                                         <?php
                                         $fetch_country = $db_handle->runQuery("SELECT country_name FROM countries ORDER BY country_name ASC");
@@ -641,27 +635,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </div>
                                 <div class="jobLocation">
                                     <label>Job Title</label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Software Engineer" required />
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Software Engineer" name="job_location[]" required />
                                 </div>
                                 <div class="jobLocation">
                                     <label>Company Name</label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Company Name" required />
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Company Name" name="company_name[]" required />
                                 </div>
                                 <div class="jobLocation">
                                     <label>Company Website Link</label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Company Website Link" required />
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Company Website Link" name="company_website[]" required />
                                 </div>
                                 <div class="jobLocation">
                                     <label>Start Date</label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" required />
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" name="start_date[]" required />
                                 </div>
                                 <div class="jobLocation">
                                     <label>End Date</label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" required />
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" name="end_date[]" required />
                                 </div>
                                 <div class="jobLocation">
                                     <label>Accomplishments</label>
-                                    <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required></textarea>
+                                    <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment[]"></textarea>
                                 </div>
                             </div>
 
@@ -669,19 +663,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div class="grid sm:grid-cols-3 gap-3">
                                 <div class="jobLocation">
                                     <label>Reference Type</label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="HR Reporting Manager" required />
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="HR Reporting Manager" name="reporting_manager[]" required />
                                 </div>
                                 <div class="jobLocation">
                                     <label>Designation</label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Enter Designation" required />
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Enter Designation" name="designation[]" required />
                                 </div>
                                 <div class="jobLocation">
                                     <label>Name</label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Enter Name" required />
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Enter Name" name="name[]" required />
                                 </div>
                                 <div class="jobLocation">
                                     <label>Email</label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="email" placeholder="Enter Email" required />
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="email" placeholder="Enter Email" name="email[]" required />
                                 </div>
                             </div>
                         </div>
@@ -691,7 +685,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <button id="addExperience" class="w-full h-12 px-4 mt-2 button-main -border mt-5">Add Another Experience</button>
                     </div>
 
-
                     <!--video section-->
                     <h5 class="heading5 mt-5">Video Section</h5>
                     <div class="grid sm:grid-cols-3 gap-3">
@@ -699,21 +692,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <button class="w-full h-12 px-4 mt-2 button-main -border mt-5">Record Video</button>
                     </div>
 
-
                     <!--career goal section-->
                     <h5 class="heading5 mt-5">Career Goals</h5>
                     <div class="grid sm:grid-cols-3 gap-3">
                         <div class="jobLocation">
                             <label for="jobLocation">Role</label>
-                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="Enter career role" required />
+                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="Enter career role" name="career_role" required />
                         </div>
                         <div class="jobLocation">
                             <label for="jobLocation">Industry</label>
-                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="Enter career industry" required />
+                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="Enter career industry" name="career_industry" required />
                         </div>
                         <div class="jobLocation">
                             <label for="jobLocation">NOC Number</label>
-                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity))">
+                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity))" name="noc_number" required>
                                 <option selected>Please select NOC</option>
                                 <?php
                                 $fetch_noc = $db_handle->runQuery("select * from noc");
@@ -730,7 +722,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <!--reset and submit section starts here-->
                     <div class="flex items-center col-span-full gap-5 mt-5">
                         <button class="button-main -border">Reset</button>
-                        <button class="button-main">Publish</button>
+                        <button class="button-main" type="submit" name="set_profile">Publish</button>
                     </div>
                 </form>
             </div>
@@ -816,7 +808,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 var fileUploadHTML = `
                 <div class="file-upload-container" id="fileUpload-${safeSubSkillValue}">
                     <label for="file-${safeSubSkillValue}">Upload File for ${subSkill}:</label>
-                    <input type="file" name="file_${safeSubSkillValue}" id="file-${safeSubSkillValue}" class="w-full h-12 px-4 mt-2 border-line rounded-lg mb-3">
+                    <input type="file" name="${safeSubSkillValue}" id="file-${safeSubSkillValue}" class="w-full h-12 px-4 mt-2 border-line rounded-lg mb-3">
                 </div>
             `;
 
