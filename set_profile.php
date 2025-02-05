@@ -174,13 +174,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <select class="w-full h-12 px-4 mt-2 border-line rounded-lg state_select" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity))" onchange="loadCities()" name="state">
                                 <option selected>Please select state</option>
                             </select>
+                            <!-- Hidden field to store the full state name -->
+                            <input type="hidden" id="stateName" name="state_name">
                         </div>
                         <div class="city">
                             <label>Current City <span class="text-red">*</span></label>
                             <select class="w-full h-12 px-4 mt-2 border-line rounded-lg city_select" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity))" name="city">
                                 <option selected>Please select city</option>
                             </select>
+                            <!-- Hidden field to store the full city name -->
+                            <input type="hidden" id="cityName" name="city_name">
                         </div>
+
                         <div class="contactno">
                             <label for="contactno">Contact No <span class="text-red">*</span></label>
                             <div class="flex space-x-2">
@@ -651,7 +656,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </div>
                                 <div class="jobLocation">
                                     <label>End Date</label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" name="end_date[]" required />
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" name="end_date[]" id="endDate" required />
+                                </div>
+                                <div class="jobLocation">
+                                    <label>Working till now?</label>
+                                    <input type="checkbox" class="px-4 mt-2 border-line rounded-lg" name="till_date[]" id="tillDateCheckbox" value="1"> Yes
                                 </div>
                                 <div class="jobLocation">
                                     <label>Accomplishments</label>

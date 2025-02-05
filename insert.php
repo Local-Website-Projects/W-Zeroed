@@ -125,8 +125,8 @@ if(isset($_POST['set_profile'])){
         $gender = $db_handle->checkValue($_POST['gender']);
         $nationality = $db_handle->checkValue($_POST['nationality']);
         $country = $db_handle->checkValue($_POST['country']);
-        $state = $db_handle->checkValue($_POST['state']);
-        $city = $db_handle->checkValue($_POST['city']);
+        $state = $db_handle->checkValue($_POST['state_name']);
+        $city = $db_handle->checkValue($_POST['city_name']);
         $country_code = $db_handle->checkValue($_POST['country_code']);
         $contact_number = $db_handle->checkValue($_POST['contact_number']);
         $contact_email = $db_handle->checkValue($_POST['contact_email']);
@@ -169,12 +169,13 @@ if(isset($_POST['set_profile'])){
         $company_name = $_POST['company_name'];
         $company_website = $_POST['company_website'];
         $start_date = $_POST['start_date'];
-        $end_date = $db_handle->$_POST['end_date'];
+        $end_date = $_POST['end_date'];
         $accomplishment = $_POST['accomplishment'];
         $reporting_manager = $_POST['reporting_manager'];
         $designation = $_POST['designation'];
         $name = $_POST['name'];
         $email = $_POST['email'];
+        $till_date = $_POST['till_date'];
 
 
         /*career section*/
@@ -300,6 +301,9 @@ if(isset($_POST['set_profile'])){
         }
 
         for ($i= 0; $i<count($industry); $i++) {
+            if($till_date == 1){
+                $end_date = '';
+            }
             $insert_experience = $db_handle->insertQuery("INSERT INTO `seller_experience_data`(`user_id`, `industry`, `sub_industry`, `countries`, `job_designation`, `company_name`, `company_website`, `start_date`,`end_date`, `accomplishment`, `reporting_manager`, `designation`, `name`, `email`, `inserted_at`) VALUES ('$seller_id','$industry[$i]','$sub_industry[$i]','$countries[$i]','$job_location[$i]','$company_name[$i]','$company_website[$i]','$start_date[$i]','$end_date[$i]','$accomplishment[$i]','$reporting_manager[$i]','$designation[$i]','$name[$i]','$email[$i]','$inserted_at[$i]')");
             if (!$insert_experience) {
                 throw new Exception("Error inserting dynamic field data.");

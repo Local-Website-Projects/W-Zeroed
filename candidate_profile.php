@@ -68,18 +68,18 @@ if(!isset($_SESSION['seller_id'])) {
                             <div class="tools p-8 mt-7.5 rounded-lg bg-white shadow-sm">
                                 <?php
                                 $fetch_core_skils = $db_handle->runQuery("SELECT cs.core_skill, s.core_skill as skill_name FROM `skills` as s,`seller_core_skills` as cs WHERE s.skill_id = cs.core_skill and cs.user_id = {$_SESSION['seller_id']}");
-                                $fetch_core_skils_no = $db_handle->numRows("SELECT cs.core_skill, s.core_skill FROM `skills` as s,`seller_core_skills` as cs WHERE s.skill_id = cs.core_skill and cs.user_id = {$_SESSION['seller_id']}");
+                                $fetch_core_skils_no = $db_handle->numRows("SELECT cs.core_skill, s.core_skill as skill_name FROM `skills` as s,`seller_core_skills` as cs WHERE s.skill_id = cs.core_skill and cs.user_id = {$_SESSION['seller_id']}");
                                 for ($i=0; $i<$fetch_core_skils_no; $i++) {
                                     ?>
                                     <h5 class="heading5"><?php echo $fetch_core_skils[$i]['skill_name'];?></h5>
                                     <div class="list flex flex-wrap items-center gap-3 mt-5">
                                         <?php
-                                        $fetch_sub_skills = $db_handle->runQuery("SELECT * FROM `seller_sub_skills` WHERE core_skill_id = 23 and user_id = 1");
-                                        $fetch_sub_skills_no = $db_handle->numRows("SELECT * FROM `seller_sub_skills` WHERE core_skill_id = 23 and user_id = 1");
-                                        for ($i=0; $i<$fetch_sub_skills_no; $i++) {
+                                        $fetch_sub_skills = $db_handle->runQuery("SELECT sub_skill, s_skill_file FROM `seller_sub_skills`WHERE core_skill_id = {$fetch_core_skils[$i]['core_skill']} AND user_id = {$_SESSION['seller_id']}");
+                                        $fetch_sub_skills_no = $db_handle->numRows("SELECT sub_skill, s_skill_file FROM `seller_sub_skills`WHERE core_skill_id = {$fetch_core_skils[$i]['core_skill']} AND user_id = {$_SESSION['seller_id']}");
+                                        for ($j=0; $j<$fetch_sub_skills_no; $j++) {
                                             ?>
-                                            <span class="tag bg-surface caption1"><?php echo $fetch_sub_skills[$i]['sub_skill'];?> <?php
-                                                if($fetch_sub_skills[$i]['s_skill_file'] != "") {
+                                            <span class="tag bg-surface caption1"><?php echo $fetch_sub_skills[$j]['sub_skill'];?> <?php
+                                                if($fetch_sub_skills[$j]['s_skill_file'] != "") {
                                                     ?>
                                                     <i class="ph ph-seal-check"></i>
                                                     <?php
