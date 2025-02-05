@@ -350,5 +350,91 @@ if(isset($_POST['set_profile'])){
 
 /*send email to the seller*/
 if(isset($_POST['send_seller_email'])){
+    $full_name = $db_handle->checkValue($_POST['full_name']);
+    $email = $db_handle->checkValue($_POST['email']);
+    $message_seller = $db_handle->checkValue($_POST['message']);
+    $seller_id = $db_handle->checkValue($_POST['seller_id']);
+    $seller_unique = $db_handle->checkValue($_POST['seller_unique']);
+    $insert_seller_message = $db_handle->insertQuery("INSERT INTO `seller_messages`(`seller_id`, `full_name`, `sender_email`, `message`, `inserted_at`) VALUES ('$seller_id','$full_name','$email','$message_seller','$inserted_at')");
 
+    $fetch_seller_email = $db_handle->runQuery("select email from sellers where seller_id = '$seller_id'");
+    $receiver_email1 = $fetch_seller_email[0]['email'];
+
+    if ($insert_seller_message) {
+        echo "<script>
+             document.cookie = 'alert=3;';
+             window.location.href = 'Seller-Guest-View?seller=' + '" . $seller_unique . "';
+          </script>";
+    } else {
+        echo "<script>
+             document.cookie = 'alert=5;';
+             window.location.href = 'Seller-Guest-View?seller=' + '" . $seller_unique . "';
+          </script>";
+    }
+
+    /*$subject = "New Query for Recruiter";
+         $messege = "<html>
+     <body style='background-color: #eee; font-size: 16px;'>
+     <div style='max-width: 600px; min-width: 200px; background-color: #ffffff; padding: 20px; margin: auto;'>
+
+         <p style='text-align: center;color:#29a9e1;font-weight:bold'>Email verification code.</p>
+
+         <div style='color:black;text-align: left'>
+             <p>Recruiter Name : $full_name</p>
+             <p>Recruiter Email : $email</p>
+             <p>Message : $message_seller</p>
+         </div>
+     </div>
+
+     </body>
+     </html>";
+
+         $sender_name = "Zeroed";
+         $sender_email = "";
+         $username = "";
+         $password = "";
+
+         $mail = new PHPMailer(true);
+
+         try {
+             // Set mailer to use SMTP
+             $mail->isSMTP();
+             $mail->Host = "smtp.hostinger.com";  // SMTP server
+             $mail->SMTPAuth = true;
+             $mail->SMTPSecure = 'ssl';
+             $mail->Port = 465;
+
+             // Sender information
+             $mail->setFrom($sender_email, $sender_name);
+             $mail->Username = $username;
+             $mail->Password = $password;
+             $mail->CharSet = 'UTF-8';
+
+             // Set email subject and body
+             $mail->Subject = $subject;
+             $mail->msgHTML($messege);  // HTML formatted message
+
+             // Send to first email address
+             $mail->addAddress($receiver_email1);
+             if ($mail->send()) {
+                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                 $insert = $db_handle->insertQuery("INSERT INTO `sellers`(`email`, `password`, `verification_code`, `inserted_at`) VALUES ('$email','$hashedPassword','$randomNumber','$inserted_at')");
+                 if($insert){
+                     echo "<script>
+                     document.cookie = 'alert = 3;';
+                     window.location.href='Seller-Guest-View';
+                     </script>";
+                 } else {
+                     echo "<script>
+                     document.cookie = 'alert = 5;';
+                     window.location.href='Seller-Guest-View';
+                     </script>";
+                 }
+             }
+         } catch (Exception $e) {
+             echo "<script>
+            alert('Error sending email');
+             </script>";
+             exit;
+         }*/
 }

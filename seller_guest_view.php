@@ -166,14 +166,16 @@ if(isset($_GET['seller'])){
                                 </div>
                                 <div class="email col-span-full flex flex-col">
                                     <label for="email" class="w-fit">Your Email: <span class="text-red">*</span></label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="email" type="text" name="email" placeholder="Your Email..." required="">
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="email" type="email" name="email" placeholder="Your Email..." required="">
                                 </div>
                                 <div class="email col-span-full flex flex-col">
                                     <label for="email" class="w-fit">Your Message: <span class="text-red">*</span></label>
                                     <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="email" name="message" type="text"required=""></textarea>
                                 </div>
+                                <input type="hidden" value="<?php echo $seller;?>" name="seller_id">
+                                <input type="hidden" value="<?php echo $_GET['seller'];?>" name="seller_unique">
                                 <div class="block_btn col-span-full flex flex-col">
-                                    <button class="w-full button-main btn_open_popup btn_change_password" type="submit" name="send_seller_email">Send Email</button>
+                                    <button class="w-full button-main btn_change_password" type="submit" name="send_seller_email">Send Email</button>
                                 </div>
                             </form>
                         </div>

@@ -20,10 +20,19 @@ if(isset($_POST['login'])){
     $fetch_pass = $db_handle->runQuery("select seller_id, password from sellers where email='$email' and status = '1'");
     if(password_verify($password, $fetch_pass[0]['password'])){
         $_SESSION['seller_id'] = $fetch_pass[0]['seller_id'];
-        echo "<script>
+
+        $check_value = $db_handle->numRows("select * from seller_personal_information where user_id = {$_SESSION['seller_id']}");
+        if($check_value == 1){
+            echo "<script>
+                document.cookie = 'alert = 1;';
+                window.location.href='Seller-Profile';
+                </script>";
+        } else {
+            echo "<script>
                 document.cookie = 'alert = 1;';
                 window.location.href='Set-Profile';
                 </script>";
+        }
     }else {
         echo "<script>
                 document.cookie = 'alert = 5;';

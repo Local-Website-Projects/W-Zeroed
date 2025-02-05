@@ -2330,7 +2330,7 @@ section:has(.slide-overflow-unset) {
   white-space: nowrap;
 }
 .message_block .chat_box {
-  display: none;
+
 }
 .message_block .chat_box.open {
   display: block;
