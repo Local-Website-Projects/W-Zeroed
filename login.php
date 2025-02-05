@@ -75,7 +75,7 @@ if(isset($_POST['login'])){
                                     <input type="password" name="password" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" autocomplete="off" required />
                                 </div>
                                 <div class="flex items-center justify-between mt-6">
-                                    <a class="text-primary hover:underline" href="#!">Forgot password?</a>
+                                    <a class="text-primary hover:underline" href="Forget-Password">Forgot password?</a>
                                 </div>
                                 <div class="block-button mt-6">
                                     <button class="button-main bg-primary w-full text-center" type="submit" name="login">Login</button>

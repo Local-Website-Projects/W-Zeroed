@@ -438,3 +438,76 @@ if(isset($_POST['send_seller_email'])){
              exit;
          }*/
 }
+
+
+
+
+/*forget password email send*/
+if(isset($_POST['forget_pass'])){
+    $email = $db_handle->checkValue($_POST['email']);
+
+    $check= $db_handle->runQuery("select * from sellers where email = '$email'");
+    $check_email = $db_handle->numRows("select * from sellers where email = '$email'");
+    $code = $check[0]['verification_code'];
+
+    if($check_email == 1){
+       /* $subject = "Please verify your email address";
+         $messege = "<html>
+     <body style='background-color: #eee; font-size: 16px;'>
+     <div style='max-width: 600px; min-width: 200px; background-color: #ffffff; padding: 20px; margin: auto;'>
+
+         <p style='text-align: center;color:#29a9e1;font-weight:bold'>Email verification code.</p>
+
+         <div style='color:black;text-align: left'>
+             <p>6 digit verification code : $code</p>
+         </div>
+     </div>
+
+     </body>
+     </html>";
+
+         $sender_name = "Zeroed";
+         $sender_email = "";
+         $username = "";
+         $password = "";
+
+         $mail = new PHPMailer(true);
+
+         try {
+             // Set mailer to use SMTP
+             $mail->isSMTP();
+             $mail->Host = "smtp.hostinger.com";  // SMTP server
+             $mail->SMTPAuth = true;
+             $mail->SMTPSecure = 'ssl';
+             $mail->Port = 465;
+
+             // Sender information
+             $mail->setFrom($sender_email, $sender_name);
+             $mail->Username = $username;
+             $mail->Password = $password;
+             $mail->CharSet = 'UTF-8';
+
+             // Set email subject and body
+             $mail->Subject = $subject;
+             $mail->msgHTML($messege);  // HTML formatted message
+
+             // Send to first email address
+             $mail->addAddress($receiver_email1);
+             if ($mail->send()) {
+                     echo "<script>
+                     document.cookie = 'alert = 3;';
+                     window.location.href='Seller-Guest-View';
+                     </script>";
+             }
+         } catch (Exception $e) {
+             echo "<script>
+            alert('Error sending email');
+             </script>";
+             exit;
+         }*/
+        echo "<script>
+         document.cookie = 'alert = 3;';
+         window.location.href='Seller-Guest-View';
+</script>";
+    }
+}

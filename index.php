@@ -1,3 +1,12 @@
+<?php
+echo "
+<script>
+window.location.href = 'Login';
+</script>
+";
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

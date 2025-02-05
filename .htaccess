@@ -7,6 +7,7 @@ ErrorDocument 404 /404.php
 # Redirect "Home" to "index.php"
 RewriteRule ^Home$ index.php [L]
 RewriteRule ^Login$ login.php [L]
+RewriteRule ^Forget-Password$ forget_password.php [L]
 RewriteRule ^Logout$ logout.php [L]
 RewriteRule ^Register$ register.php [L]
 RewriteRule ^Verify-Email$ email_verify.php [L]
@@ -14,6 +15,7 @@ RewriteRule ^Set-Profile$ set_profile.php [L]
 RewriteRule ^Seller-Profile$ candidate_profile.php [L]
 RewriteRule ^Message$ candidates_messages.php [L]
 RewriteRule ^Seller-Guest-View$ seller_guest_view.php [L]
+
 
 
 

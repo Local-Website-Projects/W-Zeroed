@@ -840,10 +840,11 @@
 
                 <?php
                 if(isset($_SESSION['seller_id'])){
+                    $fetch_profile_pic = $db_handle->runQuery("select profile_image from seller_personal_information where user_id = {$_SESSION['seller_id']}");
                     ?>
                     <div class="user_block relative max-sm:hidden">
                         <button class="user_infor flex items-center gap-2 text-white">
-                            <img src="assets/images/avatar/IMG-7.webp" alt="IMG-7" class="user_avatar flex-shrink-0 w-9 h-9 rounded-full">
+                            <img src="<?php echo $fetch_profile_pic[0]['profile_image'];?>" alt="IMG-7" class="user_avatar flex-shrink-0 w-9 h-9 rounded-full">
                             <strong class="user_name text-title">Employer</strong>
                             <span class="ph ph-caret-down"></span>
                         </button>
