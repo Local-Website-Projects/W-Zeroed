@@ -41,7 +41,7 @@ if(!isset($_SESSION['seller_id'])) {
                         <h4 class="heading4 max-lg:mt-3">Profile</h4>
                     </div>
                     <div class="profile_block overflow-hidden flex max-lg:flex-col-reverse gap-y-10 w-full mt-7.5">
-                        <div class="left lg:w-[70.5%]">
+                        <div class="left lg:w-[70.5%] h-[calc(100vh-100px)] overflow-y-auto pr-4">
                             <!--personal information-->
                             <div class="info_overview p-8 rounded-lg bg-white shadow-sm mt-7.5">
                                 <?php
@@ -154,11 +154,13 @@ if(!isset($_SESSION['seller_id'])) {
                                 </ul>
                             </div>
                         </div>
-                        <div class="right flex-shrink-0 lg:w-[29.5%] lg:pl-7.5">
-                            <div class="list_social mt-7.5 rounded-lg bg-white shadow-sm">
-                                <iframe src="assets/video/Snapinsta.mp4" style="height: 1200px; width: 100%"></iframe>
+                            <div class="right flex-shrink-0 lg:w-[29.5%] lg:pl-7.5">
+                                <div class="sticky top-5 w-full">
+                                    <div class="list_social mt-7.5 rounded-lg bg-white shadow-sm">
+                                        <iframe src="assets/video/Snapinsta.mp4" style="height: 800px; width: 100%"></iframe>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
                     </div>
                 </div>
                 <div class="lg:fixed bottom-0 left-0 z-[2] lg:pl-[280px] flex items-center justify-center w-full h-15 bg-white duration-300 shadow-md">

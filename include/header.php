@@ -849,13 +849,7 @@
                         </button>
                         <ul class="list_action_user absolute w-[240px] p-3 top-14 right-0 bg-white rounded-lg">
                             <li class="action_item">
-                                <a href="employers-dashboard.html" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
-                                    <span class="ph ph-squares-four text-2xl text-secondary"></span>
-                                    <strong class="text-title">Dashboard</strong>
-                                </a>
-                            </li>
-                            <li class="action_item">
-                                <a href="employers-profile.html" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                <a href="Seller-Profile" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
                                     <span class="ph ph-user-circle text-2xl text-secondary"></span>
                                     <strong class="text-title">My Profile</strong>
                                 </a>

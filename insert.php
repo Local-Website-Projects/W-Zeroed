@@ -18,10 +18,27 @@ if(isset($_POST['candidate_signup'])){
 
     $check_email = $db_handle->numRows("select * from sellers where email = '$email'");
 
+    function generateUniqueRandomString($length = 12) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomString = '';
+        $maxIndex = strlen($characters) - 1;
+
+        // Add a timestamp to ensure uniqueness
+        $timestamp = microtime(true);  // Get the current timestamp with microsecond precision
+
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $maxIndex)];
+        }
+
+        // Combine the timestamp with the random string for uniqueness
+        return substr(md5($randomString . $timestamp), 0, $length);  // Optional: Return only the first 12 chars
+    }
+
     if($check_email == 0){
+        $unique_id = generateUniqueRandomString();
         $randomNumber = random_int(100000, 999999);
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $insert = $db_handle->insertQuery("INSERT INTO `sellers`(`email`, `password`, `verification_code`, `inserted_at`) VALUES ('$email','$hashedPassword','$randomNumber','$inserted_at')");
+        $insert = $db_handle->insertQuery("INSERT INTO `sellers`(`email`, `password`, `verification_code`, `inserted_at`,`unique_id`) VALUES ('$email','$hashedPassword','$randomNumber','$inserted_at','$unique_id')");
         if($insert){
             echo "<script>
                 document.cookie = 'alert = 3;';
@@ -329,3 +346,9 @@ if(isset($_POST['set_profile'])){
     }
 }
 
+
+
+/*send email to the seller*/
+if(isset($_POST['send_seller_email'])){
+
+}
