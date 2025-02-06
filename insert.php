@@ -198,7 +198,7 @@ if(isset($_POST['set_profile'])){
         $till_date = $_POST['till_date'];
 
         /*video section*/
-        $video_src = $_POST['video_src'];
+        $video_src = $_POST['videoSrc'];
 
 
         /*career section*/
