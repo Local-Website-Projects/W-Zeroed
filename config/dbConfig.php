@@ -9,11 +9,11 @@ class DBController {
     private $conn;
 
     function __construct() {
-        if($_SERVER['SERVER_NAME']=="www.regtoiletconference.org"||$_SERVER['SERVER_NAME']=="regtoiletconference.org"){
+        if($_SERVER['SERVER_NAME']=="www.zeroed.one"||$_SERVER['SERVER_NAME']=="zeroed.one"){
             $this->host = "localhost";
-            $this->user = "u868827285_toilet_confere";
-            $this->password = "e>qA61M+";
-            $this->database = "u868827285_toilet_confere";
+            $this->user = "root";
+            $this->password = "@Bcd1234";
+            $this->database = "zeroed";
         }
 
         $this->conn = $this->connectDB();

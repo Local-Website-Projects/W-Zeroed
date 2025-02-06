@@ -46,13 +46,13 @@ $inserted_at = date("Y-m-d H:i:s");
     <div class="container flex items-center justify-center">
         <div class="content sm:w-[448px] w-full">
             <h3 class="heading3 text-center">Forget Password</h3>
-            <form class="form mt-6" method="post" action="#">
+            <form class="form mt-6" method="post" action="Insert">
                 <div class="form-group">
                     <label>Please Enter Your Registered Email *</label>
                     <input type="text" name="email" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="enter your email" autocomplete="off" required />
                 </div>
                 <div class="block-button mt-6">
-                    <button class="button-main bg-primary w-full text-center" name="verification" type="submit">Verify</button>
+                    <button class="button-main bg-primary w-full text-center" name="forget_pass" type="submit">Verify</button>
                 </div>
                 <div class="navigate flex items-center justify-center gap-2 mt-6">
                     <span class="text-surface1">Not registered yet?</span>

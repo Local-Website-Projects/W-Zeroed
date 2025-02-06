@@ -3,15 +3,18 @@ session_start();
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+
 require_once('config/dbConfig.php');
 $db_handle = new DBController();
 date_default_timezone_set("Asia/Dhaka");
 $inserted_at = date("Y-m-d H:i:s");
 
+
+
 if(isset($_POST['candidate_signup'])){
-    require 'PHPMailer/src/Exception.php';
-    require 'PHPMailer/src/PHPMailer.php';
-    require 'PHPMailer/src/SMTP.php';
 
     $email = $db_handle->checkValue($_POST['email']);
     $password = $db_handle->checkValue($_POST['password']);
@@ -36,7 +39,7 @@ if(isset($_POST['candidate_signup'])){
 
     if($check_email == 0){
         $unique_id = generateUniqueRandomString();
-        $randomNumber = random_int(100000, 999999);
+        $randomNumber = rand(100000, 999999);
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $insert = $db_handle->insertQuery("INSERT INTO `sellers`(`email`, `password`, `verification_code`, `inserted_at`,`unique_id`) VALUES ('$email','$hashedPassword','$randomNumber','$inserted_at','$unique_id')");
         if($insert){
@@ -51,8 +54,8 @@ if(isset($_POST['candidate_signup'])){
                 </script>";
         }
 
-        /* $subject = "Email Verification";
-         $messege = "<html>
+        $subject = "Email Verification";
+        $messege = "<html>
      <body style='background-color: #eee; font-size: 16px;'>
      <div style='max-width: 600px; min-width: 200px; background-color: #ffffff; padding: 20px; margin: auto;'>
 
@@ -68,10 +71,10 @@ if(isset($_POST['candidate_signup'])){
      </body>
      </html>";
 
-         $sender_name = "Zeroed";
-         $sender_email = "";
-         $username = "";
-         $password = "";
+        $sender_name   = 'Zeroed';
+        $sender_email  = 'zeroedinnovation@gmail.com';      // Sender's Gmail
+        $username      = 'zeroedinnovation@gmail.com';      // Same as sender_email
+        $password      = 'tlga ulhb btps jdxu';         // App Password from Google
 
          $receiver_email1 = $email;
 
@@ -80,7 +83,7 @@ if(isset($_POST['candidate_signup'])){
          try {
              // Set mailer to use SMTP
              $mail->isSMTP();
-             $mail->Host = "smtp.hostinger.com";  // SMTP server
+             $mail->Host = "smtp.gmail.com";  // SMTP server
              $mail->SMTPAuth = true;
              $mail->SMTPSecure = 'ssl';
              $mail->Port = 465;
@@ -117,7 +120,7 @@ if(isset($_POST['candidate_signup'])){
             alert('Error sending email');
              </script>";
              exit;
-         }*/
+         }
     } else {
         echo "<script>
     document.cookie = 'alert = 5;';
@@ -372,7 +375,7 @@ if(isset($_POST['send_seller_email'])){
           </script>";
     }
 
-    /*$subject = "New Query for Recruiter";
+    $subject = "New Query for Recruiter";
          $messege = "<html>
      <body style='background-color: #eee; font-size: 16px;'>
      <div style='max-width: 600px; min-width: 200px; background-color: #ffffff; padding: 20px; margin: auto;'>
@@ -389,17 +392,17 @@ if(isset($_POST['send_seller_email'])){
      </body>
      </html>";
 
-         $sender_name = "Zeroed";
-         $sender_email = "";
-         $username = "";
-         $password = "";
+    $sender_name   = 'Zeroed';
+    $sender_email  = 'zeroedinnovation@gmail.com';      // Sender's Gmail
+    $username      = 'zeroedinnovation@gmail.com';      // Same as sender_email
+    $password      = 'tlga ulhb btps jdxu';         // App Password from Google
 
          $mail = new PHPMailer(true);
 
          try {
              // Set mailer to use SMTP
              $mail->isSMTP();
-             $mail->Host = "smtp.hostinger.com";  // SMTP server
+             $mail->Host = "smtp.gmail.com";  // SMTP server
              $mail->SMTPAuth = true;
              $mail->SMTPSecure = 'ssl';
              $mail->Port = 465;
@@ -436,7 +439,7 @@ if(isset($_POST['send_seller_email'])){
             alert('Error sending email');
              </script>";
              exit;
-         }*/
+         }
 }
 
 
@@ -451,7 +454,10 @@ if(isset($_POST['forget_pass'])){
     $code = $check[0]['verification_code'];
 
     if($check_email == 1){
-       /* $subject = "Please verify your email address";
+
+
+
+       $subject = "Please verify your email address";
          $messege = "<html>
      <body style='background-color: #eee; font-size: 16px;'>
      <div style='max-width: 600px; min-width: 200px; background-color: #ffffff; padding: 20px; margin: auto;'>
@@ -466,17 +472,17 @@ if(isset($_POST['forget_pass'])){
      </body>
      </html>";
 
-         $sender_name = "Zeroed";
-         $sender_email = "";
-         $username = "";
-         $password = "";
+        $sender_name   = 'Zeroed';
+        $sender_email  = 'zeroedinnovation@gmail.com';      // Sender's Gmail
+        $username      = 'zeroedinnovation@gmail.com';      // Same as sender_email
+        $password      = 'tlga ulhb btps jdxu';         // App Password from Google
 
          $mail = new PHPMailer(true);
 
          try {
              // Set mailer to use SMTP
              $mail->isSMTP();
-             $mail->Host = "smtp.hostinger.com";  // SMTP server
+             $mail->Host = "smtp.gmail.com";  // SMTP server
              $mail->SMTPAuth = true;
              $mail->SMTPSecure = 'ssl';
              $mail->Port = 465;
@@ -504,7 +510,7 @@ if(isset($_POST['forget_pass'])){
             alert('Error sending email');
              </script>";
              exit;
-         }*/
+         }
         echo "<script>
          document.cookie = 'alert = 3;';
          window.location.href='Seller-Guest-View';
