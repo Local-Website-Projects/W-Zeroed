@@ -197,6 +197,9 @@ if(isset($_POST['set_profile'])){
         $email = $_POST['email'];
         $till_date = $_POST['till_date'];
 
+        /*video section*/
+        $video_src = $_POST['video_src'];
+
 
         /*career section*/
         $career_role = $db_handle->checkValue($_POST['career_role']);
@@ -229,6 +232,11 @@ if(isset($_POST['set_profile'])){
         $insert_personal_value = $db_handle->insertQuery("INSERT INTO `seller_personal_information`(`user_id`, `first_name`, `last_name`, `profile_image`, `gender`, `nationality`, `country`, `state`, `city`, `contact_no`, `country_code`, `contact_email`, `job_preferred_location`, `inserted_at`) VALUES ('$seller_id','$first_name','$last_name','$image','$gender','$nationality','$country','$state','$city','$contact_number','$country_code','$contact_email','$preferred_job_location','$inserted_at')");
         if (!$insert_personal_value) {
             throw new Exception("Error inserting dynamic field data.");
+        }
+
+        $insert_video_value = $db_handle->insertQuery("INSERT INTO `seller_video`(`user_id`, `video_src`, `inserted_at`) VALUES ('$seller_id','$video_src','$inserted_at')");
+        if (!$insert_video_value) {
+            throw new Exception("Error inserting video field data.");
         }
 
         $insert_global_education = $db_handle->insertQuery("INSERT INTO `seller_global_education`(`user_id`, `global_level_of_education`, `global_field_of_study`, `global_gpa`, `inserted_at`) VALUES ('$seller_id','$global_level_of_education','$global_field_of_study','$global_gpa','$inserted_at')");
