@@ -517,3 +517,23 @@ if(isset($_POST['forget_pass'])){
 </script>";
     }
 }
+
+/*forget password email send*/
+if(isset($_POST['verify'])){
+    $email = $db_handle->checkValue($_POST['email']);
+    $v_code = $db_handle->checkValue($_POST['v_code']);
+
+    $check= $db_handle->insertQuery("update sellers set status=1 where email = '$email' and verification_code='$v_code'");
+
+    if($check){
+        echo "<script>
+               alert('Verification Successful.');
+             document.cookie = 'alert = 3;';
+             window.location.href='Login';
+        </script>";
+    }else{
+        echo "<script>
+            alert('Otp not match. Try again');
+             </script>";
+    }
+}

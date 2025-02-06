@@ -75,12 +75,13 @@ if(isset($_POST['verification'])){
         <div class="content sm:w-[448px] w-full">
             <h3 class="heading3 text-center">Verify Email</h3>
             <form class="form mt-6" method="post" action="Insert">
+                <input type="hidden" name="email" value="<?php echo $_GET['email']; ?>" required/>
                 <div class="form-group">
                     <label>Please Enter 6 digit verification code *</label>
                     <input type="text" name="v_code" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="6 digit code" autocomplete="off" required />
                 </div>
                 <div class="block-button mt-6">
-                    <button class="button-main bg-primary w-full text-center" name="forget_pass" type="submit">Verify</button>
+                    <button class="button-main bg-primary w-full text-center" name="verify" type="submit">Verify</button>
                 </div>
                 <div class="navigate flex items-center justify-center gap-2 mt-6">
                     <span class="text-surface1">Not registered yet?</span>
