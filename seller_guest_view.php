@@ -62,23 +62,33 @@ if(isset($_GET['seller'])){
                     <!--personal information-->
                     <div class="info_overview p-8 rounded-lg bg-white shadow-sm mt-7.5">
                         <?php
-                        $fetch_profile = $db_handle->runQuery("select first_name, last_name, city, state, country, contact_email, contact_no from seller_personal_information where user_id = '$seller'");
+                        $fetch_profile = $db_handle->runQuery("select first_name, last_name, city, state, country, contact_email, contact_no,profile_image from seller_personal_information where user_id = '$seller'");
                         ?>
                         <h5 class="heading5"><?php echo $fetch_profile[0]['first_name'].' '.$fetch_profile[0]['last_name'];?></h5>
-                        <ul class="candidates_info pt-1">
-                            <li class="location flex flex-wrap items-center justify-between gap-1 w-full py-4 border-b border-line">
-                                <span class="text-secondary">Location:</span>
-                                <strong class="text-title"><?php echo $fetch_profile[0]['city'].' '.$fetch_profile[0]['state'].', '.$fetch_profile[0]['country'];?></strong>
-                            </li>
-                            <li class="phone flex flex-wrap items-center justify-between gap-1 w-full py-4 border-b border-line">
-                                <span class="text-secondary">Phone:</span>
-                                <strong class="text-title"><?php echo $fetch_profile[0]['contact_no'];?></strong>
-                            </li>
-                            <li class="email flex flex-wrap items-center justify-between gap-1 w-full py-4 border-b border-line">
-                                <span class="text-secondary">Email:</span>
-                                <strong class="text-title"><?php echo $fetch_profile[0]['contact_email'];?></strong>
-                            </li>
-                        </ul>
+
+                        <div class="overflow-hidden flex max-lg:flex-col-reverse gap-y-10 w-full mt-7.5">
+                            <div class="left lg:w-[70.5%] pr-4">
+                                <ul class="candidates_info pt-1">
+                                    <li class="location flex flex-wrap items-center justify-between gap-1 w-full py-4 border-b border-line">
+                                        <span class="text-secondary">Location:</span>
+                                        <strong class="text-title"><?php echo $fetch_profile[0]['city'].' '.$fetch_profile[0]['state'].', '.$fetch_profile[0]['country'];?></strong>
+                                    </li>
+                                    <li class="phone flex flex-wrap items-center justify-between gap-1 w-full py-4 border-b border-line">
+                                        <span class="text-secondary">Phone:</span>
+                                        <strong class="text-title"><?php echo $fetch_profile[0]['contact_no'];?></strong>
+                                    </li>
+                                    <li class="email flex flex-wrap items-center justify-between gap-1 w-full py-4 border-b border-line">
+                                        <span class="text-secondary">Email:</span>
+                                        <strong class="text-title"><?php echo $fetch_profile[0]['contact_email'];?></strong>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="right flex-shrink-0 lg:w-[29.5%] lg:pl-7.5">
+                                <div class="w-full flex align-middle justify-center">
+                                    <img src="<?php echo $fetch_profile[0]['profile_image'];?>" style="width: auto;height: auto"/>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!--skills information-->
@@ -112,40 +122,10 @@ if(isset($_GET['seller'])){
 
                     </div>
 
-                    <!--educational information-->
-                    <div class="education w-full overflow-hidden p-8 mt-7.5 rounded-lg bg-white shadow-sm">
-                        <h5 class="heading5">Education</h5>
-                        <ul class="list flex flex-col gap-7 mt-5 pl-7 border-l border-line">
-                            <?php
-                            $fetch_global_education = $db_handle->runQuery("SELECT global_level_of_education, global_gpa,field_study FROM `seller_global_education`,`field_of_study` WHERE global_field_of_study = field_study_id and user_id='$seller'");
-                            ?>
-                            <li>
-                                <div class="flex items-center gap-4 mb-1">
-                                    <strong class="edu_name text-button-sm"><?php echo $fetch_global_education[0]['global_level_of_education'];?></strong>
-                                    <span class="time caption2">GPA: <?php echo $fetch_global_education[0]['global_gpa'];?></span>
-                                </div>
-                                <strong class="position text-button"><?php echo $fetch_global_education[0]['field_study'];?></strong>
-                            </li>
-
-                            <?php
-                            $fetch_canadian_education = $db_handle->runQuery("SELECT can_level_of_education,university_name, city_name, field_study, can_gpa FROM `seller_canadian_education`,`universities`,`cities`,`field_of_study` WHERE seller_canadian_education.can_field_of_study = field_of_study.field_study_id AND seller_canadian_education.can_college = universities.university_id AND cities.city_id = seller_canadian_education.can_location AND seller_canadian_education.user_id = '$seller'");
-                            ?>
-                            <li>
-                                <div class="flex items-center gap-4 mb-1">
-                                    <strong class="edu_name text-button-sm"><?php echo $fetch_canadian_education[0]['can_level_of_education'];?></strong>
-                                    <span class="time caption2">GPA: <?php echo $fetch_canadian_education[0]['can_gpa'];?></span>
-                                </div>
-                                <strong class="position text-button"><?php echo $fetch_canadian_education[0]['field_study'];?></strong>
-                                <p class="desc text-secondary mt-1">University/College: <?php echo $fetch_canadian_education[0]['university_name'];?></p>
-                                <p class="desc text-secondary mt-1">City: <?php echo $fetch_canadian_education[0]['city_name'];?></p>
-                            </li>
-                        </ul>
-                    </div>
-
                     <!--experience section-->
                     <div class="experience w-full overflow-hidden p-8 mt-7.5 rounded-lg bg-white shadow-sm">
                         <h5 class="heading5">Experience</h5>
-                        <ul class="list flex flex-col gap-7 mt-5 pl-7 border-l border-line">
+                        <ul class="list flex flex-col gap-7 mt-5">
                             <?php
                             $fetch_exp = $db_handle->runQuery("SELECT * FROM `seller_experience_data` where user_id = '$seller'");
                             $fetch_exp_no = $db_handle->numRows("SELECT * FROM `seller_experience_data` where user_id = '$seller'");
@@ -153,7 +133,7 @@ if(isset($_GET['seller'])){
                                 ?>
                                 <li>
                                     <div class="flex items-center gap-4 mb-1">
-                                        <strong class="company_name text-button-sm"><?php echo $fetch_exp[$i]['company_name'];?></strong>
+                                        <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5"><?php echo $fetch_exp[$i]['job_designation'];?></h2>
                                         <span class="time text-xs font-semibold uppercase"><?php
                                             $date = new DateTime($fetch_exp[$i]['start_date']);
                                             echo $date->format('M, Y');
@@ -162,14 +142,67 @@ if(isset($_GET['seller'])){
                                             echo $date->format('M, Y');
                                             ?></span>
                                     </div>
-                                    <strong class="position text-button"><?php echo $fetch_exp[$i]['job_designation'];?></strong>
-                                    <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['accomplishment'];?></p>
+                                    <strong class="position text-button"><?php echo $fetch_exp[$i]['company_name'];?></strong>
+                                    <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['company_website'];?></p>
+                                    <ul class="list flex flex-col gap-7 mt-5 pl-7">
+                                        <?php
+                                        if($fetch_exp[$i]['accomplishment'] != null){
+                                            ?>
+                                            <li><?php echo $fetch_exp[$i]['accomplishment'];?></li>
+                                            <?php
+                                        }
+                                        if($fetch_exp[$i]['accomplishment_two'] != null){
+                                            ?>
+                                            <li><?php echo $fetch_exp[$i]['accomplishment_two'];?></li>
+                                            <?php
+                                        }
+                                        if($fetch_exp[$i]['accomplishment_three'] != null){
+                                            ?>
+                                            <li><?php echo $fetch_exp[$i]['accomplishment_three'];?></li>
+                                            <?php
+                                        }
+                                        ?>
+                                    </ul>
                                 </li>
+                                <hr>
                                 <?php
                             }
                             ?>
                         </ul>
                     </div>
+
+                    <!--educational information-->
+                    <div class="education w-full overflow-hidden p-8 mt-7.5 rounded-lg bg-white shadow-sm">
+                        <h5 class="heading5">Education</h5>
+                        <ul class="list flex flex-col gap-7 mt-5">
+                            <?php
+                            $fetch_global_education = $db_handle->runQuery("SELECT global_level_of_education, global_gpa,field_study FROM `seller_global_education`,`field_of_study` WHERE global_field_of_study = field_study_id and user_id='$seller'");
+                            ?>
+                            <li>
+                                <div class="flex items-center gap-4 mb-1">
+                                    <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5"><?php echo $fetch_global_education[0]['global_level_of_education'];?></h2>
+                                    <span class="time caption2">GPA: <?php echo $fetch_global_education[0]['global_gpa'];?></span>
+                                </div>
+                                <strong class="position text-button"><?php echo $fetch_global_education[0]['field_study'];?></strong>
+                            </li>
+                            <hr class="mt-5 mb-5"/>
+
+                            <?php
+                            $fetch_canadian_education = $db_handle->runQuery("SELECT can_level_of_education,university_name, city_name, field_study, can_gpa FROM `seller_canadian_education`,`universities`,`cities`,`field_of_study` WHERE seller_canadian_education.can_field_of_study = field_of_study.field_study_id AND seller_canadian_education.can_college = universities.university_id AND cities.city_id = seller_canadian_education.can_location AND seller_canadian_education.user_id = '$seller'");
+                            ?>
+                            <li>
+                                <div class="flex items-center gap-4 mb-1">
+                                    <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5"><?php echo $fetch_canadian_education[0]['can_level_of_education'];?></h2>
+                                    <span class="time caption2">GPA: <?php echo $fetch_canadian_education[0]['can_gpa'];?></span>
+                                </div>
+                                <strong class="position text-button"><?php echo $fetch_canadian_education[0]['field_study'];?></strong>
+                                <p class="desc text-secondary mt-1">University/College: <?php echo $fetch_canadian_education[0]['university_name'];?></p>
+                                <p class="desc text-secondary mt-1">City: <?php echo $fetch_canadian_education[0]['city_name'];?></p>
+                            </li>
+                        </ul>
+                        <button type="button" class="w-full h-12 px-4 mt-2 button-main -border mt-5" onclick="copyURL()">Copy URL</button>
+                    </div>
+
                 </div>
                 <div class="right flex-shrink-0 lg:w-[29.5%] lg:pl-7.5">
                         <div class="sticky top-5 w-full">
@@ -178,21 +211,31 @@ if(isset($_GET['seller'])){
                             </div>
                             <form class="form_change grid grid-cols-2 gap-5 w-full p-10 mt-7.5 rounded-lg bg-white shadow-sm" action="Insert" method="POST">
                                 <div class="email col-span-full flex flex-col">
-                                    <label for="email" class="w-fit">Your Name: <span class="text-red">*</span></label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="email" name="full_name" type="text" placeholder="Your Name..." required="">
+                                    <label for="full_name" class="w-fit">Your Name: <span class="text-red">*</span></label>
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="full_name" name="full_name" type="text" placeholder="Your Name..." required>
                                 </div>
+
                                 <div class="email col-span-full flex flex-col">
-                                    <label for="email" class="w-fit">Your Email: <span class="text-red">*</span></label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="email" type="email" name="email" placeholder="Your Email..." required="">
+                                    <label for="email" class="w-fit">Your Company Email: <span class="text-red">*</span></label>
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg company-email" id="email" type="email" name="email" placeholder="Your Company Email..." required>
+                                    <small class="error-message text-red-500 hidden">Please enter a valid company email.</small>
                                 </div>
+
                                 <div class="email col-span-full flex flex-col">
-                                    <label for="email" class="w-fit">Your Message: <span class="text-red">*</span></label>
-                                    <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="email" name="message" type="text"required=""></textarea>
+                                    <label for="message" class="w-fit">Your Message: <span class="text-red">*</span></label>
+                                    <div class="quick-messages mt-2 space-x-2">
+                                        <button type="button" class="quick-msg bg-gray-200 px-3 py-1 rounded-lg mt-3">I am interested in your services.</button>
+                                        <button type="button" class="quick-msg bg-gray-200 px-3 py-1 rounded-lg mt-3">Can we schedule a meeting?</button>
+                                        <button type="button" class="quick-msg bg-gray-200 px-3 py-1 rounded-lg mt-3">Please provide more details.</button>
+                                    </div>
+                                    <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="message" name="message" required></textarea>
                                 </div>
-                                <input type="hidden" value="<?php echo $seller;?>" name="seller_id">
-                                <input type="hidden" value="<?php echo $_GET['seller'];?>" name="seller_unique">
+
+                                <input type="hidden" value="<?php echo $seller; ?>" name="seller_id">
+                                <input type="hidden" value="<?php echo $_GET['seller']; ?>" name="seller_unique">
+
                                 <div class="block_btn col-span-full flex flex-col">
-                                    <button class="w-full button-main btn_change_password" type="submit" name="send_seller_email">Send Email</button>
+                                    <button class="w-full button-main btn_change_password" type="submit" name="send_seller_email" id="submitBtn">Send Email</button>
                                 </div>
                             </form>
                         </div>
@@ -214,5 +257,34 @@ if(isset($_GET['seller'])){
 
 
 <?php include ('include/script.php');?>
+
+<script>
+    // Predefined message filling
+    document.querySelectorAll('.quick-msg').forEach(button => {
+        button.addEventListener('click', () => {
+            document.getElementById('message').value = button.textContent;
+        });
+    });
+
+    // Email validation for company domain
+    const emailInput = document.querySelector('.company-email');
+    const submitBtn = document.getElementById('submitBtn');
+    const errorMessage = document.querySelector('.error-message');
+
+    emailInput.addEventListener('input', function() {
+        const email = this.value.trim();  // Trim any extra spaces
+        const domain = email.split('@')[1]?.toLowerCase();  // Convert the domain to lowercase
+        const blockedDomains = ['gmail.com', 'yahoo.com','hotmail.com','yandex.com']; // List of domains that are NOT allowed
+
+        if (domain && !blockedDomains.includes(domain)) {
+            errorMessage.classList.add('hidden');
+            submitBtn.disabled = false;
+        } else {
+            errorMessage.classList.remove('hidden');
+            submitBtn.disabled = true;
+        }
+    });
+</script>
+
 </body>
 </html>

@@ -697,7 +697,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </div>
                                 <div class="jobLocation">
                                     <label>Company Website Link</label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="www.abc.com or https://abc.com" name="company_website[]" required />
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg company-website" type="text" placeholder="www.abc.com or https://abc.com" name="company_website[]" required />
                                 </div>
                                 <div class="jobLocation">
                                     <label>Start Date</label>
@@ -715,29 +715,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <label>Accomplishments</label>
                                     <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment[]"></textarea>
                                 </div>
+                                <div class="jobLocation">
+                                    <label>Accomplishments</label>
+                                    <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment2[]"></textarea>
+                                </div>
+                                <div class="jobLocation">
+                                    <label>Accomplishments</label>
+                                    <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment3[]"></textarea>
+                                </div>
                             </div>
 
-                            <h5 class="heading5 mt-5">Reference Check</h5>
+                            <hr class="mt-5 mb-5">
+                            <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5">Reference:</h2>
                             <div class="grid sm:grid-cols-3 gap-3">
                                 <div class="jobLocation">
                                     <label>Reference Type</label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="HR Reporting Manager" name="reporting_manager[]" required />
+                                    <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="reporting_manager[]">
+                                        <option>Please Select Reference Type</option>
+                                        <option value="HR">HR</option>
+                                        <option value="Reporting Manager">Reporting Manager</option>
+                                    </select>
                                 </div>
                                 <div class="jobLocation">
                                     <label>Designation</label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Enter Designation" name="designation[]" required />
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Enter Designation" name="designation[]" />
                                 </div>
                                 <div class="jobLocation">
                                     <label>Name</label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Enter Name" name="name[]" required />
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Enter Name" name="name[]" />
                                 </div>
                                 <div class="jobLocation">
                                     <label>Email</label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="email" placeholder="Enter Email" name="email[]" required />
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg company-email" type="email" placeholder="Enter Email" name="email[]" />
+                                    <small class="error-message text-red-500 hidden">Email domain must match the company website.</small>
                                 </div>
+                                <button class="remove-experience hidden w-full h-10 mt-4 bg-red-500 text-white rounded-lg">Remove</button>
                             </div>
                         </div>
                     </div>
+
                     <div class="grid sm:grid-cols-3 gap-3">
                         <button id="addExperience" class="w-full h-12 px-4 mt-2 button-main -border mt-5">Add Another Experience</button>
                     </div>
@@ -1078,7 +1094,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <!--reset and submit section starts here-->
                     <div class="flex items-center col-span-full gap-5 mt-5">
                         <button class="button-main -border">Reset</button>
-                        <button class="button-main" type="submit" name="set_profile">Publish</button>
+                        <button class="button-main" type="submit" name="set_profile" id="publishButton">Publish</button>
                     </div>
                 </form>
             </div>
@@ -1272,13 +1288,56 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     });
 </script>
 <script>
-        $(document).ready(function () {
+    function extractDomain(website) {
+        website = website.replace(/^https?:\/\//, '').replace(/^www\./, '');
+        return website.split('/')[0];
+    }
+
+    function validateAllEmails() {
+        let allValid = true;
+        $('.experience-section').each(function () {
+            const website = $(this).find('.company-website').val().trim();
+            const email = $(this).find('.company-email').val().trim();
+            const errorMessage = $(this).find('.error-message');
+            const emailDomain = email.split('@')[1];
+            const domain = extractDomain(website);
+
+            if (website && email && emailDomain !== domain) {
+                errorMessage.removeClass('hidden');
+                allValid = false;
+            } else {
+                errorMessage.addClass('hidden');
+            }
+        });
+
+        $('#publishButton').prop('disabled', !allValid);
+    }
+
+    $(document).ready(function () {
+        function applyValidation(section) {
+            section.find('.company-website, .company-email').on('input', function () {
+                validateAllEmails();
+            });
+        }
+
+        applyValidation($('.experience-section').first());
+
         $("#addExperience").click(function (e) {
             e.preventDefault();
-            let newExperience = $(".experience-section").first().clone(); // Clone the first experience section
-            newExperience.find("input, textarea, select").val(""); // Clear input values
-            $("#experience-container").append(newExperience); // Append to the container
+            let newExperience = $(".experience-section").first().clone();
+            newExperience.find("input, textarea, select").val("");
+            newExperience.find('.error-message').addClass('hidden');
+            newExperience.find('.remove-experience').removeClass('hidden');
+            $("#experience-container").append(newExperience);
+            applyValidation(newExperience);
         });
+
+        $(document).on('click', '.remove-experience', function () {
+            $(this).closest('.experience-section').remove();
+            validateAllEmails();
+        });
+
+        validateAllEmails();
     });
 </script>
 

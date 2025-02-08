@@ -181,6 +181,8 @@ if(isset($_POST['set_profile'])){
         $start_date = $_POST['start_date'];
         $end_date = $_POST['end_date'];
         $accomplishment = $_POST['accomplishment'];
+        $accomplishment2 = $_POST['accomplishment2'];
+        $accomplishment3 = $_POST['accomplishment3'];
         $reporting_manager = $_POST['reporting_manager'];
         $designation = $_POST['designation'];
         $name = $_POST['name'];
@@ -322,7 +324,7 @@ if(isset($_POST['set_profile'])){
             if($till_date == 1){
                 $end_date = '';
             }
-            $insert_experience = $db_handle->insertQuery("INSERT INTO `seller_experience_data`(`user_id`, `industry`, `sub_industry`, `countries`, `job_designation`, `company_name`, `company_website`, `start_date`,`end_date`, `accomplishment`, `reporting_manager`, `designation`, `name`, `email`, `inserted_at`) VALUES ('$seller_id','$industry[$i]','$sub_industry[$i]','$countries[$i]','$job_location[$i]','$company_name[$i]','$company_website[$i]','$start_date[$i]','$end_date[$i]','$accomplishment[$i]','$reporting_manager[$i]','$designation[$i]','$name[$i]','$email[$i]','$inserted_at[$i]')");
+            $insert_experience = $db_handle->insertQuery("INSERT INTO `seller_experience_data`(`user_id`, `industry`, `sub_industry`, `countries`, `job_designation`, `company_name`, `company_website`, `start_date`,`end_date`, `accomplishment`, `reporting_manager`, `designation`, `name`, `email`, `inserted_at`,`accomplishment_two`,`accomplishment_three`) VALUES ('$seller_id','$industry[$i]','$sub_industry[$i]','$countries[$i]','$job_location[$i]','$company_name[$i]','$company_website[$i]','$start_date[$i]','$end_date[$i]','$accomplishment[$i]','$reporting_manager[$i]','$designation[$i]','$name[$i]','$email[$i]','$inserted_at[$i]','$accomplishment2[$i]','$accomplishment3[$i]')");
             if (!$insert_experience) {
                 throw new Exception("Error inserting dynamic field data.");
             }
