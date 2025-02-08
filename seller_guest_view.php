@@ -4,9 +4,26 @@ $db_handle = new DBController();
 date_default_timezone_set("Asia/Dhaka");
 $inserted_at = date("Y-m-d H:i:s");
 
+function getUserIP() {
+    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+        // IP from shared internet
+        return $_SERVER['HTTP_CLIENT_IP'];
+    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        // IP passed from proxy or load balancer
+        $ipList = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+        return trim($ipList[0]); // Return the first IP in the list
+    } else {
+        // Direct connection IP
+        return $_SERVER['REMOTE_ADDR'];
+    }
+}
+
 if(isset($_GET['seller'])){
     $get_seller_id = $db_handle->runQuery("select seller_id from sellers where unique_id='".$_GET['seller']."'");
     $seller = $get_seller_id[0]['seller_id'];
+
+    $user_ip = getUserIP();
+    $insertView = $db_handle->insertQuery("INSERT INTO `seller_notification`(`seller_id`, `view_ip`, `status`, `viewed_time`) VALUES ('$seller','$user_ip','0', '$inserted_at')");
 } else {
     echo "
     <script>

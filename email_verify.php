@@ -51,31 +51,56 @@ if(isset($_POST['verification'])){
 <?php include ('include/header.php');?>
 
 <!-- Breadcrumb -->
-<section class="breadcrumb">
-    <div class="breadcrumb_inner relative sm:mt-20 mt-16 lg:py-20 py-14">
-        <div class="breadcrumb_bg absolute top-0 left-0 w-full h-full">
-            <img src="assets/images/components/breadcrumb_candidate.webp" alt="breadcrumb_candidate" class="w-full h-full object-cover" />
-        </div>
-        <div class="container relative h-full">
-            <div class="breadcrumb_content flex flex-col items-start justify-center xl:w-[1000px] lg:w-[848px] md:w-5/6 w-full h-full">
-                <div class="list_breadcrumb flex items-center gap-2 animate animate_top" style="--i: 1">
-                    <a href="Home" class="caption1 text-white">Home</a>
-                    <span class="caption1 text-white opacity-40">/</span>
-                    <span class="caption1 text-white opacity-60">Email Verification</span>
-                </div>
-                <h3 class="heading3 text-white mt-2 animate animate_top" style="--i: 2">Email Verification</h3>
+<div class="container flex items-center justify-center min-h-screen mt-5" style="height: 100vh;">
+    <div class="grid sm:grid-cols-2 mt-5">
+        <div class="container flex items-center justify-center mt-5">
+            <div class="content sm:w-[448px] w-full align-middle">
+                <h3 class="heading3">Welcome to Zeroed!</h3>
+                <h4 class="heading4">Get Hiring Ready</h4>
+                <!-- <h4 class="lg:mt-20 heading4"> <span style="font-size: 18px; font-weight: bold">
+                     Grab attention on hiring managers with your verified skills,
+                         work experience and video intro.
+                 </span></h4>-->
+                <h3 class="mt-5 heading4"> <span style="font-size: 18px; font-weight: bold">
+                        Sign up today to claim the launch offer!
+                    </span></h3>
+                <h3 class="mt-5 heading4"> <span style="font-size: 18px; font-weight: bold">
+                        1 month free trial
+                    </span></h3>
             </div>
         </div>
+        <section class="form_register lg:py-20 sm:py-14 py-10">
+            <div class="container flex items-center justify-center">
+                <div class="content sm:w-[448px] w-full">
+                    <div id="candidate" class="tab_list active" role="tabpanel" aria-labelledby="tab_candidate" aria-hidden="false">
+                        <form class="form mt-6" method="post" action="Insert">
+                            <input type="hidden" name="email" value="<?php echo $_GET['email']; ?>" required/>
+                            <div class="form-group">
+                                <label>Please Enter 6 digit verification code *</label>
+                                <input type="text" name="v_code" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="6 digit code" autocomplete="off" required />
+                            </div>
+                            <div class="block-button mt-6">
+                                <button class="button-main bg-primary w-full text-center" name="verify" type="submit">Verify</button>
+                            </div>
+                            <div class="navigate flex items-center justify-center gap-2 mt-6">
+                                <span class="text-surface1">Not registered yet?</span>
+                                <a class="text-button hover:underline" href="Register">Sign Up</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
-</section>
+</div>
 
 <!-- Form Login -->
-<section class="form_login lg:py-20 sm:py-14 py-10">
+<!--<section class="form_login lg:py-20 sm:py-14 py-10">
     <div class="container flex items-center justify-center">
         <div class="content sm:w-[448px] w-full">
             <h3 class="heading3 text-center">Verify Email</h3>
             <form class="form mt-6" method="post" action="Insert">
-                <input type="hidden" name="email" value="<?php echo $_GET['email']; ?>" required/>
+                <input type="hidden" name="email" value="<?php /*echo $_GET['email']; */?>" required/>
                 <div class="form-group">
                     <label>Please Enter 6 digit verification code *</label>
                     <input type="text" name="v_code" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="6 digit code" autocomplete="off" required />
@@ -90,7 +115,7 @@ if(isset($_POST['verification'])){
             </form>
         </div>
     </div>
-</section>
+</section>-->
 
 <?php include ('include/footer.php');?>
 

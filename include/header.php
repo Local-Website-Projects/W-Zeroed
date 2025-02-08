@@ -844,15 +844,15 @@
                     ?>
                     <div class="user_block relative max-sm:hidden">
                         <button class="user_infor flex items-center gap-2 text-white">
-                            <img src="<?php echo $fetch_profile_pic[0]['profile_image'];?>" alt="IMG-7" class="user_avatar flex-shrink-0 w-9 h-9 rounded-full">
-                            <strong class="user_name text-title">Employer</strong>
+                            <img src="assets/images/avatar/123.png" alt="IMG-7" class="user_avatar flex-shrink-0 w-9 h-9 rounded-full">
+                            <strong class="user_name text-title"></strong>
                             <span class="ph ph-caret-down"></span>
                         </button>
                         <ul class="list_action_user absolute w-[240px] p-3 top-14 right-0 bg-white rounded-lg">
                             <li class="action_item">
-                                <a href="Seller-Profile" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                <a href="Update-Password" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
                                     <span class="ph ph-user-circle text-2xl text-secondary"></span>
-                                    <strong class="text-title">My Profile</strong>
+                                    <strong class="text-title">Reset Password</strong>
                                 </a>
                             </li>
                             <li class="action_item">
@@ -866,7 +866,7 @@
                     <?php
                 } else {
                     ?>
-                    <div class="list_icon flex items-center gap-3">
+                    <!--<div class="list_icon flex items-center gap-3">
                         <a href="Login" class="flex items-center gap-1 text-title text-white duration-300 hover:text-primary">
                             <span class="ph-bold ph-user"></span>
                             <span>Login</span>
@@ -875,7 +875,7 @@
                             <span class="ph-bold ph-plus-circle"></span>
                             <span>Register</span>
                         </a>
-                    </div>
+                    </div>-->
                     <?php
                 }
                 ?>

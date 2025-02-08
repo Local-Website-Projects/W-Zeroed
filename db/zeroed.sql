@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 05, 2025 at 12:40 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.0.28
+-- Generation Time: Feb 08, 2025 at 07:01 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -1720,7 +1720,9 @@ CREATE TABLE `sellers` (
 INSERT INTO `sellers` (`seller_id`, `email`, `password`, `verification_code`, `status`, `unique_id`, `inserted_at`, `updated_at`) VALUES
 (1, 'test@test.com', '$2y$10$f/U9XWm0nFtS1q/WJWr.VuwcrsfuN1VkRkw63Q3lA7R0tzzZg4VZC', '253668', 1, '9b4d1a3c9a5f', '2025-01-27 14:48:16', '0000-00-00 00:00:00'),
 (3, 'test2@test.com', '$2y$10$e/curNjz9B5KxlU/NEZPKOyyP1UUkBl3jwLmS8fv0Zyl6h.l4Z2.i', '270783', 1, 'e0bde28aef91', '2025-01-29 13:14:49', '0000-00-00 00:00:00'),
-(4, 'sahamugdho@gmail.com', '$2y$10$IiaJfyWtbNKJoZrt3r1jS.GAxZFaVSn24GrCs54D47qjeHl4bB.oK', '855960', 1, 'aa921606c137', '2025-02-05 17:16:13', '0000-00-00 00:00:00');
+(4, 'sahamugdho@gmail.com', '$2y$10$IiaJfyWtbNKJoZrt3r1jS.GAxZFaVSn24GrCs54D47qjeHl4bB.oK', '855960', 1, 'aa921606c137', '2025-02-05 17:16:13', '0000-00-00 00:00:00'),
+(5, 'frogbidofficial@gmail.com', '$2y$10$gU8TCOcVdUgXsaxIFuYiPe37fPfwbHC60bFbLMS6Vf4zZi7pnVj9.', '622174', 1, 'ef3d40ec2730', '2025-02-06 16:57:05', '0000-00-00 00:00:00'),
+(6, 'frogbidofficial@gmail.com', '$2y$10$OggPki6FR1qVnnoqe48tC.LWBJqHFW.I4iB8d3kcNy.xD..CQnfje', '622174', 1, '', '2025-02-06 16:57:05', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -1945,6 +1947,20 @@ INSERT INTO `seller_sub_skills` (`seller_s_skill_id`, `user_id`, `core_skill_id`
 (8, 1, 30, 'Canva', '', '2025-02-05 16:38:02', '0000-00-00 00:00:00'),
 (9, 1, 30, 'visual storytelling', '', '2025-02-05 16:38:02', '0000-00-00 00:00:00'),
 (10, 1, 117, 'Import/export regulations', '', '2025-02-05 16:38:02', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `seller_video`
+--
+
+CREATE TABLE `seller_video` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `video_src` varchar(200) NOT NULL,
+  `inserted_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -2945,6 +2961,12 @@ ALTER TABLE `seller_sub_skills`
   ADD PRIMARY KEY (`seller_s_skill_id`);
 
 --
+-- Indexes for table `seller_video`
+--
+ALTER TABLE `seller_video`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `skills`
 --
 ALTER TABLE `skills`
@@ -2994,7 +3016,7 @@ ALTER TABLE `noc`
 -- AUTO_INCREMENT for table `sellers`
 --
 ALTER TABLE `sellers`
-  MODIFY `seller_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `seller_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `seller_canadian_education`
@@ -3043,6 +3065,12 @@ ALTER TABLE `seller_personal_information`
 --
 ALTER TABLE `seller_sub_skills`
   MODIFY `seller_s_skill_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `seller_video`
+--
+ALTER TABLE `seller_video`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `skills`

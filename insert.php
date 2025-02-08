@@ -13,7 +13,7 @@ date_default_timezone_set("Asia/Dhaka");
 $inserted_at = date("Y-m-d H:i:s");
 
 
-
+/*signup for sellers*/
 if(isset($_POST['candidate_signup'])){
 
     $email = $db_handle->checkValue($_POST['email']);
@@ -41,18 +41,6 @@ if(isset($_POST['candidate_signup'])){
         $unique_id = generateUniqueRandomString();
         $randomNumber = rand(100000, 999999);
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $insert = $db_handle->insertQuery("INSERT INTO `sellers`(`email`, `password`, `verification_code`, `inserted_at`,`unique_id`) VALUES ('$email','$hashedPassword','$randomNumber','$inserted_at','$unique_id')");
-        if($insert){
-            echo "<script>
-                document.cookie = 'alert = 3;';
-                window.location.href='Verify-Email?email=$email';
-                </script>";
-        } else {
-            echo "<script>
-                document.cookie = 'alert = 5;';
-                window.location.href='Login';
-                </script>";
-        }
 
         $subject = "Email Verification";
         $messege = "<html>
@@ -62,7 +50,6 @@ if(isset($_POST['candidate_signup'])){
          <p style='text-align: center;color:#29a9e1;font-weight:bold'>Email verification code.</p>
 
          <div style='color:black;text-align: left'>
-             <p>Dear,</p>
              <p>Thank you for successfully registering to the Zeroed.</p>
              <p>Your 6 digit code for email verification is: $randomNumber</p>
          </div>
@@ -102,7 +89,7 @@ if(isset($_POST['candidate_signup'])){
              $mail->addAddress($receiver_email1);
              if ($mail->send()) {
                  $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                 $insert = $db_handle->insertQuery("INSERT INTO `sellers`(`email`, `password`, `verification_code`, `inserted_at`) VALUES ('$email','$hashedPassword','$randomNumber','$inserted_at')");
+                 $insert = $db_handle->insertQuery("INSERT INTO `sellers`(`email`, `password`, `verification_code`, `inserted_at`,`unique_id`) VALUES ('$email','$hashedPassword','$randomNumber','$inserted_at','$unique_id')");
                  if($insert){
                      echo "<script>
                      document.cookie = 'alert = 3;';
@@ -130,8 +117,6 @@ if(isset($_POST['candidate_signup'])){
 }
 
 
-
-
 /*insert the set_profile data*/
 if(isset($_POST['set_profile'])){
     // Start transaction
@@ -156,6 +141,9 @@ if(isset($_POST['set_profile'])){
         $global_level_of_education = $db_handle->checkValue($_POST['global_level_of_education']);
         $global_field_of_study = $db_handle->checkValue($_POST['global_field_of_study']);
         $global_gpa = $db_handle->checkValue($_POST['global_gpa']);
+        $global_university = $db_handle->checkValue($_POST['global_university']);
+        $accreditation = $db_handle->checkValue($_POST['accreditation']);
+        $certificate_number = $db_handle->checkValue($_POST['certificate_number']);
 
         /*canadian education section*/
         $canadian_level_of_education = $db_handle->checkValue($_POST['canadian_level_of_education']);
@@ -163,6 +151,8 @@ if(isset($_POST['set_profile'])){
         $canadian_college = $db_handle->checkValue($_POST['college']);
         $canadian_study_location = $db_handle->checkValue($_POST['canadian_study_location']);
         $canadian_gpa = $db_handle->checkValue($_POST['canadian_gpa']);
+        $canadian_accreditation = $db_handle->checkValue($_POST['canadian_accreditation']);
+        $canadian_certificate_number = $db_handle->checkValue($_POST['canadian_certificate_number']);
 
         /*Skills section*/
         $core_skill_one = $db_handle->checkValue($_POST['core_skill_one']);
@@ -239,12 +229,12 @@ if(isset($_POST['set_profile'])){
             throw new Exception("Error inserting video field data.");
         }
 
-        $insert_global_education = $db_handle->insertQuery("INSERT INTO `seller_global_education`(`user_id`, `global_level_of_education`, `global_field_of_study`, `global_gpa`, `inserted_at`) VALUES ('$seller_id','$global_level_of_education','$global_field_of_study','$global_gpa','$inserted_at')");
+        $insert_global_education = $db_handle->insertQuery("INSERT INTO `seller_global_education`(`user_id`, `global_level_of_education`, `global_field_of_study`, `global_gpa`,`global_university`, `inserted_at`,`global_accreditation`,`global_certificate_no`) VALUES ('$seller_id','$global_level_of_education','$global_field_of_study','$global_gpa','$global_university','$inserted_at','$accreditation','$certificate_number')");
         if (!$insert_global_education) {
             throw new Exception("Error inserting dynamic field data.");
         }
 
-        $insert_canadian_education = $db_handle->insertQuery("INSERT INTO `seller_canadian_education`(`user_id`, `can_level_of_education`, `can_field_of_study`, `can_college`, `can_location`, `can_gpa`, `inserted_at`) VALUES ('$seller_id','$canadian_level_of_education','$canadian_field_of_study','$canadian_college','$canadian_study_location','$canadian_gpa','$inserted_at')");
+        $insert_canadian_education = $db_handle->insertQuery("INSERT INTO `seller_canadian_education`(`user_id`, `can_level_of_education`, `can_field_of_study`, `can_college`, `can_location`, `can_gpa`, `inserted_at`,`canadian_accreditation`,`canadian_certificate_number`) VALUES ('$seller_id','$canadian_level_of_education','$canadian_field_of_study','$canadian_college','$canadian_study_location','$canadian_gpa','$inserted_at','$canadian_accreditation','$canadian_certificate_number')");
         if (!$insert_canadian_education) {
             throw new Exception("Error inserting dynamic field data.");
         }
@@ -451,8 +441,6 @@ if(isset($_POST['send_seller_email'])){
 }
 
 
-
-
 /*forget password email send*/
 if(isset($_POST['forget_pass'])){
     $email = $db_handle->checkValue($_POST['email']);
@@ -525,6 +513,7 @@ if(isset($_POST['forget_pass'])){
 </script>";
     }
 }
+
 
 /*forget password email send*/
 if(isset($_POST['verify'])){

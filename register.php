@@ -32,10 +32,10 @@ if(isset($_SESSION['seller_id'])){
                 <div class="content sm:w-[448px] w-full align-middle">
                     <h3 class="heading3">Welcome to Zeroed!</h3>
                     <h4 class="heading4">Get Hiring Ready</h4>
-                    <h4 class="lg:mt-20 heading4"> <span style="font-size: 18px; font-weight: bold">
+                   <!-- <h4 class="lg:mt-20 heading4"> <span style="font-size: 18px; font-weight: bold">
                         Grab attention on hiring managers with your verified skills,
                             work experience and video intro.
-                    </span></h4>
+                    </span></h4>-->
                     <h3 class="mt-5 heading4"> <span style="font-size: 18px; font-weight: bold">
                         Sign up today to claim the launch offer!
                     </span></h3>
@@ -50,7 +50,7 @@ if(isset($_SESSION['seller_id'])){
                     <div id="candidate" class="tab_list active" role="tabpanel" aria-labelledby="tab_candidate" aria-hidden="false">
                         <form action="Insert" method="post" class="form mt-6">
                             <div class="form-group">
-                                <label for="username">Candidate email address*</label>
+                                <label for="username">Email address*</label>
                                 <input id="username" type="email" name="email" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="Email address*" required />
                             </div>
                             <div class="form-group mt-6">
@@ -66,7 +66,7 @@ if(isset($_SESSION['seller_id'])){
                             <div class="flex items-center justify-between mt-6">
                                 <div class="sub-input-checkbox flex items-center gap-2">
                                     <input id="checkbox" type="checkbox" name="checkbox" required/>
-                                    <label for="checkbox" class="text-surface1">I agree to the <a href="term-of-use.html" class="text-button hover:underline">Terms of User</a></label>
+                                    <label for="checkbox" class="text-surface1">I agree to the <a href="Terms" target="_blank" class="text-button hover:underline">Terms of User</a></label>
                                 </div>
                             </div>
                             <div class="block-button mt-6">
