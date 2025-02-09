@@ -146,13 +146,17 @@ if(isset($_POST['set_profile'])){
         $certificate_number = $_POST['certificate_number'];
 
         /*canadian education section*/
-        $canadian_level_of_education = $db_handle->checkValue($_POST['canadian_level_of_education']);
-        $canadian_field_of_study = $db_handle->checkValue($_POST['canadian_field_of_study']);
-        $canadian_college = $db_handle->checkValue($_POST['college']);
-        $canadian_study_location = $db_handle->checkValue($_POST['canadian_study_location']);
-        $canadian_gpa = $db_handle->checkValue($_POST['canadian_gpa']);
-        $canadian_accreditation = $db_handle->checkValue($_POST['canadian_accreditation']);
-        $canadian_certificate_number = $db_handle->checkValue($_POST['canadian_certificate_number']);
+        $canadian_level_of_education = $_POST['canadian_level_of_education'];
+        $canadian_field_of_study = $_POST['canadian_field_of_study'];
+        $canadian_college = $_POST['college'];
+        $canadian_study_location = $_POST['canadian_study_location'];
+        $canadian_gpa = $_POST['canadian_gpa'];
+        $canadian_accreditation = $_POST['canadian_accreditation'];
+        $canadian_certificate_number = $_POST['canadian_certificate_number'];
+        $reporting_manager_job = $_POST['reporting_manager_job'];
+        $designation_job = $_POST['designation_job'];
+        $name_job = $_POST['name_job'];
+        $email_job = $_POST['email_job'];
 
         /*Skills section*/
         $core_skill_one = $db_handle->checkValue($_POST['core_skill_one']);
@@ -326,7 +330,7 @@ if(isset($_POST['set_profile'])){
             if($till_date == 1){
                 $end_date = '';
             }
-            $insert_experience = $db_handle->insertQuery("INSERT INTO `seller_experience_data`(`user_id`, `industry`, `sub_industry`, `countries`, `job_designation`, `company_name`, `company_website`, `start_date`,`end_date`, `accomplishment`, `reporting_manager`, `designation`, `name`, `email`, `inserted_at`,`accomplishment_two`,`accomplishment_three`) VALUES ('$seller_id','$industry[$i]','$sub_industry[$i]','$countries[$i]','$job_location[$i]','$company_name[$i]','$company_website[$i]','$start_date[$i]','$end_date[$i]','$accomplishment[$i]','$reporting_manager[$i]','$designation[$i]','$name[$i]','$email[$i]','$inserted_at[$i]','$accomplishment2[$i]','$accomplishment3[$i]')");
+            $insert_experience = $db_handle->insertQuery("INSERT INTO `seller_experience_data`(`user_id`, `industry`, `sub_industry`, `countries`, `job_designation`, `company_name`, `company_website`, `start_date`,`end_date`, `accomplishment`, `reporting_manager`, `designation`, `name`, `email`, `inserted_at`,`accomplishment_two`,`accomplishment_three`,`reporting_manager_job`,`designation_job`,`name_job`,`email_job`) VALUES ('$seller_id','$industry[$i]','$sub_industry[$i]','$countries[$i]','$job_location[$i]','$company_name[$i]','$company_website[$i]','$start_date[$i]','$end_date[$i]','$accomplishment[$i]','$reporting_manager[$i]','$designation[$i]','$name[$i]','$email[$i]','$inserted_at[$i]','$accomplishment2[$i]','$accomplishment3[$i]','$reporting_manager_job[$i]','$designation_job[$i]','$name_job[$i]','$email_job[$i]')");
             if (!$insert_experience) {
                 throw new Exception("Error inserting dynamic field data.");
             }
