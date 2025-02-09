@@ -614,8 +614,16 @@ video {
   left: -2.25rem;
 }
 
+.-left-15 {
+  left: -9rem;
+}
+
 .-right-20 {
   right: -5rem;
+}
+
+.-right-80 {
+  right: -9rem;
 }
 
 .-right-3 {

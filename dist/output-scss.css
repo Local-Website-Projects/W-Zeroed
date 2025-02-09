@@ -1845,7 +1845,7 @@ section:has(.slide-overflow-unset) {
   content: "";
   position: absolute;
   top: -6px;
-  left: 40px;
+  left: 150px;
   width: 20px;
   height: 20px;
   background-color: var(--white);
