@@ -17,6 +17,8 @@ RewriteRule ^Message$ candidates_messages.php [L]
 RewriteRule ^Seller-Guest-View$ seller_guest_view.php [L]
 RewriteRule ^Terms$ terms&conditions.php [L]
 RewriteRule ^Update-Password$ update_password.php [L]
+RewriteRule ^Email-Verify$ email_verify_forget.php [L]
+RewriteRule ^Set-Password$ set_new_password.php [L]
 
 
 

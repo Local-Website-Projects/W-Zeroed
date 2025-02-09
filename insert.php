@@ -433,15 +433,25 @@ if(isset($_POST['send_seller_email'])){
 /*forget password email send*/
 if(isset($_POST['forget_pass'])){
     $email = $db_handle->checkValue($_POST['email']);
+    function generateUniqueRandomString($length = 12) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomString = '';
+        $maxIndex = strlen($characters) - 1;
 
-    $check= $db_handle->runQuery("select * from sellers where email = '$email'");
-    $check_email = $db_handle->numRows("select * from sellers where email = '$email'");
-    $code = $check[0]['verification_code'];
+        // Add a timestamp to ensure uniqueness
+        $timestamp = microtime(true);  // Get the current timestamp with microsecond precision
+
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $maxIndex)];
+        }
+
+        // Combine the timestamp with the random string for uniqueness
+        return substr(md5($randomString . $timestamp), 0, $length);  // Optional: Return only the first 12 chars
+    }
+    $unique_id = generateUniqueRandomString();
+    $update_code = $db_handle->insertQuery("UPDATE `sellers` SET `verification_code`='$unique_id',`updated_at`='$inserted_at' WHERE `email` = '$email'");
 
     if($check_email == 1){
-
-
-
        $subject = "Please verify your email address";
          $messege = "<html>
      <body style='background-color: #eee; font-size: 16px;'>
@@ -450,7 +460,7 @@ if(isset($_POST['forget_pass'])){
          <p style='text-align: center;color:#29a9e1;font-weight:bold'>Email verification code.</p>
 
          <div style='color:black;text-align: left'>
-             <p>6 digit verification code : $code</p>
+             <p>6 digit verification code : $update_code</p>
          </div>
      </div>
 
@@ -485,10 +495,10 @@ if(isset($_POST['forget_pass'])){
              // Send to first email address
              $mail->addAddress($receiver_email1);
              if ($mail->send()) {
-                     echo "<script>
-                     document.cookie = 'alert = 3;';
-                     window.location.href='Seller-Guest-View';
-                     </script>";
+                 echo "<script>
+    document.cookie = 'alert=3';
+    window.location.href = 'Email-Verify?seller=" . urlencode($email) . "';
+    </script>";
              }
          } catch (Exception $e) {
              echo "<script>
@@ -498,7 +508,7 @@ if(isset($_POST['forget_pass'])){
          }
         echo "<script>
          document.cookie = 'alert = 3;';
-         window.location.href='Seller-Guest-View';
+         window.location.href='Forget-Password';
 </script>";
     }
 }
