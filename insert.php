@@ -17,7 +17,7 @@ $inserted_at = date("Y-m-d H:i:s");
 if(isset($_POST['candidate_signup'])){
 
     $email = $db_handle->checkValue($_POST['email']);
-    $password = $db_handle->checkValue($_POST['password']);
+    $password_seller = $db_handle->checkValue($_POST['password']);
 
     $check_email = $db_handle->numRows("select * from sellers where email = '$email'");
 
@@ -88,17 +88,17 @@ if(isset($_POST['candidate_signup'])){
              // Send to first email address
              $mail->addAddress($receiver_email1);
              if ($mail->send()) {
-                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                 $hashedPassword = password_hash($password_seller, PASSWORD_DEFAULT);
                  $insert = $db_handle->insertQuery("INSERT INTO `sellers`(`email`, `password`, `verification_code`, `inserted_at`,`unique_id`) VALUES ('$email','$hashedPassword','$randomNumber','$inserted_at','$unique_id')");
                  if($insert){
                      echo "<script>
                      document.cookie = 'alert = 3;';
-                     window.location.href='Verify-Password';
+                     window.location.href ='Verify-Email?email=" . urlencode($email) . "';
                      </script>";
                  } else {
                      echo "<script>
                      document.cookie = 'alert = 5;';
-                     window.location.href='Login';
+                     window.location.href='Register';
                      </script>";
                  }
              }
@@ -138,12 +138,12 @@ if(isset($_POST['set_profile'])){
         $preferred_job_location = $db_handle->checkValue($_POST['preferred_job_location']);
 
         /*global education section*/
-        $global_level_of_education = $db_handle->checkValue($_POST['global_level_of_education']);
-        $global_field_of_study = $db_handle->checkValue($_POST['global_field_of_study']);
-        $global_gpa = $db_handle->checkValue($_POST['global_gpa']);
-        $global_university = $db_handle->checkValue($_POST['global_university']);
-        $accreditation = $db_handle->checkValue($_POST['accreditation']);
-        $certificate_number = $db_handle->checkValue($_POST['certificate_number']);
+        $global_level_of_education = $_POST['global_level_of_education'];
+        $global_field_of_study = $_POST['global_field_of_study'];
+        $global_gpa = $_POST['global_gpa'];
+        $global_university = $_POST['global_university'];
+        $accreditation = $_POST['accreditation'];
+        $certificate_number = $_POST['certificate_number'];
 
         /*canadian education section*/
         $canadian_level_of_education = $db_handle->checkValue($_POST['canadian_level_of_education']);
@@ -231,9 +231,11 @@ if(isset($_POST['set_profile'])){
             throw new Exception("Error inserting video field data.");
         }
 
-        $insert_global_education = $db_handle->insertQuery("INSERT INTO `seller_global_education`(`user_id`, `global_level_of_education`, `global_field_of_study`, `global_gpa`,`global_university`, `inserted_at`,`global_accreditation`,`global_certificate_no`) VALUES ('$seller_id','$global_level_of_education','$global_field_of_study','$global_gpa','$global_university','$inserted_at','$accreditation','$certificate_number')");
-        if (!$insert_global_education) {
-            throw new Exception("Error inserting dynamic field data.");
+        for($g=0; $g<count($global_level_of_education);$g++){
+            $insert_global_education = $db_handle->insertQuery("INSERT INTO `seller_global_education`(`user_id`, `global_level_of_education`, `global_field_of_study`, `global_gpa`,`global_university`, `inserted_at`,`global_accreditation`,`global_certificate_no`) VALUES ('$seller_id','$global_level_of_education[$g]','$global_field_of_study[$g]','$global_gpa[$g]','$global_university[$g]','$inserted_at','$accreditation[$g]','$certificate_number[$g]')");
+            if (!$insert_global_education) {
+                throw new Exception("Error inserting dynamic field data.");
+            }
         }
 
         $insert_canadian_education = $db_handle->insertQuery("INSERT INTO `seller_canadian_education`(`user_id`, `can_level_of_education`, `can_field_of_study`, `can_college`, `can_location`, `can_gpa`, `inserted_at`,`canadian_accreditation`,`canadian_certificate_number`) VALUES ('$seller_id','$canadian_level_of_education','$canadian_field_of_study','$canadian_college','$canadian_study_location','$canadian_gpa','$inserted_at','$canadian_accreditation','$canadian_certificate_number')");

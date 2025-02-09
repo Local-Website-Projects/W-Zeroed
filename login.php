@@ -23,12 +23,12 @@ if(isset($_POST['login'])){
 
         $check_value = $db_handle->numRows("select * from seller_personal_information where user_id = {$_SESSION['seller_id']}");
         if($check_value == 1){
-            echo "<script>
+           echo "<script>
                 document.cookie = 'alert = 1;';
                 window.location.href='Seller-Profile';
                 </script>";
         } else {
-            echo "<script>
+           echo "<script>
                 document.cookie = 'alert = 1;';
                 window.location.href='Set-Profile';
                 </script>";

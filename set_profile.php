@@ -423,67 +423,78 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                     </div>
 
-                    <!--global education section starts-->
-                    <h5 class="heading5 mt-5">Global Education</h5>
-                    <div class="grid sm:grid-cols-3 gap-3">
-                        <div class="education_level">
-                            <label>Level of Education <span class="text-red">*</span></label>
-                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="global_level_of_education" required>
-                                <option selected>Select Level of Education</option>
-                                <option value="Less than high school">Less than high school</option>
-                                <option value="High school graduation">High school graduation</option>
-                                <option value="One year program">One year program</option>
-                                <option value="Two year program">Two year program</option>
-                                <option value="Bachelors Degree">Bachelors Degree</option>
-                                <option value="Masters Degree">Masters Degree</option>
-                                <option value="Doctoral Level">Doctoral Level</option>
-                            </select>
-                        </div>
-                        <div class="education_level">
-                            <label>Field of Study <span class="text-red">*</span></label>
-                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="global_field_of_study" required>
-                                <option selected>Select Field of Study</option>
-                                <?php
-                                $fetch_field_study = $db_handle->runQuery("select * from field_of_study");
-                                foreach ($fetch_field_study as $row) {
-                                    ?>
-                                    <option value="<?php echo $row['field_study_id']?>"><?php echo $row['field_study']?></option>
-                                    <?php
-                                }
-                                ?>
-                            </select>
-                        </div>
-                        <div class="jobLocation">
-                            <label for="jobLocation">GPA</label>
-                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="10"  name="global_gpa" required />
-                        </div>
-                        <div class="jobLocation">
-                            <label for="jobLocation">College/University Name</label>
-                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="College/University Name"  name="global_university" required />
-                        </div>
-                        <div class="education_level">
-                            <label>Credential Accreditation <span class="text-red">*</span></label>
-                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg"
-                                    style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));"
-                                    name="accreditation"
-                                    id="accreditation"
-                                    required>
-                                <option selected value="">Select Credential Accreditation</option>
-                                <option value="N/A">N/A</option>
-                                <option value="WES">WES</option>
-                                <option value="Alberta">Alberta</option>
-                            </select>
-                        </div>
+                    <!-- Your HTML Container -->
+                    <div id="educationContainer">
+                        <h5 class="heading5 mt-5">Global Education</h5>
+                        <!-- Initial Education Set -->
+                        <div class="educationSet grid sm:grid-cols-3 gap-3 mt-5">
+                            <!-- Level of Education -->
+                            <div class="education_level">
+                                <label>Level of Education <span class="text-red">*</span></label>
+                                <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="global_level_of_education[]" required>
+                                    <option selected>Select Level of Education</option>
+                                    <option value="Less than high school">Less than high school</option>
+                                    <option value="High school graduation">High school graduation</option>
+                                    <option value="One year program">One year program</option>
+                                    <option value="Two year program">Two year program</option>
+                                    <option value="Bachelors Degree">Bachelors Degree</option>
+                                    <option value="Masters Degree">Masters Degree</option>
+                                    <option value="Doctoral Level">Doctoral Level</option>
+                                </select>
+                            </div>
 
-                        <div class="jobLocation" id="certificateDiv" style="display: none;">
-                            <label for="certificate_number">Certificate No (If applicable)</label>
-                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg"
-                                   id="certificate_number"
-                                   type="text"
-                                   placeholder="certificate number"
-                                   name="certificate_number" />
+                            <!-- Field of Study -->
+                            <div class="education_level">
+                                <label>Field of Study <span class="text-red">*</span></label>
+                                <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="global_field_of_study[]" required>
+                                    <option selected>Select Field of Study</option>
+                                    <!-- Add dynamic field options here -->
+                                    <option value="Computer Science">Computer Science</option>
+                                    <option value="Engineering">Engineering</option>
+                                    <option value="Business">Business</option>
+                                    <!-- Add more options as required -->
+                                </select>
+                            </div>
+
+                            <!-- GPA -->
+                            <div class="jobLocation">
+                                <label for="jobLocation">GPA</label>
+                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="10" name="global_gpa[]" required />
+                            </div>
+
+                            <!-- College/University Name -->
+                            <div class="jobLocation">
+                                <label for="jobLocation">College/University Name</label>
+                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="College/University Name" name="global_university[]" required />
+                            </div>
+
+                            <!-- Credential Accreditation -->
+                            <div class="education_level">
+                                <label>Credential Accreditation <span class="text-red">*</span></label>
+                                <select class="w-full h-12 px-4 mt-2 border-line rounded-lg accreditation" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="accreditation[]" required>
+                                    <option selected value="">Select Credential Accreditation</option>
+                                    <option value="N/A">N/A</option>
+                                    <option value="WES">WES</option>
+                                    <option value="Alberta">Alberta</option>
+                                </select>
+                            </div>
+
+                            <!-- Certificate number input (initially hidden) -->
+                            <div class="jobLocation certificateDiv" style="display: none;">
+                                <label for="certificate_number">Certificate No (If applicable)</label>
+                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg certificate_number" type="text" placeholder="certificate number" name="certificate_number[]" />
+                            </div>
+
+                            <!-- Remove button for each set -->
+                            <button class="removeEducationSet w-full h-12 px-4 mt-2 button-main -border mt-5 bg-red text-white" style="display: none;">Remove Education</button>
                         </div>
                     </div>
+
+                    <!-- Button to add more education sets -->
+                    <div class="grid sm:grid-cols-3 gap-3">
+                        <button id="addGlobalEducation" class="w-full h-12 px-4 mt-2 button-main -border mt-5">Add Another Education</button>
+                    </div>
+
 
                     <!--canadian education section starts-->
                     <h5 class="heading5 mt-5">Canadian Education</h5>
@@ -573,6 +584,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             disabled/>
                         </div>
                     </div>
+                    <div class="grid sm:grid-cols-3 gap-3">
+                        <button id="addCanadianEducation" class="w-full h-12 px-4 mt-2 button-main -border mt-5">Add Another Education</button>
+                    </div>
+
+
 
                     <!--skills section starts-->
                     <h5 class="heading5 mt-5">Skills</h5>
@@ -1207,19 +1223,90 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <?php include ('include/script.php');?>
 
+<!--js for appending global education field-->
 <script>
-    document.getElementById('accreditation').addEventListener('change', function () {
-        const certificateDiv = document.getElementById('certificateDiv');
-        const certificateInput = document.getElementById('certificate_number');
+    document.getElementById('addGlobalEducation').addEventListener('click', function () {
+        const educationContainer = document.getElementById('educationContainer');
+        const educationSet = educationContainer.querySelector('.educationSet').cloneNode(true);
 
-        if (this.value && this.value !== 'N/A') {
-            certificateDiv.style.display = 'block';
-            certificateInput.required = true;
-        } else {
-            certificateDiv.style.display = 'none';
-            certificateInput.required = false;
-            certificateInput.value = ''; // Optional: Clear the field when hidden
-        }
+        // Clear input values in the cloned set
+        educationSet.querySelectorAll('input, select').forEach(element => {
+            if (element.tagName === 'INPUT') {
+                element.value = ''; // Clear input fields
+            } else if (element.tagName === 'SELECT') {
+                element.selectedIndex = 0; // Reset select options
+            }
+        });
+
+        // Remove 'id' attributes on cloned elements (ensuring unique ids)
+        educationSet.querySelectorAll('input, select').forEach(element => {
+            element.removeAttribute('id');
+        });
+
+        // Show the remove button for the appended set
+        const removeButton = educationSet.querySelector('.removeEducationSet');
+        removeButton.style.display = 'block'; // Make the remove button visible
+
+        // Add remove button functionality
+        removeButton.addEventListener('click', function () {
+            educationSet.remove();
+        });
+
+        // Add accreditation dropdown functionality for the new set
+        const accreditationDropdown = educationSet.querySelector('.accreditation');
+        const certificateDiv = educationSet.querySelector('.certificateDiv');
+        const certificateInput = educationSet.querySelector('.certificate_number');
+
+        // Event listener to toggle certificate input based on accreditation selection
+        accreditationDropdown.addEventListener('change', function () {
+            if (this.value && this.value !== 'N/A') {
+                certificateDiv.style.display = 'block';
+                certificateInput.required = true;
+            } else {
+                certificateDiv.style.display = 'none';
+                certificateInput.required = false;
+                certificateInput.value = ''; // Clear the field if hidden
+            }
+        });
+
+        // Append the new education set to the container
+        educationContainer.appendChild(educationSet);
+    });
+
+    // Initial accreditation dropdown functionality for the first set
+    document.querySelectorAll('.accreditation').forEach(dropdown => {
+        dropdown.addEventListener('change', function () {
+            const certificateDiv = this.closest('.educationSet').querySelector('.certificateDiv');
+            const certificateInput = this.closest('.educationSet').querySelector('.certificate_number');
+
+            if (this.value && this.value !== 'N/A') {
+                certificateDiv.style.display = 'block';
+                certificateInput.required = true;
+            } else {
+                certificateDiv.style.display = 'none';
+                certificateInput.required = false;
+                certificateInput.value = ''; // Optional: Clear the field when hidden
+            }
+        });
+    });
+
+</script>
+
+<!--for hiding and displaying the certificate in global and canadian study fields-->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleButton = document.querySelector('.toggle_btn');
+        const educationFields = document.querySelectorAll('#educationFields select, #educationFields input');
+
+        toggleButton.addEventListener('click', function() {
+            const isActive = toggleButton.classList.contains('active');
+
+            if (isActive) {
+                educationFields.forEach(field => field.disabled = true);
+            } else {
+                educationFields.forEach(field => field.disabled = false);
+            }
+        });
     });
 
     document.getElementById('canadian_accreditation').addEventListener('change', function () {
@@ -1258,6 +1345,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         selectElement2.appendChild(option);
     }
 </script>
+
+
 <script>
     $(document).ready(function() {
         // Function to handle core skill change
@@ -1369,6 +1458,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         handleTagRemoval('selectedTags3', 'subSkillsList3', 'selectedSubSkills3');
     });
 </script>
+
+
 <script>
     $(document).ready(function() {
         $("#industry").change(function() {
@@ -1384,6 +1475,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         });
     });
 </script>
+
+
 <script>
     function extractDomain(website) {
         website = website.replace(/^https?:\/\//, '').replace(/^www\./, '');
@@ -1438,25 +1531,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     });
 </script>
 
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const toggleButton = document.querySelector('.toggle_btn');
-        const educationFields = document.querySelectorAll('#educationFields select, #educationFields input');
-
-        toggleButton.addEventListener('click', function() {
-            const isActive = toggleButton.classList.contains('active');
-
-            if (isActive) {
-                educationFields.forEach(field => field.disabled = true);
-            } else {
-                educationFields.forEach(field => field.disabled = false);
-            }
-        });
-    });
-
-</script>
 </body>
 
 </html>
