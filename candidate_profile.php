@@ -160,29 +160,56 @@ if(!isset($_SESSION['seller_id'])) {
                         <h5 class="heading5">Education</h5>
                         <ul class="list flex flex-col gap-7 mt-5">
                             <?php
-                            $fetch_global_education = $db_handle->runQuery("SELECT global_level_of_education, global_gpa,field_study FROM `seller_global_education`,`field_of_study` WHERE global_field_of_study = field_study_id and user_id={$_SESSION['seller_id']}");
+                            $fetch_global_education = $db_handle->runQuery("SELECT * FROM `seller_global_education` WHERE user_id={$_SESSION['seller_id']}");
+                            $fetch_global_education_no = $db_handle->numRows("SELECT * FROM `seller_global_education` WHERE user_id={$_SESSION['seller_id']}");
+                            for ($i=0;$i<$fetch_global_education_no;$i++){
+                                ?>
+                                    <li>
+                                    <div class="flex items-center gap-4 mb-1">
+                                        <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5"><?php echo $fetch_global_education[$i]['global_level_of_education'];?>
+                                        <?php
+                                            if($fetch_global_education[$i]['global_certificate_no'] != null){
+                                                ?>
+                                                <i class="ph ph-seal-check"></i>
+                                                <?php
+                                            }
+                                            ?>
+                                        </h2>
+                                        <span class="time caption2">GPA: <?php echo $fetch_global_education[$i]['global_gpa'];?></span>
+                                    </div>
+                                <strong class="position text-button"><?php echo $fetch_global_education[0]['global_field_of_study'];?></strong>
+                                    <p class="desc text-secondary mt-1"><?php echo $fetch_global_education[$i]['global_university'];?></p>
+                                </li>
+                                <?php
+                            }
                             ?>
-                            <li>
-                                <div class="flex items-center gap-4 mb-1">
-                                    <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5"><?php echo $fetch_global_education[0]['global_level_of_education'];?></h2>
-                                    <span class="time caption2">GPA: <?php echo $fetch_global_education[0]['global_gpa'];?></span>
-                                </div>
-                                <strong class="position text-button"><?php echo $fetch_global_education[0]['field_study'];?></strong>
-                            </li>
                             <hr class="mt-5 mb-5"/>
 
                             <?php
-                            $fetch_canadian_education = $db_handle->runQuery("SELECT can_level_of_education,university_name, city_name, field_study, can_gpa FROM `seller_canadian_education`,`universities`,`cities`,`field_of_study` WHERE seller_canadian_education.can_field_of_study = field_of_study.field_study_id AND seller_canadian_education.can_college = universities.university_id AND cities.city_id = seller_canadian_education.can_location AND seller_canadian_education.user_id = {$_SESSION['seller_id']}");
+                            $fetch_canadian_education = $db_handle->runQuery("SELECT can_level_of_education,university_name, city_name, field_study, can_gpa,canadian_certificate_number FROM `seller_canadian_education`,`universities`,`cities`,`field_of_study` WHERE seller_canadian_education.can_field_of_study = field_of_study.field_study_id AND seller_canadian_education.can_college = universities.university_id AND cities.city_id = seller_canadian_education.can_location AND seller_canadian_education.user_id = {$_SESSION['seller_id']}");
+                            $fetch_canadian_education_no = $db_handle->numRows("SELECT can_level_of_education,university_name, city_name, field_study, can_gpa,canadian_certificate_number FROM `seller_canadian_education`,`universities`,`cities`,`field_of_study` WHERE seller_canadian_education.can_field_of_study = field_of_study.field_study_id AND seller_canadian_education.can_college = universities.university_id AND cities.city_id = seller_canadian_education.can_location AND seller_canadian_education.user_id = {$_SESSION['seller_id']}");
+                            for($i=0; $i<$fetch_canadian_education_no; $i++){
+                                ?>
+                                <li>
+                                    <div class="flex items-center gap-4 mb-1">
+                                        <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5"><?php echo $fetch_canadian_education[$i]['can_level_of_education'];?>
+                                            <?php
+                                            if($fetch_canadian_education[$i]['canadian_certificate_number'] != null)
+                                            {
+                                                ?>
+                                                <i class="ph ph-seal-check"></i>
+                                                <?php
+                                            }
+                                            ?></h2>
+                                        <span class="time caption2">GPA: <?php echo $fetch_canadian_education[$i]['can_gpa'];?></span>
+                                    </div>
+                                    <strong class="position text-button"><?php echo $fetch_canadian_education[$i]['field_study'];?></strong>
+                                    <p class="desc text-secondary mt-1">University/College: <?php echo $fetch_canadian_education[$i]['university_name'];?></p>
+                                    <p class="desc text-secondary mt-1">City: <?php echo $fetch_canadian_education[$i]['city_name'];?></p>
+                                </li>
+                                <?php
+                            }
                             ?>
-                            <li>
-                                <div class="flex items-center gap-4 mb-1">
-                                    <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5"><?php echo $fetch_canadian_education[0]['can_level_of_education'];?></h2>
-                                    <span class="time caption2">GPA: <?php echo $fetch_canadian_education[0]['can_gpa'];?></span>
-                                </div>
-                                <strong class="position text-button"><?php echo $fetch_canadian_education[0]['field_study'];?></strong>
-                                <p class="desc text-secondary mt-1">University/College: <?php echo $fetch_canadian_education[0]['university_name'];?></p>
-                                <p class="desc text-secondary mt-1">City: <?php echo $fetch_canadian_education[0]['city_name'];?></p>
-                            </li>
                         </ul>
                         <button type="button" class="w-full h-12 px-4 mt-2 button-main -border mt-5" onclick="copyURL()">Copy URL</button>
                     </div>
