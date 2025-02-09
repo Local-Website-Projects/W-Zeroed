@@ -22,8 +22,6 @@ RewriteRule ^Set-Password$ set_new_password.php [L]
 
 
 
-
-
 RewriteRule ^Insert$ insert.php [L]
 
 # Ensure file paths match exactly
