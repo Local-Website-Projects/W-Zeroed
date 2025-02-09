@@ -850,9 +850,9 @@
                         <div class="notification_submenu absolute w-[340px] p-5 top-[3.25rem] -left-15 bg-white rounded-xl">
                             <h6 class="heading6 pb-3">Notifications</h6>
                             <?php
-                            $fetch_noti = $db_handle->runQuery("select * from seller_notification where seller_id = {$_SESSION['seller_id']}");
-                            $fetch_noti_row = $db_handle->numRows("select * from seller_notification where seller_id = {$_SESSION['seller_id']}");
-                            if($fetch_noti > 0){
+                            $fetch_noti = $db_handle->runQuery("select * from seller_notification where seller_id = {$_SESSION['seller_id']} order by id desc limit 10");
+                            $fetch_noti_row = $db_handle->numRows("select * from seller_notification where seller_id = {$_SESSION['seller_id']} order by id desc limit 10");
+                            for ($i=0; $i<$fetch_noti_row; $i++){
                                 ?>
                                 <ul class="list_notification w-full">
                                     <li class="notification_item w-full py-3 border-t border-line duration-300 hover:bg-background">
@@ -861,7 +861,51 @@
                                             <span class="ph-fill ph-bell text-lg text-secondary"></span>
                                         </span>
                                             <div class="notification_detail">
-                                                <p class="notification_desc text-secondary">Someone viewed your <span class="text-black">Profile</span>.</p>
+                                                <?php
+                                                if($fetch_noti[$i]['status'] == 0){
+                                                    ?>
+                                                    <p class="notification_desc text-secondary">Someone viewed your <span class="text-black">Profile</span>.</p>
+                                                    <?php
+                                                } else {
+                                                    ?>
+                                                    <p class="notification_desc text-secondary">You have a new <span class="text-black">message</span>.</p>
+                                                    <?php
+                                                }
+                                                ?>
+                                                <span class="notification_time caption2 text-placehover"><?php
+                                                    $storedTimestamp = $fetch_noti[$i]['viewed_time'];
+
+                                                    // Create DateTime objects for the stored timestamp and current date/time
+                                                    $storedDateTime = new DateTime($storedTimestamp);
+                                                    $currentDateTime = new DateTime();
+
+                                                    // Calculate the difference
+                                                    $interval = $storedDateTime->diff($currentDateTime);
+
+                                                    // Get the difference in years, months, days, hours, minutes, and seconds
+                                                    $years = $interval->y;
+                                                    $months = $interval->m;
+                                                    $days = $interval->d;
+                                                    $hours = $interval->h;
+                                                    $minutes = $interval->i;
+                                                    $seconds = $interval->s;
+
+                                                    // Format the result based on the difference
+                                                    if ($interval->y > 0) {
+                                                        echo $years . ' year' . ($years > 1 ? 's' : '') . ' ago';
+                                                    } elseif ($interval->m > 0) {
+                                                        echo $months . ' month' . ($months > 1 ? 's' : '') . ' ago';
+                                                    } elseif ($interval->d > 0) {
+                                                        echo $days . ' day' . ($days > 1 ? 's' : '') . ' ago';
+                                                    } elseif ($interval->h > 0) {
+                                                        echo $hours . ' hour' . ($hours > 1 ? 's' : '') . ' ago';
+                                                    } elseif ($interval->i > 0) {
+                                                        echo $minutes . ' minute' . ($minutes > 1 ? 's' : '') . ' ago';
+                                                    } else {
+                                                        echo $seconds . ' second' . ($seconds > 1 ? 's' : '') . ' ago';
+                                                    }
+
+                                                    ?></span>
                                             </div>
                                         </a>
                                     </li>

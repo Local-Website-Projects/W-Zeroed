@@ -407,17 +407,30 @@ if(isset($_POST['send_seller_email'])){
              // Send to first email address
              $mail->addAddress($receiver_email1);
              if ($mail->send()) {
-                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                 function getUserIP() {
+                     // Check if the user is behind a proxy (common in load-balanced systems)
+                     if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+                         // HTTP_X_FORWARDED_FOR can contain a comma-separated list of IPs, with the first one being the original client's IP
+                         $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+                     } else {
+                         // Otherwise, use REMOTE_ADDR to get the IP
+                         $ip = $_SERVER['REMOTE_ADDR'];
+                     }
+
+                     return $ip;
+                 }
                  $insert = $db_handle->insertQuery("INSERT INTO `seller_messages`(`seller_id`, `full_name`, `sender_email`, `message`, `inserted_at`) VALUES ('$seller_id','$full_name','$email','$message_seller','$inserted_at')");
+                 $ip = getUserIP();
+                 $insert_noti = $db_handle->insertQuery("INSERT INTO `seller_notification`(`seller_id`, `view_ip`, `status`, `viewed_time`) VALUES ('$seller_id','$ip','1','$inserted_at')");
                  if($insert){
                      echo "<script>
                      document.cookie = 'alert = 3;';
-                     window.location.href='Seller-Guest-View';
+                     window.location.href='Seller-Guest-View?seller=" . urlencode($seller_unique) . "';
                      </script>";
                  } else {
                      echo "<script>
                      document.cookie = 'alert = 5;';
-                     window.location.href='Seller-Guest-View';
+                     window.location.href='Seller-Guest-View?seller=" . urlencode($seller_unique) . "';
                      </script>";
                  }
              }

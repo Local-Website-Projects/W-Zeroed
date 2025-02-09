@@ -207,7 +207,15 @@ if(isset($_GET['seller'])){
                 <div class="right flex-shrink-0 lg:w-[29.5%] lg:pl-7.5">
                         <div class="sticky top-5 w-full">
                             <div class="list_social mt-7.5 rounded-lg bg-white shadow-sm">
-                                <iframe src="assets/video/Snapinsta.mp4" style="height: 800px; width: 100%"></iframe>
+                                <?php
+                                $fetch_exp = $db_handle->runQuery("SELECT * FROM `seller_video` where user_id = '$seller'");
+                                $fetch_exp_no = $db_handle->numRows("SELECT * FROM `seller_video` where user_id = '$seller'");
+                                for ($i=0; $i<$fetch_exp_no; $i++) {
+                                    ?>
+                                    <iframe src="videos/<?php echo $fetch_exp[$i]['video_src'];?>" style="height: 800px; width: 100%"></iframe>
+                                    <?php
+                                }
+                                ?>
                             </div>
                             <form class="form_change grid grid-cols-2 gap-5 w-full p-10 mt-7.5 rounded-lg bg-white shadow-sm" action="Insert" method="POST">
                                 <div class="email col-span-full flex flex-col">
@@ -226,7 +234,7 @@ if(isset($_GET['seller'])){
                                     <div class="quick-messages mt-2 space-x-2">
                                         <button type="button" class="quick-msg bg-gray-200 px-3 py-1 rounded-lg mt-3">I am interested in your services.</button>
                                         <button type="button" class="quick-msg bg-gray-200 px-3 py-1 rounded-lg mt-3">Can we schedule a meeting?</button>
-                                        <button type="button" class="quick-msg bg-gray-200 px-3 py-1 rounded-lg mt-3">Please provide more details.</button>
+                                        <button type="button" class="quick-msg bg-gray-200 px-3 py-1 rounded-lg mt-3">Hi <?php echo $fetch_profile[0]['first_name'].' '.$fetch_profile[0]['last_name'];?>, email your resume at (your email address)</button>
                                     </div>
                                     <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="message" name="message" required></textarea>
                                 </div>

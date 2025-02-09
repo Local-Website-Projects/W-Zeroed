@@ -761,12 +761,113 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <!--video section-->
                     <h5 class="heading5 mt-5">Video Section</h5>
                     <div class="grid sm:grid-cols-3 gap-3">
+                        <!-- Trigger Button -->
+                        <button type="button" class="w-full h-12 px-4 mt-2 button-main -border mt-5"
+                                onclick="document.getElementById('modal').classList.remove('hidden')">Add Video</button>
+
+                        <!-- Modal -->
+                        <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center" style="z-index: 50">
+                            <div class="bg-white rounded-2xl shadow-xl max-w-2xl w-full p-6 overflow-y-auto max-h-[90vh]">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h2 class="text-2xl font-bold">🎥 Video Recording Tips</h2>
+                                    <button class="text-red-500 text-xl" onclick="document.getElementById('modal').classList.add('hidden')">
+                                        &times;</button>
+                                </div>
+
+                                <div class="space-y-4" id="content">
+                                    <h3 class="text-xl font-semibold">📋 Preparation Checklist:</h3>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>📷 Use a good quality camera (smartphone or HD webcam).</li>
+                                        <li>💡 Ensure good lighting, avoid backlighting.</li>
+                                        <li>🖼️ Keep your background clean and professional.</li>
+                                        <li>📹 Use a stable surface or tripod for steady shots.</li>
+                                        <li>👔 Dress appropriately for your industry.</li>
+                                        <li>🎯 Position the camera at eye level with good posture.</li>
+                                        <li>🎙️ Ensure clear audio, use an external mic if possible.</li>
+                                        <li>📝 Practice speaking naturally instead of reading a script.</li>
+                                        <li>😊 Smile and maintain positive body language.</li>
+                                        <li>⏳ Keep the video concise (1-2 minutes).</li>
+                                    </ul>
+
+                                    <div id="moreContent" class="hidden">
+                                        <h3 class="text-xl font-semibold">🎬 Video Structure:</h3>
+
+                                        <div>
+                                            <h4 class="font-bold">👋 Introduction (10-15 seconds)</h4>
+                                            <p>Start with a warm introduction and confidently present yourself.</p>
+                                            <p class="italic">Example: "Hi, my name is [Your Name], and I’m a [Your Profession/Industry]."</p>
+                                        </div>
+
+                                        <div>
+                                            <h4 class="font-bold">🚀 Key Highlights (30-45 seconds)</h4>
+                                            <p>Highlight key skills, achievements, or recent education.</p>
+                                            <p class="italic">Example: "I specialize in [Skill 1, Skill 2, Skill 3]."</p>
+                                        </div>
+
+                                        <div>
+                                            <h4 class="font-bold">🎯 Closing & Call to Action (15-20 seconds)</h4>
+                                            <p>Express enthusiasm and invite engagement.</p>
+                                            <p class="italic">Example: "I’m excited about roles in [Industry] and eager to contribute my skills."</p>
+                                        </div>
+
+                                        <h3 class="text-xl font-semibold">✔️ Final Tips:</h3>
+                                        <ul class="list-disc pl-5 space-y-2">
+                                            <li>Practice a few times before recording to feel comfortable.</li>
+                                            <li>Keep your tone friendly, professional, and engaging.</li>
+                                            <li>Be authentic—it helps you stand out!</li>
+                                        </ul>
+
+                                        <h3 class="text-xl font-semibold">🎥 Additional Video Recording Tips:</h3>
+                                        <ul class="list-disc pl-5 space-y-2">
+                                            <li>🎬 Record in landscape mode for a professional look.</li>
+                                            <li>🔇 Turn off notifications to avoid interruptions during recording.</li>
+                                            <li>⏱️ Pause briefly before and after speaking to allow for smooth editing.</li>
+                                            <li>📏 Maintain an appropriate distance from the camera (arm's length works well).</li>
+                                            <li>🌟 Show your personality to create a memorable and engaging video.</li>
+                                        </ul>
+                                    </div>
+
+                                    <button id="showMoreBtn" class="text-blue-600 font-semibold" onclick="toggleContent()">Show More ▼</button>
+
+                                    <!-- Audio Files Section -->
+                                    <div class="mt-6">
+                                        <h3 class="text-xl font-semibold">🎧 Instruction Audio Files:</h3>
+                                        <div class="space-y-4">
+                                            <div>
+                                                <h4 class="font-bold">Tips on how to record: </h4>
+                                                <audio controls style="width: 100%">
+                                                    <source src="assets/audio/Tips%20on%20how%20to%20record%20record.mp3" type="audio/mp3">
+                                                    Your browser does not support the audio element.
+                                                </audio>
+                                            </div>
+                                            <div>
+                                                <h4 class="font-bold">Tips on Intro Video Format: </h4>
+                                                <audio controls style="width: 100%">
+                                                    <source src="assets/audio/Tips%20on%20Intro%20Video%20Format.mp3" type="audio/mp3">
+                                                    Your browser does not support the audio element.
+                                                </audio>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Video Upload/Recording Section -->
+                                    <div class="mt-6 space-y-4">
+                                        <h3 class="text-xl font-semibold">📹 Video Options:</h3>
+                                        <div class="flex justify-end space-x-4">
+                                            <button id="openUploadModal" type="button" class="w-full h-12 px-4 mt-2 button-main -border mt-5">Upload Video</button>
+                                            <button id="openRecordModal" type="button" class="w-full h-12 px-4 mt-2 button-main -border mt-5">Record Video</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
                         <input type="hidden" name="videoSrc" id="videoSrc" value="">
-                        <button id="openUploadModal" type="button" class="w-full h-12 px-4 mt-2 button-main -border mt-5">Upload Video</button>
-                        <button id="openRecordModal" type="button" class="w-full h-12 px-4 mt-2 button-main -border mt-5">Record Video</button>
 
                         <!-- Upload Video Modal -->
-                        <div id="uploadModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+                        <div id="uploadModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50" style="z-index: 55">
                             <div class="bg-white rounded-2xl shadow-lg p-6 w-96 relative">
                                 <h2 class="text-2xl font-semibold mb-4">Upload Video</h2>
                                 <input type="file" id="video-file" accept="video/*" class="block w-full text-gray-700 border border-gray-300 rounded-lg p-2 mb-4" />
@@ -781,12 +882,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
 
                         <!-- Record Video Modal -->
-                        <div id="recordModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+                        <div id="recordModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50" style="z-index: 55">
                             <div class="bg-white rounded-2xl shadow-lg p-6 w-96 relative">
-                                <h2 class="text-2xl font-semibold mb-4">Record Video for 30 Seconds</h2>
+                                <h2 class="text-2xl font-semibold mb-4">Record Video for 2 Minutes</h2>
                                 <video id="webcam" class="w-full h-48 bg-gray-200 rounded mb-4" autoplay muted></video>
 
-                                <div id="timer">00:30</div>
+                                <div id="timer">02:00</div>
                                 <video id="video-player" controls style="display:none;margin-bottom: 30px;" autoplay muted></video>
 
                                 <button id="closeRecordModal" type="button" class="absolute top-2 right-2 text-gray-400 hover:text-gray-800 text-xl">&times;</button>
@@ -799,7 +900,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
 
                         <!-- Full-page Spinner -->
-                        <div id="spinner" class="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center hidden">
+                        <div id="spinner" class="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center hidden" style="z-index: 100">
                             <div class="spinner-border animate-spin inline-block w-16 h-16 border-4 border-t-4 border-white rounded-full" role="status">
                                 <span class="visually-hidden">.</span>
                             </div>
@@ -809,7 +910,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             const spinner = document.getElementById('spinner');
                             // Modal Triggers
                             document.getElementById('openUploadModal').addEventListener('click', () => openModal('uploadModal'));
-                            document.getElementById('openRecordModal').addEventListener('click', () => openModal('recordModal'));
+                            document.getElementById('openRecordModal').addEventListener('click', () => {
+                                openModal('recordModal');
+                                startWebcam(); // Start the webcam when the record modal opens
+                            });
 
                             // Close Buttons
                             document.getElementById('closeUploadModal').addEventListener('click', () => closeModal('uploadModal'));
@@ -872,7 +976,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             let recordedChunks = [];
                             let stream;
                             let timerInterval;
-                            let countdown = 30; // 5 seconds countdown
+                            let countdown = 120; // 5 seconds countdown
                             let isRecording = false; // Flag to check if recording is in progress
 
                             // Create a timestamp for the filename
@@ -1007,8 +1111,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             // Reset all variables and UI elements after stopping or starting again
                             function resetRecordingState() {
                                 // Reset countdown
-                                countdown = 30;
-                                $('#timer').text('00:30'); // Reset the timer display
+                                countdown = 120;
+                                $('#timer').text('02:00'); // Reset the timer display
 
                                 // Clear previous recorded video
                                 const videoPlayer = document.getElementById('video-player');
@@ -1034,7 +1138,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     countdown--;
                                     let minutes = Math.floor(countdown / 60);
                                     let seconds = countdown % 60;
-                                    document.getElementById('timer').innerText = `00:${seconds < 10 ? '0' + seconds : seconds}`;
+                                    document.getElementById('timer').innerText = `${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
                                     if (countdown <= 0) {
                                         clearInterval(timerInterval);
                                         stopRecording(); // Automatically stop recording after 5 seconds
@@ -1054,13 +1158,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     console.log("MediaRecorder is not recording.");
                                 }
                             }
-
-                            // Initialize the webcam on page load
-                            $(document).ready(function () {
-                                startWebcam();
-                            });
-
-
                         </script>
                     </div>
 
