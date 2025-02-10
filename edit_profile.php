@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Zeroed - Job Board & Freelance Marketplace" />
-    <title>Zeroed - Set Profile</title>
+    <title>Zeroed - Edit Profile</title>
     <?php include ('include/css.php');?>
 
     <!-- jQuery (Required for Select2) -->
@@ -137,39 +137,44 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </button>
             <div class="list_category p-6 mt-7.5 rounded-lg bg-white">
                 <h5 class="heading5" style="margin-top: 0 !important;">Personal Information</h5>
-                <form class="form" method="post" action="Insert" enctype="multipart/form-data">
+                <form class="form" method="post" action="" enctype="multipart/form-data">
+                    <?php
+                    $seller = $_SESSION['seller_id'];
+                    $fetch_profile = $db_handle->runQuery("select * from seller_personal_information where user_id = '$seller'");
+                    ?>
                     <!--personal information section start-->
                     <div class="grid sm:grid-cols-3 gap-3">
                         <div class="firstName">
                             <label for="firstName">First name <span class="text-red">*</span></label>
-                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="firstName" type="text" placeholder="Enter first name" autocomplete="off" name="first_name" required />
+                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="firstName" type="text" value="<?php echo $fetch_profile[0]['first_name']; ?>" placeholder="Enter first name" autocomplete="off" name="first_name" required />
                         </div>
                         <div class="lastName">
                             <label for="lastName">Last name <span class="text-red">*</span></label>
-                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="lastName" type="text" placeholder="Enter last name" autocomplete="off" name="last_name" required />
+                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="lastName" type="text" placeholder="Enter last name" value="<?php echo $fetch_profile[0]['last_name']; ?>" autocomplete="off" name="last_name" required />
                         </div>
                         <div class="profile">
                             <label for="profile">Profile Image<span class="text-red">*</span></label>
-                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="profile" type="file" name="profile_image" required />
+                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="profile" type="file" name="profile_image" />
+                            <img src="<?php echo $fetch_profile[0]['profile_image']; ?>" alt="" width="100px;" style="margin-left: auto"/>
                         </div>
                         <div class="gender">
                             <label for="gender">Gender <span class="text-red">* </span></label><br/>
-                            <input class="px-4 mt-2 border-line rounded-lg" id="gender" type="radio" name="gender" value="male" required />
+                            <input class="px-4 mt-2 border-line rounded-lg" id="gender" type="radio" name="gender" value="male" <?php if($fetch_profile[0]['gender']=="male") echo 'checked'; ?> required />
                             <label for="gender" style="padding-right: 20px;">Male</label>
-                            <input class="px-4 mt-2 border-line rounded-lg" id="gender" type="radio" name="gender" value="female" required />
+                            <input class="px-4 mt-2 border-line rounded-lg" id="gender" type="radio" name="gender" value="female" <?php if($fetch_profile[0]['gender']=="female") echo 'checked'; ?> required />
                             <label for="gender" style="padding-right: 20px;">Female</label>
-                            <input class="px-4 mt-2 border-line rounded-lg" id="gender" type="radio" name="gender" value="Other" required />
+                            <input class="px-4 mt-2 border-line rounded-lg" id="gender" type="radio" name="gender" value="Other" <?php if($fetch_profile[0]['gender']=="Other") echo 'checked'; ?> required />
                             <label for="gender" style="padding-right: 20px;">Other</label>
                         </div>
                         <div class="nationality">
                             <label>Nationality <span class="text-red">*</span></label>
                             <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity))" id="mySelect2" name="nationality" required>
-                                <option disabled selected>Please select your nationality</option>
+                                <option disabled>Please select your nationality</option>
                                 <?php
                                 $fetch_country = $db_handle->runQuery("SELECT id,nationality FROM countries order by country_name ASC");
                                 foreach($fetch_country as $country){
                                     ?>
-                                    <option value="<?php echo $country['id'];?>"><?php echo $country['nationality'];?></option>
+                                    <option value="<?php echo $country['id'];?>" <?php if($fetch_profile[0]['nationality']==$country['id']) echo 'selected'; ?>><?php echo $country['nationality'];?></option>
                                     <?php
                                 }
                                 ?>
@@ -178,7 +183,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="country">
                             <label>Country <span class="text-red">*</span></label>
                             <select class="w-full h-12 px-4 mt-2 border-line rounded-lg country_select" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity))" onchange="loadStates()" name="country" required>
-                                <option selected>Please select your country</option>
+                                <option selected>Please select country</option>
                             </select>
                         </div>
                         <div class="state">
@@ -405,13 +410,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                         <div class="contactemail">
                             <label for="contactemail">Contact Email <span class="text-red">*</span></label>
-                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="contact_email" type="text" placeholder="enter contact email" name="contact_email" required />
+                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="contact_email" type="text"  value="<?php echo $fetch_profile[0]['contact_email']; ?>" placeholder="enter contact email" name="contact_email" required />
                         </div>
                         <div class="jobLocation">
                             <label for="jobLocation">Job preferred location <span class="text-red">*</span></label>
                             <input class="w-full h-12 px-4 mt-2 border-line rounded-lg"
                                    id="jobLocation"
                                    type="text"
+                                   value="<?php echo $fetch_profile[0]['job_preferred_location']; ?>"
                                    placeholder="Search job preferred location"
                                    list="locationList"
                                    autocomplete="off"
@@ -439,67 +445,76 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div id="educationContainer">
                         <h5 class="heading5 mt-5">Global Education</h5>
                         <!-- Initial Education Set -->
+                            <?php
+                            $fetch_globalEducation = $db_handle->runQuery("SELECT * FROM seller_global_education WHERE user_id='$seller'");
+                            $fetch_row = $db_handle->numRows("SELECT * FROM seller_global_education WHERE user_id='$seller'");
+                            for($i = 0; $i < $fetch_row; $i++){
+                                $row = $fetch_globalEducation[$i]; // Fetch each row from the result
+                                ?>
                         <div class="educationSet grid sm:grid-cols-3 gap-3 mt-5">
-                            <!-- Level of Education -->
-                            <div class="education_level">
-                                <label>Level of Education <span class="text-red">*</span></label>
-                                <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="global_level_of_education[]" required>
-                                    <option selected>Select Level of Education</option>
-                                    <option value="Less than high school">Less than high school</option>
-                                    <option value="High school graduation">High school graduation</option>
-                                    <option value="One year program">One year program</option>
-                                    <option value="Two year program">Two year program</option>
-                                    <option value="Bachelors Degree">Bachelors Degree</option>
-                                    <option value="Masters Degree">Masters Degree</option>
-                                    <option value="Doctoral Level">Doctoral Level</option>
-                                </select>
-                            </div>
+                                <!-- Level of Education -->
+                                <div class="education_level">
+                                    <label>Level of Education <span class="text-red">*</span></label>
+                                    <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="global_level_of_education[]" required>
+                                        <option value="" <?php echo ($row['global_level_of_education'] == '') ? 'selected' : ''; ?>>Select Level of Education</option>
+                                        <option value="Less than high school" <?php echo ($row['global_level_of_education'] == 'Less than high school') ? 'selected' : ''; ?>>Less than high school</option>
+                                        <option value="High school graduation" <?php echo ($row['global_level_of_education'] == 'High school graduation') ? 'selected' : ''; ?>>High school graduation</option>
+                                        <option value="One year program" <?php echo ($row['global_level_of_education'] == 'One year program') ? 'selected' : ''; ?>>One year program</option>
+                                        <option value="Two year program" <?php echo ($row['global_level_of_education'] == 'Two year program') ? 'selected' : ''; ?>>Two year program</option>
+                                        <option value="Bachelors Degree" <?php echo ($row['global_level_of_education'] == 'Bachelors Degree') ? 'selected' : ''; ?>>Bachelors Degree</option>
+                                        <option value="Masters Degree" <?php echo ($row['global_level_of_education'] == 'Masters Degree') ? 'selected' : ''; ?>>Masters Degree</option>
+                                        <option value="Doctoral Level" <?php echo ($row['global_level_of_education'] == 'Doctoral Level') ? 'selected' : ''; ?>>Doctoral Level</option>
+                                    </select>
+                                </div>
 
-                            <!-- Field of Study -->
-                            <div class="education_level">
-                                <label>Field of Study <span class="text-red">*</span></label>
-                                <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="global_field_of_study[]" required>
-                                    <option selected>Select Field of Study</option>
-                                    <!-- Add dynamic field options here -->
-                                    <option value="Computer Science">Computer Science</option>
-                                    <option value="Engineering">Engineering</option>
-                                    <option value="Business">Business</option>
-                                    <!-- Add more options as required -->
-                                </select>
-                            </div>
+                                <!-- Field of Study -->
+                                <div class="education_level">
+                                    <label>Field of Study <span class="text-red">*</span></label>
+                                    <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="global_field_of_study[]" required>
+                                        <option value="" <?php echo ($row['global_field_of_study'] == '') ? 'selected' : ''; ?>>Select Field of Study</option>
+                                        <option value="Computer Science" <?php echo ($row['global_field_of_study'] == 'Computer Science') ? 'selected' : ''; ?>>Computer Science</option>
+                                        <option value="Engineering" <?php echo ($row['global_field_of_study'] == 'Engineering') ? 'selected' : ''; ?>>Engineering</option>
+                                        <option value="Business" <?php echo ($row['global_field_of_study'] == 'Business') ? 'selected' : ''; ?>>Business</option>
+                                        <!-- Add more options as required -->
+                                    </select>
+                                </div>
 
-                            <!-- GPA -->
-                            <div class="jobLocation">
-                                <label for="jobLocation">GPA</label>
-                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="10" name="global_gpa[]" required />
-                            </div>
+                                <!-- GPA -->
+                                <div class="jobLocation">
+                                    <label for="jobLocation">GPA</label>
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="10" name="global_gpa[]" value="<?php echo htmlspecialchars($row['global_gpa']); ?>" required />
+                                </div>
 
-                            <!-- College/University Name -->
-                            <div class="jobLocation">
-                                <label for="jobLocation">College/University Name</label>
-                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="College/University Name" name="global_university[]" required />
-                            </div>
+                                <!-- College/University Name -->
+                                <div class="jobLocation">
+                                    <label for="jobLocation">College/University Name</label>
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="College/University Name" name="global_university[]" value="<?php echo htmlspecialchars($row['global_university']); ?>" required />
+                                </div>
 
-                            <!-- Credential Accreditation -->
-                            <div class="education_level">
-                                <label>Credential Accreditation <span class="text-red">*</span></label>
-                                <select class="w-full h-12 px-4 mt-2 border-line rounded-lg accreditation" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="accreditation[]" required>
-                                    <option selected value="">Select Credential Accreditation</option>
-                                    <option value="N/A">N/A</option>
-                                    <option value="WES">WES</option>
-                                    <option value="Alberta">Alberta</option>
-                                </select>
-                            </div>
+                                <!-- Credential Accreditation -->
+                                <div class="education_level">
+                                    <label>Credential Accreditation <span class="text-red">*</span></label>
+                                    <select class="w-full h-12 px-4 mt-2 border-line rounded-lg accreditation" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="accreditation[]" required>
+                                        <option value="" <?php echo ($row['global_accreditation'] == '') ? 'selected' : ''; ?>>Select Credential Accreditation</option>
+                                        <option value="N/A" <?php echo ($row['global_accreditation'] == 'N/A') ? 'selected' : ''; ?>>N/A</option>
+                                        <option value="WES" <?php echo ($row['global_accreditation'] == 'WES') ? 'selected' : ''; ?>>WES</option>
+                                        <option value="Alberta" <?php echo ($row['global_accreditation'] == 'Alberta') ? 'selected' : ''; ?>>Alberta</option>
+                                    </select>
+                                </div>
 
-                            <!-- Certificate number input (initially hidden) -->
-                            <div class="jobLocation certificateDiv" style="display: none;">
-                                <label for="certificate_number">Certificate No (If applicable)</label>
-                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg certificate_number" type="text" placeholder="certificate number" name="certificate_number[]" />
-                            </div>
+                                <!-- Certificate number input (initially hidden) -->
+                                <div class="jobLocation certificateDiv" style="display: none;">
+                                    <label for="certificate_number">Certificate No (If applicable)</label>
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg certificate_number" type="text" placeholder="certificate number" name="certificate_number[]" value="<?php echo htmlspecialchars($row['global_certificate_no']); ?>" />
+                                </div>
 
                             <!-- Remove button for each set -->
-                            <button class="removeEducationSet w-full h-12 px-4 mt-2 button-main -border mt-5 bg-red text-white" style="display: none;">Remove Education</button>
+                            <button class="removeEducationSet w-full h-12 px-4 mt-2 button-main -border mt-5 bg-red text-white">Remove Education</button>
                         </div>
+                                <?php
+                            }
+                            ?>
+
                     </div>
 
                     <!-- Button to add more education sets -->
@@ -513,81 +528,111 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <!-- Initial Education Section -->
                         <div class="educationSection">
                             <h5 class="heading5 mt-5">Canadian Education</h5>
-                            <button type="button" class="toggle_btn"></button>
-                            <div class="educationFields grid sm:grid-cols-3 gap-3">
-                                <div class="education_level">
-                                    <label>Level of Education</label>
-                                    <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="canadian_level_of_education[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" disabled>
-                                        <option selected>Select Level of Education</option>
-                                        <option value="Less than high school">Less than high school</option>
-                                        <option value="High school graduation">High school graduation</option>
-                                        <option value="One year program">One year program</option>
-                                        <option value="Two year program">Two year program</option>
-                                        <option value="Bachelors Degree">Bachelors Degree</option>
-                                        <option value="Masters Degree">Masters Degree</option>
-                                        <option value="Doctoral Level">Doctoral Level</option>
-                                    </select>
-                                </div>
-                                <div class="education_level">
-                                    <label>Field of Study</label>
-                                    <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="canadian_field_of_study[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" disabled>
-                                        <option selected>Select Field of Study</option>
-                                        <?php
-                                        $fetch_field_study = $db_handle->runQuery("select * from field_of_study");
-                                        foreach ($fetch_field_study as $row) {
-                                            ?>
-                                            <option value="<?php echo $row['field_study_id']?>"><?php echo $row['field_study']?></option>
+                            <?php
+                            $fetch_canadianEducation = $db_handle->runQuery("SELECT * FROM seller_canadian_education WHERE user_id='$seller'");
+                            $fetch_row = $db_handle->numRows("SELECT * FROM seller_canadian_education WHERE user_id='$seller'");
+                            ?>
+                            <button type="button" class="toggle_btn <?php if($fetch_row>0) echo 'active'; ?>"></button>
+                            <?php
+                            for($i = 0; $i < $fetch_row; $i++){
+                                $row = $fetch_canadianEducation[$i]; // Fetch each row from the result
+                                ?>
+                                <div class="educationFields grid sm:grid-cols-3 gap-3">
+                                    <!-- Level of Education -->
+                                    <div class="education_level">
+                                        <label>Level of Education</label>
+                                        <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="canadian_level_of_education[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" disabled>
+                                            <option value="" <?php echo ($row['can_level_of_education'] == '') ? 'selected' : ''; ?>>Select Level of Education</option>
+                                            <option value="Less than high school" <?php echo ($row['can_level_of_education'] == 'Less than high school') ? 'selected' : ''; ?>>Less than high school</option>
+                                            <option value="High school graduation" <?php echo ($row['can_level_of_education'] == 'High school graduation') ? 'selected' : ''; ?>>High school graduation</option>
+                                            <option value="One year program" <?php echo ($row['can_level_of_education'] == 'One year program') ? 'selected' : ''; ?>>One year program</option>
+                                            <option value="Two year program" <?php echo ($row['can_level_of_education'] == 'Two year program') ? 'selected' : ''; ?>>Two year program</option>
+                                            <option value="Bachelors Degree" <?php echo ($row['can_level_of_education'] == 'Bachelors Degree') ? 'selected' : ''; ?>>Bachelors Degree</option>
+                                            <option value="Masters Degree" <?php echo ($row['can_level_of_education'] == 'Masters Degree') ? 'selected' : ''; ?>>Masters Degree</option>
+                                            <option value="Doctoral Level" <?php echo ($row['can_level_of_education'] == 'Doctoral Level') ? 'selected' : ''; ?>>Doctoral Level</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Field of Study -->
+                                    <div class="education_level">
+                                        <label>Field of Study</label>
+                                        <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="canadian_field_of_study[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" disabled>
+                                            <option value="" <?php echo ($row['can_field_of_study'] == '') ? 'selected' : ''; ?>>Select Field of Study</option>
                                             <?php
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                                <div class="education_level">
-                                    <label>College/University</label>
-                                    <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="college[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" disabled>
-                                        <option selected>Select College/University</option>
-                                        <?php
-                                        $fetch_university = $db_handle->runQuery("select * from universities");
-                                        foreach ($fetch_university as $row) {
+                                            $fetch_field_study = $db_handle->runQuery("SELECT * FROM field_of_study");
+                                            foreach ($fetch_field_study as $field_row) {
+                                                ?>
+                                                <option value="<?php echo $field_row['field_study_id']; ?>" <?php echo ($row['can_field_of_study'] == $field_row['field_study_id']) ? 'selected' : ''; ?>>
+                                                    <?php echo $field_row['field_study']; ?>
+                                                </option>
+                                                <?php
+                                            }
                                             ?>
-                                            <option value="<?php echo $row['university_id']?>"><?php echo $row['university_name']?></option>
+                                        </select>
+                                    </div>
+
+                                    <!-- College/University -->
+                                    <div class="education_level">
+                                        <label>College/University</label>
+                                        <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="college[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" disabled>
+                                            <option value="" <?php echo ($row['can_college'] == '') ? 'selected' : ''; ?>>Select College/University</option>
                                             <?php
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                                <div class="education_level">
-                                    <label>Location</label>
-                                    <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="canadian_study_location[]" disabled>
-                                        <option selected>Select City</option>
-                                        <?php
-                                        $fetch_city = $db_handle->runQuery("select * from cities");
-                                        foreach ($fetch_city as $row) {
+                                            $fetch_university = $db_handle->runQuery("SELECT * FROM universities");
+                                            foreach ($fetch_university as $university_row) {
+                                                ?>
+                                                <option value="<?php echo $university_row['university_id']; ?>" <?php echo ($row['can_college'] == $university_row['university_id']) ? 'selected' : ''; ?>>
+                                                    <?php echo $university_row['university_name']; ?>
+                                                </option>
+                                                <?php
+                                            }
                                             ?>
-                                            <option value="<?php echo $row['city_id']?>"><?php echo $row['city_name']?></option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Location -->
+                                    <div class="education_level">
+                                        <label>Location</label>
+                                        <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="canadian_study_location[]" disabled>
+                                            <option value="" <?php echo ($row['can_location'] == '') ? 'selected' : ''; ?>>Select City</option>
                                             <?php
-                                        }
-                                        ?>
-                                    </select>
+                                            $fetch_city = $db_handle->runQuery("SELECT * FROM cities");
+                                            foreach ($fetch_city as $city_row) {
+                                                ?>
+                                                <option value="<?php echo $city_row['city_id']; ?>" <?php echo ($row['can_location'] == $city_row['city_id']) ? 'selected' : ''; ?>>
+                                                    <?php echo $city_row['city_name']; ?>
+                                                </option>
+                                                <?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+
+                                    <!-- GPA -->
+                                    <div class="jobLocation">
+                                        <label for="jobLocation">GPA</label>
+                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="10" name="canadian_gpa[]" value="<?php echo htmlspecialchars($row['can_gpa']); ?>" disabled />
+                                    </div>
+
+                                    <!-- Credential Accreditation -->
+                                    <div class="education_level">
+                                        <label>Credential Accreditation <span class="text-red">*</span></label>
+                                        <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="canadian_accreditation[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required disabled>
+                                            <option value="" <?php echo ($row['canadian_accreditation'] == '') ? 'selected' : ''; ?>>Select Credential Accreditation</option>
+                                            <option value="N/A" <?php echo ($row['canadian_accreditation'] == 'N/A') ? 'selected' : ''; ?>>N/A</option>
+                                            <option value="WES" <?php echo ($row['canadian_accreditation'] == 'WES') ? 'selected' : ''; ?>>WES</option>
+                                            <option value="Alberta" <?php echo ($row['canadian_accreditation'] == 'Alberta') ? 'selected' : ''; ?>>Alberta</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Certificate number input (initially hidden) -->
+                                    <div class="jobLocation certificateDivCanadian" style="display: none;">
+                                        <label for="certificate_number">Certificate No (If applicable)</label>
+                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="certificate number" name="canadian_certificate_number[]" value="<?php echo htmlspecialchars($row['canadian_certificate_number']); ?>" disabled />
+                                    </div>
                                 </div>
-                                <div class="jobLocation">
-                                    <label for="jobLocation">GPA</label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="10" name="canadian_gpa[]" disabled/>
-                                </div>
-                                <div class="education_level">
-                                    <label>Credential Accreditation <span class="text-red">*</span></label>
-                                    <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="canadian_accreditation[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required disabled>
-                                        <option selected value="">Select Credential Accreditation</option>
-                                        <option value="N/A">N/A</option>
-                                        <option value="WES">WES</option>
-                                        <option value="Alberta">Alberta</option>
-                                    </select>
-                                </div>
-                                <div class="jobLocation certificateDivCanadian" style="display: none;">
-                                    <label for="certificate_number">Certificate No (If applicable)</label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="certificate number" name="canadian_certificate_number[]" disabled/>
-                                </div>
-                            </div>
+                                <?php
+                            }
+                            ?>
                             <button type="button" class="remove_btn">Remove</button>
                         </div>
                     </div>
@@ -710,42 +755,60 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         ?>
                                     </select>
                                 </div>
-                                <div class="jobLocation">
-                                    <label>Job Title</label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Software Engineer" name="job_location[]" required />
-                                </div>
-                                <div class="jobLocation">
-                                    <label>Company Name</label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Company Name" name="company_name[]" required />
-                                </div>
-                                <div class="jobLocation">
-                                    <label>Company Website Link</label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg company-website" type="text" placeholder="www.abc.com or https://abc.com" name="company_website[]" required />
-                                </div>
-                                <div class="jobLocation">
-                                    <label>Start Date</label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" name="start_date[]" required />
-                                </div>
-                                <div class="jobLocation">
-                                    <label>End Date</label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" name="end_date[]" id="endDate" required />
-                                </div>
-                                <div class="jobLocation">
-                                    <label>Working till now?</label>
-                                    <input type="checkbox" class="px-4 mt-2 border-line rounded-lg" name="till_date[]" id="tillDateCheckbox" value="1"> Yes
-                                </div>
-                                <div class="jobLocation">
-                                    <label>Accomplishments</label>
-                                    <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment[]"></textarea>
-                                </div>
-                                <div class="jobLocation">
-                                    <label>Accomplishments</label>
-                                    <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment2[]"></textarea>
-                                </div>
-                                <div class="jobLocation">
-                                    <label>Accomplishments</label>
-                                    <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment3[]"></textarea>
-                                </div>
+                                <?php
+                                $fetch_experienceData = $db_handle->runQuery("SELECT * FROM seller_experience_data WHERE user_id='$seller'");
+                                $fetch_row = $db_handle->numRows("SELECT * FROM seller_experience_data WHERE user_id='$seller'");
+                                for($i = 0; $i < $fetch_row; $i++){
+                                    $row = $fetch_experienceData[$i]; // Fetch each row from the result
+                                    ?>
+                                    <div class="jobLocation">
+                                        <label>Job Title</label>
+                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Software Engineer" name="job_location[]" value="<?php echo htmlspecialchars($row['job_designation']); ?>" required />
+                                    </div>
+
+                                    <div class="jobLocation">
+                                        <label>Company Name</label>
+                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Company Name" name="company_name[]" value="<?php echo htmlspecialchars($row['company_name']); ?>" required />
+                                    </div>
+
+                                    <div class="jobLocation">
+                                        <label>Company Website Link</label>
+                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg company-website" type="text" placeholder="www.abc.com or https://abc.com" name="company_website[]" value="<?php echo htmlspecialchars($row['company_website']); ?>" required />
+                                    </div>
+
+                                    <div class="jobLocation">
+                                        <label>Start Date</label>
+                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" name="start_date[]" value="<?php echo htmlspecialchars($row['start_date']); ?>" required />
+                                    </div>
+
+                                    <div class="jobLocation">
+                                        <label>End Date</label>
+                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" name="end_date[]" value="<?php echo htmlspecialchars($row['end_date']); ?>" required />
+                                    </div>
+
+                                    <div class="jobLocation">
+                                        <label>Working till now?</label>
+                                        <input type="checkbox" class="px-4 mt-2 border-line rounded-lg" name="till_date[]" id="tillDateCheckbox" value="1" <?php echo ($row['job_experience_status'] == 1) ? 'checked' : ''; ?>> Yes
+                                    </div>
+
+                                    <div class="jobLocation">
+                                        <label>Accomplishments</label>
+                                        <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment[]"><?php echo htmlspecialchars($row['accomplishment']); ?></textarea>
+                                    </div>
+
+                                    <div class="jobLocation">
+                                        <label>Accomplishments</label>
+                                        <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment2[]"><?php echo htmlspecialchars($row['accomplishment_two']); ?></textarea>
+                                    </div>
+
+                                    <div class="jobLocation">
+                                        <label>Accomplishments</label>
+                                        <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment3[]"><?php echo htmlspecialchars($row['accomplishment_three']); ?></textarea>
+                                    </div>
+
+                                    <?php
+                                }
+                                ?>
                             </div>
 
                             <hr class="mt-5 mb-5">
@@ -820,7 +883,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div class="bg-white rounded-2xl shadow-xl max-w-2xl w-full p-6 overflow-y-auto max-h-[90vh]">
                                 <div class="flex justify-between items-center mb-4">
                                     <h2 class="text-2xl font-bold">🎥 Video Recording Tips</h2>
-                                    <button class="text-red-500 text-xl" type="button" onclick="document.getElementById('modal').classList.add('hidden')">
+                                    <button class="text-red-500 text-xl" onclick="document.getElementById('modal').classList.add('hidden')">
                                         &times;</button>
                                 </div>
 
@@ -877,7 +940,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         </ul>
                                     </div>
 
-                                    <button id="showMoreBtn" class="text-blue-600 font-semibold" onclick="toggleContent()">Show More ▼</button>
+                                    <button id="showMoreBtn" type="button" class="text-blue-600 font-semibold" onclick="toggleContent()">Show More ▼</button>
 
                                     <!-- Audio Files Section -->
                                     <div class="mt-6">
@@ -975,6 +1038,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 document.getElementById(id).classList.add('flex');
                             }
 
+                            function closeModal(id) {
+                                document.getElementById(id).classList.add('hidden');
+                                document.getElementById(id).classList.remove('flex');
+                            }
+
                             function toggleContent(){
                                 const moreContent = document.getElementById('moreContent');
                                 const showMoreBtn = document.getElementById('showMoreBtn');
@@ -986,11 +1054,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     moreContent.classList.add('hidden');
                                     showMoreBtn.textContent = 'Show More ▼';
                                 }
-                            }
-
-                            function closeModal(id) {
-                                document.getElementById(id).classList.add('hidden');
-                                document.getElementById(id).classList.remove('flex');
                             }
 
                             // Handle File Upload
@@ -1226,30 +1289,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     <!--career goal section-->
                     <h5 class="heading5 mt-5">Career Goals</h5>
-                    <div class="grid sm:grid-cols-3 gap-3">
-                        <div class="jobLocation">
-                            <label for="jobLocation">Role</label>
-                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="Enter career role" name="career_role" required />
-                        </div>
-                        <div class="jobLocation">
-                            <label for="jobLocation">Industry</label>
-                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="Enter career industry" name="career_industry" required />
-                        </div>
-                        <div class="jobLocation">
-                            <label for="jobLocation">NOC Number</label>
-                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity))" name="noc_number" required>
-                                <option selected>Please select NOC</option>
-                                <?php
-                                $fetch_noc = $db_handle->runQuery("select * from noc");
-                                foreach ($fetch_noc as $noc){
-                                    ?>
-                                    <option value="<?php echo $noc['noc_id']?>"><?php echo $noc['name'];?></option>
+                    <?php
+                    $fetch_careerData = $db_handle->runQuery("SELECT * FROM seller_career WHERE seller_id='$seller'");
+                    $fetch_row = $db_handle->numRows("SELECT * FROM seller_career WHERE seller_id='$seller'");
+                    for($i = 0; $i < $fetch_row; $i++){
+                        $row = $fetch_careerData[$i]; // Fetch each row from the result
+                        ?>
+                        <div class="grid sm:grid-cols-3 gap-3">
+                            <div class="jobLocation">
+                                <label for="jobLocation">Role</label>
+                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="Enter career role" name="career_role" value="<?php echo htmlspecialchars($row['career_role']); ?>" required />
+                            </div>
+
+                            <div class="jobLocation">
+                                <label for="jobLocation">Industry</label>
+                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="Enter career industry" name="career_industry" value="<?php echo htmlspecialchars($row['career_industry']); ?>" required />
+                            </div>
+
+                            <div class="jobLocation">
+                                <label for="jobLocation">NOC Number</label>
+                                <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity))" name="noc_number" required>
+                                    <option selected>Please select NOC</option>
                                     <?php
-                                }
-                                ?>
-                            </select>
+                                    $fetch_noc = $db_handle->runQuery("SELECT * FROM noc");
+                                    foreach ($fetch_noc as $noc) {
+                                        // Pre-select the NOC number if it matches the value in the database
+                                        $selected = ($noc['noc_id'] == $row['noc_number']) ? 'selected' : '';
+                                        echo "<option value='{$noc['noc_id']}' {$selected}>{$noc['name']}</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
                         </div>
-                    </div>
+                        <?php
+                    }
+                    ?>
+
 
                     <!--reset and submit section starts here-->
                     <div class="flex items-center col-span-full gap-5 mt-5">
@@ -1259,7 +1334,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </form>
             </div>
         </div>
-<?php include ('include/dashboard_footer.php');?>
+        <?php include ('include/dashboard_footer.php');?>
     </div>
 </div>
 
