@@ -107,6 +107,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             cursor: pointer;
             margin-left: 10px;
         }
+        .remove_btn {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .remove_btn:hover {
+            background-color: #ff1a1a;
+        }
     </style>
 </head>
 
@@ -575,6 +588,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="certificate number" name="canadian_certificate_number[]" disabled/>
                                 </div>
                             </div>
+                            <button type="button" class="remove_btn">Remove</button>
                         </div>
                     </div>
                     <div class="grid sm:grid-cols-3 gap-3">
@@ -1336,20 +1350,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Function to handle accreditation change
         function setupAccreditationChange(section) {
-            const accreditationSelect = section.querySelector('select[name="canadian_accreditation"]');
+            const accreditationSelect = section.querySelector('select[name="canadian_accreditation[]"]');
             const certificateDiv = section.querySelector('.certificateDivCanadian');
-            const certificateInput = section.querySelector('input[name="canadian_certificate_number"]');
+            const certificateInput = section.querySelector('input[name="canadian_certificate_number[]"]');
 
-            accreditationSelect.addEventListener('change', function () {
-                if (this.value && this.value !== 'N/A') {
-                    certificateDiv.style.display = 'block';
-                    certificateInput.required = true;
-                } else {
-                    certificateDiv.style.display = 'none';
-                    certificateInput.required = false;
-                    certificateInput.value = ''; // Clear the field when hidden
-                }
-            });
+            if (accreditationSelect) {
+                accreditationSelect.addEventListener('change', function () {
+                    if (this.value && this.value !== 'N/A') {
+                        certificateDiv.style.display = 'block';
+                        certificateInput.required = true;
+                    } else {
+                        certificateDiv.style.display = 'none';
+                        certificateInput.required = false;
+                        certificateInput.value = ''; // Clear the field when hidden
+                    }
+                });
+            }
+        }
+
+        // Function to handle the remove button
+        function setupRemoveButton(section) {
+            const removeButton = section.querySelector('.remove_btn');
+            if (removeButton) {
+                removeButton.addEventListener('click', function () {
+                    section.remove(); // Remove the entire section
+                });
+            }
         }
 
         // Function to clone and append a new education section
@@ -1371,6 +1397,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Reattach event listeners for the new section
             setupToggleButton(newSection);
             setupAccreditationChange(newSection);
+            setupRemoveButton(newSection); // Attach remove button functionality
         }
 
         // Attach the addEducationSection function to the "Add Another Education" button
@@ -1379,6 +1406,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Initialize event listeners for the first section
         setupToggleButton(document.querySelector('.educationSection'));
         setupAccreditationChange(document.querySelector('.educationSection'));
+        setupRemoveButton(document.querySelector('.educationSection')); // Attach remove button for the first section
     });
 </script>
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2025 at 12:56 PM
+-- Generation Time: Feb 10, 2025 at 09:59 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -1718,10 +1718,8 @@ CREATE TABLE `sellers` (
 --
 
 INSERT INTO `sellers` (`seller_id`, `email`, `password`, `verification_code`, `status`, `unique_id`, `inserted_at`, `updated_at`) VALUES
-(1, 'test@test.com', '$2y$10$f/U9XWm0nFtS1q/WJWr.VuwcrsfuN1VkRkw63Q3lA7R0tzzZg4VZC', '253668', 1, '9b4d1a3c9a5f', '2025-01-27 14:48:16', '0000-00-00 00:00:00'),
-(3, 'test2@test.com', '$2y$10$e/curNjz9B5KxlU/NEZPKOyyP1UUkBl3jwLmS8fv0Zyl6h.l4Z2.i', '270783', 1, 'e0bde28aef91', '2025-01-29 13:14:49', '0000-00-00 00:00:00'),
-(4, 'sahamugdho@gmail.com', '$2y$10$IiaJfyWtbNKJoZrt3r1jS.GAxZFaVSn24GrCs54D47qjeHl4bB.oK', '855960', 1, 'aa921606c137', '2025-02-05 17:16:13', '0000-00-00 00:00:00'),
-(9, 'frogbidofficial@gmail.com', '$2y$10$00dipbzVeN0zzHNh5a959u4PmyH/YwKiN/ewfV7e1q0TBDUuvYO4i', '779720', 1, '3a6ce6869989', '2025-02-08 15:17:19', '0000-00-00 00:00:00');
+(1, 'sahamugdho@gmail.com', '$2y$10$iyRgFQa26PDk1mTnJ77o0uqJzgDnbBCKeWPcbANr6owjxtZuh56VC', '804106', 1, 'd51876a138f3', '2025-02-09 18:30:42', '0000-00-00 00:00:00'),
+(2, 'test@test.com', '$2y$10$8IgnrR4xEl5hyM0wUeI2SOI8NrFfmTR.dCwO8RvhC3DqL9w/XZDru', '838912', 1, '99626117d39b', '2025-02-10 14:43:39', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -1748,9 +1746,8 @@ CREATE TABLE `seller_canadian_education` (
 --
 
 INSERT INTO `seller_canadian_education` (`s_can_edu_id`, `user_id`, `can_level_of_education`, `can_field_of_study`, `can_college`, `can_location`, `can_gpa`, `canadian_accreditation`, `canadian_certificate_number`, `inserted_at`, `updated_at`) VALUES
-(1, 3, 'Bachelors Degree', '19', '12', '16', '3.00', '', '', '2025-02-05 12:53:57', '0000-00-00 00:00:00'),
-(2, 1, 'Masters Degree', '16', '83', '56', '3.90', '', '', '2025-02-05 16:38:02', '0000-00-00 00:00:00'),
-(3, 7, 'Masters Degree', '18', '17', '13', '3.00', '', '', '2025-02-08 12:48:52', '0000-00-00 00:00:00');
+(1, 1, 'Masters Degree', '6', '2', '17', '3.50', 'Alberta', '', '2025-02-09 18:36:36', '0000-00-00 00:00:00'),
+(2, 1, 'Bachelors Degree', '2', '1', '6', '3.50', 'N/A', '', '2025-02-09 18:36:36', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -1773,9 +1770,7 @@ CREATE TABLE `seller_career` (
 --
 
 INSERT INTO `seller_career` (`seller_career_id`, `seller_id`, `career_role`, `career_industry`, `noc_number`, `inserted_at`, `updated_at`) VALUES
-(1, 3, 'test', 'FSF', '17', '2025-02-05 12:53:57', '0000-00-00 00:00:00'),
-(2, 1, ' Design Director for Microsoft.', 'Microsoft', '8', '2025-02-05 16:38:02', '0000-00-00 00:00:00'),
-(3, 7, 'test', 'Test', '17', '2025-02-08 12:48:52', '0000-00-00 00:00:00');
+(1, 1, 'test', 'Test', '15', '2025-02-09 18:36:36', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -1796,13 +1791,8 @@ CREATE TABLE `seller_core_skills` (
 --
 
 INSERT INTO `seller_core_skills` (`s_core_skill_id`, `user_id`, `core_skill`, `inserted_at`, `updated_at`) VALUES
-(1, 3, '33', '2025-02-05 12:53:57', '0000-00-00 00:00:00'),
-(2, 3, '7', '2025-02-05 12:53:57', '0000-00-00 00:00:00'),
-(3, 1, '30', '2025-02-05 16:38:02', '0000-00-00 00:00:00'),
-(4, 1, '117', '2025-02-05 16:38:02', '0000-00-00 00:00:00'),
-(5, 1, '122', '2025-02-05 16:38:02', '0000-00-00 00:00:00'),
-(6, 7, '138', '2025-02-08 12:48:52', '0000-00-00 00:00:00'),
-(7, 7, '150', '2025-02-08 12:48:52', '0000-00-00 00:00:00');
+(1, 1, '133', '2025-02-09 18:36:36', '0000-00-00 00:00:00'),
+(2, 1, '60', '2025-02-09 18:36:36', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -1821,11 +1811,22 @@ CREATE TABLE `seller_experience_data` (
   `company_website` varchar(500) NOT NULL,
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
+  `job_experience_status` int(11) NOT NULL DEFAULT 0,
   `accomplishment` text NOT NULL,
+  `accomplishment_two` text NOT NULL,
+  `accomplishment_three` text NOT NULL,
+  `accomplishment_one_status` int(11) NOT NULL DEFAULT 0,
+  `accomplishment_two_status` int(11) NOT NULL DEFAULT 0,
+  `accomplishment_three_status` int(11) NOT NULL DEFAULT 0,
+  `reference_status` int(11) NOT NULL DEFAULT 0,
   `reporting_manager` varchar(500) NOT NULL,
   `designation` varchar(500) NOT NULL,
   `name` varchar(500) NOT NULL,
   `email` varchar(500) NOT NULL,
+  `reporting_manager_job` varchar(500) NOT NULL,
+  `designation_job` varchar(500) NOT NULL,
+  `name_job` varchar(500) NOT NULL,
+  `email_job` varchar(500) NOT NULL,
   `inserted_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -1834,11 +1835,8 @@ CREATE TABLE `seller_experience_data` (
 -- Dumping data for table `seller_experience_data`
 --
 
-INSERT INTO `seller_experience_data` (`seller_experience_id`, `user_id`, `industry`, `sub_industry`, `countries`, `job_designation`, `company_name`, `company_website`, `start_date`, `end_date`, `accomplishment`, `reporting_manager`, `designation`, `name`, `email`, `inserted_at`, `updated_at`) VALUES
-(1, 3, '15', 'Government services', 'Belgium', 'SDM', 'FrogBID', 'www.test.com', '2025-02-01', '2025-02-05', 'This is a test accomplishment', 'Reporting Manager', 'HR', 'Monoget Saha', 'mono@get.com', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(2, 3, '16', 'Public safety', 'Belgium', 'Test', 'Test', 'Test.com', '2025-02-01', '2025-02-05', 'This is a test accomplishment', 'Reporting Manager', 'HR', 'Monoget Saha', 'monoget1@gmail.com', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(3, 1, '16', 'Residential property management', 'Canada', 'Graphic Design', 'Microsoft Corporation', 'https://www.microsoft.com/en-us/', '2022-06-05', '2025-02-05', 'Bill Gates', 'Brother', 'Full Stack Web Developer', 'Monoget Saha', 'monoget1@gmail.com', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(4, 7, '1', 'Restaurants', 'Bangladesh', 'SDM', 'FrogBID', 'www.frogbid.com', '2025-02-01', '0000-00-00', 'This is a test accomplishment', 'Reporting Manager', 'HR', 'Monoget Saha', 'mono1@gmail.com', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `seller_experience_data` (`seller_experience_id`, `user_id`, `industry`, `sub_industry`, `countries`, `job_designation`, `company_name`, `company_website`, `start_date`, `end_date`, `job_experience_status`, `accomplishment`, `accomplishment_two`, `accomplishment_three`, `accomplishment_one_status`, `accomplishment_two_status`, `accomplishment_three_status`, `reference_status`, `reporting_manager`, `designation`, `name`, `email`, `reporting_manager_job`, `designation_job`, `name_job`, `email_job`, `inserted_at`, `updated_at`) VALUES
+(1, 1, '11', 'Electronics', 'Belgium', 'Test', 'Bimal Kumar Mondol', 'test.com', '2025-02-03', '2025-02-02', 0, 'Accomplishment', 'Accomplishment', 'Accomplishment', 0, 0, 1, 1, 'Reporting Manager', 'Full Stack Web Developer', 'NGT NGT', 'dadasd@test.com', 'HR', 'HR', 'NGT NGT', 'sahamugdho@gmail.com', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -1864,9 +1862,8 @@ CREATE TABLE `seller_global_education` (
 --
 
 INSERT INTO `seller_global_education` (`seller_global_education_id`, `user_id`, `global_level_of_education`, `global_field_of_study`, `global_gpa`, `global_university`, `inserted_at`, `updated_at`, `global_accreditation`, `global_certificate_no`) VALUES
-(1, 3, 'High school graduation', '440', '3.80', '', '2025-02-05 12:53:57', '0000-00-00 00:00:00', '', ''),
-(2, 1, 'Bachelors Degree', '16', '3.80', '', '2025-02-05 16:38:02', '0000-00-00 00:00:00', '', ''),
-(3, 7, 'Bachelors Degree', '18', '3.67', '', '2025-02-08 12:48:52', '0000-00-00 00:00:00', '', '');
+(1, 1, 'Less than high school', 'Business', '5.00', 'test', '2025-02-09 18:36:36', '0000-00-00 00:00:00', 'N/A', ''),
+(2, 1, 'High school graduation', 'Business', '5.00', 'Test', '2025-02-09 18:36:36', '0000-00-00 00:00:00', 'Alberta', '123456');
 
 -- --------------------------------------------------------
 
@@ -1884,15 +1881,6 @@ CREATE TABLE `seller_messages` (
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `seller_messages`
---
-
-INSERT INTO `seller_messages` (`s_msg_id`, `seller_id`, `full_name`, `sender_email`, `message`, `inserted_at`, `updated_at`) VALUES
-(1, 3, 'Biplob Kumar Mondol', 'bkm87@gmail.com', 'This is a test message', '2025-02-05 15:12:55', '0000-00-00 00:00:00'),
-(2, 3, 'Biplob', 'sdasdsafadf', 'dasdasdada', '2025-02-05 15:17:17', '0000-00-00 00:00:00'),
-(3, 3, 'dasdasd', 'asdada@asdad.com', 'dadasdasd', '2025-02-05 15:18:53', '0000-00-00 00:00:00');
-
 -- --------------------------------------------------------
 
 --
@@ -1906,6 +1894,13 @@ CREATE TABLE `seller_notification` (
   `status` int(11) NOT NULL DEFAULT 0,
   `viewed_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `seller_notification`
+--
+
+INSERT INTO `seller_notification` (`id`, `seller_id`, `view_ip`, `status`, `viewed_time`) VALUES
+(1, 1, '::1', 0, '2025-02-09 13:06:38');
 
 -- --------------------------------------------------------
 
@@ -1937,9 +1932,7 @@ CREATE TABLE `seller_personal_information` (
 --
 
 INSERT INTO `seller_personal_information` (`p_info_id`, `user_id`, `first_name`, `last_name`, `profile_image`, `gender`, `nationality`, `country`, `state`, `city`, `contact_no`, `country_code`, `contact_email`, `job_preferred_location`, `inserted_at`, `updated_at`) VALUES
-(1, 3, 'Mugdho', 'Saha', 'assets/profile_image/7956_zeroed-logo.png', 'male', '14', 'BD', 'Khulna Division', '', '01729277768', 'BD', 'sahamugdho@gmail.com', 'Saskatchewan', '2025-02-05 12:53:57', '0000-00-00 00:00:00'),
-(2, 1, 'Mostak', 'Ahmed', 'assets/profile_image/72914_ImportedPhoto_1738751753857.jpg', 'male', '14', 'BD', 'Khulna Division', '', '01718675969', 'BD', 'mostakahmed9000@gmail.com', 'Redmond', '2025-02-05 16:38:02', '0000-00-00 00:00:00'),
-(3, 7, 'Frog', 'Bid', 'assets/profile_image/36017_zeroed-logo.png', 'male', '14', 'BD', 'Khulna Division', '', '01729277768', 'BD', 'contact@frogbid.com', 'Quebec', '2025-02-08 12:48:52', '0000-00-00 00:00:00');
+(1, 1, 'Mugdho', 'Saha', 'assets/profile_image/81215_10000.jpg', 'male', '14', 'BD', 'Khulna Division', '', '01729277768', 'AZ', 'sahamugdho@gmail.com', 'British Columbia', '2025-02-09 18:36:36', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -1962,19 +1955,10 @@ CREATE TABLE `seller_sub_skills` (
 --
 
 INSERT INTO `seller_sub_skills` (`seller_s_skill_id`, `user_id`, `core_skill_id`, `sub_skill`, `s_skill_file`, `inserted_at`, `updated_at`) VALUES
-(1, 3, 33, 'Lead generation', 'assets/sub_skills/80420_zeroed-logo.png', '2025-02-05 12:53:57', '0000-00-00 00:00:00'),
-(2, 3, 33, 'enterprise sales', '', '2025-02-05 12:53:57', '0000-00-00 00:00:00'),
-(3, 3, 7, 'Smart contracts', 'assets/sub_skills/95668_zeroed-logo.png', '2025-02-05 12:53:57', '0000-00-00 00:00:00'),
-(4, 3, 7, 'Solidity', '', '2025-02-05 12:53:57', '0000-00-00 00:00:00'),
-(5, 3, 7, 'Ethereum', '', '2025-02-05 12:53:57', '0000-00-00 00:00:00'),
-(6, 1, 30, 'Adobe Creative Suite (Photoshop', '', '2025-02-05 16:38:02', '0000-00-00 00:00:00'),
-(7, 1, 30, 'Illustrator', '', '2025-02-05 16:38:02', '0000-00-00 00:00:00'),
-(8, 1, 30, 'Canva', '', '2025-02-05 16:38:02', '0000-00-00 00:00:00'),
-(9, 1, 30, 'visual storytelling', '', '2025-02-05 16:38:02', '0000-00-00 00:00:00'),
-(10, 1, 117, 'Import/export regulations', '', '2025-02-05 16:38:02', '0000-00-00 00:00:00'),
-(11, 7, 138, 'vendor management', 'assets/sub_skills/53907_zeroed-logo.png', '2025-02-08 12:48:52', '0000-00-00 00:00:00'),
-(12, 7, 138, 'collections', '', '2025-02-08 12:48:52', '0000-00-00 00:00:00'),
-(13, 7, 150, 'Bank reconciliation', '', '2025-02-08 12:48:52', '0000-00-00 00:00:00');
+(1, 1, 133, 'variance analysis', 'assets/sub_skills/27822_10000.jpg', '2025-02-09 18:36:36', '0000-00-00 00:00:00'),
+(2, 1, 133, 'Anaplan)', '', '2025-02-09 18:36:36', '0000-00-00 00:00:00'),
+(3, 1, 60, 'asking clarifying questions', '', '2025-02-09 18:36:36', '0000-00-00 00:00:00'),
+(4, 1, 60, 'Understanding customer needs', '', '2025-02-09 18:36:36', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -1995,7 +1979,7 @@ CREATE TABLE `seller_video` (
 --
 
 INSERT INTO `seller_video` (`id`, `user_id`, `video_src`, `inserted_at`, `updated_at`) VALUES
-(1, 7, '142_2025_02_08T06_48_41_406Z.mp4', '2025-02-08 12:48:52', '0000-00-00 00:00:00');
+(1, 1, '241_2025_02_09T12_36_24_456Z.mp4', '2025-02-09 18:36:36', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -3057,61 +3041,61 @@ ALTER TABLE `noc`
 -- AUTO_INCREMENT for table `sellers`
 --
 ALTER TABLE `sellers`
-  MODIFY `seller_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `seller_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `seller_canadian_education`
 --
 ALTER TABLE `seller_canadian_education`
-  MODIFY `s_can_edu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `s_can_edu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `seller_career`
 --
 ALTER TABLE `seller_career`
-  MODIFY `seller_career_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `seller_career_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `seller_core_skills`
 --
 ALTER TABLE `seller_core_skills`
-  MODIFY `s_core_skill_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `s_core_skill_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `seller_experience_data`
 --
 ALTER TABLE `seller_experience_data`
-  MODIFY `seller_experience_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `seller_experience_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `seller_global_education`
 --
 ALTER TABLE `seller_global_education`
-  MODIFY `seller_global_education_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `seller_global_education_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `seller_messages`
 --
 ALTER TABLE `seller_messages`
-  MODIFY `s_msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `s_msg_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `seller_notification`
 --
 ALTER TABLE `seller_notification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `seller_personal_information`
 --
 ALTER TABLE `seller_personal_information`
-  MODIFY `p_info_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `p_info_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `seller_sub_skills`
 --
 ALTER TABLE `seller_sub_skills`
-  MODIFY `seller_s_skill_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `seller_s_skill_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `seller_video`
