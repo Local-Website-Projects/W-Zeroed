@@ -132,37 +132,86 @@ if(!isset($_SESSION['seller_id'])) {
                                         <?php
                                         if($fetch_exp[$i]['accomplishment'] != null){
                                             ?>
-                                            <li><?php echo $fetch_exp[$i]['accomplishment'];?></li>
+                                            <li><?php echo $fetch_exp[$i]['accomplishment'];?>
+                                                <?php
+                                                if( $fetch_exp[$i]['accomplishment_one_status'] == '1'){
+                                                    ?>
+                                                    <i class="ph ph-seal-check"></i>
+                                                    <?php
+                                                }
+                                                ?></li>
                                             <?php
                                         }
                                         if($fetch_exp[$i]['accomplishment_two'] != null){
                                             ?>
-                                            <li><?php echo $fetch_exp[$i]['accomplishment_two'];?></li>
+                                            <li><?php echo $fetch_exp[$i]['accomplishment_two'];?>
+                                                <?php
+                                                if( $fetch_exp[$i]['accomplishment_two_status'] == '1'){
+                                                    ?>
+                                                    <i class="ph ph-seal-check"></i>
+                                                    <?php
+                                                }
+                                                ?></li>
                                             <?php
                                         }
                                         if($fetch_exp[$i]['accomplishment_three'] != null){
                                             ?>
-                                            <li><?php echo $fetch_exp[$i]['accomplishment_three'];?></li>
+                                            <li><?php echo $fetch_exp[$i]['accomplishment_three'];?>
+                                            <?php
+                                            if( $fetch_exp[$i]['accomplishment_three_status'] == '1'){
+                                                ?>
+                                                <i class="ph ph-seal-check"></i>
+                                                <?php
+                                            }
+                                            ?>
+                                            </li>
                                             <?php
                                         }
                                         ?>
                                     </ul>
-                                    <h4 style="font-size: 20px; font-weight: bold" class="mt-5">Reference Verification Data:</h4>
+                                    <h4 style="font-size: 20px; font-weight: bold" class="mt-5">Reference Verification Data: <?php
+                                        if( $fetch_exp[$i]['reference_status'] == '1'){
+                                            ?>
+                                            <i class="ph ph-seal-check"></i>
+                                            <?php
+                                        }
+                                        ?>
+                                        </h4>
                                     <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['reporting_manager'];?></p>
                                     <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['designation'];?></p>
                                     <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['name'];?></p>
                                     <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['email'];?></p>
-                                    <div class="flex flex-wrap gap-4 mt-5">
-                                        <a href="reference_verification.php?job=<?php echo $fetch_exp[$i]['seller_experience_id'];?>" class="button-main -border">Request Verification</a>
-                                    </div>
-                                    <h4 style="font-size: 20px; font-weight: bold" class="mt-5">Experience Verification Data:</h4>
+                                    <?php
+                                    if( $fetch_exp[$i]['reference_status'] == '0'){
+                                        ?>
+                                        <div class="flex flex-wrap gap-4 mt-5">
+                                            <a href="reference_verification.php?job=<?php echo $fetch_exp[$i]['seller_experience_id'];?>" class="button-main -border">Request Verification</a>
+                                        </div>
+                                        <?php
+                                    }
+                                    ?>
+                                    <h4 style="font-size: 20px; font-weight: bold" class="mt-5">Experience Verification Data:
+                                        <?php
+                                        if( $fetch_exp[$i]['job_experience_status'] == '1'){
+                                            ?>
+                                            <i class="ph ph-seal-check"></i>
+                                            <?php
+                                        }
+                                        ?>
+                                    </h4>
                                     <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['reporting_manager_job'];?></p>
                                     <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['designation_job'];?></p>
                                     <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['name_job'];?></p>
                                     <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['email_job'];?></p>
-                                    <div class="flex flex-wrap gap-4 mt-5">
-                                        <a href="job_verification.php?job=<?php echo $fetch_exp[$i]['seller_experience_id'];?>" class="button-main -border">Request Verification</a>
-                                    </div>
+                                    <?php
+                                    if( $fetch_exp[$i]['job_experience_status'] == '0'){
+                                        ?>
+                                        <div class="flex flex-wrap gap-4 mt-5">
+                                            <a href="job_verification.php?job=<?php echo $fetch_exp[$i]['seller_experience_id'];?>" class="button-main -border">Request Verification</a>
+                                        </div>
+                                        <?php
+                                    }
+                                    ?>
                                 </li>
                                 <hr>
                                 <?php
