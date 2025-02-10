@@ -35,13 +35,18 @@ if(isset($_GET['job'])){
          <p>Dear {$fetch_data[0]['name_job']}</p>
          <div style='color:black;text-align: left'>
              <p>{$fetch_personal_data[0]['first_name']} {$fetch_personal_data[0]['last_name']}, contact email: {$fetch_personal_data[0]['contact_email']} has requested you to
-             verify his/her job experience. The datails are:</p>
+             verify his/her accomplishments. The datails are:</p>
              <p>Designation: {$fetch_data[0]['job_designation']}</p>
              <p>Company Name: {$fetch_data[0]['company_name']}</p>
              <p>Company Website: {$fetch_data[0]['company_website']}</p>
              <p>Start Date: {$start_date}</p>
              <p>Start Date: {$end_date}</p>
-             <p>If you want to verify this job experience please click on the following verify button: <a href='https://zeroed.one/Job-Experience-Verification?id={$job_id}' target='_blank'>Verify</a></p>
+             <p>List of accomplishments:</p>
+             <p>{$fetch_data[0]['accomplishment']}</p>
+             <p>{$fetch_data[0]['accomplishment_two']}</p>
+             <p>{$fetch_data[0]['accomplishment_three']}</p>
+             
+             <p>If you want to verify this job experience please click on the following verify button: <a href='https://zeroed.one/Accomplishment-Verification?id={$job_id}' target='_blank'>Verify</a></p>
          </div>
      </div>
 
@@ -78,7 +83,7 @@ if(isset($_GET['job'])){
         // Send to first email address
         $mail->addAddress($receiver_email1);
         if ($mail->send()) {
-                echo "<script>
+            echo "<script>
                      document.cookie = 'alert = 3;';
                      window.location.href ='Seller-Profile';
                      </script>";

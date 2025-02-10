@@ -99,10 +99,6 @@ if(isset($_POST['login'])){
         </div>
 
 
-
-
-
-
         <?php include ('include/mobile_menu.php');?>
 
         <?php include ('include/script.php');?>
