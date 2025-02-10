@@ -46,7 +46,7 @@ if(isset($_GET['job'])){
              <p>{$fetch_data[0]['accomplishment_two']}</p>
              <p>{$fetch_data[0]['accomplishment_three']}</p>
              
-             <p>If you want to verify this job experience please click on the following verify button: <a href='https://zeroed.one/Accomplishment-Verification?id={$job_id}' target='_blank'>Verify</a></p>
+             <p>If you want to verify this job experience please click on the following verify button: <a href='https://dotest.click/Accomplishment-Verification?id={$job_id}' target='_blank'>Verify</a></p>
          </div>
      </div>
 
