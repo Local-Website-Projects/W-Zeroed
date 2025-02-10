@@ -137,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </button>
             <div class="list_category p-6 mt-7.5 rounded-lg bg-white">
                 <h5 class="heading5" style="margin-top: 0 !important;">Personal Information</h5>
-                <form class="form" method="post" action="" enctype="multipart/form-data">
+                <form class="form" method="post" action="Update" enctype="multipart/form-data">
                     <?php
                     $seller = $_SESSION['seller_id'];
                     $fetch_profile = $db_handle->runQuery("select * from seller_personal_information where user_id = '$seller'");
@@ -446,7 +446,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
 
                 </form>
-
 
 
 

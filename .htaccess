@@ -26,6 +26,7 @@ RewriteRule ^Accomplishment-Verification$ accomplishment_verification.php [L]
 
 
 RewriteRule ^Insert$ insert.php [L]
+RewriteRule ^Update$ update.php [L]
 
 # Ensure file paths match exactly
 RewriteCond %{REQUEST_FILENAME} !-f

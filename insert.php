@@ -241,10 +241,12 @@ if(isset($_POST['set_profile'])){
             }
         }
 
-        for($x=0; $x<count($canadian_level_of_education); $x++){
-            $insert_canadian_education = $db_handle->insertQuery("INSERT INTO `seller_canadian_education`(`user_id`, `can_level_of_education`, `can_field_of_study`, `can_college`, `can_location`, `can_gpa`, `inserted_at`,`canadian_accreditation`,`canadian_certificate_number`) VALUES ('$seller_id','$canadian_level_of_education[$x]','$canadian_field_of_study[$x]','$canadian_college[$x]','$canadian_study_location[$x]','$canadian_gpa[$x]','$inserted_at','$canadian_accreditation[$x]','$canadian_certificate_number[$x]')");
-            if (!$insert_canadian_education) {
-                throw new Exception("Error inserting dynamic field data.");
+        if($canadian_level_of_education[0] != null){
+            for($x=0; $x<count($canadian_level_of_education); $x++){
+                $insert_canadian_education = $db_handle->insertQuery("INSERT INTO `seller_canadian_education`(`user_id`, `can_level_of_education`, `can_field_of_study`, `can_college`, `can_location`, `can_gpa`, `inserted_at`,`canadian_accreditation`,`canadian_certificate_number`) VALUES ('$seller_id','$canadian_level_of_education[$x]','$canadian_field_of_study[$x]','$canadian_college[$x]','$canadian_study_location[$x]','$canadian_gpa[$x]','$inserted_at','$canadian_accreditation[$x]','$canadian_certificate_number[$x]')");
+                if (!$insert_canadian_education) {
+                    throw new Exception("Error inserting dynamic field data.");
+                }
             }
         }
 

@@ -127,8 +127,8 @@ if(isset($_GET['seller'])){
                         <h5 class="heading5">Experience</h5>
                         <ul class="list flex flex-col gap-7 mt-5">
                             <?php
-                            $fetch_exp = $db_handle->runQuery("SELECT * FROM `seller_experience_data` where user_id = {$_SESSION['seller_id']}");
-                            $fetch_exp_no = $db_handle->numRows("SELECT * FROM `seller_experience_data` where user_id = {$_SESSION['seller_id']}");
+                            $fetch_exp = $db_handle->runQuery("SELECT * FROM `seller_experience_data` where user_id = '$seller'");
+                            $fetch_exp_no = $db_handle->numRows("SELECT * FROM `seller_experience_data` where user_id = '$seller'");
                             for ($i=0; $i<$fetch_exp_no; $i++) {
                                 ?>
                                 <li>
