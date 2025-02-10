@@ -749,7 +749,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>
 
                             <hr class="mt-5 mb-5">
-                            <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5">Reference Job Verification:</h2>
+                            <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5">Work Experience Verification:</h2>
                             <div class="grid sm:grid-cols-3 gap-3">
                                 <div class="jobLocation">
                                     <label>Reference Type</label>
