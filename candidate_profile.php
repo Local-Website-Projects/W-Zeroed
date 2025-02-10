@@ -147,6 +147,22 @@ if(!isset($_SESSION['seller_id'])) {
                                         }
                                         ?>
                                     </ul>
+                                    <h4 style="font-size: 20px; font-weight: bold" class="mt-5">Reference Verification Data:</h4>
+                                    <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['reporting_manager'];?></p>
+                                    <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['designation'];?></p>
+                                    <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['name'];?></p>
+                                    <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['email'];?></p>
+                                    <div class="flex flex-wrap gap-4 mt-5">
+                                        <a href="https://zeroed.one/reference_verification.php?job=<?php echo $fetch_exp[$i]['seller_experience_id'];?>" class="button-main -border">Request Verification</a>
+                                    </div>
+                                    <h4 style="font-size: 20px; font-weight: bold" class="mt-5">Experience Verification Data:</h4>
+                                    <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['reporting_manager_job'];?></p>
+                                    <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['designation_job'];?></p>
+                                    <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['name_job'];?></p>
+                                    <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['email_job'];?></p>
+                                    <div class="flex flex-wrap gap-4 mt-5">
+                                        <a href="https://zeroed.one/job_verification.php?job=<?php echo $fetch_exp[$i]['seller_experience_id'];?>" class="button-main -border">Request Verification</a>
+                                    </div>
                                 </li>
                                 <hr>
                                 <?php

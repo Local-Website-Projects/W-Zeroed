@@ -19,6 +19,7 @@ RewriteRule ^Terms$ terms&conditions.php [L]
 RewriteRule ^Update-Password$ update_password.php [L]
 RewriteRule ^Email-Verify$ email_verify_forget.php [L]
 RewriteRule ^Set-Password$ set_new_password.php [L]
+RewriteRule ^Job-Experience-Verification$ job_experience_verification.php [L]
 
 
 
