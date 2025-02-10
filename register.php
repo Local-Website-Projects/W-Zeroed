@@ -28,22 +28,13 @@ if(isset($_SESSION['seller_id'])){
 
 <div class="container flex items-center justify-center min-h-screen mt-5" style="height: 100vh;">
     <div class="grid sm:grid-cols-2 mt-5">
-        <div class="container flex items-center justify-center mt-5">
-                <div class="content sm:w-[448px] w-full align-middle">
-                    <h3 class="heading3">Welcome to Zeroed!</h3>
-                    <h4 class="heading4">Get Hiring Ready</h4>
-                   <!-- <h4 class="lg:mt-20 heading4"> <span style="font-size: 18px; font-weight: bold">
-                        Grab attention on hiring managers with your verified skills,
-                            work experience and video intro.
-                    </span></h4>-->
-                    <h3 class="mt-5 heading4"> <span style="font-size: 18px; font-weight: bold">
-                        Sign up today to claim the launch offer!
-                    </span></h3>
-                    <h3 class="mt-5 heading4"> <span style="font-size: 18px; font-weight: bold">
-                        1 month free trial
-                    </span></h3>
+        <section class="form_login lg:py-20 sm:py-14 py-10">
+            <div class="container flex items-center justify-center">
+                <div class="content sm:w-[448px] w-full">
+                    <img src="assets/images/new/signup2.png"/>
                 </div>
             </div>
+        </section>
         <section class="form_register lg:py-20 sm:py-14 py-10">
             <div class="container flex items-center justify-center">
                 <div class="content sm:w-[448px] w-full">

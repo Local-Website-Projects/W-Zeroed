@@ -441,6 +441,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </datalist>
                         </div>
                     </div>
+                    <div class="flex items-center col-span-full gap-5 mt-5">
+                        <button class="button-main" type="submit" name="update_personal_info" id="publishButton">Update Personal Information</button>
+                    </div>
+
+                </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     <!-- Your HTML Container -->
                     <div id="educationContainer">
                         <h5 class="heading5 mt-5">Global Education</h5>
@@ -1331,7 +1353,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <button class="button-main -border">Reset</button>
                         <button class="button-main" type="submit" name="set_profile" id="publishButton">Publish</button>
                     </div>
-                </form>
             </div>
         </div>
         <?php include ('include/dashboard_footer.php');?>

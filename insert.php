@@ -19,8 +19,6 @@ if(isset($_POST['candidate_signup'])){
     $email = $db_handle->checkValue($_POST['email']);
     $password_seller = $db_handle->checkValue($_POST['password']);
 
-    $check_email = $db_handle->numRows("select * from sellers where email = '$email'");
-
     function generateUniqueRandomString($length = 12) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $randomString = '';
@@ -36,11 +34,12 @@ if(isset($_POST['candidate_signup'])){
         // Combine the timestamp with the random string for uniqueness
         return substr(md5($randomString . $timestamp), 0, $length);  // Optional: Return only the first 12 chars
     }
+    $check_email = $db_handle->numRows("select * from sellers where email = '$email'");
 
     if($check_email == 0){
         $unique_id = generateUniqueRandomString();
         $randomNumber = rand(100000, 999999);
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $hashedPassword = password_hash($password_seller, PASSWORD_DEFAULT);
 
         $subject = "Email Verification";
         $messege = "<html>
@@ -454,7 +453,8 @@ if(isset($_POST['send_seller_email'])){
 /*forget password email send*/
 if(isset($_POST['forget_pass'])){
     $email = $db_handle->checkValue($_POST['email']);
-    function generateUniqueRandomString($length = 12) {
+    $check_email = $db_handle->numRows("select * from sellers where email = '$email'");
+    function generateUniqueRandomString($length = 6) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $randomString = '';
         $maxIndex = strlen($characters) - 1;
@@ -469,8 +469,8 @@ if(isset($_POST['forget_pass'])){
         // Combine the timestamp with the random string for uniqueness
         return substr(md5($randomString . $timestamp), 0, $length);  // Optional: Return only the first 12 chars
     }
-    $unique_id = generateUniqueRandomString();
-    $update_code = $db_handle->insertQuery("UPDATE `sellers` SET `verification_code`='$unique_id',`updated_at`='$inserted_at' WHERE `email` = '$email'");
+    $new_verification_code = generateUniqueRandomString();
+    $update_code = $db_handle->insertQuery("UPDATE `sellers` SET `verification_code`='$new_verification_code',`updated_at`='$inserted_at' WHERE `email` = '$email'");
 
     if($check_email == 1){
        $subject = "Please verify your email address";
@@ -481,7 +481,7 @@ if(isset($_POST['forget_pass'])){
          <p style='text-align: center;color:#29a9e1;font-weight:bold'>Email verification code.</p>
 
          <div style='color:black;text-align: left'>
-             <p>6 digit verification code : $update_code</p>
+             <p>6 digit verification code : $new_verification_code</p>
          </div>
      </div>
 
@@ -514,7 +514,7 @@ if(isset($_POST['forget_pass'])){
              $mail->msgHTML($messege);  // HTML formatted message
 
              // Send to first email address
-             $mail->addAddress($receiver_email1);
+             $mail->addAddress($email);
              if ($mail->send()) {
                  echo "<script>
     document.cookie = 'alert=3';
