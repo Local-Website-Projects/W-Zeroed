@@ -57,3 +57,120 @@ if(isset($_POST['update_personal_info'])){
     </script>";
     }
 }
+
+
+if(isset($_POST['update_global_info'])){
+    $global_education_id = $_POST['global_education_id'];
+    $global_level_of_education = $_POST['global_level_of_education'];
+    $global_field_of_study = $_POST['global_field_of_study'];
+    $global_gpa = $_POST['global_gpa'];
+    $global_university = $_POST['global_university'];
+    $accreditation = $_POST['accreditation'];
+    $certificate_number = $_POST['certificate_number'];
+
+    for ($i=0; $i < count($global_education_id); $i++) {
+        $update_global_study = $db_handle->insertQuery("UPDATE `seller_global_education` SET `global_level_of_education`='$global_level_of_education[$i]',`global_field_of_study`='$global_field_of_study[$i]',`global_gpa`='$global_gpa[$i]',`global_university`='$global_university[$i]',`updated_at`='$inserted_at',`global_accreditation`='$accreditation[$i]',`global_certificate_no`='$certificate_number[$i]' WHERE `seller_global_education_id` = '$global_education_id[$i]'");
+        if($update_global_study){
+            echo "<script>
+                     document.cookie = 'alert = 3;';
+                     window.location.href ='Edit-Profile';
+                     </script>";
+        } else {
+            echo "<script>
+                     document.cookie = 'alert = 5;';
+                     window.location.href='Edit-Profile';
+                     </script>";
+        }
+    }
+
+}
+
+
+if(isset($_POST['update_canadian_info'])){
+    $canadian_edu_id = $_POST['canadian_edu_id'];
+    $canadian_level_of_education = $_POST['canadian_level_of_education'];
+    $canadian_field_of_study = $_POST['canadian_field_of_study'];
+    $canadian_college = $_POST['college'];
+    $canadian_study_location = $_POST['canadian_study_location'];
+    $canadian_gpa = $_POST['canadian_gpa'];
+    $canadian_accreditation = $_POST['canadian_accreditation'];
+    $canadian_certificate_number = $_POST['canadian_certificate_number'];
+
+    for($i=0; $i<count($canadian_edu_id); $i++){
+        $update_canadian_education = $db_handle->insertQuery("UPDATE `seller_canadian_education` SET `can_level_of_education`='$canadian_level_of_education[$i]',`can_field_of_study`='$canadian_field_of_study[$i]',`can_college`='$canadian_college[$i]',`can_location`='$canadian_study_location[$i]',`can_gpa`='$canadian_gpa[$i]',`canadian_accreditation`='$canadian_accreditation[$i]',`canadian_certificate_number`='$canadian_certificate_number[$i]',`updated_at`='$inserted_at' WHERE `s_can_edu_id`='$canadian_edu_id[$i]'");
+        if($update_canadian_education){
+            echo "<script>
+                     document.cookie = 'alert = 3;';
+                     window.location.href ='Edit-Profile';
+                     </script>";
+        } else {
+            echo "<script>
+                     document.cookie = 'alert = 5;';
+                     window.location.href='Edit-Profile';
+                     </script>";
+        }
+    }
+}
+
+
+if(isset($_POST['update_experience_info'])){
+    $till_date = 0;
+    $seller_exp_id = $_POST['seller_exp_id'];
+    $industry = $_POST['industry'];
+    $sub_industry = $_POST['sub_industry'];
+    $countries = $_POST['countries'];
+    $job_designation = $_POST['job_designation'];
+    $company_name = $_POST['company_name'];
+    $company_website = $_POST['company_website'];
+    $start_date = $_POST['start_date'];
+    $end_date = $_POST['end_date'];
+    $accomplishment = $_POST['accomplishment'];
+    $accomplishment2 = $_POST['accomplishment2'];
+    $accomplishment3 = $_POST['accomplishment3'];
+    $reporting_manager = $_POST['reporting_manager'];
+    $designation = $_POST['designation'];
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $till_date = $_POST['till_date'];
+    $reporting_manager_job = $_POST['reporting_manager_job'];
+    $designation_job = $_POST['designation_job'];
+    $name_job = $_POST['name_job'];
+    $email_job = $_POST['email_job'];
+
+    for($i=0; $i<count($seller_exp_id);$i++){
+        if($till_date == 1)
+            $end_date = '0000-00-00';
+        $update_exp_data = $db_handle->insertQuery("UPDATE `seller_experience_data` SET `industry`='$industry[$i]',`sub_industry`='$sub_industry[$i]',`countries`='$countries[$i]',`job_designation`='$job_designation[$i]',`company_name`='$company_name[$i]',`company_website`='$company_website[$i]',`start_date`='$start_date[$i]',`end_date`='$end_date[$i]',`accomplishment`='$accomplishment[$i]',`accomplishment_two`='$accomplishment2[$i]',`accomplishment_three`='$accomplishment3[$i]',`reporting_manager`='$reporting_manager[$i]',`designation`='$designation[$i]',`name`='$name[$i]',`email`='$email[$i]',`reporting_manager_job`='$reporting_manager_job[$i]',`designation_job`='$designation_job[$i]',`name_job`='$name_job[$i]',`email_job`='$email_job[$i]',`updated_at`='$inserted_at' WHERE `seller_experience_id` = '$seller_exp_id[$i]'");
+        if($update_exp_data){
+            echo "<script>
+                     document.cookie = 'alert = 3;';
+                    window.location.href = 'Edit-Profile';
+                     </script>";
+        } else {
+            echo "<script>
+                     document.cookie = 'alert = 5;';
+                     window.location.href = 'Edit-Profile';
+                     </script>";
+        }
+    }
+}
+
+if(isset($_POST['update_career'])){
+    $seller_career_id = $db_handle->checkValue($_POST['seller_career_id']);
+    $career_role = $db_handle->checkValue($_POST['career_role']);
+    $career_industry = $db_handle->checkValue($_POST['career_industry']);
+    $noc_number = $db_handle->checkValue($_POST['noc_number']);
+
+    $update_career_goal = $db_handle->insertQuery("UPDATE `seller_career` SET `career_role`='$career_role',`career_industry`='$career_industry',`noc_number`='$noc_number',`updated_at`='$inserted_at' WHERE `seller_career_id`='$seller_career_id'");
+    if($update_career_goal){
+        echo "<script>
+                     document.cookie = 'alert = 3;';
+                    window.location.href = 'Edit-Profile';
+                     </script>";
+    } else {
+        echo "<script>
+                     document.cookie = 'alert = 5;';
+                     window.location.href = 'Edit-Profile';
+                     </script>";
+    }
+}

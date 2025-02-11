@@ -152,10 +152,7 @@ if(isset($_POST['set_profile'])){
         $canadian_gpa = $_POST['canadian_gpa'];
         $canadian_accreditation = $_POST['canadian_accreditation'];
         $canadian_certificate_number = $_POST['canadian_certificate_number'];
-        $reporting_manager_job = $_POST['reporting_manager_job'];
-        $designation_job = $_POST['designation_job'];
-        $name_job = $_POST['name_job'];
-        $email_job = $_POST['email_job'];
+
 
         /*Skills section*/
         $core_skill_one = $db_handle->checkValue($_POST['core_skill_one']);
@@ -191,6 +188,10 @@ if(isset($_POST['set_profile'])){
         $name = $_POST['name'];
         $email = $_POST['email'];
         $till_date = $_POST['till_date'];
+        $reporting_manager_job = $_POST['reporting_manager_job'];
+        $designation_job = $_POST['designation_job'];
+        $name_job = $_POST['name_job'];
+        $email_job = $_POST['email_job'];
 
         /*video section*/
         $video_src = $_POST['videoSrc'];
@@ -331,7 +332,7 @@ if(isset($_POST['set_profile'])){
 
         for ($i= 0; $i<count($industry); $i++) {
             if($till_date == 1){
-                $end_date = '';
+                $end_date = '0000-00-00';
             }
             $insert_experience = $db_handle->insertQuery("INSERT INTO `seller_experience_data`(`user_id`, `industry`, `sub_industry`, `countries`, `job_designation`, `company_name`, `company_website`, `start_date`,`end_date`, `accomplishment`, `reporting_manager`, `designation`, `name`, `email`, `inserted_at`,`accomplishment_two`,`accomplishment_three`,`reporting_manager_job`,`designation_job`,`name_job`,`email_job`) VALUES ('$seller_id','$industry[$i]','$sub_industry[$i]','$countries[$i]','$job_location[$i]','$company_name[$i]','$company_website[$i]','$start_date[$i]','$end_date[$i]','$accomplishment[$i]','$reporting_manager[$i]','$designation[$i]','$name[$i]','$email[$i]','$inserted_at[$i]','$accomplishment2[$i]','$accomplishment3[$i]','$reporting_manager_job[$i]','$designation_job[$i]','$name_job[$i]','$email_job[$i]')");
             if (!$insert_experience) {

@@ -137,6 +137,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </button>
             <div class="list_category p-6 mt-7.5 rounded-lg bg-white">
                 <h5 class="heading5" style="margin-top: 0 !important;">Personal Information</h5>
+
+
+
                 <form class="form" method="post" action="Update" enctype="multipart/form-data">
                     <?php
                     $seller = $_SESSION['seller_id'];
@@ -447,32 +450,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 </form>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    <!-- Your HTML Container -->
+                    <!-- global education section -->
+                <form action="Update" method="post">
                     <div id="educationContainer">
                         <h5 class="heading5 mt-5">Global Education</h5>
-                        <!-- Initial Education Set -->
-                            <?php
-                            $fetch_globalEducation = $db_handle->runQuery("SELECT * FROM seller_global_education WHERE user_id='$seller'");
-                            $fetch_row = $db_handle->numRows("SELECT * FROM seller_global_education WHERE user_id='$seller'");
-                            for($i = 0; $i < $fetch_row; $i++){
-                                $row = $fetch_globalEducation[$i]; // Fetch each row from the result
-                                ?>
-                        <div class="educationSet grid sm:grid-cols-3 gap-3 mt-5">
+                        <?php
+                        $fetch_globalEducation = $db_handle->runQuery("SELECT * FROM seller_global_education WHERE user_id='$seller'");
+                        $fetch_row = $db_handle->numRows("SELECT * FROM seller_global_education WHERE user_id='$seller'");
+                        for($i = 0; $i < $fetch_row; $i++){
+                            $row = $fetch_globalEducation[$i]; // Fetch each row from the result
+                            ?>
+                            <div class="educationSet grid sm:grid-cols-3 gap-3 mt-5">
+                                <input type="hidden" value="<?php echo $row['seller_global_education_id'];?>" name="global_education_id[]"/>
                                 <!-- Level of Education -->
                                 <div class="education_level">
                                     <label>Level of Education <span class="text-red">*</span></label>
@@ -524,27 +513,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </div>
 
                                 <!-- Certificate number input (initially hidden) -->
-                                <div class="jobLocation certificateDiv" style="display: none;">
+                                <div class="jobLocation certificateDiv">
                                     <label for="certificate_number">Certificate No (If applicable)</label>
                                     <input class="w-full h-12 px-4 mt-2 border-line rounded-lg certificate_number" type="text" placeholder="certificate number" name="certificate_number[]" value="<?php echo htmlspecialchars($row['global_certificate_no']); ?>" />
                                 </div>
-
-                            <!-- Remove button for each set -->
-                            <button class="removeEducationSet w-full h-12 px-4 mt-2 button-main -border mt-5 bg-red text-white">Remove Education</button>
-                        </div>
-                                <?php
-                            }
-                            ?>
-
+                            </div>
+                            <hr class="mt-10 mb-10"/>
+                            <?php
+                        }
+                        ?>
                     </div>
 
                     <!-- Button to add more education sets -->
-                    <div class="grid sm:grid-cols-3 gap-3">
-                        <button id="addGlobalEducation" class="w-full h-12 px-4 mt-2 button-main -border mt-5">Add Another Education</button>
+                    <div class="flex items-center col-span-full gap-5 mt-5">
+                        <button class="button-main" type="submit" name="update_global_info">Update Global Education</button>
                     </div>
+                </form>
 
 
                     <!--canadian education section starts-->
+                <form action="Update" method="post">
                     <div id="educationContainer">
                         <!-- Initial Education Section -->
                         <div class="educationSection">
@@ -553,16 +541,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             $fetch_canadianEducation = $db_handle->runQuery("SELECT * FROM seller_canadian_education WHERE user_id='$seller'");
                             $fetch_row = $db_handle->numRows("SELECT * FROM seller_canadian_education WHERE user_id='$seller'");
                             ?>
-                            <button type="button" class="toggle_btn <?php if($fetch_row>0) echo 'active'; ?>"></button>
                             <?php
                             for($i = 0; $i < $fetch_row; $i++){
                                 $row = $fetch_canadianEducation[$i]; // Fetch each row from the result
                                 ?>
                                 <div class="educationFields grid sm:grid-cols-3 gap-3">
+                                    <input type="hidden" value="<?php echo $row['s_can_edu_id']?>" name="canadian_edu_id[]"/>
                                     <!-- Level of Education -->
                                     <div class="education_level">
                                         <label>Level of Education</label>
-                                        <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="canadian_level_of_education[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" disabled>
+                                        <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="canadian_level_of_education[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));">
                                             <option value="" <?php echo ($row['can_level_of_education'] == '') ? 'selected' : ''; ?>>Select Level of Education</option>
                                             <option value="Less than high school" <?php echo ($row['can_level_of_education'] == 'Less than high school') ? 'selected' : ''; ?>>Less than high school</option>
                                             <option value="High school graduation" <?php echo ($row['can_level_of_education'] == 'High school graduation') ? 'selected' : ''; ?>>High school graduation</option>
@@ -577,7 +565,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <!-- Field of Study -->
                                     <div class="education_level">
                                         <label>Field of Study</label>
-                                        <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="canadian_field_of_study[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" disabled>
+                                        <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="canadian_field_of_study[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));">
                                             <option value="" <?php echo ($row['can_field_of_study'] == '') ? 'selected' : ''; ?>>Select Field of Study</option>
                                             <?php
                                             $fetch_field_study = $db_handle->runQuery("SELECT * FROM field_of_study");
@@ -595,7 +583,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <!-- College/University -->
                                     <div class="education_level">
                                         <label>College/University</label>
-                                        <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="college[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" disabled>
+                                        <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="college[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));">
                                             <option value="" <?php echo ($row['can_college'] == '') ? 'selected' : ''; ?>>Select College/University</option>
                                             <?php
                                             $fetch_university = $db_handle->runQuery("SELECT * FROM universities");
@@ -613,7 +601,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <!-- Location -->
                                     <div class="education_level">
                                         <label>Location</label>
-                                        <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="canadian_study_location[]" disabled>
+                                        <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="canadian_study_location[]">
                                             <option value="" <?php echo ($row['can_location'] == '') ? 'selected' : ''; ?>>Select City</option>
                                             <?php
                                             $fetch_city = $db_handle->runQuery("SELECT * FROM cities");
@@ -631,13 +619,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <!-- GPA -->
                                     <div class="jobLocation">
                                         <label for="jobLocation">GPA</label>
-                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="10" name="canadian_gpa[]" value="<?php echo htmlspecialchars($row['can_gpa']); ?>" disabled />
+                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="10" name="canadian_gpa[]" value="<?php echo htmlspecialchars($row['can_gpa']); ?>"/>
                                     </div>
 
                                     <!-- Credential Accreditation -->
                                     <div class="education_level">
                                         <label>Credential Accreditation <span class="text-red">*</span></label>
-                                        <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="canadian_accreditation[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required disabled>
+                                        <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="canadian_accreditation[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
                                             <option value="" <?php echo ($row['canadian_accreditation'] == '') ? 'selected' : ''; ?>>Select Credential Accreditation</option>
                                             <option value="N/A" <?php echo ($row['canadian_accreditation'] == 'N/A') ? 'selected' : ''; ?>>N/A</option>
                                             <option value="WES" <?php echo ($row['canadian_accreditation'] == 'WES') ? 'selected' : ''; ?>>WES</option>
@@ -646,20 +634,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     </div>
 
                                     <!-- Certificate number input (initially hidden) -->
-                                    <div class="jobLocation certificateDivCanadian" style="display: none;">
+                                    <div class="jobLocation certificateDivCanadian">
                                         <label for="certificate_number">Certificate No (If applicable)</label>
-                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="certificate number" name="canadian_certificate_number[]" value="<?php echo htmlspecialchars($row['canadian_certificate_number']); ?>" disabled />
+                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="certificate number" name="canadian_certificate_number[]" value="<?php echo htmlspecialchars($row['canadian_certificate_number']); ?>" />
                                     </div>
                                 </div>
                                 <?php
                             }
                             ?>
-                            <button type="button" class="remove_btn">Remove</button>
                         </div>
                     </div>
-                    <div class="grid sm:grid-cols-3 gap-3">
-                        <button id="addCanadianEducation" class="w-full h-12 px-4 mt-2 button-main -border mt-5">Add Another Education</button>
+                    <div class="flex items-center col-span-full gap-5 mt-5">
+                        <button class="button-main" type="submit" name="update_canadian_info">Update Canadian Education</button>
                     </div>
+                </form>
+
 
 
 
@@ -741,575 +730,182 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                     </div>
 
-                    <!-- Work Experience Section Wrapper -->
+
+                    <form action="Update" method="POST">
                     <div id="experience-container">
                         <div class="experience-section">
-                            <h5 class="heading5 mt-5">Work Experience</h5>
-                            <div class="grid sm:grid-cols-3 gap-3">
-                                <div class="education_level">
-                                    <label>Industry</label>
-                                    <select id="industry" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="industry[]" required>
-                                        <option selected>Select Industry</option>
+                            <?php
+                            $fetch_experienceData = $db_handle->runQuery("SELECT * FROM seller_experience_data WHERE user_id='$seller'");
+                            $fetch_row = $db_handle->numRows("SELECT * FROM seller_experience_data WHERE user_id='$seller'");
+                            for($i = 0; $i < $fetch_row; $i++){
+                                $row = $fetch_experienceData[$i];
+                                ?>
+                                <h5 class="heading5 mt-5">Work Experience</h5>
+                                <?php
+                                if($row['job_experience_status'] == 0){
+                                    ?>
+                                    <input type="hidden" value="<?php echo $row['seller_experience_id'];?>" name="seller_exp_id[]"/>
+                                <div class="grid sm:grid-cols-3 gap-3">
+                                    <div class="education_level">
+                                        <label>Industry</label>
+                                        <select id="industry" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="industry[]" required>
+                                            <option selected>Select Industry</option>
+                                            <?php
+                                            $fetch_industry = $db_handle->runQuery("SELECT * FROM industries ORDER BY industry ASC");
+                                            foreach ($fetch_industry as $row1) {
+                                                ?>
+                                                <option value="<?php echo $row1['industry_id']?>" <?php if ($row['industry'] == $row1['industry_id']) echo "selected"?>><?php echo $row1['industry']?></option>
+                                                <?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="education_level">
+                                        <label>Sub Industry</label>
+                                        <select id="subindustry" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="sub_industry[]" required>
+                                            <option value="<?php echo $row['sub_industry'];?>" selected><?php echo $row['sub_industry'];?></option>
+                                        </select>
+                                    </div>
+                                    <div class="education_level">
+                                        <label>Country</label>
+                                        <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="countries[]">
+                                            <option disabled selected>Please Select Country</option>
+                                            <?php
+                                            $fetch_country = $db_handle->runQuery("SELECT country_name FROM countries ORDER BY country_name ASC");
+                                            foreach ($fetch_country as $country) {
+                                                ?>
+                                                <option value="<?php echo $country['country_name']?>" <?php if($country['country_name'] == $row['countries']) echo "selected";?>><?php echo $country['country_name']?></option>
+                                                <?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="jobLocation">
+                                            <label>Job Title</label>
+                                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Software Engineer" name="job_designation[]" value="<?php echo htmlspecialchars($row['job_designation']); ?>" required />
+                                        </div>
+                                    <div class="jobLocation">
+                                            <label>Company Name</label>
+                                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Company Name" name="company_name[]" value="<?php echo htmlspecialchars($row['company_name']); ?>" required />
+                                        </div>
+                                    <div class="jobLocation">
+                                            <label>Company Website Link</label>
+                                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg company-website" type="text" placeholder="www.abc.com or https://abc.com" name="company_website[]" value="<?php echo htmlspecialchars($row['company_website']); ?>" required />
+                                        </div>
+                                    <div class="jobLocation">
+                                            <label>Start Date</label>
+                                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" name="start_date[]" value="<?php echo htmlspecialchars($row['start_date']); ?>" required />
+                                        </div>
+                                    <div class="jobLocation">
+                                            <label>End Date</label>
+                                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" name="end_date[]" value="<?php echo htmlspecialchars($row['end_date']); ?>" required />
+                                        </div>
+                                    <div class="jobLocation">
+                                            <label>Working till now?</label>
+                                            <input type="checkbox" class="px-4 mt-2 border-line rounded-lg" name="till_date[]" id="tillDateCheckbox" value="1"> Yes
+                                        </div>
+                                    <?php
+                                } if($row['reference_status'] == 0){
+                                    if($row['accomplishment_one_status'] == 0){
+                                    ?>
+                                        <div class="jobLocation">
+                                            <label>Accomplishments</label>
+                                            <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment[]"><?php echo htmlspecialchars($row['accomplishment']); ?></textarea>
+                                        </div>
                                         <?php
-                                        $fetch_industry = $db_handle->runQuery("SELECT * FROM industries ORDER BY industry ASC");
-                                        foreach ($fetch_industry as $row) {
-                                            echo "<option value='{$row['industry_id']}'>{$row['industry']}</option>";
-                                        }
+                                    } if($row['accomplishment_two_status'] == 0){
                                         ?>
-                                    </select>
-                                </div>
-                                <div class="education_level">
-                                    <label>Sub Industry</label>
-                                    <select id="subindustry" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="sub_industry[]" required>
-                                        <option selected>Select Sub Industry</option>
-                                    </select>
-                                </div>
-                                <div class="education_level">
-                                    <label>Country</label>
-                                    <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="countries[]">
-                                        <option disabled selected>Please Select Country</option>
+                                        <div class="jobLocation">
+                                            <label>Accomplishments</label>
+                                            <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment2[]"><?php echo htmlspecialchars($row['accomplishment_two']); ?></textarea>
+                                        </div>
                                         <?php
-                                        $fetch_country = $db_handle->runQuery("SELECT country_name FROM countries ORDER BY country_name ASC");
-                                        foreach ($fetch_country as $country) {
-                                            echo "<option value='{$country['country_name']}'>{$country['country_name']}</option>";
-                                        }
+                                    } if($row['accomplishment_two_status'] == 0){
                                         ?>
-                                    </select>
+                                        <div class="jobLocation">
+                                            <label>Accomplishments</label>
+                                            <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment3[]"><?php echo htmlspecialchars($row['accomplishment_three']); ?></textarea>
+                                        </div>
+                                    <?php
+                                    }
+                                }
+                                    ?>
+                                </div>
+
+                                <?php
+                                if($row['job_experience_status'] == 0){
+                                ?>
+                                <hr class="mt-5 mb-5">
+                                <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5">Work Experience Verification:</h2>
+                                <div class="grid sm:grid-cols-3 gap-3">
+                                    <div class="jobLocation">
+                                        <label>Reference Type</label>
+                                        <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="reporting_manager_job[]">
+                                            <option>Please Select Reference Type</option>
+                                            <option value="HR" <?php if ($row['reporting_manager_job'] == 'HR') echo "selected";?>>HR</option>
+                                            <option value="Reporting Manager" <?php if ($row['reporting_manager_job'] == 'Reporting Manager') echo "selected";?>>Reporting Manager</option>
+                                        </select>
+                                    </div>
+                                    <div class="jobLocation">
+                                        <label>Designation</label>
+                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" value="<?php echo $row['designation_job']?>" name="designation_job[]" />
+                                    </div>
+                                    <div class="jobLocation">
+                                        <label>Name</label>
+                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" value="<?php echo $row['name_job']?>" name="name_job[]" />
+                                    </div>
+                                    <div class="jobLocation">
+                                        <label>Email</label>
+                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg company-email" type="email" value="<?php echo $row['email_job']?>" name="email_job[]" />
+                                        <small class="error-message text-red-500 hidden">Email domain must match the company website.</small>
+                                    </div>
+                                    <button class="remove-experience hidden w-1/3 h-10 mt-4 bg-red-500 text-white rounded-lg">Remove</button>
+                                </div>
+                                    <?php
+                                } if($row['reference_status'] == 0){
+                                    ?>
+
+                                <hr class="mt-5 mb-5">
+                                <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5">Reference:</h2>
+                                <div class="grid sm:grid-cols-3 gap-3">
+                                    <div class="jobLocation">
+                                        <label>Reference Type</label>
+                                        <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="reporting_manager[]">
+                                            <option>Please Select Reference Type</option>
+                                            <option value="HR" <?php if($row['reporting_manager'] == 'HR') echo "selected";?>>HR</option>
+                                            <option value="Reporting Manager" <?php if($row['reporting_manager'] == 'Reporting Manager') echo "selected";?>>Reporting Manager</option>
+                                        </select>
+                                    </div>
+                                    <div class="jobLocation">
+                                        <label>Designation</label>
+                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" value="<?php echo $row['designation'];?>" name="designation[]" />
+                                    </div>
+                                    <div class="jobLocation">
+                                        <label>Name</label>
+                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" value="<?php echo $row['name'];?>" name="name[]" />
+                                    </div>
+                                    <div class="jobLocation">
+                                        <label>Email</label>
+                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg company-email" type="email" value="<?php echo $row['email'];?>" name="email[]" />
+                                        <small class="error-message text-red-500 hidden">Email domain must match the company website.</small>
+                                    </div>
                                 </div>
                                 <?php
-                                $fetch_experienceData = $db_handle->runQuery("SELECT * FROM seller_experience_data WHERE user_id='$seller'");
-                                $fetch_row = $db_handle->numRows("SELECT * FROM seller_experience_data WHERE user_id='$seller'");
-                                for($i = 0; $i < $fetch_row; $i++){
-                                    $row = $fetch_experienceData[$i]; // Fetch each row from the result
-                                    ?>
-                                    <div class="jobLocation">
-                                        <label>Job Title</label>
-                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Software Engineer" name="job_location[]" value="<?php echo htmlspecialchars($row['job_designation']); ?>" required />
-                                    </div>
-
-                                    <div class="jobLocation">
-                                        <label>Company Name</label>
-                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Company Name" name="company_name[]" value="<?php echo htmlspecialchars($row['company_name']); ?>" required />
-                                    </div>
-
-                                    <div class="jobLocation">
-                                        <label>Company Website Link</label>
-                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg company-website" type="text" placeholder="www.abc.com or https://abc.com" name="company_website[]" value="<?php echo htmlspecialchars($row['company_website']); ?>" required />
-                                    </div>
-
-                                    <div class="jobLocation">
-                                        <label>Start Date</label>
-                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" name="start_date[]" value="<?php echo htmlspecialchars($row['start_date']); ?>" required />
-                                    </div>
-
-                                    <div class="jobLocation">
-                                        <label>End Date</label>
-                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" name="end_date[]" value="<?php echo htmlspecialchars($row['end_date']); ?>" required />
-                                    </div>
-
-                                    <div class="jobLocation">
-                                        <label>Working till now?</label>
-                                        <input type="checkbox" class="px-4 mt-2 border-line rounded-lg" name="till_date[]" id="tillDateCheckbox" value="1" <?php echo ($row['job_experience_status'] == 1) ? 'checked' : ''; ?>> Yes
-                                    </div>
-
-                                    <div class="jobLocation">
-                                        <label>Accomplishments</label>
-                                        <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment[]"><?php echo htmlspecialchars($row['accomplishment']); ?></textarea>
-                                    </div>
-
-                                    <div class="jobLocation">
-                                        <label>Accomplishments</label>
-                                        <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment2[]"><?php echo htmlspecialchars($row['accomplishment_two']); ?></textarea>
-                                    </div>
-
-                                    <div class="jobLocation">
-                                        <label>Accomplishments</label>
-                                        <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment3[]"><?php echo htmlspecialchars($row['accomplishment_three']); ?></textarea>
-                                    </div>
-
-                                    <?php
                                 }
-                                ?>
-                            </div>
-
-                            <hr class="mt-5 mb-5">
-                            <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5">Work Experience Verification:</h2>
-                            <div class="grid sm:grid-cols-3 gap-3">
-                                <div class="jobLocation">
-                                    <label>Reference Type</label>
-                                    <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="reporting_manager_job[]">
-                                        <option>Please Select Reference Type</option>
-                                        <option value="HR">HR</option>
-                                        <option value="Reporting Manager">Reporting Manager</option>
-                                    </select>
-                                </div>
-                                <div class="jobLocation">
-                                    <label>Designation</label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Enter Designation" name="designation_job[]" />
-                                </div>
-                                <div class="jobLocation">
-                                    <label>Name</label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Enter Name" name="name_job[]" />
-                                </div>
-                                <div class="jobLocation">
-                                    <label>Email</label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg company-email" type="email" placeholder="Enter Email" name="email_job[]" />
-                                    <small class="error-message text-red-500 hidden">Email domain must match the company website.</small>
-                                </div>
-                                <button class="remove-experience hidden w-1/3 h-10 mt-4 bg-red-500 text-white rounded-lg">Remove</button>
-                            </div>
-
-                            <hr class="mt-5 mb-5">
-                            <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5">Reference:</h2>
-                            <div class="grid sm:grid-cols-3 gap-3">
-                                <div class="jobLocation">
-                                    <label>Reference Type</label>
-                                    <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="reporting_manager[]">
-                                        <option>Please Select Reference Type</option>
-                                        <option value="HR">HR</option>
-                                        <option value="Reporting Manager">Reporting Manager</option>
-                                    </select>
-                                </div>
-                                <div class="jobLocation">
-                                    <label>Designation</label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Enter Designation" name="designation[]" />
-                                </div>
-                                <div class="jobLocation">
-                                    <label>Name</label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Enter Name" name="name[]" />
-                                </div>
-                                <div class="jobLocation">
-                                    <label>Email</label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg company-email" type="email" placeholder="Enter Email" name="email[]" />
-                                    <small class="error-message text-red-500 hidden">Email domain must match the company website.</small>
-                                </div>
-                                <button class="remove-experience hidden w-full h-10 mt-4 bg-red-500 text-white rounded-lg">Remove</button>
-                            </div>
+                            }
+                            ?>
                         </div>
                     </div>
-
-                    <div class="grid sm:grid-cols-3 gap-3">
-                        <button id="addExperience" class="w-full h-12 px-4 mt-2 button-main -border mt-5">Add Another Experience</button>
+                    <div class="flex items-center col-span-full gap-5 mt-5">
+                        <button class="button-main" type="submit" name="update_experience_info">Update Experience Info</button>
                     </div>
-
-                    <!--video section-->
-                    <h5 class="heading5 mt-5">Video Section</h5>
-                    <div class="grid sm:grid-cols-3 gap-3">
-                        <!-- Trigger Button -->
-                        <button type="button" class="w-full h-12 px-4 mt-2 button-main -border mt-5"
-                                onclick="document.getElementById('modal').classList.remove('hidden')">Add Video</button>
-
-                        <!-- Modal -->
-                        <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center" style="z-index: 50">
-                            <div class="bg-white rounded-2xl shadow-xl max-w-2xl w-full p-6 overflow-y-auto max-h-[90vh]">
-                                <div class="flex justify-between items-center mb-4">
-                                    <h2 class="text-2xl font-bold">🎥 Video Recording Tips</h2>
-                                    <button class="text-red-500 text-xl" onclick="document.getElementById('modal').classList.add('hidden')">
-                                        &times;</button>
-                                </div>
-
-                                <div class="space-y-4" id="content">
-                                    <h3 class="text-xl font-semibold">📋 Preparation Checklist:</h3>
-                                    <ul class="list-disc pl-5 space-y-2">
-                                        <li>📷 Use a good quality camera (smartphone or HD webcam).</li>
-                                        <li>💡 Ensure good lighting, avoid backlighting.</li>
-                                        <li>🖼️ Keep your background clean and professional.</li>
-                                        <li>📹 Use a stable surface or tripod for steady shots.</li>
-                                        <li>👔 Dress appropriately for your industry.</li>
-                                        <li>🎯 Position the camera at eye level with good posture.</li>
-                                        <li>🎙️ Ensure clear audio, use an external mic if possible.</li>
-                                        <li>📝 Practice speaking naturally instead of reading a script.</li>
-                                        <li>😊 Smile and maintain positive body language.</li>
-                                        <li>⏳ Keep the video concise (1-2 minutes).</li>
-                                    </ul>
-
-                                    <div id="moreContent" class="hidden">
-                                        <h3 class="text-xl font-semibold">🎬 Video Structure:</h3>
-
-                                        <div>
-                                            <h4 class="font-bold">👋 Introduction (10-15 seconds)</h4>
-                                            <p>Start with a warm introduction and confidently present yourself.</p>
-                                            <p class="italic">Example: "Hi, my name is [Your Name], and I’m a [Your Profession/Industry]."</p>
-                                        </div>
-
-                                        <div>
-                                            <h4 class="font-bold">🚀 Key Highlights (30-45 seconds)</h4>
-                                            <p>Highlight key skills, achievements, or recent education.</p>
-                                            <p class="italic">Example: "I specialize in [Skill 1, Skill 2, Skill 3]."</p>
-                                        </div>
-
-                                        <div>
-                                            <h4 class="font-bold">🎯 Closing & Call to Action (15-20 seconds)</h4>
-                                            <p>Express enthusiasm and invite engagement.</p>
-                                            <p class="italic">Example: "I’m excited about roles in [Industry] and eager to contribute my skills."</p>
-                                        </div>
-
-                                        <h3 class="text-xl font-semibold">✔️ Final Tips:</h3>
-                                        <ul class="list-disc pl-5 space-y-2">
-                                            <li>Practice a few times before recording to feel comfortable.</li>
-                                            <li>Keep your tone friendly, professional, and engaging.</li>
-                                            <li>Be authentic—it helps you stand out!</li>
-                                        </ul>
-
-                                        <h3 class="text-xl font-semibold">🎥 Additional Video Recording Tips:</h3>
-                                        <ul class="list-disc pl-5 space-y-2">
-                                            <li>🎬 Record in landscape mode for a professional look.</li>
-                                            <li>🔇 Turn off notifications to avoid interruptions during recording.</li>
-                                            <li>⏱️ Pause briefly before and after speaking to allow for smooth editing.</li>
-                                            <li>📏 Maintain an appropriate distance from the camera (arm's length works well).</li>
-                                            <li>🌟 Show your personality to create a memorable and engaging video.</li>
-                                        </ul>
-                                    </div>
-
-                                    <button id="showMoreBtn" type="button" class="text-blue-600 font-semibold" onclick="toggleContent()">Show More ▼</button>
-
-                                    <!-- Audio Files Section -->
-                                    <div class="mt-6">
-                                        <h3 class="text-xl font-semibold">🎧 Instruction Audio Files:</h3>
-                                        <div class="space-y-4">
-                                            <div>
-                                                <h4 class="font-bold">Tips on how to record: </h4>
-                                                <audio controls style="width: 100%">
-                                                    <source src="assets/audio/Tips%20on%20how%20to%20record%20record.mp3" type="audio/mp3">
-                                                    Your browser does not support the audio element.
-                                                </audio>
-                                            </div>
-                                            <div>
-                                                <h4 class="font-bold">Tips on Intro Video Format: </h4>
-                                                <audio controls style="width: 100%">
-                                                    <source src="assets/audio/Tips%20on%20Intro%20Video%20Format.mp3" type="audio/mp3">
-                                                    Your browser does not support the audio element.
-                                                </audio>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Video Upload/Recording Section -->
-                                    <div class="mt-6 space-y-4">
-                                        <h3 class="text-xl font-semibold">📹 Video Options:</h3>
-                                        <div class="flex justify-end space-x-4">
-                                            <button id="openUploadModal" type="button" class="w-full h-12 px-4 mt-2 button-main -border mt-5">Upload Video</button>
-                                            <button id="openRecordModal" type="button" class="w-full h-12 px-4 mt-2 button-main -border mt-5">Record Video</button>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
+                </form>
 
 
-                        <input type="hidden" name="videoSrc" id="videoSrc" value="">
-
-                        <!-- Upload Video Modal -->
-                        <div id="uploadModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50" style="z-index: 55">
-                            <div class="bg-white rounded-2xl shadow-lg p-6 w-96 relative">
-                                <h2 class="text-2xl font-semibold mb-4">Upload Video</h2>
-                                <input type="file" id="video-file" accept="video/*" class="block w-full text-gray-700 border border-gray-300 rounded-lg p-2 mb-4" />
-
-                                <button id="closeUploadModal" type="button" class="absolute top-2 right-2 text-gray-400 hover:text-gray-800 text-xl">&times;</button>
-
-                                <div class="flex justify-end space-x-2">
-                                    <button type="button" class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400" onclick="closeModal('uploadModal')">Cancel</button>
-                                    <button id="uploadButton" type="button" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Upload</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Record Video Modal -->
-                        <div id="recordModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50" style="z-index: 55">
-                            <div class="bg-white rounded-2xl shadow-lg p-6 w-96 relative">
-                                <h2 class="text-2xl font-semibold mb-4">Record Video for 2 Minutes</h2>
-                                <video id="webcam" class="w-full h-48 bg-gray-200 rounded mb-4" autoplay muted></video>
-
-                                <div id="timer">02:00</div>
-                                <video id="video-player" controls style="display:none;margin-bottom: 30px;" autoplay muted></video>
-
-                                <button id="closeRecordModal" type="button" class="absolute top-2 right-2 text-gray-400 hover:text-gray-800 text-xl">&times;</button>
-
-                                <div class="flex justify-end space-x-2">
-                                    <button type="button" class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400" onclick="closeModal('recordModal')">Cancel</button>
-                                    <button id="start-recording" type="button" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">Start Recording</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Full-page Spinner -->
-                        <div id="spinner" class="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center hidden" style="z-index: 100">
-                            <div class="spinner-border animate-spin inline-block w-16 h-16 border-4 border-t-4 border-white rounded-full" role="status">
-                                <span class="visually-hidden">.</span>
-                            </div>
-                        </div>
-
-                        <script>
-                            const spinner = document.getElementById('spinner');
-                            // Modal Triggers
-                            document.getElementById('openUploadModal').addEventListener('click', () => openModal('uploadModal'));
-                            document.getElementById('openRecordModal').addEventListener('click', () => {
-                                openModal('recordModal');
-                                startWebcam(); // Start the webcam when the record modal opens
-                            });
-
-                            // Close Buttons
-                            document.getElementById('closeUploadModal').addEventListener('click', () => closeModal('uploadModal'));
-                            document.getElementById('closeRecordModal').addEventListener('click', () => closeModal('recordModal'));
-
-                            // Open & Close Modal Functions
-                            function openModal(id) {
-                                document.getElementById(id).classList.remove('hidden');
-                                document.getElementById(id).classList.add('flex');
-                            }
-
-                            function closeModal(id) {
-                                document.getElementById(id).classList.add('hidden');
-                                document.getElementById(id).classList.remove('flex');
-                            }
-
-                            function toggleContent(){
-                                const moreContent = document.getElementById('moreContent');
-                                const showMoreBtn = document.getElementById('showMoreBtn');
-
-                                if (moreContent.classList.contains('hidden')) {
-                                    moreContent.classList.remove('hidden');
-                                    showMoreBtn.textContent = 'Show Less ▲';
-                                } else {
-                                    moreContent.classList.add('hidden');
-                                    showMoreBtn.textContent = 'Show More ▼';
-                                }
-                            }
-
-                            // Handle File Upload
-                            document.getElementById('uploadButton').addEventListener('click', function () {
-                                closeModal('uploadModal');
-                                const fileInput = document.getElementById('video-file');  // Ensure this is the correct ID
-                                const file = fileInput ? fileInput.files[0] : null;  // Check if fileInput is found and the file exists
-                                spinner.classList.remove('hidden'); // Show the spinner
-                                if (file) {
-                                    // Generate a random number between 1 and 1000
-                                    const randomNum = Math.floor(Math.random() * 1000) + 1;
-
-                                    // Get the current date and time (in a simplified format)
-                                    const currentDateTime = new Date().toISOString().replace(/[^\w\s]/gi, '_');  // Format: YYYY-MM-DDTHH-MM-SS
-
-                                    // Construct a new filename with random number + date-time
-                                    const newFileName = `${randomNum}_${currentDateTime}.mp4`;  // Assuming the file is MP4
-
-                                    const formData = new FormData();
-                                    formData.append('video', file, newFileName);  // Send the file with the new name
-
-                                    // Send the file to the server
-                                    $.ajax({
-                                        url: 'upload.php',
-                                        type: 'POST',
-                                        data: formData,
-                                        contentType: false,
-                                        processData: false,
-                                        success: function (response) {
-                                            console.log('File uploaded successfully!');
-                                            console.log(response); // Show success message from PHP
-                                            document.getElementById('videoSrc').value = newFileName; // Set the response (URL or path) in the hidden input
-                                            spinner.classList.add('hidden'); // Show the spinner
-                                        },
-                                        error: function (jqXHR, textStatus, errorThrown) {
-                                            console.log('Error uploading file: ' + errorThrown);
-                                        }
-                                    });
-                                } else {
-                                    alert('Please select a file to upload.');
-                                }
-                            });
-
-
-                            let mediaRecorder;
-                            let recordedChunks = [];
-                            let stream;
-                            let timerInterval;
-                            let countdown = 120; // 5 seconds countdown
-                            let isRecording = false; // Flag to check if recording is in progress
-
-                            // Create a timestamp for the filename
-                            function generateFileName() {
-                                const randomNum = Math.floor(Math.random() * 1000) + 1; // Generate random number
-                                const timestamp = new Date().toISOString().replace(/[^\w\s]/gi, '_'); // Timestamp with valid characters
-                                return `${randomNum}_${timestamp}_recording.mp4`; // Format filename as randomNum_timestamp_recording.mp4
-                            }
-
-                            const fileName = generateFileName(); // Example format: 123_2025-02-06T14-35-20_recording.mp4
-
-                            // Check if MediaRecorder is supported
-                            if (!window.MediaRecorder) {
-                                alert('MediaRecorder is not supported in your browser. Please use a modern browser like Chrome or Firefox.');
-                                throw new Error('MediaRecorder is not supported.');
-                            }
-
-                            // Start the webcam and initialize media recorder
-                            function startWebcam() {
-                                navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-                                    .then(function (mediaStream) {
-                                        console.log("Media Stream is successfully acquired:", mediaStream);
-                                        stream = mediaStream;
-                                        const videoElement = document.getElementById('webcam');
-                                        videoElement.srcObject = stream;
-                                        videoElement.style.display = 'block'; // Show webcam preview
-
-                                        try {
-                                            // Try setting MIME type to 'video/webm' as it's widely supported
-                                            const mimeType = 'video/webm'; // Default MIME type for recording
-                                            if (!MediaRecorder.isTypeSupported(mimeType)) {
-                                                console.error(`${mimeType} is not supported. Trying 'video/mp4'...`);
-                                            } else {
-                                                console.log(`${mimeType} is supported.`);
-                                            }
-
-                                            mediaRecorder = new MediaRecorder(stream, { mimeType: mimeType });
-
-                                            console.log("MediaRecorder initialized:", mediaRecorder);
-
-                                            mediaRecorder.ondataavailable = function (event) {
-                                                recordedChunks.push(event.data);
-                                            };
-
-                                            mediaRecorder.onstop = function () {
-                                                console.log("Recording stopped.");
-                                                const blob = new Blob(recordedChunks, { type: mimeType });
-                                                if (blob.size > 0) {
-                                                    const formData = new FormData();
-                                                    formData.append('video', blob, fileName);
-
-                                                    // Send the video to PHP for saving
-                                                    $.ajax({
-                                                        url: 'upload.php',
-                                                        type: 'POST',
-                                                        data: formData,
-                                                        contentType: false,
-                                                        processData: false,
-                                                        success: function (response) {
-                                                            console.log('File uploaded successfully!');
-                                                            document.getElementById('videoSrc').value = fileName; // Set the response (URL or message) in the hidden input
-                                                            document.getElementById('webcam').style.display = 'none';
-                                                            document.getElementById('timer').style.display = 'none';
-                                                            document.getElementById('start-recording').style.display = 'none';
-                                                        },
-                                                        error: function (jqXHR, textStatus, errorThrown) {
-                                                            console.log('Error uploading file: ' + errorThrown);
-                                                        }
-                                                    });
-
-                                                    // Play the recorded video
-                                                    const videoPlayer = document.getElementById('video-player');
-                                                    videoPlayer.src = URL.createObjectURL(blob); // Create URL for playback
-                                                    videoPlayer.style.display = 'block'; // Show the video player
-                                                    videoPlayer.play(); // Start playing the video
-                                                } else {
-                                                    console.log("Recording resulted in empty file.");
-                                                }
-                                            };
-                                        } catch (error) {
-                                            console.error("Error initializing MediaRecorder: ", error);
-                                        }
-                                    })
-                                    .catch(function (err) {
-                                        console.error("Error accessing webcam: ", err);
-                                        alert('There was an issue accessing the webcam or microphone.');
-                                    });
-                            }
-
-                            // Stop the webcam stream
-                            function stopWebcam() {
-                                const videoElement = document.getElementById('webcam');
-                                const stream = videoElement.srcObject;
-
-                                // Stop all tracks in the webcam stream
-                                if (stream) {
-                                    const tracks = stream.getTracks();
-                                    tracks.forEach(track => track.stop()); // Stop each track (video/audio)
-                                    videoElement.srcObject = null; // Clear the video source object
-                                }
-                            }
-
-                            // Start recording
-                            $('#start-recording').click(function () {
-                                if (!isRecording) {
-                                    resetRecordingState(); // Reset all variables and UI elements
-                                    if (mediaRecorder && mediaRecorder.state === 'inactive') {
-                                        isRecording = true; // Set the recording flag to true
-                                        $('#start-recording').attr('disabled', true); // Disable the start button
-                                        $('#timer').show(); // Show timer
-
-                                        // Wait 1 second before starting recording
-                                        setTimeout(function () {
-                                            try {
-                                                console.log("Starting recording...");
-                                                mediaRecorder.start(); // Start recording
-                                                startTimer(); // Start countdown timer
-                                            } catch (error) {
-                                                console.error("Error starting MediaRecorder: ", error);
-                                                alert("Failed to start recording. Please check if your camera and microphone are accessible.");
-                                            }
-                                        }, 1000); // 1-second delay before starting recording
-                                    } else {
-                                        console.error("MediaRecorder is not initialized or already recording.");
-                                        alert("Recording is already in progress or MediaRecorder is not ready.");
-                                    }
-                                } else {
-                                    console.log("Already recording...");
-                                }
-                            });
-
-                            // Reset all variables and UI elements after stopping or starting again
-                            function resetRecordingState() {
-                                // Reset countdown
-                                countdown = 120;
-                                $('#timer').text('02:00'); // Reset the timer display
-
-                                // Clear previous recorded video
-                                const videoPlayer = document.getElementById('video-player');
-                                videoPlayer.style.display = 'none'; // Hide the previous video player
-                                videoPlayer.src = ''; // Clear the previous video
-
-                                // Clear previous chunks
-                                recordedChunks = [];
-
-                                // Stop any active recording or webcam
-                                if (isRecording) {
-                                    stopRecording();
-                                }
-
-                                // Restart webcam if needed
-                                stopWebcam();
-                                startWebcam();
-                            }
-
-                            // Start countdown timer
-                            function startTimer() {
-                                timerInterval = setInterval(function () {
-                                    countdown--;
-                                    let minutes = Math.floor(countdown / 60);
-                                    let seconds = countdown % 60;
-                                    document.getElementById('timer').innerText = `${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
-                                    if (countdown <= 0) {
-                                        clearInterval(timerInterval);
-                                        stopRecording(); // Automatically stop recording after 5 seconds
-                                    }
-                                }, 1000);
-                            }
-
-                            // Stop recording automatically after 5 seconds
-                            function stopRecording() {
-                                if (mediaRecorder && mediaRecorder.state === 'recording') {
-                                    mediaRecorder.stop();
-                                    stopWebcam(); // Stop webcam stream
-                                    $('#start-recording').attr('disabled', false); // Re-enable the start button
-                                    $('#timer').hide(); // Hide timer
-                                    isRecording = false; // Reset the recording flag
-                                } else {
-                                    console.log("MediaRecorder is not recording.");
-                                }
-                            }
-                        </script>
-                    </div>
 
                     <!--career goal section-->
                     <h5 class="heading5 mt-5">Career Goals</h5>
+                <form action="Update" method="POST">
                     <?php
                     $fetch_careerData = $db_handle->runQuery("SELECT * FROM seller_career WHERE seller_id='$seller'");
                     $fetch_row = $db_handle->numRows("SELECT * FROM seller_career WHERE seller_id='$seller'");
@@ -1317,6 +913,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $row = $fetch_careerData[$i]; // Fetch each row from the result
                         ?>
                         <div class="grid sm:grid-cols-3 gap-3">
+                            <input type="hidden" value="<?php echo $row['seller_career_id']?>" name="seller_career_id"/>
                             <div class="jobLocation">
                                 <label for="jobLocation">Role</label>
                                 <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="Enter career role" name="career_role" value="<?php echo htmlspecialchars($row['career_role']); ?>" required />
@@ -1345,13 +942,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <?php
                     }
                     ?>
-
-
                     <!--reset and submit section starts here-->
                     <div class="flex items-center col-span-full gap-5 mt-5">
-                        <button class="button-main -border">Reset</button>
-                        <button class="button-main" type="submit" name="set_profile" id="publishButton">Publish</button>
+                        <button class="button-main" type="submit" name="update_career" id="publishButton">Update Career Goal</button>
                     </div>
+                </form>
             </div>
         </div>
         <?php include ('include/dashboard_footer.php');?>
@@ -1440,22 +1035,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         const educationContainer = document.getElementById('educationContainer');
         const addButton = document.getElementById('addCanadianEducation');
 
-        // Function to enable/disable fields when toggle button is clicked
-        function setupToggleButton(section) {
-            const toggleButton = section.querySelector('.toggle_btn');
-            const educationFields = section.querySelectorAll('select, input');
-
-            toggleButton.addEventListener('click', function () {
-                const isActive = toggleButton.classList.contains('active');
-
-                if (isActive) {
-                    educationFields.forEach(field => field.disabled = true);
-                } else {
-                    educationFields.forEach(field => field.disabled = false);
-                }
-            });
-        }
-
         // Function to handle accreditation change
         function setupAccreditationChange(section) {
             const accreditationSelect = section.querySelector('select[name="canadian_accreditation[]"]');
@@ -1475,46 +1054,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 });
             }
         }
-
-        // Function to handle the remove button
-        function setupRemoveButton(section) {
-            const removeButton = section.querySelector('.remove_btn');
-            if (removeButton) {
-                removeButton.addEventListener('click', function () {
-                    section.remove(); // Remove the entire section
-                });
-            }
-        }
-
-        // Function to clone and append a new education section
-        function addEducationSection() {
-            const originalSection = document.querySelector('.educationSection');
-            const newSection = originalSection.cloneNode(true); // Deep clone the section
-
-            // Reset the fields in the new section
-            newSection.querySelectorAll('select').forEach(select => {
-                select.selectedIndex = 0; // Reset dropdowns to the first option
-            });
-            newSection.querySelectorAll('input').forEach(input => {
-                input.value = ''; // Clear input fields
-            });
-
-            // Append the new section to the container
-            educationContainer.appendChild(newSection);
-
-            // Reattach event listeners for the new section
-            setupToggleButton(newSection);
-            setupAccreditationChange(newSection);
-            setupRemoveButton(newSection); // Attach remove button functionality
-        }
-
-        // Attach the addEducationSection function to the "Add Another Education" button
-        addButton.addEventListener('click', addEducationSection);
-
-        // Initialize event listeners for the first section
-        setupToggleButton(document.querySelector('.educationSection'));
-        setupAccreditationChange(document.querySelector('.educationSection'));
-        setupRemoveButton(document.querySelector('.educationSection')); // Attach remove button for the first section
     });
 </script>
 
