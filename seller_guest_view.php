@@ -131,7 +131,7 @@ if(isset($_GET['seller'])){
                             $fetch_exp_no = $db_handle->numRows("SELECT * FROM `seller_experience_data` where user_id = '$seller'");
                             for ($i=0; $i<$fetch_exp_no; $i++) {
                                 ?>
-                                <li>
+                                <p>
                                     <div class="flex items-center gap-4 mb-1">
                                         <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5"><?php echo $fetch_exp[$i]['job_designation'];?></h2>
                                         <span class="time text-xs font-semibold uppercase"><?php
@@ -144,35 +144,34 @@ if(isset($_GET['seller'])){
                                     </div>
                                     <strong class="position text-button"><?php echo $fetch_exp[$i]['company_name'];?></strong>
                                     <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['company_website'];?></p>
-                                    <ul class="list flex flex-col gap-7 mt-5 pl-7">
                                         <?php
                                         if($fetch_exp[$i]['accomplishment'] != null){
                                             ?>
-                                            <li><?php echo $fetch_exp[$i]['accomplishment'];?>
+                                            <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['accomplishment'];?>
                                                 <?php
                                                 if( $fetch_exp[$i]['accomplishment_one_status'] == '1'){
                                                     ?>
                                                     <i class="ph ph-seal-check"></i>
                                                     <?php
                                                 }
-                                                ?></li>
+                                                ?></p>
                                             <?php
                                         }
                                         if($fetch_exp[$i]['accomplishment_two'] != null){
                                             ?>
-                                            <li><?php echo $fetch_exp[$i]['accomplishment_two'];?>
+                                            <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['accomplishment_two'];?>
                                                 <?php
                                                 if( $fetch_exp[$i]['accomplishment_two_status'] == '1'){
                                                     ?>
                                                     <i class="ph ph-seal-check"></i>
                                                     <?php
                                                 }
-                                                ?></li>
+                                                ?></p>
                                             <?php
                                         }
                                         if($fetch_exp[$i]['accomplishment_three'] != null){
                                             ?>
-                                            <li><?php echo $fetch_exp[$i]['accomplishment_three'];?>
+                                            <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['accomplishment_three'];?>
                                                 <?php
                                                 if( $fetch_exp[$i]['accomplishment_three_status'] == '1'){
                                                     ?>
@@ -180,11 +179,10 @@ if(isset($_GET['seller'])){
                                                     <?php
                                                 }
                                                 ?>
-                                            </li>
+                                            </p>
                                             <?php
                                         }
                                         ?>
-                                    </ul>
                                     <h4 style="font-size: 20px; font-weight: bold" class="mt-5">Reference Verification Data: <?php
                                         if( $fetch_exp[$i]['reference_status'] == '1'){
                                             ?>

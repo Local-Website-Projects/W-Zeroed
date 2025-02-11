@@ -128,35 +128,34 @@ if(!isset($_SESSION['seller_id'])) {
                                     </div>
                                     <strong class="position text-button"><?php echo $fetch_exp[$i]['company_name'];?></strong>
                                     <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['company_website'];?></p>
-                                    <ul class="list flex flex-col gap-7 mt-5 pl-7">
                                         <?php
                                         if($fetch_exp[$i]['accomplishment'] != null){
                                             ?>
-                                            <li><?php echo $fetch_exp[$i]['accomplishment'];?>
+                                            <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['accomplishment'];?>
                                                 <?php
                                                 if( $fetch_exp[$i]['accomplishment_one_status'] == '1'){
                                                     ?>
                                                     <i class="ph ph-seal-check"></i>
                                                     <?php
                                                 }
-                                                ?></li>
+                                                ?></p>
                                             <?php
                                         }
                                         if($fetch_exp[$i]['accomplishment_two'] != null){
                                             ?>
-                                            <li><?php echo $fetch_exp[$i]['accomplishment_two'];?>
+                                            <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['accomplishment_two'];?>
                                                 <?php
                                                 if( $fetch_exp[$i]['accomplishment_two_status'] == '1'){
                                                     ?>
                                                     <i class="ph ph-seal-check"></i>
                                                     <?php
                                                 }
-                                                ?></li>
+                                                ?></p>
                                             <?php
                                         }
                                         if($fetch_exp[$i]['accomplishment_three'] != null){
                                             ?>
-                                            <li><?php echo $fetch_exp[$i]['accomplishment_three'];?>
+                                            <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['accomplishment_three'];?>
                                             <?php
                                             if( $fetch_exp[$i]['accomplishment_three_status'] == '1'){
                                                 ?>
@@ -164,11 +163,10 @@ if(!isset($_SESSION['seller_id'])) {
                                                 <?php
                                             }
                                             ?>
-                                            </li>
+                                            </p>
                                             <?php
                                         }
                                         ?>
-                                    </ul>
                                     <h4 style="font-size: 20px; font-weight: bold" class="mt-5">Reference Verification Data: <?php
                                         if( $fetch_exp[$i]['reference_status'] == '1'){
                                             ?>
@@ -231,7 +229,7 @@ if(!isset($_SESSION['seller_id'])) {
                                 ?>
                                     <li>
                                     <div class="flex items-center gap-4 mb-1">
-                                        <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5"><?php echo $fetch_global_education[$i]['global_level_of_education'];?>
+                                        <h2 style="font-size: 30px; font-weight: bold" class="mt-5"><?php echo $fetch_global_education[$i]['global_level_of_education'];?>
                                         <?php
                                             if($fetch_global_education[$i]['global_certificate_no'] != null){
                                                 ?>
@@ -257,7 +255,7 @@ if(!isset($_SESSION['seller_id'])) {
                                 ?>
                                 <li>
                                     <div class="flex items-center gap-4 mb-1">
-                                        <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5"><?php echo $fetch_canadian_education[$i]['can_level_of_education'];?>
+                                        <h2 style="font-size: 30px; font-weight: bold" class="mt-5"><?php echo $fetch_canadian_education[$i]['can_level_of_education'];?>
                                             <?php
                                             if($fetch_canadian_education[$i]['canadian_certificate_number'] != null)
                                             {
