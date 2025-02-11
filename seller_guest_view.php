@@ -209,8 +209,6 @@ if(isset($_GET['seller'])){
                                     <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['designation_job'];?></p>
                                     <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['name_job'];?></p>
                                     <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['email_job'];?></p>
-                                    
-                                </li>
                                 <hr>
                                 <?php
                             }
@@ -238,7 +236,7 @@ if(isset($_GET['seller'])){
                                             }
                                             ?>
                                         </h2>
-                                        <span class="time caption2">GPA: <?php echo $fetch_global_education[$i]['global_gpa'];?></span>
+                                        <span class="time caption2" style=" background: #39af3e;padding: 10px 20px;border-radius: 10px;color: white;">GPA: <?php echo $fetch_global_education[$i]['global_gpa'];?></span>
                                     </div>
                                     <strong class="position text-button"><?php echo $fetch_global_education[0]['global_field_of_study'];?></strong>
                                     <p class="desc text-secondary mt-1"><?php echo $fetch_global_education[$i]['global_university'];?></p>
@@ -264,7 +262,7 @@ if(isset($_GET['seller'])){
                                                 <?php
                                             }
                                             ?></h2>
-                                        <span class="time caption2">GPA: <?php echo $fetch_canadian_education[$i]['can_gpa'];?></span>
+                                        <span class="time caption2" style=" background: #39af3e;padding: 10px 20px;border-radius: 10px;color: white;">GPA: <?php echo $fetch_canadian_education[$i]['can_gpa'];?></span>
                                     </div>
                                     <strong class="position text-button"><?php echo $fetch_canadian_education[$i]['field_study'];?></strong>
                                     <p class="desc text-secondary mt-1">University/College: <?php echo $fetch_canadian_education[$i]['university_name'];?></p>

@@ -241,10 +241,6 @@ input::-webkit-inner-spin-button {
   font-size: 12px;
   line-height: 16px;
   font-weight: 500;
-  background: #39af3e;
-  padding: 10px 20px;
-  border-radius: 10px;
-  color: white;
 }
 
 .text-label {
