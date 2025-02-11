@@ -174,3 +174,22 @@ if(isset($_POST['update_career'])){
                      </script>";
     }
 }
+
+if(isset($_GET['dlt_id'])){
+    $id = $_GET['dlt_id'];
+    $fetch_skill_id = $db_handle->runQuery("select core_skill from seller_core_skills where s_core_skill_id = '$id'");
+    $skill_id = $fetch_skill_id[0]['core_skill'];
+    $dlt_subskills = $db_handle->insertQuery("DELETE FROM `seller_sub_skills` WHERE `core_skill_id` = '$skill_id'");
+    $dlt_skill = $db_handle->insertQuery("DELETE FROM `seller_core_skills` WHERE `s_core_skill_id` = '$id'");
+    if($dlt_skill){
+        echo "<script>
+                     document.cookie = 'alert = 3;';
+                     window.location.href = 'Edit-Skills';
+                     </script>";
+    } else {
+        echo "<script>
+                     document.cookie = 'alert = 5;';
+                     window.location.href = 'Edit-Skills';
+                     </script>";
+    }
+}

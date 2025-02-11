@@ -557,3 +557,57 @@ if(isset($_POST['verify'])){
              </script>";
     }
 }
+
+
+if(isset($_POST['add_skill'])){
+    $seller_id = $_SESSION['seller_id'];
+    $core_skill_one = $db_handle->checkValue($_POST['core_skill_one']);
+    $sub_skills_one = $_POST['sub_skills_one'];
+    $sub_skills_one = explode(',', $sub_skills_one);
+    $sub_skills_one = array_map('trim', $sub_skills_one);
+
+    if ($core_skill_one != null){
+        $insert_skill_one = $db_handle->insertQuery("INSERT INTO `seller_core_skills`(`user_id`, `core_skill`, `inserted_at`) VALUES ('$seller_id','$core_skill_one','$inserted_at')");
+        if (!$insert_skill_one) {
+            echo "
+                <script>
+                 document.cookie = 'alert = 5;';
+         window.location.href='Edit-Skills';
+                </script>
+                ";
+        } else{
+            foreach ($sub_skills_one as $s_skill_one){
+                $subSkillValue = preg_replace('/[\s\(\)]+/', '_', $s_skill_one);
+                $subSkillValue = preg_replace('/[!#$^&*()+=\[\]{};\'":\\\\|,.<>\/?]+/', '\\\\$0', $subSkillValue);
+                $file_subskill = '';
+                if (!empty($_FILES[$subSkillValue]['name'])) {
+                    $RandomAccountNumber = mt_rand(1, 99999);
+                    $file_name = $RandomAccountNumber . "_" . $_FILES[$subSkillValue]['name'];
+                    $file_size = $_FILES[$subSkillValue]['size'];
+                    $file_tmp  = $_FILES[$subSkillValue]['tmp_name'];
+
+                    $file_type = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+                    move_uploaded_file($file_tmp, "assets/sub_skills/" . $file_name);
+                    $file_subskill = "assets/sub_skills/" . $file_name;
+                }
+                $insert_sub_skill = $db_handle->insertQuery("INSERT INTO `seller_sub_skills`(`user_id`, `core_skill_id`, `sub_skill`, `s_skill_file`, `inserted_at`) VALUES ('$seller_id','$core_skill_one','$s_skill_one','$file_subskill','$inserted_at')");
+                if (!$insert_sub_skill) {
+                    echo "
+                <script>
+                 document.cookie = 'alert = 5;';
+         window.location.href='Edit-Skills';
+                </script>
+                ";
+                } else{
+                    echo "
+                <script>
+                 document.cookie = 'alert = 3;';
+         window.location.href='Edit-Skills';
+                </script>
+                ";
+                }
+            }
+        }
+    }
+
+}

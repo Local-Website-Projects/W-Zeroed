@@ -22,6 +22,7 @@ RewriteRule ^Email-Verify$ email_verify_forget.php [L]
 RewriteRule ^Set-Password$ set_new_password.php [L]
 RewriteRule ^Job-Experience-Verification$ job_experience_verification.php [L]
 RewriteRule ^Accomplishment-Verification$ accomplishment_verification.php [L]
+RewriteRule ^Edit-Skills$ edit_skills.php [L]
 
 
 
