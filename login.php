@@ -54,14 +54,14 @@ if(isset($_POST['login'])){
         <?php include ('include/css.php');?>
     </head>
 
-    <body>
+    <body style="background: #00c5ff;">
         <!-- Header -->
         <?php include ('include/header.php');?>
 
         <div class="container flex items-center justify-center min-h-screen mt-5" style="height: 100vh;">
             <!-- Form Login -->
             <div class="grid sm:grid-cols-2 mt-5">
-                <section class="form_login lg:py-20 sm:py-14 py-10">
+                <section class="form_login lg:py-20 sm:py-14 py-10" style="background: #fff">
                     <div class="container flex items-center justify-center">
                         <div class="content sm:w-[448px] w-full">
                             <h3 class="heading3 text-center">Log In</h3>

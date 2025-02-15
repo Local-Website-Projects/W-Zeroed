@@ -21,21 +21,14 @@ if(isset($_SESSION['seller_id'])){
     <?php include ('include/css.php')?>
 </head>
 
-<body>
+<body style="background: #00c5ff;">
 <!-- Header -->
 <?php include ('include/header.php');?>
 
 
-<div class="container flex items-center justify-center min-h-screen mt-5" style="height: 100vh;">
-    <div class="grid sm:grid-cols-2 mt-5">
-        <section class="form_login lg:py-20 sm:py-14 py-10">
-            <div class="container flex items-center justify-center">
-                <div class="content sm:w-[448px] w-full">
-                    <img src="assets/images/new/signup2.png"/>
-                </div>
-            </div>
-        </section>
-        <section class="form_register lg:py-20 sm:py-14 py-10">
+<div class="container flex items-center justify-center min-h-screen mt-5" style="min-height: 100vh;">
+    <div class="grid sm:grid-cols-3 mt-5">
+        <section class="form_register lg:py-20 sm:py-14 py-10" style="background: #fff">
             <div class="container flex items-center justify-center">
                 <div class="content sm:w-[448px] w-full">
                     <div id="candidate" class="tab_list active" role="tabpanel" aria-labelledby="tab_candidate" aria-hidden="false">
@@ -69,6 +62,20 @@ if(isset($_SESSION['seller_id'])){
                             </div>
                         </form>
                     </div>
+                </div>
+            </div>
+        </section>
+        <section class="form_login lg:py-20 sm:py-14 py-10">
+            <div class="container flex items-center justify-center">
+                <div class="content sm:w-[448px] w-full lg:mt-20">
+                    <img src="assets/images/new/signup2.png"/>
+                </div>
+            </div>
+        </section>
+        <section class="form_login lg:py-20 sm:py-14 py-10" style="height: 700px">
+            <div class="container flex items-center justify-center">
+                <div class="content sm:w-[448px] w-full mt-5">
+                    <img src="assets/images/new/signup.jpg"/>
                 </div>
             </div>
         </section>

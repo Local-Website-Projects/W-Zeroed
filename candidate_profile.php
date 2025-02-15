@@ -249,8 +249,8 @@ if(!isset($_SESSION['seller_id'])) {
                             <hr class="mt-5 mb-5"/>
 
                             <?php
-                            $fetch_canadian_education = $db_handle->runQuery("SELECT can_level_of_education,university_name, city_name, field_study, can_gpa,canadian_certificate_number FROM `seller_canadian_education`,`universities`,`cities`,`field_of_study` WHERE seller_canadian_education.can_field_of_study = field_of_study.field_study_id AND seller_canadian_education.can_college = universities.university_id AND cities.city_id = seller_canadian_education.can_location AND seller_canadian_education.user_id = {$_SESSION['seller_id']}");
-                            $fetch_canadian_education_no = $db_handle->numRows("SELECT can_level_of_education,university_name, city_name, field_study, can_gpa,canadian_certificate_number FROM `seller_canadian_education`,`universities`,`cities`,`field_of_study` WHERE seller_canadian_education.can_field_of_study = field_of_study.field_study_id AND seller_canadian_education.can_college = universities.university_id AND cities.city_id = seller_canadian_education.can_location AND seller_canadian_education.user_id = {$_SESSION['seller_id']}");
+                            $fetch_canadian_education = $db_handle->runQuery("SELECT can_level_of_education,university_name, city_name, study_field, can_gpa,canadian_certificate_number FROM `seller_canadian_education`,`universities`,`cities`,`field_of_study_canadian` WHERE seller_canadian_education.can_field_of_study = field_of_study_canadian.field_study_can_id AND seller_canadian_education.can_college = universities.university_id AND cities.city_id = seller_canadian_education.can_location AND seller_canadian_education.user_id = {$_SESSION['seller_id']}");
+                            $fetch_canadian_education_no = $db_handle->numRows("SELECT can_level_of_education,university_name, city_name, study_field, can_gpa,canadian_certificate_number FROM `seller_canadian_education`,`universities`,`cities`,`field_of_study_canadian` WHERE seller_canadian_education.can_field_of_study = field_of_study_canadian.field_study_can_id AND seller_canadian_education.can_college = universities.university_id AND cities.city_id = seller_canadian_education.can_location AND seller_canadian_education.user_id = {$_SESSION['seller_id']}");
                             for($i=0; $i<$fetch_canadian_education_no; $i++){
                                 ?>
                                 <li>
@@ -266,7 +266,7 @@ if(!isset($_SESSION['seller_id'])) {
                                             ?></h2>
                                         <span class="time caption2" style=" background: #39af3e;padding: 10px 20px;border-radius: 10px;color: white;">GPA: <?php echo $fetch_canadian_education[$i]['can_gpa'];?></span>
                                     </div>
-                                    <strong class="position text-button"><?php echo $fetch_canadian_education[$i]['field_study'];?></strong>
+                                    <strong class="position text-button"><?php echo $fetch_canadian_education[$i]['study_field'];?></strong>
                                     <p class="desc text-secondary mt-1">University/College: <?php echo $fetch_canadian_education[$i]['university_name'];?></p>
                                     <p class="desc text-secondary mt-1">City: <?php echo $fetch_canadian_education[$i]['city_name'];?></p>
                                 </li>
@@ -296,7 +296,7 @@ if(!isset($_SESSION['seller_id'])) {
 
                 <script>
                     function copyURL() {
-                        navigator.clipboard.writeText("www.dotest.click/Seller-Guest-View?seller=<?php
+                        navigator.clipboard.writeText("https://zeroed.one/Seller-Guest-View?seller=<?php
                             $fetch_exp = $db_handle->runQuery("SELECT * FROM `sellers` where seller_id = {$_SESSION['seller_id']}");
                             $fetch_exp_no = $db_handle->numRows("SELECT * FROM `sellers` where seller_id = {$_SESSION['seller_id']}");
                             for ($i=0; $i<$fetch_exp_no; $i++) {

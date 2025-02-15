@@ -166,10 +166,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity))" id="mySelect2" name="nationality" required>
                                 <option disabled selected>Please select your nationality</option>
                                 <?php
-                                $fetch_country = $db_handle->runQuery("SELECT id,nationality FROM countries order by country_name ASC");
+                                $fetch_country = $db_handle->runQuery("SELECT id,nationality FROM countries");
                                 foreach($fetch_country as $country){
                                     ?>
-                                    <option value="<?php echo $country['id'];?>"><?php echo $country['nationality'];?></option>
+                                    <option value="<?php echo $country['id'];?>" <?php if ($country['id'] == 32) echo "selected"?>><?php echo $country['nationality'];?></option>
                                     <?php
                                 }
                                 ?>
@@ -182,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </select>
                         </div>
                         <div class="state">
-                            <label>Current State <span class="text-red">*</span></label>
+                            <label>Current State / Province <span class="text-red">*</span></label>
                             <select class="w-full h-12 px-4 mt-2 border-line rounded-lg state_select" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity))" onchange="loadCities()" name="state">
                                 <option selected>Please select state</option>
                             </select>
@@ -460,11 +460,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <label>Field of Study <span class="text-red">*</span></label>
                                 <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="global_field_of_study[]" required>
                                     <option selected>Select Field of Study</option>
-                                    <!-- Add dynamic field options here -->
-                                    <option value="Computer Science">Computer Science</option>
-                                    <option value="Engineering">Engineering</option>
-                                    <option value="Business">Business</option>
-                                    <!-- Add more options as required -->
+                                    <?php
+                                    $fetch_field_study = $db_handle->runQuery("select * from field_of_study");
+                                    foreach ($fetch_field_study as $row) {
+                                        ?>
+                                        <option value="<?php echo $row['field_study_id']?>"><?php echo $row['field_study']?></option>
+                                        <?php
+                                    }
+                                    ?>
                                 </select>
                             </div>
 
@@ -533,10 +536,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="canadian_field_of_study[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" disabled>
                                         <option selected>Select Field of Study</option>
                                         <?php
-                                        $fetch_field_study = $db_handle->runQuery("select * from field_of_study");
+                                        $fetch_field_study = $db_handle->runQuery("select * from field_of_study_canadian");
                                         foreach ($fetch_field_study as $row) {
                                             ?>
-                                            <option value="<?php echo $row['field_study_id']?>"><?php echo $row['field_study']?></option>
+                                            <option value="<?php echo $row['field_study_can_id']?>"><?php echo $row['study_field']?></option>
                                             <?php
                                         }
                                         ?>
@@ -599,14 +602,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     <!--skills section starts-->
                     <h5 class="heading5 mt-5">Skills</h5>
-                    <div class="grid grid-cols-4 gap-3">
+                    <div class="grid sm:grid-cols-4 gap-3">
                         <!-- First set of core skills and sub-skills -->
                         <div class="education_level col-span-1">
                             <label>Core Skill 1</label>
                             <select id="coreSkills1" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="core_skill_one" required>
                                 <option selected>Select Core Skills</option>
                                 <?php
-                                $fetch_skills = $db_handle->runQuery("SELECT * FROM skills ORDER BY core_skill ASC");
+                                $fetch_skills = $db_handle->runQuery("SELECT * FROM skills");
                                 foreach ($fetch_skills as $row) {
                                     ?>
                                     <option value="<?php echo $row['skill_id']?>"><?php echo $row['core_skill']?></option>
@@ -624,14 +627,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div class="selected-tags" id="selectedTags1"></div>
                         </div>
                     </div>
-                    <div class="grid grid-cols-4 gap-3 mt-4">
+                    <div class="grid sm:grid-cols-4 gap-3 mt-4">
                         <!-- Second set of core skills and sub-skills -->
                         <div class="education_level col-span-1">
                             <label>Core Skill 2</label>
                             <select id="coreSkills2" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="core_skill_two">
                                 <option value="">Select Core Skill</option>
                                 <?php
-                                $fetch_skills = $db_handle->runQuery("SELECT * FROM skills ORDER BY core_skill ASC");
+                                $fetch_skills = $db_handle->runQuery("SELECT * FROM skills");
                                 foreach ($fetch_skills as $row) {
                                     ?>
                                     <option value="<?php echo $row['skill_id']?>"><?php echo $row['core_skill']?></option>
@@ -649,14 +652,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div id="subSkillsList2" type="hidden"></div>
                         </div>
                     </div>
-                    <div class="grid grid-cols-4 gap-3 mt-4">
+                    <div class="grid sm:grid-cols-4 gap-3 mt-4">
                         <!-- Third set of core skills and sub-skills -->
                         <div class="education_level col-span-1">
                             <label>Core Skill 3</label>
                             <select id="coreSkills3" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="core_skill_three" >
                                 <option value="">Select Core Skills</option>
                                 <?php
-                                $fetch_skills = $db_handle->runQuery("SELECT * FROM skills ORDER BY core_skill ASC");
+                                $fetch_skills = $db_handle->runQuery("SELECT * FROM skills");
                                 foreach ($fetch_skills as $row) {
                                     ?>
                                     <option value="<?php echo $row['skill_id']?>"><?php echo $row['core_skill']?></option>
@@ -721,6 +724,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <div class="jobLocation">
                                     <label>Company Website Link</label>
                                     <input class="w-full h-12 px-4 mt-2 border-line rounded-lg company-website" type="text" placeholder="www.abc.com or https://abc.com" name="company_website[]" required />
+                                    <small class="website-error-message text-red-500 hidden">Invalid website format. Please use www.abc.com or https://abc.com.</small>
                                 </div>
                                 <div class="jobLocation">
                                     <label>Start Date</label>
@@ -740,16 +744,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </div>
                                 <div class="jobLocation">
                                     <label>Accomplishments</label>
-                                    <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment2[]"></textarea>
+                                    <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="accomplishment2[]"></textarea>
                                 </div>
                                 <div class="jobLocation">
                                     <label>Accomplishments</label>
-                                    <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment3[]"></textarea>
+                                    <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="accomplishment3[]"></textarea>
                                 </div>
                             </div>
 
                             <hr class="mt-5 mb-5">
-                            <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5">Work Experience Verification:</h2>
+                            <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5"> Work Period Verification:</h2>
                             <div class="grid sm:grid-cols-3 gap-3">
                                 <div class="jobLocation">
                                     <label>Reference Type</label>
@@ -776,7 +780,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>
 
                             <hr class="mt-5 mb-5">
-                            <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5">Reference:</h2>
+                            <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5">Accomplishment Verification:</h2>
                             <div class="grid sm:grid-cols-3 gap-3">
                                 <div class="jobLocation">
                                     <label>Reference Type</label>
@@ -1575,53 +1579,57 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     });
 </script>
 
-
 <script>
     function extractDomain(website) {
         website = website.replace(/^https?:\/\//, '').replace(/^www\./, '');
         return website.split('/')[0];
     }
 
-    function validateAllEmails() {
-        let allValid = true;
+    function isValidWebsite(website) {
+        const regex = /^(https:\/\/|www\.)[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\/\S*)?$/;
+        return regex.test(website);
+    }
 
-        $('.experience-section').each(function () {
-            const website = $(this).find('.company-website').val().trim();
-            const domain = extractDomain(website);
+    function applyValidation(section) {
+        // Bind validation to the company website field
+        section.find('.company-website').on('input', function () {
+            const website = $(this).val().trim();
+            const websiteError = $(this).siblings('.website-error-message');
 
-            $(this).find('.company-email').each(function () {
-                const email = $(this).val().trim();
-                const emailDomain = email.split('@')[1];
-                const errorMessage = $(this).siblings('.error-message');
-
-                if (website && email && emailDomain !== domain) {
-                    errorMessage.removeClass('hidden');
-                    allValid = false;
-                } else {
-                    errorMessage.addClass('hidden');
-                }
-            });
+            if (website && !isValidWebsite(website)) {
+                websiteError.removeClass('hidden');
+            } else {
+                websiteError.addClass('hidden');
+            }
         });
 
-        $('#publishButton').prop('disabled', !allValid);
+        // Bind validation to the company email field
+        section.find('.company-email').on('input', function () {
+            const website = section.find('.company-website').val().trim();
+            const email = $(this).val().trim();
+            const emailDomain = email.split('@')[1];
+            const errorMessage = $(this).siblings('.error-message');
+
+            if (website && email && emailDomain !== extractDomain(website)) {
+                errorMessage.removeClass('hidden');
+            } else {
+                errorMessage.addClass('hidden');
+            }
+        });
     }
 
     $(document).ready(function () {
-        function applyValidation(section) {
-            section.find('.company-website, .company-email').on('input', function () {
-                validateAllEmails();
-            });
-        }
-
+        // Apply validation to the initial fields
         applyValidation($('.experience-section').first());
 
+        // Add new experience section
         $("#addExperience").click(function (e) {
             e.preventDefault();
             let newExperience = $(".experience-section").first().clone();
 
             // Clear all input fields and error messages
             newExperience.find("input, textarea, select").val("");
-            newExperience.find('.error-message').addClass('hidden');
+            newExperience.find('.error-message, .website-error-message').addClass('hidden');
 
             // Remove any existing "Remove" buttons from the clone
             newExperience.find('.remove-experience').remove();
@@ -1632,19 +1640,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Append the new experience section
             $("#experience-container").append(newExperience);
 
+            // Apply validation to the new fields
             applyValidation(newExperience);
         });
 
         // Remove the specific experience section on clicking the "Remove" button
         $(document).on('click', '.remove-experience', function () {
             $(this).closest('.experience-section').remove();
-            validateAllEmails();
         });
-
-        validateAllEmails();
     });
-
-
 </script>
 
 </body>
