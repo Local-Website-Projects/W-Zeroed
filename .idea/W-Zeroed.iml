@@ -7,6 +7,8 @@
       <sourceFolder url="file://$MODULE_DIR$/libphonenumber/build" isTestSource="true" packagePrefix="libphonenumber\buildtools\" />
       <sourceFolder url="file://$MODULE_DIR$/libphonenumber/src" isTestSource="false" packagePrefix="libphonenumber\" />
       <sourceFolder url="file://$MODULE_DIR$/libphonenumber/tests" isTestSource="true" packagePrefix="libphonenumber\Tests\" />
+      <sourceFolder url="file://$MODULE_DIR$/libphonenumber/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/PHPMailer/tests" isTestSource="true" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -75,11 +75,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Zeroed - Set Profile</title>
     <?php include ('include/css.php');?>
 
-    <!-- jQuery (Required for Select2) -->
-    <!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Select2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>-->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- jQuery (required for Select2) -->
+    <script src="assets/js/jquery.min.js"></script>
+
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <style>
         .sub-skill-item {
             padding: 10px;
@@ -201,204 +204,204 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="contactno">
                             <label for="contactno">Contact No <span class="text-red">*</span></label>
                             <div class="flex space-x-2">
-                                <select class="h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity)); width: 35%" name="country_code" required>
+                                <select class="h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity)); width: 40%" name="country_code" required>
                                     <option selected>Code</option>
-                                    <option value="AF" <?php echo isset($country_code) && $country_code == 'AF' ? 'selected' : ''; ?>>(+93)</option>
-                                    <option value="AL" <?php echo isset($country_code) && $country_code == 'AL' ? 'selected' : ''; ?>>(+355)</option>
-                                    <option value="DZ" <?php echo isset($country_code) && $country_code == 'DZ' ? 'selected' : ''; ?>>(+213)</option>
-                                    <option value="AD" <?php echo isset($country_code) && $country_code == 'AD' ? 'selected' : ''; ?>>(+376)</option>
-                                    <option value="AO" <?php echo isset($country_code) && $country_code == 'AO' ? 'selected' : ''; ?>>(+244)</option>
-                                    <option value="AG" <?php echo isset($country_code) && $country_code == 'AG' ? 'selected' : ''; ?>>(+1-268)</option>
-                                    <option value="AR" <?php echo isset($country_code) && $country_code == 'AR' ? 'selected' : ''; ?>>(+54)</option>
-                                    <option value="AM" <?php echo isset($country_code) && $country_code == 'AM' ? 'selected' : ''; ?>>(+374)</option>
-                                    <option value="AU" <?php echo isset($country_code) && $country_code == 'AU' ? 'selected' : ''; ?>>(+61)</option>
-                                    <option value="AT" <?php echo isset($country_code) && $country_code == 'AT' ? 'selected' : ''; ?>>(+43)</option>
-                                    <option value="AZ" <?php echo isset($country_code) && $country_code == 'AZ' ? 'selected' : ''; ?>>(+994)</option>
-                                    <option value="BS" <?php echo isset($country_code) && $country_code == 'BS' ? 'selected' : ''; ?>>(+1-242)</option>
-                                    <option value="BH" <?php echo isset($country_code) && $country_code == 'BH' ? 'selected' : ''; ?>>(+973)</option>
-                                    <option value="BD" <?php echo isset($country_code) && $country_code == 'BD' ? 'selected' : ''; ?>>(+880)</option>
-                                    <option value="BB" <?php echo isset($country_code) && $country_code == 'BB' ? 'selected' : ''; ?>>(+1-246)</option>
-                                    <option value="BY" <?php echo isset($country_code) && $country_code == 'BY' ? 'selected' : ''; ?>>(+375)</option>
-                                    <option value="BE" <?php echo isset($country_code) && $country_code == 'BE' ? 'selected' : ''; ?>>(+32)</option>
-                                    <option value="BZ" <?php echo isset($country_code) && $country_code == 'BZ' ? 'selected' : ''; ?>>(+501)</option>
-                                    <option value="BJ" <?php echo isset($country_code) && $country_code == 'BJ' ? 'selected' : ''; ?>>(+229)</option>
-                                    <option value="BT" <?php echo isset($country_code) && $country_code == 'BT' ? 'selected' : ''; ?>>(+975)</option>
-                                    <option value="BO" <?php echo isset($country_code) && $country_code == 'BO' ? 'selected' : ''; ?>>(+591)</option>
-                                    <option value="BA" <?php echo isset($country_code) && $country_code == 'BA' ? 'selected' : ''; ?>>(+387)</option>
-                                    <option value="BW" <?php echo isset($country_code) && $country_code == 'BW' ? 'selected' : ''; ?>>(+267)</option>
-                                    <option value="BR" <?php echo isset($country_code) && $country_code == 'BR' ? 'selected' : ''; ?>>(+55)</option>
-                                    <option value="BN" <?php echo isset($country_code) && $country_code == 'BN' ? 'selected' : ''; ?>>(+673)</option>
-                                    <option value="BG" <?php echo isset($country_code) && $country_code == 'BG' ? 'selected' : ''; ?>>(+359)</option>
-                                    <option value="BF" <?php echo isset($country_code) && $country_code == 'BF' ? 'selected' : ''; ?>>(+226)</option>
-                                    <option value="BI" <?php echo isset($country_code) && $country_code == 'BI' ? 'selected' : ''; ?>>(+257)</option>
-                                    <option value="CV" <?php echo isset($country_code) && $country_code == 'CV' ? 'selected' : ''; ?>>(+238)</option>
-                                    <option value="KH" <?php echo isset($country_code) && $country_code == 'KH' ? 'selected' : ''; ?>>(+855)</option>
-                                    <option value="CM" <?php echo isset($country_code) && $country_code == 'CM' ? 'selected' : ''; ?>>(+237)</option>
-                                    <option value="CA" <?php echo isset($country_code) && $country_code == 'CA' ? 'selected' : ''; ?>>(+1)</option>
-                                    <option value="CF" <?php echo isset($country_code) && $country_code == 'CF' ? 'selected' : ''; ?>>(+236)</option>
-                                    <option value="TD" <?php echo isset($country_code) && $country_code == 'TD' ? 'selected' : ''; ?>>(+235)</option>
-                                    <option value="CL" <?php echo isset($country_code) && $country_code == 'CL' ? 'selected' : ''; ?>>(+56)</option>
-                                    <option value="CN" <?php echo isset($country_code) && $country_code == 'CN' ? 'selected' : ''; ?>>(+86)</option>
-                                    <option value="CO" <?php echo isset($country_code) && $country_code == 'CO' ? 'selected' : ''; ?>>(+57)</option>
-                                    <option value="KM" <?php echo isset($country_code) && $country_code == 'KM' ? 'selected' : ''; ?>>(+269)</option>
-                                    <option value="CD" <?php echo isset($country_code) && $country_code == 'CD' ? 'selected' : ''; ?>>(+243)</option>
-                                    <option value="CG" <?php echo isset($country_code) && $country_code == 'CG' ? 'selected' : ''; ?>>(+242)</option>
-                                    <option value="CR" <?php echo isset($country_code) && $country_code == 'CR' ? 'selected' : ''; ?>>(+506)</option>
-                                    <option value="CI" <?php echo isset($country_code) && $country_code == 'CI' ? 'selected' : ''; ?>>(+225)</option>
-                                    <option value="HR" <?php echo isset($country_code) && $country_code == 'HR' ? 'selected' : ''; ?>>(+385)</option>
-                                    <option value="CU" <?php echo isset($country_code) && $country_code == 'CU' ? 'selected' : ''; ?>>(+53)</option>
-                                    <option value="CY" <?php echo isset($country_code) && $country_code == 'CY' ? 'selected' : ''; ?>>(+357)</option>
-                                    <option value="CZ" <?php echo isset($country_code) && $country_code == 'CZ' ? 'selected' : ''; ?>>(+420)</option>
-                                    <option value="DK" <?php echo isset($country_code) && $country_code == 'DK' ? 'selected' : ''; ?>>(+45)</option>
-                                    <option value="DJ" <?php echo isset($country_code) && $country_code == 'DJ' ? 'selected' : ''; ?>>(+253)</option>
-                                    <option value="DM" <?php echo isset($country_code) && $country_code == 'DM' ? 'selected' : ''; ?>>(+1-767)</option>
-                                    <option value="DO" <?php echo isset($country_code) && $country_code == 'DO' ? 'selected' : ''; ?>>(+1-809)</option>
-                                    <option value="TL" <?php echo isset($country_code) && $country_code == 'TL' ? 'selected' : ''; ?>>(+670)</option>
-                                    <option value="EC" <?php echo isset($country_code) && $country_code == 'EC' ? 'selected' : ''; ?>>(+593)</option>
-                                    <option value="EG" <?php echo isset($country_code) && $country_code == 'EG' ? 'selected' : ''; ?>>(+20)</option>
-                                    <option value="SV" <?php echo isset($country_code) && $country_code == 'SV' ? 'selected' : ''; ?>>(+503)</option>
-                                    <option value="GQ" <?php echo isset($country_code) && $country_code == 'GQ' ? 'selected' : ''; ?>>(+240)</option>
-                                    <option value="ER" <?php echo isset($country_code) && $country_code == 'ER' ? 'selected' : ''; ?>>(+291)</option>
-                                    <option value="EE" <?php echo isset($country_code) && $country_code == 'EE' ? 'selected' : ''; ?>>(+372)</option>
-                                    <option value="SZ" <?php echo isset($country_code) && $country_code == 'SZ' ? 'selected' : ''; ?>>(+268)</option>
-                                    <option value="ET" <?php echo isset($country_code) && $country_code == 'ET' ? 'selected' : ''; ?>>(+251)</option>
-                                    <option value="FJ" <?php echo isset($country_code) && $country_code == 'FJ' ? 'selected' : ''; ?>>(+679)</option>
-                                    <option value="FI" <?php echo isset($country_code) && $country_code == 'FI' ? 'selected' : ''; ?>>(+358)</option>
-                                    <option value="FR" <?php echo isset($country_code) && $country_code == 'FR' ? 'selected' : ''; ?>>(+33)</option>
-                                    <option value="GA" <?php echo isset($country_code) && $country_code == 'GA' ? 'selected' : ''; ?>>(+241)</option>
-                                    <option value="GM" <?php echo isset($country_code) && $country_code == 'GM' ? 'selected' : ''; ?>>(+220)</option>
-                                    <option value="GE" <?php echo isset($country_code) && $country_code == 'GE' ? 'selected' : ''; ?>>(+995)</option>
-                                    <option value="DE" <?php echo isset($country_code) && $country_code == 'DE' ? 'selected' : ''; ?>>(+49)</option>
-                                    <option value="GH" <?php echo isset($country_code) && $country_code == 'GH' ? 'selected' : ''; ?>>(+233)</option>
-                                    <option value="GR" <?php echo isset($country_code) && $country_code == 'GR' ? 'selected' : ''; ?>>(+30)</option>
-                                    <option value="GD" <?php echo isset($country_code) && $country_code == 'GD' ? 'selected' : ''; ?>>(+1-473)</option>
-                                    <option value="GT" <?php echo isset($country_code) && $country_code == 'GT' ? 'selected' : ''; ?>>(+502)</option>
-                                    <option value="GN" <?php echo isset($country_code) && $country_code == 'GN' ? 'selected' : ''; ?>>(+224)</option>
-                                    <option value="GW" <?php echo isset($country_code) && $country_code == 'GW' ? 'selected' : ''; ?>>(+245)</option>
-                                    <option value="GY" <?php echo isset($country_code) && $country_code == 'GY' ? 'selected' : ''; ?>>(+592)</option>
-                                    <option value="HT" <?php echo isset($country_code) && $country_code == 'HT' ? 'selected' : ''; ?>>(+509)</option>
-                                    <option value="HN" <?php echo isset($country_code) && $country_code == 'HN' ? 'selected' : ''; ?>>(+504)</option>
-                                    <option value="HU" <?php echo isset($country_code) && $country_code == 'HU' ? 'selected' : ''; ?>>(+36)</option>
-                                    <option value="IS" <?php echo isset($country_code) && $country_code == 'IS' ? 'selected' : ''; ?>>(+354)</option>
-                                    <option value="IN" <?php echo isset($country_code) && $country_code == 'IN' ? 'selected' : ''; ?>>(+91)</option>
-                                    <option value="ID" <?php echo isset($country_code) && $country_code == 'ID' ? 'selected' : ''; ?>>(+62)</option>
-                                    <option value="IR" <?php echo isset($country_code) && $country_code == 'IR' ? 'selected' : ''; ?>>(+98)</option>
-                                    <option value="IQ" <?php echo isset($country_code) && $country_code == 'IQ' ? 'selected' : ''; ?>>(+964)</option>
-                                    <option value="IE" <?php echo isset($country_code) && $country_code == 'IE' ? 'selected' : ''; ?>>(+353)</option>
-                                    <option value="IL" <?php echo isset($country_code) && $country_code == 'IL' ? 'selected' : ''; ?>>(+972)</option>
-                                    <option value="IT" <?php echo isset($country_code) && $country_code == 'IT' ? 'selected' : ''; ?>>(+39)</option>
-                                    <option value="JM" <?php echo isset($country_code) && $country_code == 'JM' ? 'selected' : ''; ?>>(+1-876)</option>
-                                    <option value="JP" <?php echo isset($country_code) && $country_code == 'JP' ? 'selected' : ''; ?>>(+81)</option>
-                                    <option value="JO" <?php echo isset($country_code) && $country_code == 'JO' ? 'selected' : ''; ?>>(+962)</option>
-                                    <option value="KZ" <?php echo isset($country_code) && $country_code == 'KZ' ? 'selected' : ''; ?>>(+7)</option>
-                                    <option value="KE" <?php echo isset($country_code) && $country_code == 'KE' ? 'selected' : ''; ?>>(+254)</option>
-                                    <option value="KI" <?php echo isset($country_code) && $country_code == 'KI' ? 'selected' : ''; ?>>(+686)</option>
-                                    <option value="KP" <?php echo isset($country_code) && $country_code == 'KP' ? 'selected' : ''; ?>>(+850)</option>
-                                    <option value="KR" <?php echo isset($country_code) && $country_code == 'KR' ? 'selected' : ''; ?>>(+82)</option>
-                                    <option value="XK" <?php echo isset($country_code) && $country_code == 'XK' ? 'selected' : ''; ?>>(+383)</option>
-                                    <option value="KW" <?php echo isset($country_code) && $country_code == 'KW' ? 'selected' : ''; ?>>(+965)</option>
-                                    <option value="KG" <?php echo isset($country_code) && $country_code == 'KG' ? 'selected' : ''; ?>>(+996)</option>
-                                    <option value="LA" <?php echo isset($country_code) && $country_code == 'LA' ? 'selected' : ''; ?>>(+856)</option>
-                                    <option value="LV" <?php echo isset($country_code) && $country_code == 'LV' ? 'selected' : ''; ?>>(+371)</option>
-                                    <option value="LB" <?php echo isset($country_code) && $country_code == 'LB' ? 'selected' : ''; ?>>(+961)</option>
-                                    <option value="LS" <?php echo isset($country_code) && $country_code == 'LS' ? 'selected' : ''; ?>>(+266)</option>
-                                    <option value="LR" <?php echo isset($country_code) && $country_code == 'LR' ? 'selected' : ''; ?>>(+231)</option>
-                                    <option value="LY" <?php echo isset($country_code) && $country_code == 'LY' ? 'selected' : ''; ?>>(+218)</option>
-                                    <option value="LI" <?php echo isset($country_code) && $country_code == 'LI' ? 'selected' : ''; ?>>(+423)</option>
-                                    <option value="LT" <?php echo isset($country_code) && $country_code == 'LT' ? 'selected' : ''; ?>>(+370)</option>
-                                    <option value="LU" <?php echo isset($country_code) && $country_code == 'LU' ? 'selected' : ''; ?>>(+352)</option>
-                                    <option value="MG" <?php echo isset($country_code) && $country_code == 'MG' ? 'selected' : ''; ?>>(+261)</option>
-                                    <option value="MW" <?php echo isset($country_code) && $country_code == 'MW' ? 'selected' : ''; ?>>(+265)</option>
-                                    <option value="MY" <?php echo isset($country_code) && $country_code == 'MY' ? 'selected' : ''; ?>>(+60)</option>
-                                    <option value="MV" <?php echo isset($country_code) && $country_code == 'MV' ? 'selected' : ''; ?>>(+960)</option>
-                                    <option value="ML" <?php echo isset($country_code) && $country_code == 'ML' ? 'selected' : ''; ?>>(+223)</option>
-                                    <option value="MT" <?php echo isset($country_code) && $country_code == 'MT' ? 'selected' : ''; ?>>(+356)</option>
-                                    <option value="MH" <?php echo isset($country_code) && $country_code == 'MH' ? 'selected' : ''; ?>>(+692)</option>
-                                    <option value="MR" <?php echo isset($country_code) && $country_code == 'MR' ? 'selected' : ''; ?>>(+222)</option>
-                                    <option value="MU" <?php echo isset($country_code) && $country_code == 'MU' ? 'selected' : ''; ?>>(+230)</option>
-                                    <option value="MX" <?php echo isset($country_code) && $country_code == 'MX' ? 'selected' : ''; ?>>(+52)</option>
-                                    <option value="FM" <?php echo isset($country_code) && $country_code == 'FM' ? 'selected' : ''; ?>>(+691)</option>
-                                    <option value="MD" <?php echo isset($country_code) && $country_code == 'MD' ? 'selected' : ''; ?>>(+373)</option>
-                                    <option value="MC" <?php echo isset($country_code) && $country_code == 'MC' ? 'selected' : ''; ?>>(+377)</option>
-                                    <option value="MN" <?php echo isset($country_code) && $country_code == 'MN' ? 'selected' : ''; ?>>(+976)</option>
-                                    <option value="ME" <?php echo isset($country_code) && $country_code == 'ME' ? 'selected' : ''; ?>>(+382)</option>
-                                    <option value="MA" <?php echo isset($country_code) && $country_code == 'MA' ? 'selected' : ''; ?>>(+212)</option>
-                                    <option value="MZ" <?php echo isset($country_code) && $country_code == 'MZ' ? 'selected' : ''; ?>>(+258)</option>
-                                    <option value="MM" <?php echo isset($country_code) && $country_code == 'MM' ? 'selected' : ''; ?>>(+95)</option>
-                                    <option value="NA" <?php echo isset($country_code) && $country_code == 'NA' ? 'selected' : ''; ?>>(+264)</option>
-                                    <option value="NR" <?php echo isset($country_code) && $country_code == 'NR' ? 'selected' : ''; ?>>(+674)</option>
-                                    <option value="NP" <?php echo isset($country_code) && $country_code == 'NP' ? 'selected' : ''; ?>>(+977)</option>
-                                    <option value="NL" <?php echo isset($country_code) && $country_code == 'NL' ? 'selected' : ''; ?>>(+31)</option>
-                                    <option value="NZ" <?php echo isset($country_code) && $country_code == 'NZ' ? 'selected' : ''; ?>>(+64)</option>
-                                    <option value="NI" <?php echo isset($country_code) && $country_code == 'NI' ? 'selected' : ''; ?>>(+505)</option>
-                                    <option value="NE" <?php echo isset($country_code) && $country_code == 'NE' ? 'selected' : ''; ?>>(+227)</option>
-                                    <option value="NG" <?php echo isset($country_code) && $country_code == 'NG' ? 'selected' : ''; ?>>(+234)</option>
-                                    <option value="MK" <?php echo isset($country_code) && $country_code == 'MK' ? 'selected' : ''; ?>>(+389)</option>
-                                    <option value="NO" <?php echo isset($country_code) && $country_code == 'NO' ? 'selected' : ''; ?>>(+47)</option>
-                                    <option value="OM" <?php echo isset($country_code) && $country_code == 'OM' ? 'selected' : ''; ?>>(+968)</option>
-                                    <option value="PK" <?php echo isset($country_code) && $country_code == 'PK' ? 'selected' : ''; ?>>(+92)</option>
-                                    <option value="PW" <?php echo isset($country_code) && $country_code == 'PW' ? 'selected' : ''; ?>>(+680)</option>
-                                    <option value="PA" <?php echo isset($country_code) && $country_code == 'PA' ? 'selected' : ''; ?>>(+507)</option>
-                                    <option value="PG" <?php echo isset($country_code) && $country_code == 'PG' ? 'selected' : ''; ?>>(+675)</option>
-                                    <option value="PY" <?php echo isset($country_code) && $country_code == 'PY' ? 'selected' : ''; ?>>(+595)</option>
-                                    <option value="PE" <?php echo isset($country_code) && $country_code == 'PE' ? 'selected' : ''; ?>>P(+51)</option>
-                                    <option value="PH" <?php echo isset($country_code) && $country_code == 'PH' ? 'selected' : ''; ?>>(+63)</option>
-                                    <option value="PL" <?php echo isset($country_code) && $country_code == 'PL' ? 'selected' : ''; ?>>(+48)</option>
-                                    <option value="PT" <?php echo isset($country_code) && $country_code == 'PT' ? 'selected' : ''; ?>>(+351)</option>
-                                    <option value="QA" <?php echo isset($country_code) && $country_code == 'QA' ? 'selected' : ''; ?>>(+974)</option>
-                                    <option value="RO" <?php echo isset($country_code) && $country_code == 'RO' ? 'selected' : ''; ?>>(+40)</option>
-                                    <option value="RU" <?php echo isset($country_code) && $country_code == 'RU' ? 'selected' : ''; ?>>(+7)</option>
-                                    <option value="RW" <?php echo isset($country_code) && $country_code == 'RW' ? 'selected' : ''; ?>>(+250)</option>
-                                    <option value="KN" <?php echo isset($country_code) && $country_code == 'KN' ? 'selected' : ''; ?>>(+1 869)</option>
-                                    <option value="LC" <?php echo isset($country_code) && $country_code == 'LC' ? 'selected' : ''; ?>>(+1 758)</option>
-                                    <option value="VC" <?php echo isset($country_code) && $country_code == 'VC' ? 'selected' : ''; ?>>(+1 784)</option>
-                                    <option value="WS" <?php echo isset($country_code) && $country_code == 'WS' ? 'selected' : ''; ?>>(+685)</option>
-                                    <option value="SM" <?php echo isset($country_code) && $country_code == 'SM' ? 'selected' : ''; ?>>(+378)</option>
-                                    <option value="ST" <?php echo isset($country_code) && $country_code == 'ST' ? 'selected' : ''; ?>>(+239)</option>
-                                    <option value="SA" <?php echo isset($country_code) && $country_code == 'SA' ? 'selected' : ''; ?>>(+966)</option>
-                                    <option value="SN" <?php echo isset($country_code) && $country_code == 'SN' ? 'selected' : ''; ?>>(+221)</option>
-                                    <option value="RS" <?php echo isset($country_code) && $country_code == 'RS' ? 'selected' : ''; ?>>S(+381)</option>
-                                    <option value="SC" <?php echo isset($country_code) && $country_code == 'SC' ? 'selected' : ''; ?>>(+248)</option>
-                                    <option value="SL" <?php echo isset($country_code) && $country_code == 'SL' ? 'selected' : ''; ?>>S(+232)</option>
-                                    <option value="SG" <?php echo isset($country_code) && $country_code == 'SG' ? 'selected' : ''; ?>>(+65)</option>
-                                    <option value="SK" <?php echo isset($country_code) && $country_code == 'SK' ? 'selected' : ''; ?>>(+421)</option>
-                                    <option value="SI" <?php echo isset($country_code) && $country_code == 'SI' ? 'selected' : ''; ?>>(+386)</option>
-                                    <option value="SB" <?php echo isset($country_code) && $country_code == 'SB' ? 'selected' : ''; ?>>(+677)</option>
-                                    <option value="SO" <?php echo isset($country_code) && $country_code == 'SO' ? 'selected' : ''; ?>>(+252)</option>
-                                    <option value="ZA" <?php echo isset($country_code) && $country_code == 'ZA' ? 'selected' : ''; ?>>(+27)</option>
-                                    <option value="ES" <?php echo isset($country_code) && $country_code == 'ES' ? 'selected' : ''; ?>>(+34)</option>
-                                    <option value="LK" <?php echo isset($country_code) && $country_code == 'LK' ? 'selected' : ''; ?>>(+94)</option>
-                                    <option value="SD" <?php echo isset($country_code) && $country_code == 'SD' ? 'selected' : ''; ?>>(+249)</option>
-                                    <option value="SS" <?php echo isset($country_code) && $country_code == 'SS' ? 'selected' : ''; ?>>(+211)</option>
-                                    <option value="SR" <?php echo isset($country_code) && $country_code == 'SR' ? 'selected' : ''; ?>>(+597)</option>
-                                    <option value="SE" <?php echo isset($country_code) && $country_code == 'SE' ? 'selected' : ''; ?>>(+46)</option>
-                                    <option value="CH" <?php echo isset($country_code) && $country_code == 'CH' ? 'selected' : ''; ?>>(+41)</option>
-                                    <option value="SY" <?php echo isset($country_code) && $country_code == 'SY' ? 'selected' : ''; ?>>(+963)</option>
-                                    <option value="TW" <?php echo isset($country_code) && $country_code == 'TW' ? 'selected' : ''; ?>>(+886)</option>
-                                    <option value="TJ" <?php echo isset($country_code) && $country_code == 'TJ' ? 'selected' : ''; ?>>(+992)</option>
-                                    <option value="TZ" <?php echo isset($country_code) && $country_code == 'TZ' ? 'selected' : ''; ?>>(+255)</option>
-                                    <option value="TH" <?php echo isset($country_code) && $country_code == 'TH' ? 'selected' : ''; ?>>(+66)</option>
-                                    <option value="TG" <?php echo isset($country_code) && $country_code == 'TG' ? 'selected' : ''; ?>>(+228)</option>
-                                    <option value="TO" <?php echo isset($country_code) && $country_code == 'TO' ? 'selected' : ''; ?>>(+676)</option>
-                                    <option value="TT" <?php echo isset($country_code) && $country_code == 'TT' ? 'selected' : ''; ?>>(+1 868)</option>
-                                    <option value="TN" <?php echo isset($country_code) && $country_code == 'TN' ? 'selected' : ''; ?>>(+216)</option>
-                                    <option value="TR" <?php echo isset($country_code) && $country_code == 'TR' ? 'selected' : ''; ?>>(+90)</option>
-                                    <option value="TM" <?php echo isset($country_code) && $country_code == 'TM' ? 'selected' : ''; ?>>(+993)</option>
-                                    <option value="TV" <?php echo isset($country_code) && $country_code == 'TV' ? 'selected' : ''; ?>>(+688)</option>
-                                    <option value="UG" <?php echo isset($country_code) && $country_code == 'UG' ? 'selected' : ''; ?>>(+256)</option>
-                                    <option value="UA" <?php echo isset($country_code) && $country_code == 'UA' ? 'selected' : ''; ?>>(+380)</option>
-                                    <option value="AE" <?php echo isset($country_code) && $country_code == 'AE' ? 'selected' : ''; ?>>(+971)</option>
-                                    <option value="GB" <?php echo isset($country_code) && $country_code == 'GB' ? 'selected' : ''; ?>>(+44)</option>
-                                    <option value="US" <?php echo isset($country_code) && $country_code == 'US' ? 'selected' : ''; ?>>(+1)</option>
-                                    <option value="UY" <?php echo isset($country_code) && $country_code == 'UY' ? 'selected' : ''; ?>>(+598)</option>
-                                    <option value="UZ" <?php echo isset($country_code) && $country_code == 'UZ' ? 'selected' : ''; ?>>(+998)</option>
-                                    <option value="VU" <?php echo isset($country_code) && $country_code == 'VU' ? 'selected' : ''; ?>>(+678)</option>
-                                    <option value="VA" <?php echo isset($country_code) && $country_code == 'VA' ? 'selected' : ''; ?>>(+39)</option>
-                                    <option value="VE" <?php echo isset($country_code) && $country_code == 'VE' ? 'selected' : ''; ?>>(+58)</option>
-                                    <option value="VN" <?php echo isset($country_code) && $country_code == 'VN' ? 'selected' : ''; ?>>(+84)</option>
-                                    <option value="YE" <?php echo isset($country_code) && $country_code == 'YE' ? 'selected' : ''; ?>>(+967)</option>
-                                    <option value="ZM" <?php echo isset($country_code) && $country_code == 'ZM' ? 'selected' : ''; ?>>(+260)</option>
-                                    <option value="ZW" <?php echo isset($country_code) && $country_code == 'ZW' ? 'selected' : ''; ?>>(+263)</option>
+                                    <option value="+93" <?php echo isset($country_code) && $country_code == 'AF' ? 'selected' : ''; ?>>AF (+93)</option>
+                                    <option value="+355" <?php echo isset($country_code) && $country_code == 'AL' ? 'selected' : ''; ?>>AL (+355)</option>
+                                    <option value="+213" <?php echo isset($country_code) && $country_code == 'DZ' ? 'selected' : ''; ?>>DZ (+213)</option>
+                                    <option value="+376" <?php echo isset($country_code) && $country_code == 'AD' ? 'selected' : ''; ?>>AD (+376)</option>
+                                    <option value="+244" <?php echo isset($country_code) && $country_code == 'AO' ? 'selected' : ''; ?>>AO (+244)</option>
+                                    <option value="+1-268" <?php echo isset($country_code) && $country_code == 'AG' ? 'selected' : ''; ?>>AG (+1-268)</option>
+                                    <option value="+54" <?php echo isset($country_code) && $country_code == 'AR' ? 'selected' : ''; ?>>AR (+54)</option>
+                                    <option value="+374" <?php echo isset($country_code) && $country_code == 'AM' ? 'selected' : ''; ?>>AM (+374)</option>
+                                    <option value="+61" <?php echo isset($country_code) && $country_code == 'AU' ? 'selected' : ''; ?>>AU (+61)</option>
+                                    <option value="+43" <?php echo isset($country_code) && $country_code == 'AT' ? 'selected' : ''; ?>>AT (+43)</option>
+                                    <option value="+994" <?php echo isset($country_code) && $country_code == 'AZ' ? 'selected' : ''; ?>>AZ (+994)</option>
+                                    <option value="+1-242" <?php echo isset($country_code) && $country_code == 'BS' ? 'selected' : ''; ?>>BS (+1-242)</option>
+                                    <option value="+973" <?php echo isset($country_code) && $country_code == 'BH' ? 'selected' : ''; ?>>BH (+973)</option>
+                                    <option value="+880" <?php echo isset($country_code) && $country_code == 'BD' ? 'selected' : ''; ?>>BD (+880)</option>
+                                    <option value="+1-246" <?php echo isset($country_code) && $country_code == 'BB' ? 'selected' : ''; ?>>BB (+1-246)</option>
+                                    <option value="+375" <?php echo isset($country_code) && $country_code == 'BY' ? 'selected' : ''; ?>>BY (+375)</option>
+                                    <option value="+32" <?php echo isset($country_code) && $country_code == 'BE' ? 'selected' : ''; ?>>BE (+32)</option>
+                                    <option value="+501" <?php echo isset($country_code) && $country_code == 'BZ' ? 'selected' : ''; ?>>BZ (+501)</option>
+                                    <option value="+229" <?php echo isset($country_code) && $country_code == 'BJ' ? 'selected' : ''; ?>>BJ (+229)</option>
+                                    <option value="+975" <?php echo isset($country_code) && $country_code == 'BT' ? 'selected' : ''; ?>>BT (+975)</option>
+                                    <option value="+591" <?php echo isset($country_code) && $country_code == 'BO' ? 'selected' : ''; ?>>BO (+591)</option>
+                                    <option value="+387" <?php echo isset($country_code) && $country_code == 'BA' ? 'selected' : ''; ?>>BA (+387)</option>
+                                    <option value="+267" <?php echo isset($country_code) && $country_code == 'BW' ? 'selected' : ''; ?>>BW (+267)</option>
+                                    <option value="+55" <?php echo isset($country_code) && $country_code == 'BR' ? 'selected' : ''; ?>>BR (+55)</option>
+                                    <option value="+673" <?php echo isset($country_code) && $country_code == 'BN' ? 'selected' : ''; ?>>BN (+673)</option>
+                                    <option value="+359" <?php echo isset($country_code) && $country_code == 'BG' ? 'selected' : ''; ?>>BG (+359)</option>
+                                    <option value="+226" <?php echo isset($country_code) && $country_code == 'BF' ? 'selected' : ''; ?>>BF (+226)</option>
+                                    <option value="+257" <?php echo isset($country_code) && $country_code == 'BI' ? 'selected' : ''; ?>>BI (+257)</option>
+                                    <option value="+238" <?php echo isset($country_code) && $country_code == 'CV' ? 'selected' : ''; ?>>CV (+238)</option>
+                                    <option value="+855" <?php echo isset($country_code) && $country_code == 'KH' ? 'selected' : ''; ?>>KH (+855)</option>
+                                    <option value="+237" <?php echo isset($country_code) && $country_code == 'CM' ? 'selected' : ''; ?>>CM (+237)</option>
+                                    <option value="+1" <?php echo isset($country_code) && $country_code == 'CA' ? 'selected' : ''; ?>>CA (+1)</option>
+                                    <option value="+236" <?php echo isset($country_code) && $country_code == 'CF' ? 'selected' : ''; ?>>CF (+236)</option>
+                                    <option value="+235" <?php echo isset($country_code) && $country_code == 'TD' ? 'selected' : ''; ?>>TD (+235)</option>
+                                    <option value="+56" <?php echo isset($country_code) && $country_code == 'CL' ? 'selected' : ''; ?>>CL (+56)</option>
+                                    <option value="+86" <?php echo isset($country_code) && $country_code == 'CN' ? 'selected' : ''; ?>>CN (+86)</option>
+                                    <option value="+57" <?php echo isset($country_code) && $country_code == 'CO' ? 'selected' : ''; ?>>CO (+57)</option>
+                                    <option value="+269" <?php echo isset($country_code) && $country_code == 'KM' ? 'selected' : ''; ?>>KM (+269)</option>
+                                    <option value="+243" <?php echo isset($country_code) && $country_code == 'CD' ? 'selected' : ''; ?>>CD (+243)</option>
+                                    <option value="+242" <?php echo isset($country_code) && $country_code == 'CG' ? 'selected' : ''; ?>>CG (+242)</option>
+                                    <option value="+506" <?php echo isset($country_code) && $country_code == 'CR' ? 'selected' : ''; ?>>CR (+506)</option>
+                                    <option value="+225" <?php echo isset($country_code) && $country_code == 'CI' ? 'selected' : ''; ?>>CI (+225)</option>
+                                    <option value="+385" <?php echo isset($country_code) && $country_code == 'HR' ? 'selected' : ''; ?>>HR (+385)</option>
+                                    <option value="+53" <?php echo isset($country_code) && $country_code == 'CU' ? 'selected' : ''; ?>>CU (+53)</option>
+                                    <option value="+357" <?php echo isset($country_code) && $country_code == 'CY' ? 'selected' : ''; ?>>CY (+357)</option>
+                                    <option value="+420" <?php echo isset($country_code) && $country_code == 'CZ' ? 'selected' : ''; ?>>CZ (+420)</option>
+                                    <option value="+45" <?php echo isset($country_code) && $country_code == 'DK' ? 'selected' : ''; ?>>DK (+45)</option>
+                                    <option value="+253" <?php echo isset($country_code) && $country_code == 'DJ' ? 'selected' : ''; ?>>DJ (+253)</option>
+                                    <option value="+1-767" <?php echo isset($country_code) && $country_code == 'DM' ? 'selected' : ''; ?>>DM (+1-767)</option>
+                                    <option value="+1-809" <?php echo isset($country_code) && $country_code == 'DO' ? 'selected' : ''; ?>>DO (+1-809)</option>
+                                    <option value="+670" <?php echo isset($country_code) && $country_code == 'TL' ? 'selected' : ''; ?>>TL (+670)</option>
+                                    <option value="+593" <?php echo isset($country_code) && $country_code == 'EC' ? 'selected' : ''; ?>>EC (+593)</option>
+                                    <option value="+20" <?php echo isset($country_code) && $country_code == 'EG' ? 'selected' : ''; ?>>EG (+20)</option>
+                                    <option value="+503" <?php echo isset($country_code) && $country_code == 'SV' ? 'selected' : ''; ?>>SV (+503)</option>
+                                    <option value="+240" <?php echo isset($country_code) && $country_code == 'GQ' ? 'selected' : ''; ?>>GQ (+240)</option>
+                                    <option value="+291" <?php echo isset($country_code) && $country_code == 'ER' ? 'selected' : ''; ?>>ER (+291)</option>
+                                    <option value="+372" <?php echo isset($country_code) && $country_code == 'EE' ? 'selected' : ''; ?>>EE (+372)</option>
+                                    <option value="+268" <?php echo isset($country_code) && $country_code == 'SZ' ? 'selected' : ''; ?>>SZ (+268)</option>
+                                    <option value="+251" <?php echo isset($country_code) && $country_code == 'ET' ? 'selected' : ''; ?>>ET (+251)</option>
+                                    <option value="+679" <?php echo isset($country_code) && $country_code == 'FJ' ? 'selected' : ''; ?>>FJ (+679)</option>
+                                    <option value="+358" <?php echo isset($country_code) && $country_code == 'FI' ? 'selected' : ''; ?>>FI (+358)</option>
+                                    <option value="+33" <?php echo isset($country_code) && $country_code == 'FR' ? 'selected' : ''; ?>>FR (+33)</option>
+                                    <option value="+241" <?php echo isset($country_code) && $country_code == 'GA' ? 'selected' : ''; ?>>GA (+241)</option>
+                                    <option value="+220" <?php echo isset($country_code) && $country_code == 'GM' ? 'selected' : ''; ?>>GM (+220)</option>
+                                    <option value="+995" <?php echo isset($country_code) && $country_code == 'GE' ? 'selected' : ''; ?>>GE (+995)</option>
+                                    <option value="+49" <?php echo isset($country_code) && $country_code == 'DE' ? 'selected' : ''; ?>>DE (+49)</option>
+                                    <option value="+233" <?php echo isset($country_code) && $country_code == 'GH' ? 'selected' : ''; ?>>GH (+233)</option>
+                                    <option value="+30" <?php echo isset($country_code) && $country_code == 'GR' ? 'selected' : ''; ?>>GR (+30)</option>
+                                    <option value="+1-473" <?php echo isset($country_code) && $country_code == 'GD' ? 'selected' : ''; ?>>GD (+1-473)</option>
+                                    <option value="+502" <?php echo isset($country_code) && $country_code == 'GT' ? 'selected' : ''; ?>>GT (+502)</option>
+                                    <option value="+224" <?php echo isset($country_code) && $country_code == 'GN' ? 'selected' : ''; ?>>GN (+224)</option>
+                                    <option value="+245" <?php echo isset($country_code) && $country_code == 'GW' ? 'selected' : ''; ?>>GW (+245)</option>
+                                    <option value="+592" <?php echo isset($country_code) && $country_code == 'GY' ? 'selected' : ''; ?>>GY (+592)</option>
+                                    <option value="+509" <?php echo isset($country_code) && $country_code == 'HT' ? 'selected' : ''; ?>>HT (+509)</option>
+                                    <option value="+504" <?php echo isset($country_code) && $country_code == 'HN' ? 'selected' : ''; ?>>HN (+504)</option>
+                                    <option value="+36" <?php echo isset($country_code) && $country_code == 'HU' ? 'selected' : ''; ?>>HU (+36)</option>
+                                    <option value="+354" <?php echo isset($country_code) && $country_code == 'IS' ? 'selected' : ''; ?>>IS (+354)</option>
+                                    <option value="+91" <?php echo isset($country_code) && $country_code == 'IN' ? 'selected' : ''; ?>>IN (+91)</option>
+                                    <option value="+62" <?php echo isset($country_code) && $country_code == 'ID' ? 'selected' : ''; ?>>ID (+62)</option>
+                                    <option value="+98" <?php echo isset($country_code) && $country_code == 'IR' ? 'selected' : ''; ?>>IR (+98)</option>
+                                    <option value="+964" <?php echo isset($country_code) && $country_code == 'IQ' ? 'selected' : ''; ?>>IQ (+964)</option>
+                                    <option value="+353" <?php echo isset($country_code) && $country_code == 'IE' ? 'selected' : ''; ?>>IE (+353)</option>
+                                    <option value="+972" <?php echo isset($country_code) && $country_code == 'IL' ? 'selected' : ''; ?>>IL (+972)</option>
+                                    <option value="+39" <?php echo isset($country_code) && $country_code == 'IT' ? 'selected' : ''; ?>>IT (+39)</option>
+                                    <option value="+1-876" <?php echo isset($country_code) && $country_code == 'JM' ? 'selected' : ''; ?>>JM (+1-876)</option>
+                                    <option value="+81" <?php echo isset($country_code) && $country_code == 'JP' ? 'selected' : ''; ?>>JP (+81)</option>
+                                    <option value="+962" <?php echo isset($country_code) && $country_code == 'JO' ? 'selected' : ''; ?>>JO (+962)</option>
+                                    <option value="+7" <?php echo isset($country_code) && $country_code == 'KZ' ? 'selected' : ''; ?>>KZ (+7)</option>
+                                    <option value="+254" <?php echo isset($country_code) && $country_code == 'KE' ? 'selected' : ''; ?>>KE (+254)</option>
+                                    <option value="+686" <?php echo isset($country_code) && $country_code == 'KI' ? 'selected' : ''; ?>>KI (+686)</option>
+                                    <option value="+850" <?php echo isset($country_code) && $country_code == 'KP' ? 'selected' : ''; ?>>KP (+850)</option>
+                                    <option value="+82" <?php echo isset($country_code) && $country_code == 'KR' ? 'selected' : ''; ?>>KR (+82)</option>
+                                    <option value="+383" <?php echo isset($country_code) && $country_code == 'XK' ? 'selected' : ''; ?>>XK (+383)</option>
+                                    <option value="+965" <?php echo isset($country_code) && $country_code == 'KW' ? 'selected' : ''; ?>>KW (+965)</option>
+                                    <option value="+996" <?php echo isset($country_code) && $country_code == 'KG' ? 'selected' : ''; ?>>KG (+996)</option>
+                                    <option value="+856" <?php echo isset($country_code) && $country_code == 'LA' ? 'selected' : ''; ?>>LA (+856)</option>
+                                    <option value="+371" <?php echo isset($country_code) && $country_code == 'LV' ? 'selected' : ''; ?>>LV (+371)</option>
+                                    <option value="+961" <?php echo isset($country_code) && $country_code == 'LB' ? 'selected' : ''; ?>>LB (+961)</option>
+                                    <option value="+266" <?php echo isset($country_code) && $country_code == 'LS' ? 'selected' : ''; ?>>LS (+266)</option>
+                                    <option value="+231" <?php echo isset($country_code) && $country_code == 'LR' ? 'selected' : ''; ?>>LR (+231)</option>
+                                    <option value="+218" <?php echo isset($country_code) && $country_code == 'LY' ? 'selected' : ''; ?>>LY (+218)</option>
+                                    <option value="+423" <?php echo isset($country_code) && $country_code == 'LI' ? 'selected' : ''; ?>>LI (+423)</option>
+                                    <option value="+370" <?php echo isset($country_code) && $country_code == 'LT' ? 'selected' : ''; ?>>LT (+370)</option>
+                                    <option value="+352" <?php echo isset($country_code) && $country_code == 'LU' ? 'selected' : ''; ?>>LU (+352)</option>
+                                    <option value="+261" <?php echo isset($country_code) && $country_code == 'MG' ? 'selected' : ''; ?>>MG (+261)</option>
+                                    <option value="+265" <?php echo isset($country_code) && $country_code == 'MW' ? 'selected' : ''; ?>>MW (+265)</option>
+                                    <option value="+60" <?php echo isset($country_code) && $country_code == 'MY' ? 'selected' : ''; ?>>MY (+60)</option>
+                                    <option value="+960" <?php echo isset($country_code) && $country_code == 'MV' ? 'selected' : ''; ?>>MV (+960)</option>
+                                    <option value="+223" <?php echo isset($country_code) && $country_code == 'ML' ? 'selected' : ''; ?>>ML (+223)</option>
+                                    <option value="+356" <?php echo isset($country_code) && $country_code == 'MT' ? 'selected' : ''; ?>>MT (+356)</option>
+                                    <option value="+692" <?php echo isset($country_code) && $country_code == 'MH' ? 'selected' : ''; ?>>MH (+692)</option>
+                                    <option value="+222" <?php echo isset($country_code) && $country_code == 'MR' ? 'selected' : ''; ?>>MR (+222)</option>
+                                    <option value="+230" <?php echo isset($country_code) && $country_code == 'MU' ? 'selected' : ''; ?>>MU (+230)</option>
+                                    <option value="+52" <?php echo isset($country_code) && $country_code == 'MX' ? 'selected' : ''; ?>>MX (+52)</option>
+                                    <option value="+691" <?php echo isset($country_code) && $country_code == 'FM' ? 'selected' : ''; ?>>FM (+691)</option>
+                                    <option value="+373" <?php echo isset($country_code) && $country_code == 'MD' ? 'selected' : ''; ?>>MD (+373)</option>
+                                    <option value="+377" <?php echo isset($country_code) && $country_code == 'MC' ? 'selected' : ''; ?>>MC (+377)</option>
+                                    <option value="+976" <?php echo isset($country_code) && $country_code == 'MN' ? 'selected' : ''; ?>>MN (+976)</option>
+                                    <option value="+382" <?php echo isset($country_code) && $country_code == 'ME' ? 'selected' : ''; ?>>ME (+382)</option>
+                                    <option value="+212" <?php echo isset($country_code) && $country_code == 'MA' ? 'selected' : ''; ?>>MA (+212)</option>
+                                    <option value="+258" <?php echo isset($country_code) && $country_code == 'MZ' ? 'selected' : ''; ?>>MZ (+258)</option>
+                                    <option value="+95" <?php echo isset($country_code) && $country_code == 'MM' ? 'selected' : ''; ?>>MM (+95)</option>
+                                    <option value="+264" <?php echo isset($country_code) && $country_code == 'NA' ? 'selected' : ''; ?>>NA (+264)</option>
+                                    <option value="+674" <?php echo isset($country_code) && $country_code == 'NR' ? 'selected' : ''; ?>>NR (+674)</option>
+                                    <option value="+977" <?php echo isset($country_code) && $country_code == 'NP' ? 'selected' : ''; ?>>NP (+977)</option>
+                                    <option value="+31" <?php echo isset($country_code) && $country_code == 'NL' ? 'selected' : ''; ?>>NL (+31)</option>
+                                    <option value="+64" <?php echo isset($country_code) && $country_code == 'NZ' ? 'selected' : ''; ?>>NZ (+64)</option>
+                                    <option value="+505" <?php echo isset($country_code) && $country_code == 'NI' ? 'selected' : ''; ?>>NI (+505)</option>
+                                    <option value="+227" <?php echo isset($country_code) && $country_code == 'NE' ? 'selected' : ''; ?>>NE (+227)</option>
+                                    <option value="+234" <?php echo isset($country_code) && $country_code == 'NG' ? 'selected' : ''; ?>>NG (+234)</option>
+                                    <option value="+389" <?php echo isset($country_code) && $country_code == 'MK' ? 'selected' : ''; ?>>MK (+389)</option>
+                                    <option value="+47" <?php echo isset($country_code) && $country_code == 'NO' ? 'selected' : ''; ?>>NO (+47)</option>
+                                    <option value="+968" <?php echo isset($country_code) && $country_code == 'OM' ? 'selected' : ''; ?>>OM (+968)</option>
+                                    <option value="+92" <?php echo isset($country_code) && $country_code == 'PK' ? 'selected' : ''; ?>>PK (+92)</option>
+                                    <option value="+680" <?php echo isset($country_code) && $country_code == 'PW' ? 'selected' : ''; ?>>PW (+680)</option>
+                                    <option value="+507" <?php echo isset($country_code) && $country_code == 'PA' ? 'selected' : ''; ?>>PA (+507)</option>
+                                    <option value="+675" <?php echo isset($country_code) && $country_code == 'PG' ? 'selected' : ''; ?>>PG (+675)</option>
+                                    <option value="+595" <?php echo isset($country_code) && $country_code == 'PY' ? 'selected' : ''; ?>>PY (+595)</option>
+                                    <option value="+51" <?php echo isset($country_code) && $country_code == 'PE' ? 'selected' : ''; ?>>PE (+51)</option>
+                                    <option value="+63" <?php echo isset($country_code) && $country_code == 'PH' ? 'selected' : ''; ?>>PH (+63)</option>
+                                    <option value="+48" <?php echo isset($country_code) && $country_code == 'PL' ? 'selected' : ''; ?>>PL (+48)</option>
+                                    <option value="+351" <?php echo isset($country_code) && $country_code == 'PT' ? 'selected' : ''; ?>>PT (+351)</option>
+                                    <option value="+974" <?php echo isset($country_code) && $country_code == 'QA' ? 'selected' : ''; ?>>QA (+974)</option>
+                                    <option value="+40" <?php echo isset($country_code) && $country_code == 'RO' ? 'selected' : ''; ?>>RO (+40)</option>
+                                    <option value="+7" <?php echo isset($country_code) && $country_code == 'RU' ? 'selected' : ''; ?>>RU (+7)</option>
+                                    <option value="+250" <?php echo isset($country_code) && $country_code == 'RW' ? 'selected' : ''; ?>>RW (+250)</option>
+                                    <option value="+1 869" <?php echo isset($country_code) && $country_code == 'KN' ? 'selected' : ''; ?>>KN (+1 869)</option>
+                                    <option value="+1 758" <?php echo isset($country_code) && $country_code == 'LC' ? 'selected' : ''; ?>>LC (+1 758)</option>
+                                    <option value="+1 784" <?php echo isset($country_code) && $country_code == 'VC' ? 'selected' : ''; ?>>VC (+1 784)</option>
+                                    <option value="+685" <?php echo isset($country_code) && $country_code == 'WS' ? 'selected' : ''; ?>>WS (+685)</option>
+                                    <option value="+378" <?php echo isset($country_code) && $country_code == 'SM' ? 'selected' : ''; ?>>SM (+378)</option>
+                                    <option value="+239" <?php echo isset($country_code) && $country_code == 'ST' ? 'selected' : ''; ?>>ST (+239)</option>
+                                    <option value="+966" <?php echo isset($country_code) && $country_code == 'SA' ? 'selected' : ''; ?>>SA (+966)</option>
+                                    <option value="+221" <?php echo isset($country_code) && $country_code == 'SN' ? 'selected' : ''; ?>>SN (+221)</option>
+                                    <option value="+381" <?php echo isset($country_code) && $country_code == 'RS' ? 'selected' : ''; ?>>RS (+381)</option>
+                                    <option value="+248" <?php echo isset($country_code) && $country_code == 'SC' ? 'selected' : ''; ?>>SC (+248)</option>
+                                    <option value="+232" <?php echo isset($country_code) && $country_code == 'SL' ? 'selected' : ''; ?>>SL (+232)</option>
+                                    <option value="+65" <?php echo isset($country_code) && $country_code == 'SG' ? 'selected' : ''; ?>>SG (+65)</option>
+                                    <option value="+421" <?php echo isset($country_code) && $country_code == 'SK' ? 'selected' : ''; ?>>SK (+421)</option>
+                                    <option value="+386" <?php echo isset($country_code) && $country_code == 'SI' ? 'selected' : ''; ?>>SI (+386)</option>
+                                    <option value="+677" <?php echo isset($country_code) && $country_code == 'SB' ? 'selected' : ''; ?>>SB (+677)</option>
+                                    <option value="+252" <?php echo isset($country_code) && $country_code == 'SO' ? 'selected' : ''; ?>>SO (+252)</option>
+                                    <option value="+27" <?php echo isset($country_code) && $country_code == 'ZA' ? 'selected' : ''; ?>>ZA (+27)</option>
+                                    <option value="+34" <?php echo isset($country_code) && $country_code == 'ES' ? 'selected' : ''; ?>>ES (+34)</option>
+                                    <option value="+94" <?php echo isset($country_code) && $country_code == 'LK' ? 'selected' : ''; ?>>LK (+94)</option>
+                                    <option value="+249" <?php echo isset($country_code) && $country_code == 'SD' ? 'selected' : ''; ?>>SD (+249)</option>
+                                    <option value="+211" <?php echo isset($country_code) && $country_code == 'SS' ? 'selected' : ''; ?>>SS (+211)</option>
+                                    <option value="+597" <?php echo isset($country_code) && $country_code == 'SR' ? 'selected' : ''; ?>>SR (+597)</option>
+                                    <option value="+46" <?php echo isset($country_code) && $country_code == 'SE' ? 'selected' : ''; ?>>SE (+46)</option>
+                                    <option value="+41" <?php echo isset($country_code) && $country_code == 'CH' ? 'selected' : ''; ?>>CH (+41)</option>
+                                    <option value="+963" <?php echo isset($country_code) && $country_code == 'SY' ? 'selected' : ''; ?>>SY (+963)</option>
+                                    <option value="+886" <?php echo isset($country_code) && $country_code == 'TW' ? 'selected' : ''; ?>>TW (+886)</option>
+                                    <option value="+992" <?php echo isset($country_code) && $country_code == 'TJ' ? 'selected' : ''; ?>>TJ (+992)</option>
+                                    <option value="+255" <?php echo isset($country_code) && $country_code == 'TZ' ? 'selected' : ''; ?>>TZ (+255)</option>
+                                    <option value="+66" <?php echo isset($country_code) && $country_code == 'TH' ? 'selected' : ''; ?>>TH (+66)</option>
+                                    <option value="+228" <?php echo isset($country_code) && $country_code == 'TG' ? 'selected' : ''; ?>>TG (+228)</option>
+                                    <option value="+676" <?php echo isset($country_code) && $country_code == 'TO' ? 'selected' : ''; ?>>TO (+676)</option>
+                                    <option value="+1 868" <?php echo isset($country_code) && $country_code == 'TT' ? 'selected' : ''; ?>>TT (+1 868)</option>
+                                    <option value="+216" <?php echo isset($country_code) && $country_code == 'TN' ? 'selected' : ''; ?>>TN (+216)</option>
+                                    <option value="+90" <?php echo isset($country_code) && $country_code == 'TR' ? 'selected' : ''; ?>>TR (+90)</option>
+                                    <option value="+993" <?php echo isset($country_code) && $country_code == 'TM' ? 'selected' : ''; ?>>TM (+993)</option>
+                                    <option value="+688" <?php echo isset($country_code) && $country_code == 'TV' ? 'selected' : ''; ?>>TV (+688)</option>
+                                    <option value="+256" <?php echo isset($country_code) && $country_code == 'UG' ? 'selected' : ''; ?>>UG (+256)</option>
+                                    <option value="+380" <?php echo isset($country_code) && $country_code == 'UA' ? 'selected' : ''; ?>>UA (+380)</option>
+                                    <option value="+971" <?php echo isset($country_code) && $country_code == 'AE' ? 'selected' : ''; ?>>AE (+971)</option>
+                                    <option value="+44" <?php echo isset($country_code) && $country_code == 'GB' ? 'selected' : ''; ?>>GB (+44)</option>
+                                    <option value="+1" <?php echo isset($country_code) && $country_code == 'US' ? 'selected' : ''; ?>>US (+1)</option>
+                                    <option value="+598" <?php echo isset($country_code) && $country_code == 'UY' ? 'selected' : ''; ?>>UY (+598)</option>
+                                    <option value="+998" <?php echo isset($country_code) && $country_code == 'UZ' ? 'selected' : ''; ?>>UZ (+998)</option>
+                                    <option value="+678" <?php echo isset($country_code) && $country_code == 'VU' ? 'selected' : ''; ?>>VU (+678)</option>
+                                    <option value="+39" <?php echo isset($country_code) && $country_code == 'VA' ? 'selected' : ''; ?>>VA (+39)</option>
+                                    <option value="+58" <?php echo isset($country_code) && $country_code == 'VE' ? 'selected' : ''; ?>>VE (+58)</option>
+                                    <option value="+84" <?php echo isset($country_code) && $country_code == 'VN' ? 'selected' : ''; ?>>VN (+84)</option>
+                                    <option value="+967" <?php echo isset($country_code) && $country_code == 'YE' ? 'selected' : ''; ?>>YE (+967)</option>
+                                    <option value="+260" <?php echo isset($country_code) && $country_code == 'ZM' ? 'selected' : ''; ?>>ZM (+260)</option>
+                                    <option value="+263" <?php echo isset($country_code) && $country_code == 'ZW' ? 'selected' : ''; ?>>ZW (+263)</option>
                                 </select>
                                 <input class="h-12 px-4 mt-2 border-line rounded-lg" style="width: 65%;" type="text" name="contact_number" id="contact_number" placeholder="Enter phone number" required value="<?php echo isset($contact_number) ? htmlspecialchars($contact_number) : ''; ?>">
                             </div>
@@ -435,6 +438,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </datalist>
                         </div>
                     </div>
+
                     <!-- Your HTML Container -->
                     <div id="educationContainer">
                         <h5 class="heading5 mt-5">Global Education</h5>
@@ -606,8 +610,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <!-- First set of core skills and sub-skills -->
                         <div class="education_level col-span-1">
                             <label>Core Skill 1</label>
-                            <select id="coreSkills1" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="core_skill_one" required>
-                                <option selected>Select Core Skills</option>
+                            <select id="coreSkills1" class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="core_skill_one" required>
+                                <option value="" selected disabled>Select Core Skills</option>
                                 <?php
                                 $fetch_skills = $db_handle->runQuery("SELECT * FROM skills");
                                 foreach ($fetch_skills as $row) {
@@ -1274,6 +1278,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <?php include ('include/script.php');?>
 
+
 <!--js for appending global education field-->
 <script>
     document.getElementById('addGlobalEducation').addEventListener('click', function () {
@@ -1451,10 +1456,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 <script>
+
     $(document).ready(function() {
+        console.log(jQuery.fn.jquery);
+        // Initialize Select2 on the core skills dropdown
+        $('#coreSkills1').select2();
+        $('#coreSkills2').select2();
+        $('#coreSkills3').select2();
+
         // Function to handle core skill change
         function handleCoreSkillChange(coreSkillId, subSkillsListId, selectedTagsId, selectedSubSkillsId, subSkillsLabelId) {
-            $(`#${coreSkillId}`).change(function() {
+            $(`#${coreSkillId}`).on('change.select2', function() { // Use Select2's event handler
                 var core_skill = $(this).val();
 
                 if (core_skill !== "Select Core Skills") {
