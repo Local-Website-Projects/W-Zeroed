@@ -40,13 +40,46 @@ if(!isset($_SESSION['seller_id'])) {
             <div class="heading flex flex-wrap items-center justify-between gap-4">
                 <h4 class="heading4 max-lg:mt-3">Profile</h4>
             </div>
+            <?php
+            $fetch_profile = $db_handle->runQuery("select first_name, last_name, city, state, country, contact_email, contact_no,profile_image,country_code from seller_personal_information where user_id = {$_SESSION['seller_id']}");
+            ?>
             <div class="profile_block overflow-hidden flex max-lg:flex-col-reverse gap-y-10 w-full mt-7.5">
                 <div class="left lg:w-[70.5%] h-[calc(100vh-100px)] overflow-y-auto pr-4">
+                        <ul class="list_related flex flex-col md:gap-7.5 gap-6 w-full mt-5">
+                            <li class="jobs_item px-6 py-5 rounded-lg bg-white shadow-md duration-300 hover:shadow-xl" style="background: #00c5ff;">
+                                <div class="jobs_info flex gap-4 w-full border-b border-line" style="border: unset">
+                                    <a href="jobs-detail1.html" class="overflow-hidden flex-shrink-0 w-20 h-20">
+                                        <img src="<?php echo $fetch_profile[0]['profile_image'];?>" alt="seller profile image" class="jobs_avatar w-full h-full object-cover">
+                                    </a>
+                                    <div class="jobs_content flex items-center justify-between gap-2 w-full">
+                                        <a href="jobs-detail1.html" class="jobs_detail flex flex-col gap-0.5 duration-300 hover:text-primary">
+                                            <strong class="jobs_name text-title -style-1"><?php echo $fetch_profile[0]['first_name']?> <?php $fetch_profile[0]['last_name'];?></strong>
+                                            <div class="flex flex-wrap items-center gap-5 gap-y-1">
+                                                <div class="jobs_address -style-1 text-secondary">
+                                                    <span class="ph ph-map-pin text-lg"></span>
+                                                    <span class="address caption1 align-top"><?php echo $fetch_profile[0]['city'].' '.$fetch_profile[0]['state'].', '.$fetch_profile[0]['country'];?></span>
+                                                </div>
+                                                <div class="jobs_date text-secondary">
+                                                    <span class="ph ph-calendar-blank text-lg"></span>
+                                                    <span class="date caption1 align-top"><?php echo $fetch_profile[0]['country_code'];?>.' '.<?php echo $fetch_profile[0]['contact_no'];?></span>
+                                                </div>
+                                                <div class="jobs_date text-secondary">
+                                                    <span class="ph ph-calendar-blank text-lg"></span>
+                                                    <span class="date caption1 align-top"><?php echo $fetch_profile[0]['contact_email'];?></span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+
+
+
+
                     <!--personal information-->
                     <div class="info_overview p-8 rounded-lg bg-white shadow-sm mt-7.5">
-                        <?php
-                        $fetch_profile = $db_handle->runQuery("select first_name, last_name, city, state, country, contact_email, contact_no,profile_image from seller_personal_information where user_id = {$_SESSION['seller_id']}");
-                        ?>
+
                         <h5 class="heading5"><?php echo $fetch_profile[0]['first_name'].' '.$fetch_profile[0]['last_name'];?></h5>
 
                         <div class="overflow-hidden flex max-lg:flex-col-reverse gap-y-10 w-full mt-7.5">
@@ -249,8 +282,9 @@ if(!isset($_SESSION['seller_id'])) {
                             <hr class="mt-5 mb-5"/>
 
                             <?php
-                            $fetch_canadian_education = $db_handle->runQuery("SELECT can_level_of_education,university_name, city_name, study_field, can_gpa,canadian_certificate_number FROM `seller_canadian_education`,`universities`,`cities`,`field_of_study_canadian` WHERE seller_canadian_education.can_field_of_study = field_of_study_canadian.field_study_can_id AND seller_canadian_education.can_college = universities.university_id AND cities.city_id = seller_canadian_education.can_location AND seller_canadian_education.user_id = {$_SESSION['seller_id']}");
-                            $fetch_canadian_education_no = $db_handle->numRows("SELECT can_level_of_education,university_name, city_name, study_field, can_gpa,canadian_certificate_number FROM `seller_canadian_education`,`universities`,`cities`,`field_of_study_canadian` WHERE seller_canadian_education.can_field_of_study = field_of_study_canadian.field_study_can_id AND seller_canadian_education.can_college = universities.university_id AND cities.city_id = seller_canadian_education.can_location AND seller_canadian_education.user_id = {$_SESSION['seller_id']}");
+                            $fetch_canadian_education = $db_handle->runQuery("SELECT can_level_of_education,university_name, canadian_city_name, study_field, can_gpa,canadian_certificate_number FROM `seller_canadian_education`,`universities`,`canadian_city`,`field_of_study_canadian` WHERE seller_canadian_education.can_field_of_study = field_of_study_canadian.field_study_can_id AND seller_canadian_education.can_college = universities.university_id AND canadian_city.canadian_city_id = seller_canadian_education.can_location AND seller_canadian_education.user_id = {$_SESSION['seller_id']}");
+                            $fetch_canadian_education_no = $db_handle->numRows("SELECT can_level_of_education,university_name, canadian_city_name, study_field, can_gpa,canadian_certificate_number FROM `seller_canadian_education`,`universities`,`canadian_city`,`field_of_study_canadian` WHERE seller_canadian_education.can_field_of_study = field_of_study_canadian.field_study_can_id AND seller_canadian_education.can_college = universities.university_id AND canadian_city.canadian_city_id = seller_canadian_education.can_location AND seller_canadian_education.user_id = {$_SESSION['seller_id']}");
+
                             for($i=0; $i<$fetch_canadian_education_no; $i++){
                                 ?>
                                 <li>
@@ -268,7 +302,7 @@ if(!isset($_SESSION['seller_id'])) {
                                     </div>
                                     <strong class="position text-button"><?php echo $fetch_canadian_education[$i]['study_field'];?></strong>
                                     <p class="desc text-secondary mt-1">University/College: <?php echo $fetch_canadian_education[$i]['university_name'];?></p>
-                                    <p class="desc text-secondary mt-1">City: <?php echo $fetch_canadian_education[$i]['city_name'];?></p>
+                                    <p class="desc text-secondary mt-1">City: <?php echo $fetch_canadian_education[$i]['canadian_city_name'];?></p>
                                 </li>
                                 <?php
                             }

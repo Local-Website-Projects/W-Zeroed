@@ -568,10 +568,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="canadian_study_location[]" disabled>
                                         <option selected>Select City</option>
                                         <?php
-                                        $fetch_city = $db_handle->runQuery("select * from cities");
+                                        $fetch_city = $db_handle->runQuery("select * from canadian_city");
                                         foreach ($fetch_city as $row) {
                                             ?>
-                                            <option value="<?php echo $row['city_id']?>"><?php echo $row['city_name']?></option>
+                                            <option value="<?php echo $row['canadian_city_id']?>"><?php echo $row['canadian_city_name']?></option>
                                             <?php
                                         }
                                         ?>

@@ -569,11 +569,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                             <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="canadian_field_of_study[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));">
                                                 <option value="" <?php echo ($row['can_field_of_study'] == '') ? 'selected' : ''; ?>>Select Field of Study</option>
                                                 <?php
-                                                $fetch_field_study = $db_handle->runQuery("SELECT * FROM field_of_study");
+                                                $fetch_field_study = $db_handle->runQuery("SELECT * FROM field_of_study_canadian");
                                                 foreach ($fetch_field_study as $field_row) {
                                                     ?>
-                                                    <option value="<?php echo $field_row['field_study_id']; ?>" <?php echo ($row['can_field_of_study'] == $field_row['field_study_id']) ? 'selected' : ''; ?>>
-                                                        <?php echo $field_row['field_study']; ?>
+                                                    <option value="<?php echo $field_row['field_study_can_id ']; ?>" <?php echo ($row['can_field_of_study'] == $field_row['field_study_can_id ']) ? 'selected' : ''; ?>>
+                                                        <?php echo $field_row['study_field']; ?>
                                                     </option>
                                                     <?php
                                                 }
@@ -605,11 +605,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                             <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="canadian_study_location[]">
                                                 <option value="" <?php echo ($row['can_location'] == '') ? 'selected' : ''; ?>>Select City</option>
                                                 <?php
-                                                $fetch_city = $db_handle->runQuery("SELECT * FROM cities");
+                                                $fetch_city = $db_handle->runQuery("SELECT * FROM canadian_city");
                                                 foreach ($fetch_city as $city_row) {
                                                     ?>
-                                                    <option value="<?php echo $city_row['city_id']; ?>" <?php echo ($row['can_location'] == $city_row['city_id']) ? 'selected' : ''; ?>>
-                                                        <?php echo $city_row['city_name']; ?>
+                                                    <option value="<?php echo $city_row['canadian_city_id']; ?>" <?php echo ($row['can_location'] == $city_row['canadian_city_id']) ? 'selected' : ''; ?>>
+                                                        <?php echo $city_row['canadian_city_name']; ?>
                                                     </option>
                                                     <?php
                                                 }
