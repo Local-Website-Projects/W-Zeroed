@@ -2709,7 +2709,7 @@ video {
 
 .hover\:text-primary:hover {
   --tw-text-opacity: 1;
-  color: rgb(0 197 255 / var(--tw-text-opacity));
+  color: #000000;
 }
 
 .hover\:text-red:hover {

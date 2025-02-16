@@ -45,26 +45,28 @@ if(!isset($_SESSION['seller_id'])) {
             ?>
             <div class="profile_block overflow-hidden flex max-lg:flex-col-reverse gap-y-10 w-full mt-7.5">
                 <div class="left lg:w-[70.5%] h-[calc(100vh-100px)] overflow-y-auto pr-4">
+
+                    <!--personal information starts here-->
                         <ul class="list_related flex flex-col md:gap-7.5 gap-6 w-full mt-5">
                             <li class="jobs_item px-6 py-5 rounded-lg bg-white shadow-md duration-300 hover:shadow-xl" style="background: #00c5ff;">
                                 <div class="jobs_info flex gap-4 w-full border-b border-line" style="border: unset">
-                                    <a href="jobs-detail1.html" class="overflow-hidden flex-shrink-0 w-20 h-20">
+                                    <a href="#" class="overflow-hidden flex-shrink-0 w-32 h-32">
                                         <img src="<?php echo $fetch_profile[0]['profile_image'];?>" alt="seller profile image" class="jobs_avatar w-full h-full object-cover">
                                     </a>
                                     <div class="jobs_content flex items-center justify-between gap-2 w-full">
-                                        <a href="jobs-detail1.html" class="jobs_detail flex flex-col gap-0.5 duration-300 hover:text-primary">
-                                            <strong class="jobs_name text-title -style-1"><?php echo $fetch_profile[0]['first_name']?> <?php $fetch_profile[0]['last_name'];?></strong>
+                                        <a href="#" onclick="copyURL();" class="jobs_detail flex flex-col gap-0.5 duration-300 hover:text-primary">
+                                            <strong class="jobs_name text-title -style-1"><?php echo $fetch_profile[0]['first_name'].' '.$fetch_profile[0]['last_name'];?></strong>
                                             <div class="flex flex-wrap items-center gap-5 gap-y-1">
-                                                <div class="jobs_address -style-1 text-secondary">
+                                                <div class="jobs_address -style-1">
                                                     <span class="ph ph-map-pin text-lg"></span>
                                                     <span class="address caption1 align-top"><?php echo $fetch_profile[0]['city'].' '.$fetch_profile[0]['state'].', '.$fetch_profile[0]['country'];?></span>
                                                 </div>
-                                                <div class="jobs_date text-secondary">
-                                                    <span class="ph ph-calendar-blank text-lg"></span>
-                                                    <span class="date caption1 align-top"><?php echo $fetch_profile[0]['country_code'];?>.' '.<?php echo $fetch_profile[0]['contact_no'];?></span>
+                                                <div class="jobs_date">
+                                                    <span class="ph ph-phone text-lg"></span>
+                                                    <span class="date caption1 align-top"><?php echo $fetch_profile[0]['country_code']; ?> <?php echo $fetch_profile[0]['contact_no'];?></span>
                                                 </div>
-                                                <div class="jobs_date text-secondary">
-                                                    <span class="ph ph-calendar-blank text-lg"></span>
+                                                <div class="jobs_date">
+                                                    <span class="ph ph-envelope-simple-open text-lg"></span>
                                                     <span class="date caption1 align-top"><?php echo $fetch_profile[0]['contact_email'];?></span>
                                                 </div>
                                             </div>
@@ -73,71 +75,50 @@ if(!isset($_SESSION['seller_id'])) {
                                 </div>
                             </li>
                         </ul>
+                    <!--personal information ends here-->
 
-
-
-
-                    <!--personal information-->
-                    <div class="info_overview p-8 rounded-lg bg-white shadow-sm mt-7.5">
-
-                        <h5 class="heading5"><?php echo $fetch_profile[0]['first_name'].' '.$fetch_profile[0]['last_name'];?></h5>
-
-                        <div class="overflow-hidden flex max-lg:flex-col-reverse gap-y-10 w-full mt-7.5">
-                            <div class="left lg:w-[70.5%] pr-4">
-                                <ul class="candidates_info pt-1">
-                                    <li class="location flex flex-wrap items-center justify-between gap-1 w-full py-4 border-b border-line">
-                                        <span class="text-secondary">Location:</span>
-                                        <strong class="text-title"><?php echo $fetch_profile[0]['city'].' '.$fetch_profile[0]['state'].', '.$fetch_profile[0]['country'];?></strong>
-                                    </li>
-                                    <li class="phone flex flex-wrap items-center justify-between gap-1 w-full py-4 border-b border-line">
-                                        <span class="text-secondary">Phone:</span>
-                                        <strong class="text-title"><?php echo $fetch_profile[0]['contact_no'];?></strong>
-                                    </li>
-                                    <li class="email flex flex-wrap items-center justify-between gap-1 w-full py-4 border-b border-line">
-                                        <span class="text-secondary">Email:</span>
-                                        <strong class="text-title"><?php echo $fetch_profile[0]['contact_email'];?></strong>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="right flex-shrink-0 lg:w-[29.5%] lg:pl-7.5">
-                                <div class="w-full flex align-middle justify-center">
-                                    <img src="<?php echo $fetch_profile[0]['profile_image'];?>" style="width: auto;height: auto"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--skills information-->
-                    <div class="tools p-8 mt-7.5 rounded-lg bg-white shadow-sm">
+                    <!--skills section starts-->
+                    <div class="projects w-full overflow-hidden p-8 mt-7.5 rounded-lg bg-white shadow-sm">
                         <h5 class="heading5">Skills</h5>
-                        <?php
-                        $fetch_core_skils = $db_handle->runQuery("SELECT cs.core_skill, s.core_skill as skill_name FROM `skills` as s,`seller_core_skills` as cs WHERE s.skill_id = cs.core_skill and cs.user_id = {$_SESSION['seller_id']}");
-                        $fetch_core_skils_no = $db_handle->numRows("SELECT cs.core_skill, s.core_skill as skill_name FROM `skills` as s,`seller_core_skills` as cs WHERE s.skill_id = cs.core_skill and cs.user_id = {$_SESSION['seller_id']}");
-                        for ($i=0; $i<$fetch_core_skils_no; $i++) {
-                            ?>
-                            <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5"><?php echo $fetch_core_skils[$i]['skill_name'];?></h2>
-                            <div class="list flex flex-wrap items-center gap-3 mt-5">
-                                <?php
-                                $fetch_sub_skills = $db_handle->runQuery("SELECT sub_skill, s_skill_file FROM `seller_sub_skills`WHERE core_skill_id = {$fetch_core_skils[$i]['core_skill']} AND user_id = {$_SESSION['seller_id']}");
-                                $fetch_sub_skills_no = $db_handle->numRows("SELECT sub_skill, s_skill_file FROM `seller_sub_skills`WHERE core_skill_id = {$fetch_core_skils[$i]['core_skill']} AND user_id = {$_SESSION['seller_id']}");
-                                for ($j=0; $j<$fetch_sub_skills_no; $j++) {
-                                    ?>
-                                    <span class="tag bg-surface caption1"><?php echo $fetch_sub_skills[$j]['sub_skill'];?> <?php
-                                        if($fetch_sub_skills[$j]['s_skill_file'] != "") {
-                                            ?>
-                                            <i class="ph ph-seal-check"></i>
-                                            <?php
-                                        }
-                                        ?></span>
-                                    <?php
-                                }
-                                ?>
-                            </div>
+                        <ul class="list_project grid grid-cols-1 sm:gap-7.5 gap-5 mt-5">
                             <?php
-                        }
-                        ?>
+                            $fetch_core_skils = $db_handle->runQuery("SELECT cs.core_skill, s.core_skill as skill_name FROM `skills` as s,`seller_core_skills` as cs WHERE s.skill_id = cs.core_skill and cs.user_id = {$_SESSION['seller_id']}");
+                            $fetch_core_skils_no = $db_handle->numRows("SELECT cs.core_skill, s.core_skill as skill_name FROM `skills` as s,`seller_core_skills` as cs WHERE s.skill_id = cs.core_skill and cs.user_id = {$_SESSION['seller_id']}");
+                            for ($i=0; $i<$fetch_core_skils_no; $i++) {
+                            ?>
+                            <li class="project_item py-5 px-6 rounded-lg bg-white duration-300 shadow-md">
+                                <div class="project_innner flex max-sm:flex-col items-center justify-between xl:gap-9 gap-6 h-full">
+                                    <div class="project_info">
+                                        <p class="project_name heading6 duration-300 hover:underline"><?php echo $fetch_core_skils[$i]['skill_name'];?></p>
+                                        <div class="list_tag flex items-center gap-2.5 flex-wrap mt-3">
+                                            <?php
+                                            $fetch_sub_skills = $db_handle->runQuery("SELECT sub_skill, s_skill_file FROM `seller_sub_skills`WHERE core_skill_id = {$fetch_core_skils[$i]['core_skill']} AND user_id = {$_SESSION['seller_id']}");
+                                            $fetch_sub_skills_no = $db_handle->numRows("SELECT sub_skill, s_skill_file FROM `seller_sub_skills`WHERE core_skill_id = {$fetch_core_skils[$i]['core_skill']} AND user_id = {$_SESSION['seller_id']}");
+                                            for ($j=0; $j<$fetch_sub_skills_no; $j++) {
+                                            ?>
+                                            <p class="project_tag tag bg-surface caption1 hover:text-white hover:bg-primary"><?php echo $fetch_sub_skills[$j]['sub_skill'];?>
+                                                <?php
+                                                if($fetch_sub_skills[$j]['s_skill_file'] != "") {
+                                                    ?>
+                                                    <i class="ph ph-seal-check"></i>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </p>
+                                                <?php
+                                            }
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                                <?php
+                            }
+                            ?>
 
+                        </ul>
                     </div>
+                    <!--skills section ends-->
 
                     <!--experience section-->
                     <div class="experience w-full overflow-hidden p-8 mt-7.5 rounded-lg bg-white shadow-sm">
@@ -251,65 +232,103 @@ if(!isset($_SESSION['seller_id'])) {
                         </ul>
                     </div>
 
-                    <!--educational information-->
-                    <div class="education w-full overflow-hidden p-8 mt-7.5 rounded-lg bg-white shadow-sm">
+
+
+
+
+
+
+
+
+
+
+                    <div class="jobs w-full overflow-hidden p-8 mt-7.5 rounded-lg bg-white shadow-sm">
                         <h5 class="heading5">Education</h5>
-                        <ul class="list flex flex-col gap-7 mt-5">
+                        <ul class="list_related flex flex-col md:gap-7.5 gap-6 w-full mt-5">
                             <?php
                             $fetch_global_education = $db_handle->runQuery("SELECT * FROM `seller_global_education` WHERE user_id={$_SESSION['seller_id']}");
                             $fetch_global_education_no = $db_handle->numRows("SELECT * FROM `seller_global_education` WHERE user_id={$_SESSION['seller_id']}");
                             for ($i=0;$i<$fetch_global_education_no;$i++){
-                                ?>
-                                    <li>
-                                    <div class="flex items-center gap-4 mb-1">
-                                        <h2 style="font-size: 30px; font-weight: bold" class="mt-5"><?php echo $fetch_global_education[$i]['global_level_of_education'];?>
-                                        <?php
-                                            if($fetch_global_education[$i]['global_certificate_no'] != null){
-                                                ?>
-                                                <i class="ph ph-seal-check"></i>
+                            ?>
+                            <li class="jobs_item px-6 py-5 rounded-lg bg-white shadow-md duration-300 hover:shadow-xl">
+                                <div class="jobs_info flex gap-4 w-full pb-4 border-b border-line">
+                                    <div class="jobs_content flex items-center justify-between gap-2 w-full">
+                                        <a href="#" class="jobs_detail flex flex-col gap-0.5 duration-300 hover:text-primary">
+                                            <span class="jobs_company text-sm font-semibold text-primary"><?php echo $fetch_global_education[$i]['global_level_of_education'];?>
                                                 <?php
-                                            }
-                                            ?>
-                                        </h2>
-                                        <span class="time caption2" style=" background: #39af3e;padding: 10px 20px;border-radius: 10px;color: white;">GPA: <?php echo $fetch_global_education[$i]['global_gpa'];?></span>
+                                                if($fetch_global_education[$i]['global_certificate_no'] != null){
+                                                    ?>
+                                                    <i class="ph ph-seal-check"></i>
+                                                    <?php
+                                                }
+                                                ?></span>
+                                            <strong class="jobs_name text-title -style-1"><?php echo $fetch_global_education[0]['global_field_of_study'];?></strong>
+                                            <div class="flex flex-wrap items-center gap-5 gap-y-1">
+                                                <div class="jobs_address -style-1 text-secondary">
+                                                    <span class="ph ph-graduation-cap text-lg"></span>
+                                                    <span class="address caption1 align-top"><?php echo $fetch_global_education[$i]['global_university'];?></span>
+                                                </div>
+                                                <!--<div class="jobs_date text-secondary">
+                                                    <span class="ph ph-calendar-blank text-lg"></span>
+                                                    <span class="date caption1 align-top">2 days ago</span>
+                                                </div>-->
+                                            </div>
+                                        </a>
                                     </div>
-                                <strong class="position text-button"><?php echo $fetch_global_education[0]['global_field_of_study'];?></strong>
-                                    <p class="desc text-secondary mt-1"><?php echo $fetch_global_education[$i]['global_university'];?></p>
-                                </li>
+                                </div>
+                                <div class="jobs_more_info flex flex-wrap items-center justify-between gap-3 pt-4">
+                                    <div class="jobs_price">
+                                        <span class="price text-title">GPA: <?php echo $fetch_global_education[$i]['global_gpa'];?></span>
+                                    </div>
+                                </div>
+                            </li>
                                 <?php
                             }
-                            ?>
-                            <hr class="mt-5 mb-5"/>
 
-                            <?php
                             $fetch_canadian_education = $db_handle->runQuery("SELECT can_level_of_education,university_name, canadian_city_name, study_field, can_gpa,canadian_certificate_number FROM `seller_canadian_education`,`universities`,`canadian_city`,`field_of_study_canadian` WHERE seller_canadian_education.can_field_of_study = field_of_study_canadian.field_study_can_id AND seller_canadian_education.can_college = universities.university_id AND canadian_city.canadian_city_id = seller_canadian_education.can_location AND seller_canadian_education.user_id = {$_SESSION['seller_id']}");
                             $fetch_canadian_education_no = $db_handle->numRows("SELECT can_level_of_education,university_name, canadian_city_name, study_field, can_gpa,canadian_certificate_number FROM `seller_canadian_education`,`universities`,`canadian_city`,`field_of_study_canadian` WHERE seller_canadian_education.can_field_of_study = field_of_study_canadian.field_study_can_id AND seller_canadian_education.can_college = universities.university_id AND canadian_city.canadian_city_id = seller_canadian_education.can_location AND seller_canadian_education.user_id = {$_SESSION['seller_id']}");
 
-                            for($i=0; $i<$fetch_canadian_education_no; $i++){
-                                ?>
-                                <li>
-                                    <div class="flex items-center gap-4 mb-1">
-                                        <h2 style="font-size: 30px; font-weight: bold" class="mt-5"><?php echo $fetch_canadian_education[$i]['can_level_of_education'];?>
-                                            <?php
-                                            if($fetch_canadian_education[$i]['canadian_certificate_number'] != null)
-                                            {
-                                                ?>
-                                                <i class="ph ph-seal-check"></i>
+                            for ($i = 0; $i < $fetch_canadian_education_no; $i++){
+                            ?>
+                                <li class="jobs_item px-6 py-5 rounded-lg bg-white shadow-md duration-300 hover:shadow-xl">
+                                    <div class="jobs_info flex gap-4 w-full pb-4 border-b border-line">
+                                        <div class="jobs_content flex items-center justify-between gap-2 w-full">
+                                            <a href="#" class="jobs_detail flex flex-col gap-0.5 duration-300 hover:text-primary">
+                                            <span class="jobs_company text-sm font-semibold text-primary"><?php echo $fetch_canadian_education[$i]['can_level_of_education'];?>
                                                 <?php
-                                            }
-                                            ?></h2>
-                                        <span class="time caption2" style=" background: #39af3e;padding: 10px 20px;border-radius: 10px;color: white;">GPA: <?php echo $fetch_canadian_education[$i]['can_gpa'];?></span>
+                                                if($fetch_canadian_education[$i]['canadian_certificate_number'] != null)
+                                                {
+                                                    ?>
+                                                    <i class="ph ph-seal-check"></i>
+                                                    <?php
+                                                }
+                                                ?></span>
+                                                <strong class="jobs_name text-title -style-1"><?php echo $fetch_canadian_education[$i]['study_field'];?></strong>
+                                                <div class="flex flex-wrap items-center gap-5 gap-y-1">
+                                                    <div class="jobs_address -style-1 text-secondary">
+                                                        <span class="ph ph-graduation-cap text-lg"></span>
+                                                        <span class="address caption1 align-top"><?php echo $fetch_canadian_education[$i]['university_name'];?></span>
+                                                    </div>
+                                                    <div class="jobs_date text-secondary">
+                                                        <span class="ph ph-map-pin-line text-lg"></span>
+                                                        <span class="date caption1 align-top"><?php echo $fetch_canadian_education[$i]['canadian_city_name'];?></span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
                                     </div>
-                                    <strong class="position text-button"><?php echo $fetch_canadian_education[$i]['study_field'];?></strong>
-                                    <p class="desc text-secondary mt-1">University/College: <?php echo $fetch_canadian_education[$i]['university_name'];?></p>
-                                    <p class="desc text-secondary mt-1">City: <?php echo $fetch_canadian_education[$i]['canadian_city_name'];?></p>
+                                    <div class="jobs_more_info flex flex-wrap items-center justify-between gap-3 pt-4">
+                                        <div class="jobs_price">
+                                            <span class="price text-title">GPA: <?php echo $fetch_canadian_education[$i]['can_gpa'];?></span>
+                                        </div>
+                                    </div>
                                 </li>
-                                <?php
+                            <?php
                             }
                             ?>
                         </ul>
-                        <button type="button" class="w-full h-12 px-4 mt-2 button-main -border mt-5" onclick="copyURL()">Copy URL</button>
                     </div>
+
 
                 </div>
                 <div class="right flex-shrink-0 lg:w-[29.5%] lg:pl-7.5">
