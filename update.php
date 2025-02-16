@@ -193,3 +193,20 @@ if(isset($_GET['dlt_id'])){
                      </script>";
     }
 }
+
+
+if(isset($_GET['dlt_subskill_id'])){
+    $id = $_GET['dlt_subskill_id'];
+    $dlt_sub_skills = $db_handle->insertQuery("DELETE FROM `seller_sub_skills` WHERE `seller_s_skill_id` = '$id'");
+    if($dlt_sub_skills){
+        echo "<script>
+                     document.cookie = 'alert = 3;';
+                     window.location.href = 'Edit-Skills';
+                     </script>";
+    } else {
+        echo "<script>
+                     document.cookie = 'alert = 5;';
+                     window.location.href = 'Edit-Skills';
+                     </script>";
+    }
+}

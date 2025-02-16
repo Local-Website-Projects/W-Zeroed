@@ -532,122 +532,127 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
                     <!--canadian education section starts-->
-                <form action="Update" method="post">
-                    <div id="educationContainer">
-                        <!-- Initial Education Section -->
-                        <div class="educationSection">
-                            <h5 class="heading5 mt-5">Canadian Education</h5>
-                            <?php
-                            $fetch_canadianEducation = $db_handle->runQuery("SELECT * FROM seller_canadian_education WHERE user_id='$seller'");
-                            $fetch_row = $db_handle->numRows("SELECT * FROM seller_canadian_education WHERE user_id='$seller'");
-                            ?>
-                            <?php
-                            for($i = 0; $i < $fetch_row; $i++){
-                                $row = $fetch_canadianEducation[$i]; // Fetch each row from the result
-                                ?>
-                                <div class="educationFields grid sm:grid-cols-3 gap-3">
-                                    <input type="hidden" value="<?php echo $row['s_can_edu_id']?>" name="canadian_edu_id[]"/>
-                                    <!-- Level of Education -->
-                                    <div class="education_level">
-                                        <label>Level of Education</label>
-                                        <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="canadian_level_of_education[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));">
-                                            <option value="" <?php echo ($row['can_level_of_education'] == '') ? 'selected' : ''; ?>>Select Level of Education</option>
-                                            <option value="Less than high school" <?php echo ($row['can_level_of_education'] == 'Less than high school') ? 'selected' : ''; ?>>Less than high school</option>
-                                            <option value="High school graduation" <?php echo ($row['can_level_of_education'] == 'High school graduation') ? 'selected' : ''; ?>>High school graduation</option>
-                                            <option value="One year program" <?php echo ($row['can_level_of_education'] == 'One year program') ? 'selected' : ''; ?>>One year program</option>
-                                            <option value="Two year program" <?php echo ($row['can_level_of_education'] == 'Two year program') ? 'selected' : ''; ?>>Two year program</option>
-                                            <option value="Bachelors Degree" <?php echo ($row['can_level_of_education'] == 'Bachelors Degree') ? 'selected' : ''; ?>>Bachelors Degree</option>
-                                            <option value="Masters Degree" <?php echo ($row['can_level_of_education'] == 'Masters Degree') ? 'selected' : ''; ?>>Masters Degree</option>
-                                            <option value="Doctoral Level" <?php echo ($row['can_level_of_education'] == 'Doctoral Level') ? 'selected' : ''; ?>>Doctoral Level</option>
-                                        </select>
-                                    </div>
-
-                                    <!-- Field of Study -->
-                                    <div class="education_level">
-                                        <label>Field of Study</label>
-                                        <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="canadian_field_of_study[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));">
-                                            <option value="" <?php echo ($row['can_field_of_study'] == '') ? 'selected' : ''; ?>>Select Field of Study</option>
-                                            <?php
-                                            $fetch_field_study = $db_handle->runQuery("SELECT * FROM field_of_study");
-                                            foreach ($fetch_field_study as $field_row) {
-                                                ?>
-                                                <option value="<?php echo $field_row['field_study_id']; ?>" <?php echo ($row['can_field_of_study'] == $field_row['field_study_id']) ? 'selected' : ''; ?>>
-                                                    <?php echo $field_row['field_study']; ?>
-                                                </option>
-                                                <?php
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-
-                                    <!-- College/University -->
-                                    <div class="education_level">
-                                        <label>College/University</label>
-                                        <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="college[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));">
-                                            <option value="" <?php echo ($row['can_college'] == '') ? 'selected' : ''; ?>>Select College/University</option>
-                                            <?php
-                                            $fetch_university = $db_handle->runQuery("SELECT * FROM universities");
-                                            foreach ($fetch_university as $university_row) {
-                                                ?>
-                                                <option value="<?php echo $university_row['university_id']; ?>" <?php echo ($row['can_college'] == $university_row['university_id']) ? 'selected' : ''; ?>>
-                                                    <?php echo $university_row['university_name']; ?>
-                                                </option>
-                                                <?php
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-
-                                    <!-- Location -->
-                                    <div class="education_level">
-                                        <label>Location</label>
-                                        <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="canadian_study_location[]">
-                                            <option value="" <?php echo ($row['can_location'] == '') ? 'selected' : ''; ?>>Select City</option>
-                                            <?php
-                                            $fetch_city = $db_handle->runQuery("SELECT * FROM cities");
-                                            foreach ($fetch_city as $city_row) {
-                                                ?>
-                                                <option value="<?php echo $city_row['city_id']; ?>" <?php echo ($row['can_location'] == $city_row['city_id']) ? 'selected' : ''; ?>>
-                                                    <?php echo $city_row['city_name']; ?>
-                                                </option>
-                                                <?php
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-
-                                    <!-- GPA -->
-                                    <div class="jobLocation">
-                                        <label for="jobLocation">GPA</label>
-                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="10" name="canadian_gpa[]" value="<?php echo htmlspecialchars($row['can_gpa']); ?>"/>
-                                    </div>
-
-                                    <!-- Credential Accreditation -->
-                                    <div class="education_level">
-                                        <label>Credential Accreditation <span class="text-red">*</span></label>
-                                        <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="canadian_accreditation[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
-                                            <option value="" <?php echo ($row['canadian_accreditation'] == '') ? 'selected' : ''; ?>>Select Credential Accreditation</option>
-                                            <option value="N/A" <?php echo ($row['canadian_accreditation'] == 'N/A') ? 'selected' : ''; ?>>N/A</option>
-                                            <option value="WES" <?php echo ($row['canadian_accreditation'] == 'WES') ? 'selected' : ''; ?>>WES</option>
-                                            <option value="Alberta" <?php echo ($row['canadian_accreditation'] == 'Alberta') ? 'selected' : ''; ?>>Alberta</option>
-                                        </select>
-                                    </div>
-
-                                    <!-- Certificate number input (initially hidden) -->
-                                    <div class="jobLocation certificateDivCanadian">
-                                        <label for="certificate_number">Certificate No (If applicable)</label>
-                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="certificate number" name="canadian_certificate_number[]" value="<?php echo htmlspecialchars($row['canadian_certificate_number']); ?>" />
-                                    </div>
-                                </div>
+                <?php
+                $fetch_canadianEducation = $db_handle->runQuery("SELECT * FROM seller_canadian_education WHERE user_id='$seller'");
+                $fetch_row = $db_handle->numRows("SELECT * FROM seller_canadian_education WHERE user_id='$seller'");
+                if($fetch_row > 0){
+                    ?>
+                    <form action="Update" method="post">
+                        <div id="educationContainer">
+                            <!-- Initial Education Section -->
+                            <div class="educationSection">
+                                <h5 class="heading5 mt-5">Canadian Education</h5>
                                 <?php
-                            }
-                            ?>
+                                for($i = 0; $i < $fetch_row; $i++){
+                                    $row = $fetch_canadianEducation[$i]; // Fetch each row from the result
+                                    ?>
+                                    <div class="educationFields grid sm:grid-cols-3 gap-3">
+                                        <input type="hidden" value="<?php echo $row['s_can_edu_id']?>" name="canadian_edu_id[]"/>
+                                        <!-- Level of Education -->
+                                        <div class="education_level">
+                                            <label>Level of Education</label>
+                                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="canadian_level_of_education[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));">
+                                                <option value="" <?php echo ($row['can_level_of_education'] == '') ? 'selected' : ''; ?>>Select Level of Education</option>
+                                                <option value="Less than high school" <?php echo ($row['can_level_of_education'] == 'Less than high school') ? 'selected' : ''; ?>>Less than high school</option>
+                                                <option value="High school graduation" <?php echo ($row['can_level_of_education'] == 'High school graduation') ? 'selected' : ''; ?>>High school graduation</option>
+                                                <option value="One year program" <?php echo ($row['can_level_of_education'] == 'One year program') ? 'selected' : ''; ?>>One year program</option>
+                                                <option value="Two year program" <?php echo ($row['can_level_of_education'] == 'Two year program') ? 'selected' : ''; ?>>Two year program</option>
+                                                <option value="Bachelors Degree" <?php echo ($row['can_level_of_education'] == 'Bachelors Degree') ? 'selected' : ''; ?>>Bachelors Degree</option>
+                                                <option value="Masters Degree" <?php echo ($row['can_level_of_education'] == 'Masters Degree') ? 'selected' : ''; ?>>Masters Degree</option>
+                                                <option value="Doctoral Level" <?php echo ($row['can_level_of_education'] == 'Doctoral Level') ? 'selected' : ''; ?>>Doctoral Level</option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Field of Study -->
+                                        <div class="education_level">
+                                            <label>Field of Study</label>
+                                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="canadian_field_of_study[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));">
+                                                <option value="" <?php echo ($row['can_field_of_study'] == '') ? 'selected' : ''; ?>>Select Field of Study</option>
+                                                <?php
+                                                $fetch_field_study = $db_handle->runQuery("SELECT * FROM field_of_study");
+                                                foreach ($fetch_field_study as $field_row) {
+                                                    ?>
+                                                    <option value="<?php echo $field_row['field_study_id']; ?>" <?php echo ($row['can_field_of_study'] == $field_row['field_study_id']) ? 'selected' : ''; ?>>
+                                                        <?php echo $field_row['field_study']; ?>
+                                                    </option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+
+                                        <!-- College/University -->
+                                        <div class="education_level">
+                                            <label>College/University</label>
+                                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="college[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));">
+                                                <option value="" <?php echo ($row['can_college'] == '') ? 'selected' : ''; ?>>Select College/University</option>
+                                                <?php
+                                                $fetch_university = $db_handle->runQuery("SELECT * FROM universities");
+                                                foreach ($fetch_university as $university_row) {
+                                                    ?>
+                                                    <option value="<?php echo $university_row['university_id']; ?>" <?php echo ($row['can_college'] == $university_row['university_id']) ? 'selected' : ''; ?>>
+                                                        <?php echo $university_row['university_name']; ?>
+                                                    </option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+
+                                        <!-- Location -->
+                                        <div class="education_level">
+                                            <label>Location</label>
+                                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="canadian_study_location[]">
+                                                <option value="" <?php echo ($row['can_location'] == '') ? 'selected' : ''; ?>>Select City</option>
+                                                <?php
+                                                $fetch_city = $db_handle->runQuery("SELECT * FROM cities");
+                                                foreach ($fetch_city as $city_row) {
+                                                    ?>
+                                                    <option value="<?php echo $city_row['city_id']; ?>" <?php echo ($row['can_location'] == $city_row['city_id']) ? 'selected' : ''; ?>>
+                                                        <?php echo $city_row['city_name']; ?>
+                                                    </option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+
+                                        <!-- GPA -->
+                                        <div class="jobLocation">
+                                            <label for="jobLocation">GPA</label>
+                                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="10" name="canadian_gpa[]" value="<?php echo htmlspecialchars($row['can_gpa']); ?>"/>
+                                        </div>
+
+                                        <!-- Credential Accreditation -->
+                                        <div class="education_level">
+                                            <label>Credential Accreditation <span class="text-red">*</span></label>
+                                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="canadian_accreditation[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
+                                                <option value="" <?php echo ($row['canadian_accreditation'] == '') ? 'selected' : ''; ?>>Select Credential Accreditation</option>
+                                                <option value="N/A" <?php echo ($row['canadian_accreditation'] == 'N/A') ? 'selected' : ''; ?>>N/A</option>
+                                                <option value="WES" <?php echo ($row['canadian_accreditation'] == 'WES') ? 'selected' : ''; ?>>WES</option>
+                                                <option value="Alberta" <?php echo ($row['canadian_accreditation'] == 'Alberta') ? 'selected' : ''; ?>>Alberta</option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Certificate number input (initially hidden) -->
+                                        <div class="jobLocation certificateDivCanadian">
+                                            <label for="certificate_number">Certificate No (If applicable)</label>
+                                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="certificate number" name="canadian_certificate_number[]" value="<?php echo htmlspecialchars($row['canadian_certificate_number']); ?>" />
+                                        </div>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex items-center col-span-full gap-5 mt-5">
-                        <button class="button-main" type="submit" name="update_canadian_info">Update Canadian Education</button>
-                    </div>
-                </form>
+                        <div class="flex items-center col-span-full gap-5 mt-5">
+                            <button class="button-main" type="submit" name="update_canadian_info">Update Canadian Education</button>
+                        </div>
+                    </form>
+                    <?php
+                }
+                ?>
+
 
 
                     <form action="Update" method="POST">

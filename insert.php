@@ -566,6 +566,7 @@ if(isset($_POST['add_skill'])){
     $sub_skills_one = explode(',', $sub_skills_one);
     $sub_skills_one = array_map('trim', $sub_skills_one);
 
+
     if ($core_skill_one != null){
         $insert_skill_one = $db_handle->insertQuery("INSERT INTO `seller_core_skills`(`user_id`, `core_skill`, `inserted_at`) VALUES ('$seller_id','$core_skill_one','$inserted_at')");
         if (!$insert_skill_one) {

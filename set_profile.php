@@ -185,7 +185,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </select>
                         </div>
                         <div class="state">
-                            <label>Current State / Province <span class="text-red">*</span></label>
+                            <label>State / Province <span class="text-red">*</span></label>
                             <select class="w-full h-12 px-4 mt-2 border-line rounded-lg state_select" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity))" onchange="loadCities()" name="state">
                                 <option selected>Please select state</option>
                             </select>

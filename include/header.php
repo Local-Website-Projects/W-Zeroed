@@ -842,7 +842,7 @@
                 if(isset($_SESSION['seller_id'])){
                     $fetch_profile_pic = $db_handle->runQuery("select profile_image from seller_personal_information where user_id = {$_SESSION['seller_id']}");
                     ?>
-                    <div class="notification_block relative max-sm:hidden">
+                    <div class="notification_block relative">
                         <button class="relative block">
                             <span class="ph ph-bell text-white text-2xl block"></span>
                             <span class="absolute -top-0.5 right-0.5 w-2 h-2 bg-primary rounded-full"></span>
@@ -915,8 +915,8 @@
                             ?>
                         </div>
                     </div>
-                    <a href="Message" class="button-main bg-white text-black max-sm:hidden">Message</a>
-                    <div class="user_block relative max-sm:hidden">
+                    <a href="Message" class="button-main bg-white text-black">Message</a>
+                    <div class="user_block relative">
                         <button class="user_infor flex items-center gap-2 text-white">
                             <i class="ph ph-gear text-2xl"></i>
                             <strong class="user_name text-title"></strong>
@@ -965,13 +965,11 @@
                     <?php
                 }
                 ?>
-
-
-                <button class="humburger_btn min-[1400px]:hidden">
+                <!--<button class="humburger_btn min-[1400px]:hidden">
                             <span class="ph-bold ph-list text-white text-2xl block">
                                 <span class="blind">button open menu mobile</span>
                             </span>
-                </button>
+                </button>-->
             </div>
         </div>
     </div>

@@ -52,13 +52,23 @@ if(isset($_POST['login'])){
         <meta name="description" content="FreelanHub - Job Board & Freelance Marketplace" />
         <title>Zeroed - Login</title>
         <?php include ('include/css.php');?>
+    <style>
+        #body_value{
+            height: 100vh;
+        }
+        @media (max-width: 768px) {
+            #body_value {
+                height: 120vh;
+            }
+        }
+    </style>
     </head>
 
     <body style="background: #00c5ff;">
         <!-- Header -->
         <?php include ('include/header.php');?>
 
-        <div class="container flex items-center justify-center min-h-screen mt-5" style="height: 100vh;">
+        <div class="container flex items-center justify-center min-h-screen mt-5" id="body_value">
             <!-- Form Login -->
             <div class="grid sm:grid-cols-2 mt-5">
                 <section class="form_login lg:py-20 sm:py-14 py-10" style="background: #fff">

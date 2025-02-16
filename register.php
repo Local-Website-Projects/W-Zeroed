@@ -19,6 +19,16 @@ if(isset($_SESSION['seller_id'])){
     <meta name="description" content="FreelanHub - Job Board & Freelance Marketplace" />
     <title>Zeroed - Signup</title>
     <?php include ('include/css.php')?>
+    <style>
+        #body_value{
+            height: 100vh;
+        }
+        @media (max-width: 768px) {
+            #body_value {
+                height: 200vh;
+            }
+        }
+    </style>
 </head>
 
 <body style="background: #00c5ff;">
@@ -26,7 +36,7 @@ if(isset($_SESSION['seller_id'])){
 <?php include ('include/header.php');?>
 
 
-<div class="container flex items-center justify-center min-h-screen mt-5" style="min-height: 100vh;">
+<div class="container flex items-center justify-center min-h-screen mt-5" id="body_value">
     <div class="grid sm:grid-cols-3 mt-5">
         <section class="form_register lg:py-20 sm:py-14 py-10" style="background: #fff">
             <div class="container flex items-center justify-center">

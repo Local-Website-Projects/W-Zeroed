@@ -207,7 +207,7 @@
             If you have any questions about these Terms, please contact us at:
         </p>
         <p class="contact-info">
-            [Insert Contact Email]
+            team@zeroed.ca
         </p>
         <p class="contact-info">
             [Insert Business Address]

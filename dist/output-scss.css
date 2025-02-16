@@ -1955,10 +1955,7 @@ section:has(.slide-overflow-unset) {
 }
 
 @media (max-width: 640px) {
-  .list_action .button-main,
-  .list_action .list_icon {
-    display: none;
-  }
+
 }
 
 /* menu_mobile */

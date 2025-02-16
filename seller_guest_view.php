@@ -248,7 +248,8 @@ if(isset($_GET['seller'])){
 
                             <?php
                             $fetch_canadian_education = $db_handle->runQuery("SELECT can_level_of_education,university_name, city_name, study_field, can_gpa,canadian_certificate_number FROM `seller_canadian_education`,`universities`,`cities`,`field_of_study_canadian` WHERE seller_canadian_education.can_field_of_study = field_of_study_canadian.field_study_can_id AND seller_canadian_education.can_college = universities.university_id AND cities.city_id = seller_canadian_education.can_location AND seller_canadian_education.user_id = '$seller'");
-                            $fetch_canadian_education_no = $db_handle->numRows("SELECT can_level_of_education,university_name, city_name, study_field, can_gpa,canadian_certificate_number FROM `seller_canadian_education`,`universities`,`cities`,`field_of_study_canadian` WHERE seller_canadian_education.can_field_of_study = field_of_study_canadian.field_study_can_id AND seller_canadian_education.can_college = universities.university_id AND cities.city_id = seller_canadian_education.can_location seller_canadian_education.user_id = '$seller'");
+                            $fetch_canadian_education_no = $db_handle->numRows("SELECT can_level_of_education,university_name, city_name, study_field, can_gpa,canadian_certificate_number FROM `seller_canadian_education`,`universities`,`cities`,`field_of_study_canadian` WHERE seller_canadian_education.can_field_of_study = field_of_study_canadian.field_study_can_id AND seller_canadian_education.can_college = universities.university_id AND cities.city_id = seller_canadian_education.can_location AND seller_canadian_education.user_id = '$seller'");
+
                             for($i=0; $i<$fetch_canadian_education_no; $i++){
                                 ?>
                                 <li>
