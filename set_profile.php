@@ -1326,23 +1326,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Append the new education set to the container
         educationContainer.appendChild(educationSet);
-    });
 
-    // Initial accreditation dropdown functionality for the first set
-    document.querySelectorAll('.accreditation').forEach(dropdown => {
-        dropdown.addEventListener('change', function () {
-            const certificateDiv = this.closest('.educationSet').querySelector('.certificateDiv');
-            const certificateInput = this.closest('.educationSet').querySelector('.certificate_number');
-
-            if (this.value && this.value !== 'N/A') {
-                certificateDiv.style.display = 'block';
-                certificateInput.required = true;
-            } else {
-                certificateDiv.style.display = 'none';
-                certificateInput.required = false;
-                certificateInput.value = ''; // Optional: Clear the field when hidden
-            }
-        });
+        // Initialize Select2 for the appended field of study dropdown
+        $(educationSet).find('select[name="global_field_of_study[]"]').select2();
     });
 
 </script>

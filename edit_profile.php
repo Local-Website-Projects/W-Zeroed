@@ -12,58 +12,6 @@ if(!isset($_SESSION['seller_id'])){
     ";
 }
 
-function autoload_libphonenumber($class) {
-    // Set the base directory to point directly to the src folder
-    $base_dir = __DIR__ . '/libphonenumber/src/'; // __DIR__ ensures we're working from the current directory
-
-    // Convert the namespace to a file path (e.g., libphonenumber\PhoneNumberUtil to PhoneNumberUtil.php)
-    // Replace the namespace separator `\` with `/` and remove the `libphonenumber` part
-    $class = str_replace('libphonenumber\\', '', $class);  // Remove the `libphonenumber` namespace part
-
-    // Construct the full path to the class file
-    $file = $base_dir . str_replace('\\', '/', $class) . '.php';
-
-    // Check if the file exists and include it, else show an error
-    if (file_exists($file)) {
-        require_once $file;
-    } else {
-        echo "Class file not found: " . $file; // Debug message to find the missing file
-    }
-}
-
-spl_autoload_register('autoload_libphonenumber');
-
-// Include libphonenumber classes manually using autoloader
-use libphonenumber\PhoneNumberUtil;
-use libphonenumber\PhoneNumberFormat;
-
-// Initialize phone number utility
-$phoneUtil = PhoneNumberUtil::getInstance();
-
-// Initialize variables
-$validationMessage = '';
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Get country code and contact number from the form
-    $country_code = $_POST['country_code'];
-    $contact_number = $_POST['contact_number'];
-
-    try {
-        // Parse the phone number
-        $number = $phoneUtil->parse($contact_number, $country_code);
-
-        // Check if the phone number is valid
-        if ($phoneUtil->isValidNumber($number)) {
-            $validationMessage = "Phone number is valid!";
-        } else {
-            $validationMessage = "Phone number is invalid!";
-        }
-    } catch (Exception $e) {
-        // If there is an error in parsing the phone number
-        $validationMessage = "Error parsing phone number: " . $e->getMessage();
-    }
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,10 +24,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <?php include ('include/css.php');?>
 
     <!-- jQuery (Required for Select2) -->
-    <!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>-->
+    <!-- jQuery (required for Select2) -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <style>
         .sub-skill-item {
             padding: 10px;
@@ -448,6 +400,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 </form>
 
+                <!--skills section-->
                 <div class="list_category mt-7.5 rounded-lg bg-white">
                     <?php
                     $count_skills = $db_handle->numRows("SELECT * FROM `seller_core_skills` WHERE user_id={$_SESSION['seller_id']}");
@@ -727,181 +680,180 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 ?>
 
 
-
+                    <!--experience section-->
                     <form action="Update" method="POST">
-                    <div id="experience-container">
-                        <div class="experience-section">
-                            <?php
-                            $fetch_experienceData = $db_handle->runQuery("SELECT * FROM seller_experience_data WHERE user_id='$seller'");
-                            $fetch_row = $db_handle->numRows("SELECT * FROM seller_experience_data WHERE user_id='$seller'");
-                            for($i = 0; $i < $fetch_row; $i++){
-                                $row = $fetch_experienceData[$i];
-                                ?>
-                                <h5 class="heading5 mt-5">Work Experience</h5>
+                        <div id="experience-container">
+                            <div class="experience-section">
                                 <?php
-                                if($row['job_experience_status'] == 0){
+                                $fetch_experienceData = $db_handle->runQuery("SELECT * FROM seller_experience_data WHERE user_id='$seller'");
+                                $fetch_row = $db_handle->numRows("SELECT * FROM seller_experience_data WHERE user_id='$seller'");
+                                for($i = 0; $i < $fetch_row; $i++){
+                                    $row = $fetch_experienceData[$i];
                                     ?>
-                                    <input type="hidden" value="<?php echo $row['seller_experience_id'];?>" name="seller_exp_id[]"/>
-                                <div class="grid sm:grid-cols-3 gap-3">
-                                    <div class="education_level">
-                                        <label>Industry</label>
-                                        <select id="industry" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="industry[]" required>
-                                            <option selected>Select Industry</option>
-                                            <?php
-                                            $fetch_industry = $db_handle->runQuery("SELECT * FROM industries ORDER BY industry ASC");
-                                            foreach ($fetch_industry as $row1) {
-                                                ?>
-                                                <option value="<?php echo $row1['industry_id']?>" <?php if ($row['industry'] == $row1['industry_id']) echo "selected"?>><?php echo $row1['industry']?></option>
-                                                <?php
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-                                    <div class="education_level">
-                                        <label>Sub Industry</label>
-                                        <select id="subindustry" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="sub_industry[]" required>
-                                            <option value="<?php echo $row['sub_industry'];?>" selected><?php echo $row['sub_industry'];?></option>
-                                        </select>
-                                    </div>
-                                    <div class="education_level">
-                                        <label>Country</label>
-                                        <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="countries[]">
-                                            <option disabled selected>Please Select Country</option>
-                                            <?php
-                                            $fetch_country = $db_handle->runQuery("SELECT country_name FROM countries ORDER BY country_name ASC");
-                                            foreach ($fetch_country as $country) {
-                                                ?>
-                                                <option value="<?php echo $country['country_name']?>" <?php if($country['country_name'] == $row['countries']) echo "selected";?>><?php echo $country['country_name']?></option>
-                                                <?php
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-                                    <div class="jobLocation">
-                                            <label>Job Title</label>
-                                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Software Engineer" name="job_designation[]" value="<?php echo htmlspecialchars($row['job_designation']); ?>" required />
-                                        </div>
-                                    <div class="jobLocation">
-                                            <label>Company Name</label>
-                                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Company Name" name="company_name[]" value="<?php echo htmlspecialchars($row['company_name']); ?>" required />
-                                        </div>
-                                    <div class="jobLocation">
-                                            <label>Company Website Link</label>
-                                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg company-website" type="text" placeholder="www.abc.com or https://abc.com" name="company_website[]" value="<?php echo htmlspecialchars($row['company_website']); ?>" required />
-                                        </div>
-                                    <div class="jobLocation">
-                                            <label>Start Date</label>
-                                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" name="start_date[]" value="<?php echo htmlspecialchars($row['start_date']); ?>" required />
-                                        </div>
-                                    <div class="jobLocation">
-                                            <label>End Date</label>
-                                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" name="end_date[]" value="<?php echo htmlspecialchars($row['end_date']); ?>" required />
-                                        </div>
-                                    <div class="jobLocation">
-                                            <label>Working till now?</label>
-                                            <input type="checkbox" class="px-4 mt-2 border-line rounded-lg" name="till_date[]" id="tillDateCheckbox" value="1"> Yes
-                                        </div>
+                                    <h5 class="heading5 mt-5">Work Experience</h5>
                                     <?php
-                                } if($row['reference_status'] == 0){
-                                    if($row['accomplishment_one_status'] == 0){
+                                    if($row['job_experience_status'] == 0){
+                                        ?>
+                                        <input type="hidden" value="<?php echo $row['seller_experience_id'];?>" name="seller_exp_id[]"/>
+                                    <div class="grid sm:grid-cols-3 gap-3">
+                                        <div class="education_level">
+                                            <label>Industry</label>
+                                            <select id="industry" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="industry[]" required>
+                                                <option selected>Select Industry</option>
+                                                <?php
+                                                $fetch_industry = $db_handle->runQuery("SELECT * FROM industries ORDER BY industry ASC");
+                                                foreach ($fetch_industry as $row1) {
+                                                    ?>
+                                                    <option value="<?php echo $row1['industry_id']?>" <?php if ($row['industry'] == $row1['industry_id']) echo "selected"?>><?php echo $row1['industry']?></option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <div class="education_level">
+                                            <label>Sub Industry</label>
+                                            <select id="subindustry" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="sub_industry[]" required>
+                                                <option value="<?php echo $row['sub_industry'];?>" selected><?php echo $row['sub_industry'];?></option>
+                                            </select>
+                                        </div>
+                                        <div class="education_level">
+                                            <label>Country</label>
+                                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="countries[]">
+                                                <option disabled selected>Please Select Country</option>
+                                                <?php
+                                                $fetch_country = $db_handle->runQuery("SELECT country_name FROM countries ORDER BY country_name ASC");
+                                                foreach ($fetch_country as $country) {
+                                                    ?>
+                                                    <option value="<?php echo $country['country_name']?>" <?php if($country['country_name'] == $row['countries']) echo "selected";?>><?php echo $country['country_name']?></option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <div class="jobLocation">
+                                                <label>Job Title</label>
+                                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Software Engineer" name="job_designation[]" value="<?php echo htmlspecialchars($row['job_designation']); ?>" required />
+                                            </div>
+                                        <div class="jobLocation">
+                                                <label>Company Name</label>
+                                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Company Name" name="company_name[]" value="<?php echo htmlspecialchars($row['company_name']); ?>" required />
+                                            </div>
+                                        <div class="jobLocation">
+                                                <label>Company Website Link</label>
+                                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg company-website" type="text" placeholder="www.abc.com or https://abc.com" name="company_website[]" value="<?php echo htmlspecialchars($row['company_website']); ?>" required />
+                                            </div>
+                                        <div class="jobLocation">
+                                                <label>Start Date</label>
+                                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" name="start_date[]" value="<?php echo htmlspecialchars($row['start_date']); ?>" required />
+                                            </div>
+                                        <div class="jobLocation">
+                                                <label>End Date</label>
+                                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" name="end_date[]" value="<?php echo htmlspecialchars($row['end_date']); ?>" required />
+                                            </div>
+                                        <div class="jobLocation">
+                                                <label>Working till now?</label>
+                                                <input type="checkbox" class="px-4 mt-2 border-line rounded-lg" name="till_date[]" id="tillDateCheckbox" value="1"> Yes
+                                            </div>
+                                        <?php
+                                    } if($row['reference_status'] == 0){
+                                        if($row['accomplishment_one_status'] == 0){
+                                        ?>
+                                            <div class="jobLocation">
+                                                <label>Accomplishments</label>
+                                                <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment[]"><?php echo htmlspecialchars($row['accomplishment']); ?></textarea>
+                                            </div>
+                                            <?php
+                                        } if($row['accomplishment_two_status'] == 0){
+                                            ?>
+                                            <div class="jobLocation">
+                                                <label>Accomplishments</label>
+                                                <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment2[]"><?php echo htmlspecialchars($row['accomplishment_two']); ?></textarea>
+                                            </div>
+                                            <?php
+                                        } if($row['accomplishment_two_status'] == 0){
+                                            ?>
+                                            <div class="jobLocation">
+                                                <label>Accomplishments</label>
+                                                <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment3[]"><?php echo htmlspecialchars($row['accomplishment_three']); ?></textarea>
+                                            </div>
+                                        <?php
+                                        }
+                                    }
+                                        ?>
+                                    </div>
+
+                                    <?php
+                                    if($row['job_experience_status'] == 0){
                                     ?>
+                                    <hr class="mt-5 mb-5">
+                                    <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5">Work Experience Verification:</h2>
+                                    <div class="grid sm:grid-cols-3 gap-3">
                                         <div class="jobLocation">
-                                            <label>Accomplishments</label>
-                                            <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment[]"><?php echo htmlspecialchars($row['accomplishment']); ?></textarea>
+                                            <label>Reference Type</label>
+                                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="reporting_manager_job[]">
+                                                <option>Please Select Reference Type</option>
+                                                <option value="HR" <?php if ($row['reporting_manager_job'] == 'HR') echo "selected";?>>HR</option>
+                                                <option value="Reporting Manager" <?php if ($row['reporting_manager_job'] == 'Reporting Manager') echo "selected";?>>Reporting Manager</option>
+                                            </select>
                                         </div>
+                                        <div class="jobLocation">
+                                            <label>Designation</label>
+                                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" value="<?php echo $row['designation_job']?>" name="designation_job[]" />
+                                        </div>
+                                        <div class="jobLocation">
+                                            <label>Name</label>
+                                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" value="<?php echo $row['name_job']?>" name="name_job[]" />
+                                        </div>
+                                        <div class="jobLocation">
+                                            <label>Email</label>
+                                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg company-email" type="email" value="<?php echo $row['email_job']?>" name="email_job[]" />
+                                            <small class="error-message text-red-500 hidden">Email domain must match the company website.</small>
+                                        </div>
+                                        <button class="remove-experience hidden w-1/3 h-10 mt-4 bg-red-500 text-white rounded-lg">Remove</button>
+                                    </div>
                                         <?php
-                                    } if($row['accomplishment_two_status'] == 0){
+                                    } if($row['reference_status'] == 0){
                                         ?>
+
+                                    <hr class="mt-5 mb-5">
+                                    <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5">Reference:</h2>
+                                    <div class="grid sm:grid-cols-3 gap-3">
                                         <div class="jobLocation">
-                                            <label>Accomplishments</label>
-                                            <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment2[]"><?php echo htmlspecialchars($row['accomplishment_two']); ?></textarea>
+                                            <label>Reference Type</label>
+                                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="reporting_manager[]">
+                                                <option>Please Select Reference Type</option>
+                                                <option value="HR" <?php if($row['reporting_manager'] == 'HR') echo "selected";?>>HR</option>
+                                                <option value="Reporting Manager" <?php if($row['reporting_manager'] == 'Reporting Manager') echo "selected";?>>Reporting Manager</option>
+                                            </select>
                                         </div>
-                                        <?php
-                                    } if($row['accomplishment_two_status'] == 0){
-                                        ?>
                                         <div class="jobLocation">
-                                            <label>Accomplishments</label>
-                                            <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment3[]"><?php echo htmlspecialchars($row['accomplishment_three']); ?></textarea>
+                                            <label>Designation</label>
+                                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" value="<?php echo $row['designation'];?>" name="designation[]" />
                                         </div>
+                                        <div class="jobLocation">
+                                            <label>Name</label>
+                                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" value="<?php echo $row['name'];?>" name="name[]" />
+                                        </div>
+                                        <div class="jobLocation">
+                                            <label>Email</label>
+                                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg company-email" type="email" value="<?php echo $row['email'];?>" name="email[]" />
+                                            <small class="error-message text-red-500 hidden">Email domain must match the company website.</small>
+                                        </div>
+                                    </div>
                                     <?php
                                     }
                                 }
-                                    ?>
-                                </div>
-
-                                <?php
-                                if($row['job_experience_status'] == 0){
                                 ?>
-                                <hr class="mt-5 mb-5">
-                                <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5">Work Experience Verification:</h2>
-                                <div class="grid sm:grid-cols-3 gap-3">
-                                    <div class="jobLocation">
-                                        <label>Reference Type</label>
-                                        <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="reporting_manager_job[]">
-                                            <option>Please Select Reference Type</option>
-                                            <option value="HR" <?php if ($row['reporting_manager_job'] == 'HR') echo "selected";?>>HR</option>
-                                            <option value="Reporting Manager" <?php if ($row['reporting_manager_job'] == 'Reporting Manager') echo "selected";?>>Reporting Manager</option>
-                                        </select>
-                                    </div>
-                                    <div class="jobLocation">
-                                        <label>Designation</label>
-                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" value="<?php echo $row['designation_job']?>" name="designation_job[]" />
-                                    </div>
-                                    <div class="jobLocation">
-                                        <label>Name</label>
-                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" value="<?php echo $row['name_job']?>" name="name_job[]" />
-                                    </div>
-                                    <div class="jobLocation">
-                                        <label>Email</label>
-                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg company-email" type="email" value="<?php echo $row['email_job']?>" name="email_job[]" />
-                                        <small class="error-message text-red-500 hidden">Email domain must match the company website.</small>
-                                    </div>
-                                    <button class="remove-experience hidden w-1/3 h-10 mt-4 bg-red-500 text-white rounded-lg">Remove</button>
-                                </div>
-                                    <?php
-                                } if($row['reference_status'] == 0){
-                                    ?>
-
-                                <hr class="mt-5 mb-5">
-                                <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5">Reference:</h2>
-                                <div class="grid sm:grid-cols-3 gap-3">
-                                    <div class="jobLocation">
-                                        <label>Reference Type</label>
-                                        <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="reporting_manager[]">
-                                            <option>Please Select Reference Type</option>
-                                            <option value="HR" <?php if($row['reporting_manager'] == 'HR') echo "selected";?>>HR</option>
-                                            <option value="Reporting Manager" <?php if($row['reporting_manager'] == 'Reporting Manager') echo "selected";?>>Reporting Manager</option>
-                                        </select>
-                                    </div>
-                                    <div class="jobLocation">
-                                        <label>Designation</label>
-                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" value="<?php echo $row['designation'];?>" name="designation[]" />
-                                    </div>
-                                    <div class="jobLocation">
-                                        <label>Name</label>
-                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" value="<?php echo $row['name'];?>" name="name[]" />
-                                    </div>
-                                    <div class="jobLocation">
-                                        <label>Email</label>
-                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg company-email" type="email" value="<?php echo $row['email'];?>" name="email[]" />
-                                        <small class="error-message text-red-500 hidden">Email domain must match the company website.</small>
-                                    </div>
-                                </div>
-                                <?php
-                                }
-                            }
-                            ?>
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex items-center col-span-full gap-5 mt-5">
-                        <button class="button-main" type="submit" name="update_experience_info">Update Experience Info</button>
-                    </div>
-                </form>
+                        <div class="flex items-center col-span-full gap-5 mt-5">
+                            <button class="button-main" type="submit" name="update_experience_info">Update Experience Info</button>
+                        </div>
+                    </form>
 
 
-
-                    <!--career goal section-->
-                    <h5 class="heading5 mt-5">Career Goals</h5>
+                <!--career goal section-->
+                <h5 class="heading5 mt-5">Career Goals</h5>
                 <form action="Update" method="POST">
                     <?php
                     $fetch_careerData = $db_handle->runQuery("SELECT * FROM seller_career WHERE seller_id='$seller'");
@@ -1213,71 +1165,54 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         return website.split('/')[0];
     }
 
-    function validateAllEmails() {
-        let allValid = true;
+    function isValidWebsite(website) {
+        const regex = /^(https:\/\/|www\.)[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\/\S*)?$/;
+        return regex.test(website);
+    }
 
-        $('.experience-section').each(function () {
-            const website = $(this).find('.company-website').val().trim();
-            const domain = extractDomain(website);
+    function applyValidation(section) {
+        // Bind validation to the company website field
+        section.find('.company-website').on('input', function () {
+            const website = $(this).val().trim();
+            const websiteError = $(this).siblings('.website-error-message');
 
-            $(this).find('.company-email').each(function () {
-                const email = $(this).val().trim();
-                const emailDomain = email.split('@')[1];
-                const errorMessage = $(this).siblings('.error-message');
-
-                if (website && email && emailDomain !== domain) {
-                    errorMessage.removeClass('hidden');
-                    allValid = false;
-                } else {
-                    errorMessage.addClass('hidden');
-                }
-            });
+            if (website && !isValidWebsite(website)) {
+                websiteError.removeClass('hidden');
+            } else {
+                websiteError.addClass('hidden');
+            }
         });
 
-        $('#publishButton').prop('disabled', !allValid);
+        // Bind validation to the company email field
+        section.find('.company-email').on('input', function () {
+            const website = section.find('.company-website').val().trim();
+            const email = $(this).val().trim();
+            const emailDomain = email.split('@')[1];
+            const errorMessage = $(this).siblings('.error-message');
+
+            if (website && email && emailDomain !== extractDomain(website)) {
+                errorMessage.removeClass('hidden');
+            } else {
+                errorMessage.addClass('hidden');
+            }
+        });
     }
 
     $(document).ready(function () {
-        function applyValidation(section) {
-            section.find('.company-website, .company-email').on('input', function () {
-                validateAllEmails();
-            });
-        }
-
-        applyValidation($('.experience-section').first());
-
-        $("#addExperience").click(function (e) {
-            e.preventDefault();
-            let newExperience = $(".experience-section").first().clone();
-
-            // Clear all input fields and error messages
-            newExperience.find("input, textarea, select").val("");
-            newExperience.find('.error-message').addClass('hidden');
-
-            // Remove any existing "Remove" buttons from the clone
-            newExperience.find('.remove-experience').remove();
-
-            // Add a new "Remove" button only to the cloned section
-            newExperience.append('<button class="remove-experience w-full h-10 mt-4 bg-red-500 text-white rounded-lg">Remove</button>');
-
-            // Append the new experience section
-            $("#experience-container").append(newExperience);
-
-            applyValidation(newExperience);
+        // Apply validation to all existing experience sections on page load
+        $('.experience-section').each(function () {
+            applyValidation($(this));
         });
-
-        // Remove the specific experience section on clicking the "Remove" button
-        $(document).on('click', '.remove-experience', function () {
-            $(this).closest('.experience-section').remove();
-            validateAllEmails();
-        });
-
-        validateAllEmails();
     });
-
-
 </script>
 
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        // Apply Select2 to the select element
+        $('#coreSkills1').select2();
+    });
+</script>
 </body>
 
 </html>

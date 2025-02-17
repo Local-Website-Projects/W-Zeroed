@@ -184,12 +184,12 @@ if(isset($_GET['dlt_id'])){
     if($dlt_skill){
         echo "<script>
                      document.cookie = 'alert = 3;';
-                     window.location.href = 'Edit-Skills';
+                     window.location.href = 'Edit-Profile';
                      </script>";
     } else {
         echo "<script>
                      document.cookie = 'alert = 5;';
-                     window.location.href = 'Edit-Skills';
+                     window.location.href = 'Edit-Profile';
                      </script>";
     }
 }
@@ -201,12 +201,12 @@ if(isset($_GET['dlt_subskill_id'])){
     if($dlt_sub_skills){
         echo "<script>
                      document.cookie = 'alert = 3;';
-                     window.location.href = 'Edit-Skills';
+                     window.location.href = 'Edit-Profile';
                      </script>";
     } else {
         echo "<script>
                      document.cookie = 'alert = 5;';
-                     window.location.href = 'Edit-Skills';
+                     window.location.href = 'Edit-Profile';
                      </script>";
     }
 }
