@@ -439,7 +439,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                     </div>
 
-                    <!-- Your HTML Container -->
+                    <!-- global education -->
                     <div id="educationContainer">
                         <h5 class="heading5 mt-5">Global Education</h5>
                         <!-- Initial Education Set -->
@@ -811,7 +811,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>
                         </div>
                     </div>
-
                     <div class="grid sm:grid-cols-3 gap-3">
                         <button id="addExperience" class="w-full h-12 px-4 mt-2 button-main -border mt-5">Add Another Experience</button>
                     </div>

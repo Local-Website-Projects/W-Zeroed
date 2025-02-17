@@ -140,7 +140,7 @@ if(!isset($_SESSION['seller_id'])) {
                                             echo $date->format('M, Y');
                                             ?></span>
                                     </div>
-                                    <strong class="position text-button"><?php echo $fetch_exp[$i]['company_name'];?></strong>
+                                    <strong style="color: #00c5ff;" class="position text-button"><?php echo $fetch_exp[$i]['company_name'];?></strong>
                                     <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['company_website'];?></p>
                                         <?php
                                         if($fetch_exp[$i]['accomplishment'] != null){
@@ -181,7 +181,7 @@ if(!isset($_SESSION['seller_id'])) {
                                             <?php
                                         }
                                         ?>
-                                    <h4 style="font-size: 20px; font-weight: bold" class="mt-5">Reference Verification Data: <?php
+                                    <h4 style="font-size: 20px; font-weight: bold; color: #00c5ff;" class="mt-5">Reference Verification Data: <?php
                                         if( $fetch_exp[$i]['reference_status'] == '1'){
                                             ?>
                                             <i class="ph ph-seal-check"></i>
@@ -202,7 +202,7 @@ if(!isset($_SESSION['seller_id'])) {
                                         <?php
                                     }
                                     ?>
-                                    <h4 style="font-size: 20px; font-weight: bold" class="mt-5">Experience Verification Data:
+                                    <h4 style="font-size: 20px; font-weight: bold; color: #00c5ff;" class="mt-5">Experience Verification Data:
                                         <?php
                                         if( $fetch_exp[$i]['job_experience_status'] == '1'){
                                             ?>
@@ -233,21 +233,14 @@ if(!isset($_SESSION['seller_id'])) {
                     </div>
 
 
-
-
-
-
-
-
-
-
-
+                    <!--education part start-->
                     <div class="jobs w-full overflow-hidden p-8 mt-7.5 rounded-lg bg-white shadow-sm">
                         <h5 class="heading5">Education</h5>
                         <ul class="list_related flex flex-col md:gap-7.5 gap-6 w-full mt-5">
                             <?php
-                            $fetch_global_education = $db_handle->runQuery("SELECT * FROM `seller_global_education` WHERE user_id={$_SESSION['seller_id']}");
-                            $fetch_global_education_no = $db_handle->numRows("SELECT * FROM `seller_global_education` WHERE user_id={$_SESSION['seller_id']}");
+                            $fetch_global_education = $db_handle->runQuery("SELECT * FROM `seller_global_education`,field_of_study WHERE seller_global_education.global_field_of_study = field_of_study.field_study_id and user_id={$_SESSION['seller_id']}");
+                            $fetch_global_education_no = $db_handle->numRows("SELECT * FROM `seller_global_education`,field_of_study WHERE seller_global_education.global_field_of_study = field_of_study.field_study_id and user_id={$_SESSION['seller_id']}");
+
                             for ($i=0;$i<$fetch_global_education_no;$i++){
                             ?>
                             <li class="jobs_item px-6 py-5 rounded-lg bg-white shadow-md duration-300 hover:shadow-xl">
@@ -262,16 +255,12 @@ if(!isset($_SESSION['seller_id'])) {
                                                     <?php
                                                 }
                                                 ?></span>
-                                            <strong class="jobs_name text-title -style-1"><?php echo $fetch_global_education[0]['global_field_of_study'];?></strong>
+                                            <strong class="jobs_name text-title -style-1"><?php echo $fetch_global_education[0]['field_study'];?></strong>
                                             <div class="flex flex-wrap items-center gap-5 gap-y-1">
                                                 <div class="jobs_address -style-1 text-secondary">
                                                     <span class="ph ph-graduation-cap text-lg"></span>
                                                     <span class="address caption1 align-top"><?php echo $fetch_global_education[$i]['global_university'];?></span>
                                                 </div>
-                                                <!--<div class="jobs_date text-secondary">
-                                                    <span class="ph ph-calendar-blank text-lg"></span>
-                                                    <span class="date caption1 align-top">2 days ago</span>
-                                                </div>-->
                                             </div>
                                         </a>
                                     </div>
@@ -328,6 +317,7 @@ if(!isset($_SESSION['seller_id'])) {
                             ?>
                         </ul>
                     </div>
+                    <!--education part end-->
 
 
                 </div>

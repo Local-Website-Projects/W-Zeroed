@@ -929,12 +929,12 @@
                                     <strong class="text-title">Edit Profile</strong>
                                 </a>
                             </li>
-                            <li class="action_item">
+                            <!--<li class="action_item">
                                 <a href="Edit-Skills" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
                                     <span class="ph ph-pen-nib-straight text-2xl text-secondary"></span>
                                     <strong class="text-title">Edit Skills</strong>
                                 </a>
-                            </li>
+                            </li>-->
                             <li class="action_item">
                                 <a href="Update-Password" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
                                     <span class="ph ph-user-circle text-2xl text-secondary"></span>
