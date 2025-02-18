@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!-- Header -->
 <?php include ('include/header.php');?>
 
-<div class="dashboard_main overflow-hidden lg:w-screen lg:h-screen flex sm:pt-20 pt-16">
+<div class="dashboard_main overflow-hidden lg:w-screen flex sm:pt-20 pt-16">
 
     <div class="dashboard_payouts scrollbar_custom w-full bg-surface">
         <div class="container h-fit lg:pt-15 lg:pb-30 max-lg:py-12 max-sm:py-8">
@@ -139,6 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <strong class="text-button">Menu</strong>
             </button>
             <div class="list_category p-6 mt-7.5 rounded-lg bg-white">
+
                 <h5 class="heading5" style="margin-top: 0 !important;">Personal Information</h5>
                 <form class="form" method="post" action="Insert" enctype="multipart/form-data">
                     <!--personal information section start-->
@@ -516,7 +517,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
                     <!--canadian education section starts-->
-                    <div id="educationContainer">
+                    <div id="canadianEducationSection">
                         <!-- Initial Education Section -->
                         <div class="educationSection">
                             <h5 class="heading5 mt-5">Canadian Education</h5>
@@ -1288,7 +1289,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </form>
             </div>
         </div>
-<?php include ('include/dashboard_footer.php');?>
+        <?php include ('include/dashboard_footer.php');?>
     </div>
 </div>
 
@@ -1302,140 +1303,144 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <!--js for appending global education field-->
 <script>
-    document.getElementById('addGlobalEducation').addEventListener('click', function () {
-        const educationContainer = document.getElementById('educationContainer');
-        const educationSet = educationContainer.querySelector('.educationSet').cloneNode(true);
+    $(document).ready(function () {
+        function initializeSelect2(container) {
+            container.find('select').each(function () {
+                if (!$(this).hasClass('select2-hidden-accessible')) {
+                    $(this).select2({
+                        dropdownParent: container
+                    });
+                }
+            });
+        }
 
-        // Clear input values in the cloned set
-        educationSet.querySelectorAll('input, select').forEach(element => {
-            if (element.tagName === 'INPUT') {
-                element.value = ''; // Clear input fields
-            } else if (element.tagName === 'SELECT') {
-                element.selectedIndex = 0; // Reset select options
-            }
+        function destroySelect2(container) {
+            container.find('select').each(function () {
+                if ($(this).hasClass('select2-hidden-accessible')) {
+                    $(this).select2('destroy');
+                }
+            });
+        }
+
+        // Initialize Select2 for existing dropdowns within the main container
+        initializeSelect2($('#educationContainer'));
+
+        $('#addGlobalEducation').on('click', function () {
+            const educationContainer = $('#educationContainer');
+            const educationSet = educationContainer.find('.educationSet').first();
+
+            // Destroy Select2 on the original set before cloning
+            destroySelect2(educationSet);
+
+            // Clone the education set
+            const newEducationSet = educationSet.clone();
+
+            // Reinitialize Select2 on the original set
+            initializeSelect2(educationSet);
+
+            // Clear input values in the cloned set
+            newEducationSet.find('input, select').each(function () {
+                if ($(this).is('input')) {
+                    $(this).val('');
+                } else if ($(this).is('select')) {
+                    $(this).val(null).trigger('change');
+                }
+            });
+
+            // Remove 'id' attributes on cloned elements (ensuring unique ids)
+            newEducationSet.find('input, select').removeAttr('id');
+
+            // Show the remove button for the appended set
+            newEducationSet.find('.removeEducationSet').show().on('click', function () {
+                newEducationSet.remove();
+            });
+
+            // Append the new education set to the container
+            educationContainer.append(newEducationSet);
+
+            // Reinitialize Select2 only inside the new education set
+            initializeSelect2(newEducationSet);
         });
 
-        // Remove 'id' attributes on cloned elements (ensuring unique ids)
-        educationSet.querySelectorAll('input, select').forEach(element => {
-            element.removeAttribute('id');
-        });
+        // Fix event delegation for dynamically added elements
+        $(document).on('change', '.accreditation', function () {
+            const accreditationDropdown = $(this);
+            const certificateDiv = accreditationDropdown.closest('.educationSet').find('.certificateDiv');
+            const certificateInput = accreditationDropdown.closest('.educationSet').find('.certificate_number');
 
-        // Show the remove button for the appended set
-        const removeButton = educationSet.querySelector('.removeEducationSet');
-        removeButton.style.display = 'block'; // Make the remove button visible
-
-        // Add remove button functionality
-        removeButton.addEventListener('click', function () {
-            educationSet.remove();
-        });
-
-        // Add accreditation dropdown functionality for the new set
-        const accreditationDropdown = educationSet.querySelector('.accreditation');
-        const certificateDiv = educationSet.querySelector('.certificateDiv');
-        const certificateInput = educationSet.querySelector('.certificate_number');
-
-        // Event listener to toggle certificate input based on accreditation selection
-        accreditationDropdown.addEventListener('change', function () {
-            if (this.value && this.value !== 'N/A') {
-                certificateDiv.style.display = 'block';
-                certificateInput.required = true;
+            if (accreditationDropdown.val() && accreditationDropdown.val() !== 'N/A') {
+                certificateDiv.show();
+                certificateInput.prop('required', true);
             } else {
-                certificateDiv.style.display = 'none';
-                certificateInput.required = false;
-                certificateInput.value = ''; // Clear the field if hidden
+                certificateDiv.hide();
+                certificateInput.prop('required', false).val('');
             }
         });
-
-        // Append the new education set to the container
-        educationContainer.appendChild(educationSet);
-
-        // Initialize Select2 for the appended field of study dropdown
-        $(educationSet).find('select[name="global_field_of_study[]"]').select2();
     });
 
 </script>
 
 <!--for hiding and displaying the certificate in global and canadian study fields-->
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const educationContainer = document.getElementById('educationContainer');
-        const addButton = document.getElementById('addCanadianEducation');
+    $(document).ready(function() {
+        // Function to toggle certificateDivCanadian visibility
+        function toggleCertificateField(selectElement) {
+            const selectedValue = $(selectElement).val();
+            const certificateDiv = $(selectElement).closest('.educationFields').find('.certificateDivCanadian');
 
-        // Function to enable/disable fields when toggle button is clicked
-        function setupToggleButton(section) {
-            const toggleButton = section.querySelector('.toggle_btn');
-            const educationFields = section.querySelectorAll('select, input');
-
-            toggleButton.addEventListener('click', function () {
-                const isActive = toggleButton.classList.contains('active');
-
-                if (isActive) {
-                    educationFields.forEach(field => field.disabled = true);
-                } else {
-                    educationFields.forEach(field => field.disabled = false);
-                }
-            });
-        }
-
-        // Function to handle accreditation change
-        function setupAccreditationChange(section) {
-            const accreditationSelect = section.querySelector('select[name="canadian_accreditation[]"]');
-            const certificateDiv = section.querySelector('.certificateDivCanadian');
-            const certificateInput = section.querySelector('input[name="canadian_certificate_number[]"]');
-
-            if (accreditationSelect) {
-                accreditationSelect.addEventListener('change', function () {
-                    if (this.value && this.value !== 'N/A') {
-                        certificateDiv.style.display = 'block';
-                        certificateInput.required = true;
-                    } else {
-                        certificateDiv.style.display = 'none';
-                        certificateInput.required = false;
-                        certificateInput.value = ''; // Clear the field when hidden
-                    }
-                });
+            if (selectedValue === 'WES' || selectedValue === 'Alberta') {
+                certificateDiv.show();
+            } else {
+                certificateDiv.hide();
             }
         }
 
-        // Function to handle the remove button
-        function setupRemoveButton(section) {
-            const removeButton = section.querySelector('.remove_btn');
-            if (removeButton) {
-                removeButton.addEventListener('click', function () {
-                    section.remove(); // Remove the entire section
+        // Initialize Select2 for all select fields within the Canadian Education section
+        $('#canadianEducationSection select').select2();
+
+        // Toggle button functionality
+        $('#canadianEducationSection .toggle_btn').on('click', function() {
+            const educationFields = $(this).closest('.educationSection').find('.educationFields');
+            educationFields.find('select, input').prop('disabled', function(i, val) {
+                return !val;
+            });
+        });
+
+        // Add Another Education button functionality
+        $('#addCanadianEducation').on('click', function() {
+            const newEducationSection = $('#canadianEducationSection .educationSection').first().clone();
+            newEducationSection.find('select, input').prop('disabled', true); // Disable fields initially
+            newEducationSection.find('.toggle_btn').on('click', function() {
+                const educationFields = $(this).closest('.educationSection').find('.educationFields');
+                educationFields.find('select, input').prop('disabled', function(i, val) {
+                    return !val;
                 });
-            }
-        }
-
-        // Function to clone and append a new education section
-        function addEducationSection() {
-            const originalSection = document.querySelector('.educationSection');
-            const newSection = originalSection.cloneNode(true); // Deep clone the section
-
-            // Reset the fields in the new section
-            newSection.querySelectorAll('select').forEach(select => {
-                select.selectedIndex = 0; // Reset dropdowns to the first option
             });
-            newSection.querySelectorAll('input').forEach(input => {
-                input.value = ''; // Clear input fields
+            newEducationSection.find('.remove_btn').show().on('click', function() {
+                $(this).closest('.educationSection').remove();
             });
 
-            // Append the new section to the container
-            educationContainer.appendChild(newSection);
+            // Handle certificate field visibility for the new section
+            newEducationSection.find('select[name="canadian_accreditation[]"]').on('change', function() {
+                toggleCertificateField(this);
+            });
 
-            // Reattach event listeners for the new section
-            setupToggleButton(newSection);
-            setupAccreditationChange(newSection);
-            setupRemoveButton(newSection); // Attach remove button functionality
-        }
+            newEducationSection.insertBefore($(this).closest('.grid'));
+            $('#canadianEducationSection select').select2(); // Reinitialize Select2 for new fields
+        });
 
-        // Attach the addEducationSection function to the "Add Another Education" button
-        addButton.addEventListener('click', addEducationSection);
+        // Hide remove button for the initial section
+        $('#canadianEducationSection .educationSection').first().find('.remove_btn').hide();
 
-        // Initialize event listeners for the first section
-        setupToggleButton(document.querySelector('.educationSection'));
-        setupAccreditationChange(document.querySelector('.educationSection'));
-        setupRemoveButton(document.querySelector('.educationSection')); // Attach remove button for the first section
+        // Handle certificate field visibility for the initial section
+        $('#canadianEducationSection select[name="canadian_accreditation[]"]').on('change', function() {
+            toggleCertificateField(this);
+        });
+
+        // Initialize certificate field visibility on page load
+        $('#canadianEducationSection select[name="canadian_accreditation[]"]').each(function() {
+            toggleCertificateField(this);
+        });
     });
 </script>
 

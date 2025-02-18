@@ -476,7 +476,7 @@ if(!isset($_SESSION['seller_id'])){
                     </form>
                 </div>
 
-                    <!-- global education section -->
+                <!-- global education section -->
                 <form action="Update" method="post">
                     <div id="educationContainer">
                         <h5 class="heading5 mt-5">Global Education</h5>
@@ -557,14 +557,14 @@ if(!isset($_SESSION['seller_id'])){
                 </form>
 
 
-                    <!--canadian education section starts-->
+                <!--canadian education section starts-->
                 <?php
                 $fetch_canadianEducation = $db_handle->runQuery("SELECT * FROM seller_canadian_education WHERE user_id='$seller'");
                 $fetch_row = $db_handle->numRows("SELECT * FROM seller_canadian_education WHERE user_id='$seller'");
                 if($fetch_row > 0){
                     ?>
                     <form action="Update" method="post">
-                        <div id="educationContainer">
+                        <div id="canadianEducationSection">
                             <!-- Initial Education Section -->
                             <div class="educationSection">
                                 <h5 class="heading5 mt-5">Canadian Education</h5>
@@ -680,110 +680,113 @@ if(!isset($_SESSION['seller_id'])){
                 ?>
 
 
-                    <!--experience section-->
-                    <form action="Update" method="POST">
-                        <div id="experience-container">
-                            <div class="experience-section">
+                <!--experience section-->
+                <form action="Update" method="POST">
+                    <div id="experience-container">
+                        <div class="experience-section">
+                            <?php
+                            $fetch_experienceData = $db_handle->runQuery("SELECT * FROM seller_experience_data WHERE user_id='$seller'");
+                            $fetch_row = $db_handle->numRows("SELECT * FROM seller_experience_data WHERE user_id='$seller'");
+                            for($i = 0; $i < $fetch_row; $i++){
+                                $row = $fetch_experienceData[$i];
+                                ?>
+                                <h5 class="heading5 mt-5">Work Experience</h5>
                                 <?php
-                                $fetch_experienceData = $db_handle->runQuery("SELECT * FROM seller_experience_data WHERE user_id='$seller'");
-                                $fetch_row = $db_handle->numRows("SELECT * FROM seller_experience_data WHERE user_id='$seller'");
-                                for($i = 0; $i < $fetch_row; $i++){
-                                    $row = $fetch_experienceData[$i];
+                                if($row['job_experience_status'] == 0){
                                     ?>
-                                    <h5 class="heading5 mt-5">Work Experience</h5>
-                                    <?php
-                                    if($row['job_experience_status'] == 0){
-                                        ?>
-                                        <input type="hidden" value="<?php echo $row['seller_experience_id'];?>" name="seller_exp_id[]"/>
+                                    <input type="hidden" value="<?php echo $row['seller_experience_id'];?>" name="seller_exp_id[]"/>
                                     <div class="grid sm:grid-cols-3 gap-3">
-                                        <div class="education_level">
-                                            <label>Industry</label>
-                                            <select id="industry" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="industry[]" required>
-                                                <option selected>Select Industry</option>
-                                                <?php
-                                                $fetch_industry = $db_handle->runQuery("SELECT * FROM industries ORDER BY industry ASC");
-                                                foreach ($fetch_industry as $row1) {
-                                                    ?>
-                                                    <option value="<?php echo $row1['industry_id']?>" <?php if ($row['industry'] == $row1['industry_id']) echo "selected"?>><?php echo $row1['industry']?></option>
-                                                    <?php
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                        <div class="education_level">
-                                            <label>Sub Industry</label>
-                                            <select id="subindustry" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="sub_industry[]" required>
-                                                <option value="<?php echo $row['sub_industry'];?>" selected><?php echo $row['sub_industry'];?></option>
-                                            </select>
-                                        </div>
-                                        <div class="education_level">
-                                            <label>Country</label>
-                                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="countries[]">
-                                                <option disabled selected>Please Select Country</option>
-                                                <?php
-                                                $fetch_country = $db_handle->runQuery("SELECT country_name FROM countries ORDER BY country_name ASC");
-                                                foreach ($fetch_country as $country) {
-                                                    ?>
-                                                    <option value="<?php echo $country['country_name']?>" <?php if($country['country_name'] == $row['countries']) echo "selected";?>><?php echo $country['country_name']?></option>
-                                                    <?php
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                        <div class="jobLocation">
-                                                <label>Job Title</label>
-                                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Software Engineer" name="job_designation[]" value="<?php echo htmlspecialchars($row['job_designation']); ?>" required />
-                                            </div>
-                                        <div class="jobLocation">
-                                                <label>Company Name</label>
-                                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Company Name" name="company_name[]" value="<?php echo htmlspecialchars($row['company_name']); ?>" required />
-                                            </div>
-                                        <div class="jobLocation">
-                                                <label>Company Website Link</label>
-                                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg company-website" type="text" placeholder="www.abc.com or https://abc.com" name="company_website[]" value="<?php echo htmlspecialchars($row['company_website']); ?>" required />
-                                            </div>
-                                        <div class="jobLocation">
-                                                <label>Start Date</label>
-                                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" name="start_date[]" value="<?php echo htmlspecialchars($row['start_date']); ?>" required />
-                                            </div>
-                                        <div class="jobLocation">
-                                                <label>End Date</label>
-                                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" name="end_date[]" value="<?php echo htmlspecialchars($row['end_date']); ?>" required />
-                                            </div>
-                                        <div class="jobLocation">
-                                                <label>Working till now?</label>
-                                                <input type="checkbox" class="px-4 mt-2 border-line rounded-lg" name="till_date[]" id="tillDateCheckbox" value="1"> Yes
-                                            </div>
-                                        <?php
-                                    } if($row['reference_status'] == 0){
-                                        if($row['accomplishment_one_status'] == 0){
-                                        ?>
-                                            <div class="jobLocation">
-                                                <label>Accomplishments</label>
-                                                <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment[]"><?php echo htmlspecialchars($row['accomplishment']); ?></textarea>
-                                            </div>
+                                    <div class="education_level">
+                                        <label>Industry</label>
+                                        <select id="industry" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="industry[]" required>
+                                            <option selected>Select Industry</option>
                                             <?php
-                                        } if($row['accomplishment_two_status'] == 0){
+                                            $fetch_industry = $db_handle->runQuery("SELECT * FROM industries ORDER BY industry ASC");
+                                            foreach ($fetch_industry as $row1) {
+                                                ?>
+                                                <option value="<?php echo $row1['industry_id']?>" <?php if ($row['industry'] == $row1['industry_id']) echo "selected"?>><?php echo $row1['industry']?></option>
+                                                <?php
+                                            }
                                             ?>
-                                            <div class="jobLocation">
-                                                <label>Accomplishments</label>
-                                                <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment2[]"><?php echo htmlspecialchars($row['accomplishment_two']); ?></textarea>
-                                            </div>
+                                        </select>
+                                    </div>
+                                    <div class="education_level">
+                                        <label>Sub Industry</label>
+                                        <select id="subindustry" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="sub_industry[]" required>
+                                            <option value="<?php echo $row['sub_industry'];?>" selected><?php echo $row['sub_industry'];?></option>
+                                        </select>
+                                    </div>
+                                    <div class="education_level">
+                                        <label>Country</label>
+                                        <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="countries[]">
+                                            <option disabled selected>Please Select Country</option>
                                             <?php
-                                        } if($row['accomplishment_two_status'] == 0){
+                                            $fetch_country = $db_handle->runQuery("SELECT country_name FROM countries ORDER BY country_name ASC");
+                                            foreach ($fetch_country as $country) {
+                                                ?>
+                                                <option value="<?php echo $country['country_name']?>" <?php if($country['country_name'] == $row['countries']) echo "selected";?>><?php echo $country['country_name']?></option>
+                                                <?php
+                                            }
                                             ?>
-                                            <div class="jobLocation">
-                                                <label>Accomplishments</label>
-                                                <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment3[]"><?php echo htmlspecialchars($row['accomplishment_three']); ?></textarea>
-                                            </div>
-                                        <?php
-                                        }
-                                    }
-                                        ?>
+                                        </select>
+                                    </div>
+                                    <div class="jobLocation">
+                                        <label>Job Title</label>
+                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Software Engineer" name="job_designation[]" value="<?php echo htmlspecialchars($row['job_designation']); ?>" required />
+                                    </div>
+                                    <div class="jobLocation">
+                                        <label>Company Name</label>
+                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Company Name" name="company_name[]" value="<?php echo htmlspecialchars($row['company_name']); ?>" required />
                                     </div>
 
+                                    <div class="jobLocation">
+                                        <label>Company Website Link</label>
+                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg company-website" type="text" placeholder="www.abc.com or https://abc.com" name="company_website[]" value="<?php echo htmlspecialchars($row['company_website']); ?>" required />
+                                        <small class="website-error-message text-red-500 hidden">Invalid website format. Please enter a valid URL (e.g., https://example.com or www.example.com).</small>
+                                    </div>
+
+                                    <div class="jobLocation">
+                                        <label>Start Date</label>
+                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" name="start_date[]" value="<?php echo htmlspecialchars($row['start_date']); ?>" required />
+                                    </div>
+                                    <div class="jobLocation">
+                                        <label>End Date</label>
+                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" name="end_date[]" value="<?php echo htmlspecialchars($row['end_date']); ?>" required />
+                                    </div>
+                                    <div class="jobLocation">
+                                        <label>Working till now?</label>
+                                        <input type="checkbox" class="px-4 mt-2 border-line rounded-lg" name="till_date[]" id="tillDateCheckbox" value="1"> Yes
+                                    </div>
                                     <?php
-                                    if($row['job_experience_status'] == 0){
+                                } if($row['reference_status'] == 0){
+                                    if($row['accomplishment_one_status'] == 0){
+                                        ?>
+                                        <div class="jobLocation">
+                                            <label>Accomplishments</label>
+                                            <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment[]"><?php echo htmlspecialchars($row['accomplishment']); ?></textarea>
+                                        </div>
+                                        <?php
+                                    } if($row['accomplishment_two_status'] == 0){
+                                        ?>
+                                        <div class="jobLocation">
+                                            <label>Accomplishments</label>
+                                            <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment2[]"><?php echo htmlspecialchars($row['accomplishment_two']); ?></textarea>
+                                        </div>
+                                        <?php
+                                    } if($row['accomplishment_two_status'] == 0){
+                                        ?>
+                                        <div class="jobLocation">
+                                            <label>Accomplishments</label>
+                                            <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment3[]"><?php echo htmlspecialchars($row['accomplishment_three']); ?></textarea>
+                                        </div>
+                                        <?php
+                                    }
+                                }
+                                ?>
+                                </div>
+
+                                <?php
+                                if($row['job_experience_status'] == 0){
                                     ?>
                                     <hr class="mt-5 mb-5">
                                     <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5">Work Experience Verification:</h2>
@@ -811,9 +814,9 @@ if(!isset($_SESSION['seller_id'])){
                                         </div>
                                         <button class="remove-experience hidden w-1/3 h-10 mt-4 bg-red-500 text-white rounded-lg">Remove</button>
                                     </div>
-                                        <?php
-                                    } if($row['reference_status'] == 0){
-                                        ?>
+                                    <?php
+                                } if($row['reference_status'] == 0){
+                                    ?>
 
                                     <hr class="mt-5 mb-5">
                                     <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5">Reference:</h2>
@@ -841,15 +844,15 @@ if(!isset($_SESSION['seller_id'])){
                                         </div>
                                     </div>
                                     <?php
-                                    }
                                 }
-                                ?>
-                            </div>
+                            }
+                            ?>
                         </div>
-                        <div class="flex items-center col-span-full gap-5 mt-5">
-                            <button class="button-main" type="submit" name="update_experience_info">Update Experience Info</button>
-                        </div>
-                    </form>
+                    </div>
+                    <div class="flex items-center col-span-full gap-5 mt-5">
+                        <button class="button-main" type="submit" name="update_experience_info">Update Experience Info</button>
+                    </div>
+                </form>
 
 
                 <!--career goal section-->
@@ -911,67 +914,77 @@ if(!isset($_SESSION['seller_id'])){
 
 <!--js for appending global education field-->
 <script>
-    document.getElementById('addGlobalEducation').addEventListener('click', function () {
-        const educationContainer = document.getElementById('educationContainer');
-        const educationSet = educationContainer.querySelector('.educationSet').cloneNode(true);
+    $(document).ready(function () {
+        function initializeSelect2(container) {
+            container.find('select').each(function () {
+                if (!$(this).hasClass('select2-hidden-accessible')) {
+                    $(this).select2({
+                        dropdownParent: container
+                    });
+                }
+            });
+        }
 
-        // Clear input values in the cloned set
-        educationSet.querySelectorAll('input, select').forEach(element => {
-            if (element.tagName === 'INPUT') {
-                element.value = ''; // Clear input fields
-            } else if (element.tagName === 'SELECT') {
-                element.selectedIndex = 0; // Reset select options
-            }
+        function destroySelect2(container) {
+            container.find('select').each(function () {
+                if ($(this).hasClass('select2-hidden-accessible')) {
+                    $(this).select2('destroy');
+                }
+            });
+        }
+
+        // Initialize Select2 for existing dropdowns within the main container
+        initializeSelect2($('#educationContainer'));
+
+        $('#addGlobalEducation').on('click', function () {
+            const educationContainer = $('#educationContainer');
+            const educationSet = educationContainer.find('.educationSet').first();
+
+            // Destroy Select2 on the original set before cloning
+            destroySelect2(educationSet);
+
+            // Clone the education set
+            const newEducationSet = educationSet.clone();
+
+            // Reinitialize Select2 on the original set
+            initializeSelect2(educationSet);
+
+            // Clear input values in the cloned set
+            newEducationSet.find('input, select').each(function () {
+                if ($(this).is('input')) {
+                    $(this).val('');
+                } else if ($(this).is('select')) {
+                    $(this).val(null).trigger('change');
+                }
+            });
+
+            // Remove 'id' attributes on cloned elements (ensuring unique ids)
+            newEducationSet.find('input, select').removeAttr('id');
+
+            // Show the remove button for the appended set
+            newEducationSet.find('.removeEducationSet').show().on('click', function () {
+                newEducationSet.remove();
+            });
+
+            // Append the new education set to the container
+            educationContainer.append(newEducationSet);
+
+            // Reinitialize Select2 only inside the new education set
+            initializeSelect2(newEducationSet);
         });
 
-        // Remove 'id' attributes on cloned elements (ensuring unique ids)
-        educationSet.querySelectorAll('input, select').forEach(element => {
-            element.removeAttribute('id');
-        });
+        // Fix event delegation for dynamically added elements
+        $(document).on('change', '.accreditation', function () {
+            const accreditationDropdown = $(this);
+            const certificateDiv = accreditationDropdown.closest('.educationSet').find('.certificateDiv');
+            const certificateInput = accreditationDropdown.closest('.educationSet').find('.certificate_number');
 
-        // Show the remove button for the appended set
-        const removeButton = educationSet.querySelector('.removeEducationSet');
-        removeButton.style.display = 'block'; // Make the remove button visible
-
-        // Add remove button functionality
-        removeButton.addEventListener('click', function () {
-            educationSet.remove();
-        });
-
-        // Add accreditation dropdown functionality for the new set
-        const accreditationDropdown = educationSet.querySelector('.accreditation');
-        const certificateDiv = educationSet.querySelector('.certificateDiv');
-        const certificateInput = educationSet.querySelector('.certificate_number');
-
-        // Event listener to toggle certificate input based on accreditation selection
-        accreditationDropdown.addEventListener('change', function () {
-            if (this.value && this.value !== 'N/A') {
-                certificateDiv.style.display = 'block';
-                certificateInput.required = true;
+            if (accreditationDropdown.val() && accreditationDropdown.val() !== 'N/A') {
+                certificateDiv.show();
+                certificateInput.prop('required', true);
             } else {
-                certificateDiv.style.display = 'none';
-                certificateInput.required = false;
-                certificateInput.value = ''; // Clear the field if hidden
-            }
-        });
-
-        // Append the new education set to the container
-        educationContainer.appendChild(educationSet);
-    });
-
-    // Initial accreditation dropdown functionality for the first set
-    document.querySelectorAll('.accreditation').forEach(dropdown => {
-        dropdown.addEventListener('change', function () {
-            const certificateDiv = this.closest('.educationSet').querySelector('.certificateDiv');
-            const certificateInput = this.closest('.educationSet').querySelector('.certificate_number');
-
-            if (this.value && this.value !== 'N/A') {
-                certificateDiv.style.display = 'block';
-                certificateInput.required = true;
-            } else {
-                certificateDiv.style.display = 'none';
-                certificateInput.required = false;
-                certificateInput.value = ''; // Optional: Clear the field when hidden
+                certificateDiv.hide();
+                certificateInput.prop('required', false).val('');
             }
         });
     });
@@ -980,29 +993,65 @@ if(!isset($_SESSION['seller_id'])){
 
 <!--for hiding and displaying the certificate in global and canadian study fields-->
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const educationContainer = document.getElementById('educationContainer');
-        const addButton = document.getElementById('addCanadianEducation');
+    $(document).ready(function() {
+        // Function to toggle certificateDivCanadian visibility
+        function toggleCertificateField(selectElement) {
+            const selectedValue = $(selectElement).val();
+            const certificateDiv = $(selectElement).closest('.educationFields').find('.certificateDivCanadian');
 
-        // Function to handle accreditation change
-        function setupAccreditationChange(section) {
-            const accreditationSelect = section.querySelector('select[name="canadian_accreditation[]"]');
-            const certificateDiv = section.querySelector('.certificateDivCanadian');
-            const certificateInput = section.querySelector('input[name="canadian_certificate_number[]"]');
-
-            if (accreditationSelect) {
-                accreditationSelect.addEventListener('change', function () {
-                    if (this.value && this.value !== 'N/A') {
-                        certificateDiv.style.display = 'block';
-                        certificateInput.required = true;
-                    } else {
-                        certificateDiv.style.display = 'none';
-                        certificateInput.required = false;
-                        certificateInput.value = ''; // Clear the field when hidden
-                    }
-                });
+            if (selectedValue === 'WES' || selectedValue === 'Alberta') {
+                certificateDiv.show();
+            } else {
+                certificateDiv.hide();
             }
         }
+
+        // Initialize Select2 for all select fields within the Canadian Education section
+        $('#canadianEducationSection select').select2();
+
+        // Toggle button functionality
+        $('#canadianEducationSection .toggle_btn').on('click', function() {
+            const educationFields = $(this).closest('.educationSection').find('.educationFields');
+            educationFields.find('select, input').prop('disabled', function(i, val) {
+                return !val;
+            });
+        });
+
+        // Add Another Education button functionality
+        $('#addCanadianEducation').on('click', function() {
+            const newEducationSection = $('#canadianEducationSection .educationSection').first().clone();
+            newEducationSection.find('select, input').prop('disabled', true); // Disable fields initially
+            newEducationSection.find('.toggle_btn').on('click', function() {
+                const educationFields = $(this).closest('.educationSection').find('.educationFields');
+                educationFields.find('select, input').prop('disabled', function(i, val) {
+                    return !val;
+                });
+            });
+            newEducationSection.find('.remove_btn').show().on('click', function() {
+                $(this).closest('.educationSection').remove();
+            });
+
+            // Handle certificate field visibility for the new section
+            newEducationSection.find('select[name="canadian_accreditation[]"]').on('change', function() {
+                toggleCertificateField(this);
+            });
+
+            newEducationSection.insertBefore($(this).closest('.grid'));
+            $('#canadianEducationSection select').select2(); // Reinitialize Select2 for new fields
+        });
+
+        // Hide remove button for the initial section
+        $('#canadianEducationSection .educationSection').first().find('.remove_btn').hide();
+
+        // Handle certificate field visibility for the initial section
+        $('#canadianEducationSection select[name="canadian_accreditation[]"]').on('change', function() {
+            toggleCertificateField(this);
+        });
+
+        // Initialize certificate field visibility on page load
+        $('#canadianEducationSection select[name="canadian_accreditation[]"]').each(function() {
+            toggleCertificateField(this);
+        });
     });
 </script>
 
@@ -1202,6 +1251,15 @@ if(!isset($_SESSION['seller_id'])){
         // Apply validation to all existing experience sections on page load
         $('.experience-section').each(function () {
             applyValidation($(this));
+        });
+
+        // If you're dynamically adding new sections, reapply validation to the new fields
+        $(document).on('click', '#add-experience', function () {
+            const newSection = $('.experience-section').first().clone();
+            newSection.find('input').val(''); // Clear input values in the new section
+            newSection.find('.error-message').addClass('hidden'); // Hide error messages in the new section
+            $('#experience-container').append(newSection);
+            applyValidation(newSection); // Apply validation to the new section
         });
     });
 </script>
