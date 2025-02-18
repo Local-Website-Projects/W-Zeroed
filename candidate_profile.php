@@ -313,6 +313,19 @@ if(!isset($_SESSION['seller_id'])) {
                             }
                             ?>
                         </ul>
+                        <button type="button" class="w-full h-12 px-4 mt-2 button-main -border mt-5" onclick="copyURL()">Copy URL</button>
+                        <script>
+                            function copyURL() {
+                                navigator.clipboard.writeText("www.zeroed.one/Seller-Guest-View?seller=<?php
+                                    $fetch_exp = $db_handle->runQuery("SELECT * FROM `sellers` where seller_id = {$_SESSION['seller_id']}");
+                                    $fetch_exp_no = $db_handle->numRows("SELECT * FROM `sellers` where seller_id = {$_SESSION['seller_id']}");
+                                    for ($i=0; $i<$fetch_exp_no; $i++) {
+                                        echo $fetch_exp[$i]['unique_id'];
+                                    }
+                                    ?>");
+                                alert('URL Copied');
+                            }
+                        </script>
                     </div>
                     <!--education part end-->
 
