@@ -37,9 +37,6 @@ if(!isset($_SESSION['seller_id'])) {
                 <span class="ph ph-squares-four text-xl"></span>
                 <strong class="text-button">Menu</strong>
             </button>
-            <div class="heading flex flex-wrap items-center justify-between gap-4">
-                <h4 class="heading4 max-lg:mt-3">Profile</h4>
-            </div>
             <?php
             $fetch_profile = $db_handle->runQuery("select first_name, last_name, city, state, country, contact_email, contact_no,profile_image,country_code from seller_personal_information where user_id = {$_SESSION['seller_id']}");
             ?>
@@ -50,28 +47,28 @@ if(!isset($_SESSION['seller_id'])) {
                         <ul class="list_related flex flex-col md:gap-7.5 gap-6 w-full mt-5">
                             <li class="jobs_item px-6 py-5 rounded-lg bg-white shadow-md duration-300 hover:shadow-xl" style="background: #00c5ff;">
                                 <div class="jobs_info flex gap-4 w-full border-b border-line" style="border: unset">
-                                    <a href="#" class="overflow-hidden flex-shrink-0 w-32 h-32">
-                                        <img src="<?php echo $fetch_profile[0]['profile_image'];?>" alt="seller profile image" class="jobs_avatar w-full h-full object-cover">
-                                    </a>
                                     <div class="jobs_content flex items-center justify-between gap-2 w-full">
                                         <a href="#" onclick="copyURL();" class="jobs_detail flex flex-col gap-0.5 duration-300 hover:text-primary">
-                                            <strong class="jobs_name text-title -style-1"><?php echo $fetch_profile[0]['first_name'].' '.$fetch_profile[0]['last_name'];?></strong>
+                                            <strong class="jobs_name text-title -style-1" style="color: #fff"><?php echo $fetch_profile[0]['first_name'].' '.$fetch_profile[0]['last_name'];?></strong>
                                             <div class="flex flex-wrap items-center gap-5 gap-y-1">
-                                                <div class="jobs_address -style-1">
+                                                <div class="jobs_address -style-1" style="color: #fff">
                                                     <span class="ph ph-map-pin text-lg"></span>
                                                     <span class="address caption1 align-top"><?php echo $fetch_profile[0]['city'].' '.$fetch_profile[0]['state'].', '.$fetch_profile[0]['country'];?></span>
                                                 </div>
-                                                <div class="jobs_date">
+                                                <div class="jobs_date" style="color: #fff">
                                                     <span class="ph ph-phone text-lg"></span>
                                                     <span class="date caption1 align-top"><?php echo $fetch_profile[0]['country_code']; ?> <?php echo $fetch_profile[0]['contact_no'];?></span>
                                                 </div>
-                                                <div class="jobs_date">
+                                                <div class="jobs_date" style="color: #fff">
                                                     <span class="ph ph-envelope-simple-open text-lg"></span>
                                                     <span class="date caption1 align-top"><?php echo $fetch_profile[0]['contact_email'];?></span>
                                                 </div>
                                             </div>
                                         </a>
                                     </div>
+                                    <a href="#" class="overflow-hidden flex-shrink-0 w-32 h-32">
+                                        <img src="<?php echo $fetch_profile[0]['profile_image'];?>" alt="seller profile image" class="jobs_avatar w-full h-full object-cover">
+                                    </a>
                                 </div>
                             </li>
                         </ul>
@@ -87,7 +84,7 @@ if(!isset($_SESSION['seller_id'])) {
                             for ($i=0; $i<$fetch_core_skils_no; $i++) {
                             ?>
                             <li class="project_item py-5 px-6 rounded-lg bg-white duration-300 shadow-md">
-                                <div class="project_innner flex max-sm:flex-col items-center justify-between xl:gap-9 gap-6 h-full">
+                                <div class="project_innner flex max-sm:flex-col justify-between xl:gap-9 gap-6 h-full">
                                     <div class="project_info">
                                         <p class="project_name heading6 duration-300 hover:underline"><?php echo $fetch_core_skils[$i]['skill_name'];?></p>
                                         <div class="list_tag flex items-center gap-2.5 flex-wrap mt-3">
@@ -131,7 +128,7 @@ if(!isset($_SESSION['seller_id'])) {
                                 ?>
                                 <li>
                                     <div class="flex items-center gap-4 mb-1">
-                                        <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5"><?php echo $fetch_exp[$i]['job_designation'];?></h2>
+                                        <p class="project_name heading6 duration-300 hover:underline"><?php echo $fetch_exp[$i]['job_designation'];?></p>
                                         <span class="time text-xs font-semibold uppercase"><?php
                                             $date = new DateTime($fetch_exp[$i]['start_date']);
                                             echo $date->format('M, Y');

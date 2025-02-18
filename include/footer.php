@@ -41,12 +41,12 @@
             </div>
             <div class="footer_bottom flex items-center justify-between max-sm:flex-col gap-2 py-2 border-t border-light">
                 <div class="left-block flex items-center">
-                    <div class="copyright text-placehover caption1">©2025 Zeroed. All Rights Reserved.</div>
+                    <div class="copyright text-placehover caption1">©2025 Zeroed Technologies Inc. All Rights Reserved.</div>
                 </div>
                 <div class="nav-link flex items-center gap-2.5">
-                    <a class="text-placehover caption1 hover-underline" href="term-of-use.html">Terms Of Services</a>
+                    <a class="text-placehover caption1 hover-underline" href="#">Terms Of Services</a>
                     <span class="text-placehover caption1">|</span>
-                    <a class="text-placehover caption1 hover-underline" href="term-of-use.html">Privacy Policy</a>
+                    <a class="text-placehover caption1 hover-underline" href="#">Privacy Policy</a>
                 </div>
             </div>
         </div>

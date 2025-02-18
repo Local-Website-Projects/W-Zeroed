@@ -108,7 +108,7 @@ if(isset($_POST['login'])){
             </div>
         </div>
 
-
+        <?php include ('include/footer.php');?>
         <?php include ('include/mobile_menu.php');?>
 
         <?php include ('include/script.php');?>
