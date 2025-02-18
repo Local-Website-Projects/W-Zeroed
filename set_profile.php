@@ -933,8 +933,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                                 <div class="flex justify-end space-x-2">
                                     <button type="button" class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400" onclick="closeModal('uploadModal')">Cancel</button>
-                                    <button id="uploadButton" type="button" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Upload</button>
+                                    <button id="uploadButton" type="button" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600" disabled>Upload</button>
                                 </div>
+
+                                <script>
+                                    document.getElementById("video-file").addEventListener("change", function () {
+                                        const fileInput = this;
+                                        const uploadButton = document.getElementById("uploadButton");
+
+                                        if (fileInput.files.length > 0) {
+                                            const file = fileInput.files[0];
+                                            if (file.type === "video/mp4") {
+                                                uploadButton.disabled = false;
+                                            } else {
+                                                uploadButton.disabled = true;
+                                                alert("Please select an MP4 file.");
+                                                fileInput.value = ""; // Clear the invalid file
+                                            }
+                                        } else {
+                                            uploadButton.disabled = true;
+                                        }
+                                    });
+                                </script>
                             </div>
                         </div>
 
@@ -1028,6 +1048,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         processData: false,
                                         success: function (response) {
                                             console.log('File uploaded successfully!');
+                                            alert('File uploaded successfully!');
                                             console.log(response); // Show success message from PHP
                                             document.getElementById('videoSrc').value = newFileName; // Set the response (URL or path) in the hidden input
                                             spinner.classList.add('hidden'); // Show the spinner
@@ -1107,6 +1128,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                         processData: false,
                                                         success: function (response) {
                                                             console.log('File uploaded successfully!');
+                                                            alert('File uploaded successfully!');
                                                             document.getElementById('videoSrc').value = fileName; // Set the response (URL or message) in the hidden input
                                                             document.getElementById('webcam').style.display = 'none';
                                                             document.getElementById('timer').style.display = 'none';
