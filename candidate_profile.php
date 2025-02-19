@@ -31,8 +31,8 @@ if(!isset($_SESSION['seller_id'])) {
 <div class="dashboard_main overflow-hidden lg:w-screen lg:h-screen flex sm:pt-20 pt-16">
     <?php include ("include/sidebar_user.php");?>
 
-    <div class="dashboard_profile scrollbar_custom w-full bg-surface">
-        <div class="container h-fit lg:pt-15 lg:pb-30 max-lg:py-12 max-sm:py-8">
+    <div class="dashboard_profile scrollbar_custom w-full bg-surface" style="height: 100vh;">
+        <div class="container h-fit max-sm:py-8">
             <button class="btn_open_popup btn_menu_dashboard flex items-center gap-2 min-[1400px]:hidden" data-type="menu_dashboard">
                 <span class="ph ph-squares-four text-xl"></span>
                 <strong class="text-button">Menu</strong>
@@ -49,7 +49,7 @@ if(!isset($_SESSION['seller_id'])) {
                                 <div class="jobs_info flex gap-4 w-full border-b border-line" style="border: unset">
                                     <div class="jobs_content flex items-center justify-between gap-2 w-full">
                                         <a href="#" onclick="copyURL();" class="jobs_detail flex flex-col gap-0.5 duration-300 hover:text-primary">
-                                            <strong class="jobs_name text-title -style-1" style="color: #fff"><?php echo $fetch_profile[0]['first_name'].' '.$fetch_profile[0]['last_name'];?></strong>
+                                            <h5 class="heading5"><?php echo $fetch_profile[0]['first_name'].' '.$fetch_profile[0]['last_name'];?></h5>
                                             <div class="flex flex-wrap items-center gap-5 gap-y-1">
                                                 <div class="jobs_address -style-1" style="color: #fff">
                                                     <span class="ph ph-map-pin text-lg"></span>
@@ -134,7 +134,12 @@ if(!isset($_SESSION['seller_id'])) {
                                             echo $date->format('M, Y');
                                             ?> - <?php
                                             $date = new DateTime($fetch_exp[$i]['end_date']);
-                                            echo $date->format('M, Y');
+
+                                            if($date == '0000-00-00'){
+                                                echo 'Still Working';
+                                            } else{
+                                                echo $date->format('M, Y');
+                                            }
                                             ?></span>
                                     </div>
                                     <strong style="color: #00c5ff;" class="position text-button"><?php echo $fetch_exp[$i]['company_name'];?></strong>
@@ -313,7 +318,7 @@ if(!isset($_SESSION['seller_id'])) {
                             }
                             ?>
                         </ul>
-                        <button type="button" class="w-full h-12 px-4 mt-2 button-main -border mt-5" onclick="copyURL()">Copy URL</button>
+                        <button type="button" class="w-full h-12 px-4 mt-2 button-main -border mt-5" style="margin-bottom: 50px;" onclick="copyURL()">Copy URL</button>
                         <script>
                             function copyURL() {
                                 navigator.clipboard.writeText("www.zeroed.one/Seller-Guest-View?seller=<?php
@@ -361,9 +366,7 @@ if(!isset($_SESSION['seller_id'])) {
                 </script>
             </div>
         </div>
-        <div class="lg:fixed bottom-0 left-0 z-[2] lg:pl-[280px] flex items-center justify-center w-full h-15 bg-white duration-300 shadow-md">
-            <span class="copyright caption1 text-secondary">©2025 Zeroed. All Rights Reserved</span>
-        </div>
+        <?php include ('include/dashboard_footer.php');?>
     </div>
 </div>
 

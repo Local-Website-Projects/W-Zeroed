@@ -1,6 +1,6 @@
 
 <script src="assets/js/phosphor-icons.js"></script>
-<script src="assets/js/jquery.min.js"></script>
+
 <script src="assets/js/slick.min.js"></script>
 <script src="assets/js/leaflet.js"></script>
 <script src="assets/js/swiper-bundle.min.js"></script>

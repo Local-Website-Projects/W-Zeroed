@@ -100,15 +100,17 @@ if(!isset($_SESSION['seller_id'])) {
                         </div>
                         <?php
                     } else{
-                        echo 'No message selected';
+                       ?>
+                        <div class="flex items-center justify-center h-full"> <!-- This is where you center the content -->
+                            <p class="text-center" style="font-weight: bold">You have not received any message yet!  When you get a new message that will arrive here.</p><br/>
+                        </div>
+                        <?php
                     }
                     ?>
                 </div>
             </div>
         </div>
-        <div class="lg:fixed bottom-0 left-0 z-[1] lg:pl-[280px] flex items-center justify-center w-full h-15 bg-white duration-300 shadow-md">
-            <span class="copyright caption1 text-secondary">©2024 FreelanHub. All Rights Reserved</span>
-        </div>
+        <?php include ('include/dashboard_footer.php');?>
     </div>
 </div>
 

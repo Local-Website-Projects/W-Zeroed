@@ -478,13 +478,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                             <!-- GPA -->
                             <div class="jobLocation">
-                                <label for="jobLocation">GPA</label>
+                                <label for="jobLocation">GPA <span class="text-red">*</span></label>
                                 <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="10" name="global_gpa[]" required />
                             </div>
 
                             <!-- College/University Name -->
                             <div class="jobLocation">
-                                <label for="jobLocation">College/University Name</label>
+                                <label for="jobLocation">College/University Name <span class="text-red">*</span></label>
                                 <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="College/University Name" name="global_university[]" required />
                             </div>
 
@@ -492,8 +492,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div class="education_level">
                                 <label>Credential Accreditation <span class="text-red">*</span></label>
                                 <select class="w-full h-12 px-4 mt-2 border-line rounded-lg accreditation" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="accreditation[]" required>
-                                    <option selected value="">Select Credential Accreditation</option>
-                                    <option value="N/A">N/A</option>
+                                    <option selected value="N/A">N/A</option>
                                     <option value="WES">WES</option>
                                     <option value="Alberta">Alberta</option>
                                 </select>
@@ -501,7 +500,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                             <!-- Certificate number input (initially hidden) -->
                             <div class="jobLocation certificateDiv" style="display: none;">
-                                <label for="certificate_number">Certificate No (If applicable)</label>
+                                <label for="certificate_number">Certificate No <span class="text-red">*</span></label>
                                 <input class="w-full h-12 px-4 mt-2 border-line rounded-lg certificate_number" type="text" placeholder="certificate number" name="certificate_number[]" />
                             </div>
 
@@ -585,8 +584,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <div class="education_level">
                                     <label>Credential Accreditation <span class="text-red">*</span></label>
                                     <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="canadian_accreditation[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required disabled>
-                                        <option selected value="">Select Credential Accreditation</option>
-                                        <option value="N/A">N/A</option>
+                                        <option selected value="N/A">N/A</option>
                                         <option value="WES">WES</option>
                                         <option value="Alberta">Alberta</option>
                                     </select>
@@ -610,7 +608,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="grid sm:grid-cols-4 gap-3">
                         <!-- First set of core skills and sub-skills -->
                         <div class="education_level col-span-1">
-                            <label>Core Skill 1</label>
+                            <label>Core Skill 1 <span class="text-red">*</span></label>
                             <select id="coreSkills1" class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="core_skill_one" required>
                                 <option value="" selected disabled>Select Core Skills</option>
                                 <?php
@@ -623,7 +621,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 ?>
                             </select>
                         </div>
-                        <div class="education_level" style="width: 300%">
+                        <div class="education_level col-span-1">
                             <div id="subSkillsLabel1" style="display: none;">
                                 <label>Sub Skills 1</label>
                             </div>
@@ -648,7 +646,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 ?>
                             </select>
                         </div>
-                        <div class="education_level" style="width: 300%">
+                        <div class="education_level col-span-1">
                             <div id="subSkillsLabel2" style="display: none;"> <!-- Initially hidden -->
                                 <label>Sub Skills 2</label>
                             </div>
@@ -673,7 +671,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 ?>
                             </select>
                         </div>
-                        <div class="education_level" style="width: 300%">
+                        <div class="education_level col-span-1">
                             <div id="subSkillsLabel3" style="display: none;"> <!-- Initially hidden -->
                                 <label>Sub Skills 3</label>
                             </div>
@@ -1258,15 +1256,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <h5 class="heading5 mt-5">Career Goals</h5>
                     <div class="grid sm:grid-cols-3 gap-3">
                         <div class="jobLocation">
-                            <label for="jobLocation">Role</label>
+                            <label for="jobLocation">Role <span class="text-red">*</span></label>
                             <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="Enter career role" name="career_role" required />
                         </div>
                         <div class="jobLocation">
-                            <label for="jobLocation">Industry</label>
+                            <label for="jobLocation">Industry <span class="text-red">*</span></label>
                             <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="Enter career industry" name="career_industry" required />
                         </div>
                         <div class="jobLocation">
-                            <label for="jobLocation">NOC Number</label>
+                            <label for="jobLocation">NOC Number <span class="text-red">*</span></label>
                             <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity))" name="noc_number" required>
                                 <option selected>Please select NOC</option>
                                 <?php
@@ -1298,7 +1296,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!-- Mobile Menu -->
 <?php include ('include/mobile_menu.php');?>
 
-<?php include ('include/script.php');?>
+<?php include ('include/script_new.php');?>
 
 
 <!--js for appending global education field-->

@@ -80,9 +80,9 @@ if(isset($_POST['update_password'])){
                     </div>
                 </form>
             </div>
-            <div class="lg:fixed bottom-0 left-0 z-[2] lg:pl-[280px] flex items-center justify-center w-full h-15 bg-white duration-300 shadow-md">
-                <span class="copyright caption1 text-secondary">©2025 Zeroed. All Rights Reserved</span>
-            </div>
+            <?php
+            include ('include/dashboard_footer.php');
+            ?>
         </div>
     </div>
 </div>

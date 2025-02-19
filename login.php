@@ -35,7 +35,7 @@ if(isset($_POST['login'])){
         }
     }else {
         echo "<script>
-                document.cookie = 'alert = 5;';
+                document.cookie = 'alert = 6;';
                 window.location.href='Login';
                 </script>";
     }

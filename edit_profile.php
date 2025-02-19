@@ -910,7 +910,7 @@ if(!isset($_SESSION['seller_id'])){
 <!-- Mobile Menu -->
 <?php include ('include/mobile_menu.php');?>
 
-<?php include ('include/script.php');?>
+<?php include ('include/script_new.php');?>
 
 <!--js for appending global education field-->
 <script>

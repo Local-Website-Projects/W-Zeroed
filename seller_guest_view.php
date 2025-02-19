@@ -69,7 +69,7 @@ if(isset($_GET['seller'])){
                             <div class="jobs_info flex gap-4 w-full border-b border-line" style="border: unset">
                                 <div class="jobs_content flex items-center justify-between gap-2 w-full">
                                     <a href="#" onclick="copyURL();" class="jobs_detail flex flex-col gap-0.5 duration-300 hover:text-primary">
-                                        <strong class="jobs_name text-title -style-1" style="color: #fff"><?php echo $fetch_profile[0]['first_name'].' '.$fetch_profile[0]['last_name'];?></strong>
+                                        <h5 class="heading5"><?php echo $fetch_profile[0]['first_name'].' '.$fetch_profile[0]['last_name'];?></h5>
                                         <div class="flex flex-wrap items-center gap-5 gap-y-1">
                                             <div class="jobs_address -style-1" style="color: #fff">
                                                 <span class="ph ph-map-pin text-lg"></span>
@@ -154,7 +154,12 @@ if(isset($_GET['seller'])){
                                             echo $date->format('M, Y');
                                             ?> - <?php
                                             $date = new DateTime($fetch_exp[$i]['end_date']);
-                                            echo $date->format('M, Y');
+
+                                            if($date == '0000-00-00'){
+                                                echo 'Still Working';
+                                            } else{
+                                                echo $date->format('M, Y');
+                                            }
                                             ?></span>
                                     </div>
                                     <strong style="color: #00c5ff;" class="position text-button"><?php echo $fetch_exp[$i]['company_name'];?></strong>
@@ -210,15 +215,6 @@ if(isset($_GET['seller'])){
                                     <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['designation'];?></p>
                                     <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['name'];?></p>
                                     <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['email'];?></p>
-                                    <?php
-                                    if( $fetch_exp[$i]['reference_status'] == '0'){
-                                        ?>
-                                        <div class="flex flex-wrap gap-4 mt-5">
-                                            <a href="reference_verification.php?job=<?php echo $fetch_exp[$i]['seller_experience_id'];?>" class="button-main -border">Request Verification</a>
-                                        </div>
-                                        <?php
-                                    }
-                                    ?>
                                     <h4 style="font-size: 20px; font-weight: bold; color: #00c5ff;" class="mt-5">Experience Verification Data:
                                         <?php
                                         if( $fetch_exp[$i]['job_experience_status'] == '1'){
@@ -232,15 +228,6 @@ if(isset($_GET['seller'])){
                                     <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['designation_job'];?></p>
                                     <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['name_job'];?></p>
                                     <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['email_job'];?></p>
-                                    <?php
-                                    if( $fetch_exp[$i]['job_experience_status'] == '0'){
-                                        ?>
-                                        <div class="flex flex-wrap gap-4 mt-5">
-                                            <a href="job_verification.php?job=<?php echo $fetch_exp[$i]['seller_experience_id'];?>" class="button-main -border">Request Verification</a>
-                                        </div>
-                                        <?php
-                                    }
-                                    ?>
                                 </li>
                                 <hr>
                                 <?php
@@ -410,9 +397,9 @@ if(isset($_GET['seller'])){
                 </script>
             </div>
         </div>
-        <div class="lg:fixed bottom-0 left-0 z-[2] lg:pl-[280px] flex items-center justify-center w-full h-15 bg-white duration-300 shadow-md">
-            <span class="copyright caption1 text-secondary">©2025 Zeroed. All Rights Reserved</span>
-        </div>
+        <?php
+        include ('include/dashboard_footer.php');
+        ?>
     </div>
 </div>
 
