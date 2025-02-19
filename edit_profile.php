@@ -85,7 +85,6 @@ if(!isset($_SESSION['seller_id'])){
         <div class="container h-fit lg:pt-15 lg:pb-30 max-lg:py-12 max-sm:py-8">
             <button class="btn_open_popup btn_menu_dashboard flex items-center gap-2 lg:hidden" data-type="menu_dashboard">
                 <span class="ph ph-squares-four text-xl"></span>
-                <strong class="text-button">Menu</strong>
             </button>
             <div class="list_category p-6 mt-7.5 rounded-lg bg-white">
                 <h5 class="heading5" style="margin-top: 0 !important;">Personal Information</h5>
@@ -406,46 +405,40 @@ if(!isset($_SESSION['seller_id'])){
                     $count_skills = $db_handle->numRows("SELECT * FROM `seller_core_skills` WHERE user_id={$_SESSION['seller_id']}");
                     if($count_skills <= 2){
                         ?>
-                        <form class="form" method="post" action="Insert" enctype="multipart/form-data">
-                            <!--personal information section start-->
-
-                            <!--skills section starts-->
-                            <h5 class="heading5 mt-5">Add Skills</h5>
-                            <div class="grid grid-cols-4 gap-3">
-                                <!-- First set of core skills and sub-skills -->
-                                <div class="education_level col-span-1">
-                                    <label>Core Skill 1</label>
-                                    <select id="coreSkills1" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="core_skill_one" required>
-                                        <option value="">Select Core Skills</option>
-                                        <?php
-                                        $fetch_skills = $db_handle->runQuery("SELECT * FROM skills ORDER BY core_skill ASC");
-                                        foreach ($fetch_skills as $row) {
-                                            ?>
-                                            <option value="<?php echo $row['skill_id']?>"><?php echo $row['core_skill']?></option>
-                                            <?php
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                                <div class="education_level" style="width: 300%">
-                                    <div id="subSkillsLabel1" style="display: none;">
-                                        <label>Sub Skills 1</label>
-                                    </div>
-                                    <input id="selectedSubSkills1" type="hidden" name="sub_skills_one" required/>
-                                    <div id="subSkillsList1" type="hidden"></div>
-                                    <div class="selected-tags" id="selectedTags1"></div>
-                                </div>
+                    <h5 class="heading5 mt-5">Add Skills</h5>
+                    <div class="grid sm:grid-cols-4 gap-3">
+                        <form method="post" action="Insert" enctype="multipart/form-data">
+                        <!-- First set of core skills and sub-skills -->
+                        <div class="education_level col-span-1">
+                            <label>Core Skill<span class="text-red">*</span></label>
+                            <select id="coreSkills1" class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="core_skill_one" required>
+                                <option value="" selected disabled>Select Core Skills</option>
+                                <?php
+                                $fetch_skills = $db_handle->runQuery("SELECT * FROM skills");
+                                foreach ($fetch_skills as $row) {
+                                    ?>
+                                    <option value="<?php echo $row['skill_id']?>"><?php echo $row['core_skill']?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="education_level col-span-1">
+                            <div id="subSkillsLabel1" style="display: none;">
+                                <label>Sub Skills 1</label>
                             </div>
-
-
-                            <!--reset and submit section starts here-->
-                            <div class="flex items-center col-span-full gap-5 mt-5">
-                                <button class="button-main" type="submit" name="add_skill">Add Skills</button>
-                            </div>
+                            <input id="selectedSubSkills1" type="hidden" name="sub_skills_one"/>
+                            <div id="subSkillsList1" type="hidden"></div>
+                            <div class="selected-tags" id="selectedTags1"></div>
+                        </div>
+                        <div class="flex items-center col-span-full gap-5 mt-5">
+                            <button class="button-main" type="submit" name="add_skill">Add Skills</button>
+                        </div>
                         </form>
+                    </div>
                         <?php
-                    }
-                    ?>
+                        }
+                        ?>
                     <form>
                         <h5 class="heading5 mt-5">Delete Skills</h5>
                         <div class="grid grid-cols-1 gap-3">

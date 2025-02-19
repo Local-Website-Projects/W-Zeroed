@@ -38,8 +38,8 @@ if(isset($_GET['seller'])){
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="FreelanHub - Job Board & Freelance Marketplace" />
-    <title>FreelanHub - Job Board & Freelance Marketplace</title>
+    <meta name="description" content="Zeroed - Job Board & Recruiting Marketplace" />
+    <title>Zeroed - Job Board & Recruiting Marketplace</title>
     <?php include ('include/css.php');?>
 </head>
 

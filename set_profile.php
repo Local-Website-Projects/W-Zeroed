@@ -687,7 +687,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <h5 class="heading5 mt-5">Work Experience</h5>
                             <div class="grid sm:grid-cols-3 gap-3">
                                 <div class="education_level">
-                                    <label>Industry</label>
+                                    <label>Industry <span class="text-red">*</span></label>
                                     <select id="industry" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="industry[]" required>
                                         <option selected>Select Industry</option>
                                         <?php
@@ -699,7 +699,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     </select>
                                 </div>
                                 <div class="education_level">
-                                    <label>Sub Industry</label>
+                                    <label>Sub Industry <span class="text-red">*</span></label>
                                     <select id="subindustry" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="sub_industry[]" required>
                                         <option selected>Select Sub Industry</option>
                                     </select>
@@ -717,20 +717,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     </select>
                                 </div>
                                 <div class="jobLocation">
-                                    <label>Job Title</label>
+                                    <label>Job Title <span class="text-red">*</span></label>
                                     <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Software Engineer" name="job_location[]" required />
                                 </div>
                                 <div class="jobLocation">
-                                    <label>Company Name</label>
+                                    <label>Company Name <span class="text-red">*</span></label>
                                     <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Company Name" name="company_name[]" required />
                                 </div>
                                 <div class="jobLocation">
-                                    <label>Company Website Link</label>
+                                    <label>Company Website Link <span class="text-red">*</span></label>
                                     <input class="w-full h-12 px-4 mt-2 border-line rounded-lg company-website" type="text" placeholder="www.abc.com or https://abc.com" name="company_website[]" required />
                                     <small class="website-error-message text-red-500 hidden">Invalid website format. Please use www.abc.com or https://abc.com.</small>
                                 </div>
                                 <div class="jobLocation">
-                                    <label>Start Date</label>
+                                    <label>Start Date <span class="text-red">*</span></label>
                                     <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" name="start_date[]" required />
                                 </div>
                                 <div class="jobLocation">
@@ -742,7 +742,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <input type="checkbox" class="px-4 mt-2 border-line rounded-lg" name="till_date[]" id="tillDateCheckbox" value="1"> Yes
                                 </div>
                                 <div class="jobLocation">
-                                    <label>Accomplishments</label>
+                                    <label>Accomplishments <span class="text-red">*</span></label>
                                     <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment[]"></textarea>
                                 </div>
                                 <div class="jobLocation">
@@ -759,7 +759,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5"> Work Period Verification:</h2>
                             <div class="grid sm:grid-cols-3 gap-3">
                                 <div class="jobLocation">
-                                    <label>Reference Type</label>
+                                    <label>Reference Type </label>
                                     <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="reporting_manager_job[]">
                                         <option>Please Select Reference Type</option>
                                         <option value="HR">HR</option>
@@ -819,7 +819,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="grid sm:grid-cols-3 gap-3">
                         <!-- Trigger Button -->
                         <button type="button" class="w-full h-12 px-4 mt-2 button-main -border mt-5"
-                                onclick="document.getElementById('modal').classList.remove('hidden')">Add Video</button>
+                                onclick="document.getElementById('modal').classList.remove('hidden')">Add Video <span class="text-red">*</span></button>
 
                         <!-- Modal -->
                         <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center" style="z-index: 50">

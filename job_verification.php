@@ -41,7 +41,7 @@ if(isset($_GET['job'])){
              <p>Company Website: {$fetch_data[0]['company_website']}</p>
              <p>Start Date: {$start_date}</p>
              <p>Start Date: {$end_date}</p>
-             <p>If you want to verify this job experience please click on the following verify button: <a href='https://dotest.click/Job-Experience-Verification?id={$job_id}' target='_blank'>Verify</a></p>
+             <p>If you want to verify this job experience please click on the following verify button: <a href='https://zeroed.one/Job-Experience-Verification?id={$job_id}' target='_blank'>Verify</a></p>
          </div>
      </div>
 

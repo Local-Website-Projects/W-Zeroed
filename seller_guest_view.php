@@ -39,8 +39,8 @@ if(isset($_GET['seller'])){
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="FreelanHub - Job Board & Freelance Marketplace" />
-    <title>FreelanHub - Job Board & Freelance Marketplace</title>
+    <meta name="description" content="Zeroed - Job Board & Recruiting Marketplace" />
+    <title>Zeroed - Job Board & Recruiting Marketplace</title>
     <?php include ('include/css.php');?>
 </head>
 
@@ -68,7 +68,7 @@ if(isset($_GET['seller'])){
                         <li class="jobs_item px-6 py-5 rounded-lg bg-white shadow-md duration-300 hover:shadow-xl" style="background: #00c5ff;">
                             <div class="jobs_info flex gap-4 w-full border-b border-line" style="border: unset">
                                 <div class="jobs_content flex items-center justify-between gap-2 w-full">
-                                    <a href="#" onclick="copyURL();" class="jobs_detail flex flex-col gap-0.5 duration-300 hover:text-primary">
+                                    <a href="#" class="jobs_detail flex flex-col gap-0.5 duration-300 hover:text-primary">
                                         <h5 class="heading5"><?php echo $fetch_profile[0]['first_name'].' '.$fetch_profile[0]['last_name'];?></h5>
                                         <div class="flex flex-wrap items-center gap-5 gap-y-1">
                                             <div class="jobs_address -style-1" style="color: #fff">
@@ -148,7 +148,7 @@ if(isset($_GET['seller'])){
                                 ?>
                                 <li>
                                     <div class="flex items-center gap-4 mb-1">
-                                        <p class="project_name heading6 duration-300 hover:underline"><?php echo $fetch_exp[$i]['job_designation'];?></p>
+                                        <p class="project_name heading6 duration-300"><?php echo $fetch_exp[$i]['job_designation'];?></p>
                                         <span class="time text-xs font-semibold uppercase"><?php
                                             $date = new DateTime($fetch_exp[$i]['start_date']);
                                             echo $date->format('M, Y');
@@ -163,7 +163,7 @@ if(isset($_GET['seller'])){
                                             ?></span>
                                     </div>
                                     <strong style="color: #00c5ff;" class="position text-button"><?php echo $fetch_exp[$i]['company_name'];?></strong>
-                                    <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['company_website'];?></p>
+                                    <a href="<?php echo $fetch_exp[$i]['company_website'];?>" target="_blank"><p class="desc text-secondary mt-1" style="color: #00c5ff;"><?php echo $fetch_exp[$i]['company_website'];?></p></a>
                                     <?php
                                     if($fetch_exp[$i]['accomplishment'] != null){
                                         ?>
@@ -320,7 +320,7 @@ if(isset($_GET['seller'])){
                             }
                             ?>
                         </ul>
-                        <button type="button" class="w-full h-12 px-4 mt-2 button-main -border mt-5" onclick="copyURL()">Copy URL</button>
+                        <!--<button type="button" class="w-full h-12 px-4 mt-2 button-main -border mt-5" onclick="copyURL()">Copy URL</button>-->
                         <script>
                             function copyURL() {
                                 navigator.clipboard.writeText("www.zeroed.one/Seller-Guest-View?seller=<?php
@@ -350,7 +350,9 @@ if(isset($_GET['seller'])){
                                 <?php
                             }
                             ?>
-                            <form class="form_change grid grid-cols-2 gap-5 w-full p-10 mt-7.5 rounded-lg bg-white shadow-sm" action="Insert" method="POST">
+                        </div>
+                        <div class="list_social mt-7.5 rounded-lg bg-white shadow-sm">
+                            <form class="form_change grid grid-cols-2 gap-5 w-full p-10 rounded-lg bg-white shadow-sm" action="Insert" method="POST">
                                 <div class="email col-span-full flex flex-col">
                                     <label for="full_name" class="w-fit">Your Name: <span class="text-red">*</span></label>
                                     <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="full_name" name="full_name" type="text" placeholder="Your Name..." required>

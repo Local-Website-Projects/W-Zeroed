@@ -2723,7 +2723,7 @@ video {
 }
 
 .hover\:underline:hover {
-  text-decoration-line: underline;
+  text-decoration-line: none;
 }
 
 .hover\:hover\:shadow-2xl:hover:hover {

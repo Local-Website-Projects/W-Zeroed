@@ -19,8 +19,8 @@ if(!isset($_SESSION['seller_id'])) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="FreelanHub - Job Board & Freelance Marketplace" />
-    <title>FreelanHub - Job Board & Freelance Marketplace</title>
+    <meta name="description" content="Zeroed - Job Board & Recruiting Marketplace" />
+    <title>Zeroed - Job Board & Recruiting Marketplace</title>
     <?php include ('include/css.php');?>
 </head>
 
@@ -39,7 +39,6 @@ if(!isset($_SESSION['seller_id'])) {
             <h4 class="heading4 max-lg:mt-3">Message</h4>
             <div class="message_block flex max-h-[700px] overflow-hidden mt-7.5 rounded-lg bg-white">
 
-
                 <div class="left overflow-hidden flex-shrink-0 xl:w-[400px] lg:w-[45%] sm:w-[40%] w-full">
                     <div class="form_search flex items-center h-[5.5rem] px-6 border-b sm:border-r border-line">
 
@@ -48,20 +47,28 @@ if(!isset($_SESSION['seller_id'])) {
                         <?php
                         $fetch_messages = $db_handle->runQuery("SELECT * from seller_messages where seller_id = {$_SESSION['seller_id']} order by s_msg_id DESC");
                         $fetch_messages_no = $db_handle->numRows("SELECT * from seller_messages where seller_id = {$_SESSION['seller_id']} order by s_msg_id DESC");
-                        for ($i=0; $i <$fetch_messages_no; $i++) {
+                        if($fetch_messages_no > 0){
+                            for ($i=0; $i <$fetch_messages_no; $i++) {
+                                ?>
+                                <a href="Message?sender=<?php echo $fetch_messages[$i]['s_msg_id']?>">
+                                    <li class="chat_item flex gap-5 w-full px-6 py-4 cursor-pointer duration-300 hover:bg-background hover:bg-opacity-80" data-chat="person1" style="border-bottom: 2px solid #eee;">
+                                        <div class="chat_content w-full">
+                                            <div class="flex items-center justify-between gap-4">
+                                                <strong class="chat_name text-button"><?php echo $fetch_messages[$i]['full_name'];?></strong>
+                                            </div>
+                                            <div class="flex items-center justify-between gap-4">
+                                                <p class="chat_text"><?php echo $fetch_messages[$i]['sender_email'];?></p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </a>
+                                <?php
+                            }
+                        } else {
                             ?>
-                            <a href="Message?sender=<?php echo $fetch_messages[$i]['s_msg_id']?>">
-                            <li class="chat_item flex gap-5 w-full px-6 py-4 cursor-pointer duration-300 hover:bg-background hover:bg-opacity-80" data-chat="person1">
-                                    <div class="chat_content w-full">
-                                        <div class="flex items-center justify-between gap-4">
-                                            <strong class="chat_name text-button"><?php echo $fetch_messages[$i]['full_name'];?></strong>
-                                        </div>
-                                        <div class="flex items-center justify-between gap-4">
-                                            <p class="chat_text"><?php echo $fetch_messages[$i]['sender_email'];?></p>
-                                        </div>
-                                    </div>
-                            </li>
-                            </a>
+                            <div class="flex items-center justify-center h-full flex-col"> <!-- This is where you center the content -->
+                                <h4 class="text-center" style="font-weight: bold">Do not receive any message yet!</h4>
+                            </div>
                             <?php
                         }
                         ?>
@@ -101,8 +108,9 @@ if(!isset($_SESSION['seller_id'])) {
                         <?php
                     } else{
                        ?>
-                        <div class="flex items-center justify-center h-full"> <!-- This is where you center the content -->
-                            <p class="text-center" style="font-weight: bold">You have not received any message yet!  When you get a new message that will arrive here.</p><br/>
+                        <div class="flex items-center justify-center h-full flex-col"> <!-- This is where you center the content -->
+                            <h4 class="text-center" style="font-weight: bold">You have not received any message yet!</h4>
+                            <h4 class="text-center" style="font-weight: bold">When you get a new message that will arrive here.</h4>
                         </div>
                         <?php
                     }

@@ -596,14 +596,14 @@ if(isset($_POST['add_skill'])){
                     echo "
                 <script>
                  document.cookie = 'alert = 5;';
-         window.location.href='Edit-Skills';
+         window.location.href='Edit-Profile';
                 </script>
                 ";
                 } else{
                     echo "
                 <script>
                  document.cookie = 'alert = 3;';
-         window.location.href='Edit-Skills';
+         window.location.href='Edit-Profile';
                 </script>
                 ";
                 }
