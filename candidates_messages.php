@@ -67,7 +67,7 @@ if(!isset($_SESSION['seller_id'])) {
                         } else {
                             ?>
                             <div class="flex items-center justify-center h-full flex-col"> <!-- This is where you center the content -->
-                                <h4 class="text-center" style="font-weight: bold">Do not receive any message yet!</h4>
+                                <h3 class="text-center" style="font-weight: bold">You have not received any message yet!</h3>
                             </div>
                             <?php
                         }
@@ -106,11 +106,11 @@ if(!isset($_SESSION['seller_id'])) {
                             </div>
                         </div>
                         <?php
-                    } else{
+                    } if($fetch_messages_no == 0){
                        ?>
                         <div class="flex items-center justify-center h-full flex-col"> <!-- This is where you center the content -->
-                            <h4 class="text-center" style="font-weight: bold">You have not received any message yet!</h4>
-                            <h4 class="text-center" style="font-weight: bold">When you get a new message that will arrive here.</h4>
+                            <h3 class="text-center" style="font-weight: bold">You have not received any message yet!</h3>
+                            <h3 class="text-center" style="font-weight: bold">When you get a new message that will arrive here.</h3>
                         </div>
                         <?php
                     }

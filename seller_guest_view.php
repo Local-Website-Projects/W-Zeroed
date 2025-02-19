@@ -153,11 +153,12 @@ if(isset($_GET['seller'])){
                                             $date = new DateTime($fetch_exp[$i]['start_date']);
                                             echo $date->format('M, Y');
                                             ?> - <?php
-                                            $date = new DateTime($fetch_exp[$i]['end_date']);
+                                            $end_date = $fetch_exp[$i]['end_date'];
 
-                                            if($date == '0000-00-00'){
-                                                echo 'Still Working';
-                                            } else{
+                                            if ($end_date == '0000-00-00') {
+                                                echo ' Still Working';
+                                            } else {
+                                                $date = new DateTime($end_date);
                                                 echo $date->format('M, Y');
                                             }
                                             ?></span>
@@ -203,6 +204,10 @@ if(isset($_GET['seller'])){
                                         <?php
                                     }
                                     ?>
+
+                                    <?php
+                                    if($fetch_exp[$i]['email'] != null){
+                                    ?>
                                     <h4 style="font-size: 20px; font-weight: bold; color: #00c5ff;" class="mt-5">Reference Verification Data: <?php
                                         if( $fetch_exp[$i]['reference_status'] == '1'){
                                             ?>
@@ -215,6 +220,12 @@ if(isset($_GET['seller'])){
                                     <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['designation'];?></p>
                                     <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['name'];?></p>
                                     <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['email'];?></p>
+                                        ?>
+                                        <?php
+                                    }
+
+                                    if($fetch_exp[$i]['email_job'] != null) {
+                                    ?>
                                     <h4 style="font-size: 20px; font-weight: bold; color: #00c5ff;" class="mt-5">Experience Verification Data:
                                         <?php
                                         if( $fetch_exp[$i]['job_experience_status'] == '1'){
@@ -228,6 +239,9 @@ if(isset($_GET['seller'])){
                                     <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['designation_job'];?></p>
                                     <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['name_job'];?></p>
                                     <p class="desc text-secondary mt-1"><?php echo $fetch_exp[$i]['email_job'];?></p>
+                                        <?php
+                                    }
+                                    ?>
                                 </li>
                                 <hr>
                                 <?php
@@ -250,7 +264,7 @@ if(isset($_GET['seller'])){
                                 <li class="jobs_item px-6 py-5 rounded-lg bg-white shadow-md duration-300 hover:shadow-xl">
                                     <div class="jobs_info flex gap-4 w-full pb-4 border-b border-line">
                                         <div class="jobs_content flex items-center justify-between gap-2 w-full">
-                                            <a href="#" class="jobs_detail flex flex-col gap-0.5 duration-300 hover:text-primary">
+                                            <a href="javascript:void(0);" class="jobs_detail flex flex-col gap-0.5 duration-300 hover:text-primary" style="cursor: default;">
                                             <span class="jobs_company text-sm font-semibold text-primary"><?php echo $fetch_global_education[$i]['global_level_of_education'];?>
                                                 <?php
                                                 if($fetch_global_education[$i]['global_certificate_no'] != null){
@@ -369,7 +383,7 @@ if(isset($_GET['seller'])){
                                     <div class="quick-messages mt-2 space-x-2">
                                         <button type="button" class="quick-msg bg-gray-200 px-3 py-1 rounded-lg mt-3">I am interested in your services.</button>
                                         <button type="button" class="quick-msg bg-gray-200 px-3 py-1 rounded-lg mt-3">Can we schedule a meeting?</button>
-                                        <button type="button" class="quick-msg bg-gray-200 px-3 py-1 rounded-lg mt-3">Hi <?php echo $fetch_profile[0]['first_name'].' '.$fetch_profile[0]['last_name'];?>, email your resume at (your email address)</button>
+                                        <button type="button" class="quick-msg bg-gray-200 px-3 py-1 rounded-lg mt-3">Hi <?php echo $fetch_profile[0]['first_name'].' '.$fetch_profile[0]['last_name'];?>, email your resume at (put your email address here)</button>
                                     </div>
                                     <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="message" name="message" required></textarea>
                                 </div>

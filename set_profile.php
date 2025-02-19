@@ -136,7 +136,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="container h-fit lg:pt-15 lg:pb-30 max-lg:py-12 max-sm:py-8">
             <button class="btn_open_popup btn_menu_dashboard flex items-center gap-2 lg:hidden" data-type="menu_dashboard">
                 <span class="ph ph-squares-four text-xl"></span>
-                <strong class="text-button">Menu</strong>
             </button>
             <div class="list_category p-6 mt-7.5 rounded-lg bg-white">
 
@@ -523,7 +522,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <button type="button" class="toggle_btn"></button>
                             <div class="educationFields grid sm:grid-cols-3 gap-3">
                                 <div class="education_level">
-                                    <label>Level of Education</label>
+                                    <label>Level of Education <span class="text-red">*</span></label>
                                     <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="canadian_level_of_education[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" disabled>
                                         <option selected>Select Level of Education</option>
                                         <option value="Less than high school">Less than high school</option>
@@ -536,7 +535,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     </select>
                                 </div>
                                 <div class="education_level">
-                                    <label>Field of Study</label>
+                                    <label>Field of Study <span class="text-red">*</span></label>
                                     <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="canadian_field_of_study[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" disabled>
                                         <option selected>Select Field of Study</option>
                                         <?php
@@ -550,7 +549,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     </select>
                                 </div>
                                 <div class="education_level">
-                                    <label>College/University</label>
+                                    <label>College/University <span class="text-red">*</span></label>
                                     <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="college[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" disabled>
                                         <option selected>Select College/University</option>
                                         <?php
@@ -564,7 +563,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     </select>
                                 </div>
                                 <div class="education_level">
-                                    <label>Location</label>
+                                    <label>Location <span class="text-red">*</span></label>
                                     <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="canadian_study_location[]" disabled>
                                         <option selected>Select City</option>
                                         <?php
@@ -578,7 +577,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     </select>
                                 </div>
                                 <div class="jobLocation">
-                                    <label for="jobLocation">GPA</label>
+                                    <label for="jobLocation">GPA <span class="text-red">*</span></label>
                                     <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="10" name="canadian_gpa[]" disabled/>
                                 </div>
                                 <div class="education_level">
@@ -590,7 +589,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     </select>
                                 </div>
                                 <div class="jobLocation certificateDivCanadian" style="display: none;">
-                                    <label for="certificate_number">Certificate No (If applicable)</label>
+                                    <label for="certificate_number">Certificate No <span class="text-red">*</span></label>
                                     <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="certificate number" name="canadian_certificate_number[]" disabled/>
                                 </div>
                             </div>

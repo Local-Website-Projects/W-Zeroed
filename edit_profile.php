@@ -139,7 +139,7 @@ if(!isset($_SESSION['seller_id'])){
                             </select>
                         </div>
                         <div class="state">
-                            <label>Current State <span class="text-red">*</span></label>
+                            <label>State / Province <span class="text-red">*</span></label>
                             <select class="w-full h-12 px-4 mt-2 border-line rounded-lg state_select" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity))" onchange="loadCities()" name="state">
                                 <option selected>Please select state</option>
                             </select>
@@ -454,6 +454,7 @@ if(!isset($_SESSION['seller_id'])){
                                     <?php
                                     $fetch_sub_skills = $db_handle->runQuery("SELECT * FROM `seller_sub_skills` WHERE core_skill_id = {$fetch_core_skills[$i]['skill_id']} and user_id = {$_SESSION['seller_id']}");
                                     $fetch_sub_skills_no = $db_handle->numRows("SELECT * FROM `seller_sub_skills` WHERE core_skill_id = {$fetch_core_skills[$i]['skill_id']} and user_id = {$_SESSION['seller_id']}");
+                                    if($fetch_sub_skills_no > 0){
                                     for($j=0; $j<$fetch_sub_skills_no; $j++){
                                         ?>
                                         <p><?php echo $fetch_sub_skills[$j]['sub_skill'];?> <a href="Update?dlt_subskill_id=<?php echo $fetch_sub_skills[$j]['seller_s_skill_id'];?>" ><i class="ph ph-trash text-2xl"></i></a></p>
@@ -461,6 +462,7 @@ if(!isset($_SESSION['seller_id'])){
                                     }
                                     ?>
                                     <?php
+                                    }
                                 }
                                 ?>
                             </div>
@@ -510,13 +512,13 @@ if(!isset($_SESSION['seller_id'])){
 
                                 <!-- GPA -->
                                 <div class="jobLocation">
-                                    <label for="jobLocation">GPA</label>
+                                    <label for="jobLocation">GPA <span class="text-red">*</span></label>
                                     <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="10" name="global_gpa[]" value="<?php echo htmlspecialchars($row['global_gpa']); ?>" required />
                                 </div>
 
                                 <!-- College/University Name -->
                                 <div class="jobLocation">
-                                    <label for="jobLocation">College/University Name</label>
+                                    <label for="jobLocation">College/University Name <span class="text-red">*</span></label>
                                     <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="College/University Name" name="global_university[]" value="<?php echo htmlspecialchars($row['global_university']); ?>" required />
                                 </div>
 
@@ -533,7 +535,7 @@ if(!isset($_SESSION['seller_id'])){
 
                                 <!-- Certificate number input (initially hidden) -->
                                 <div class="jobLocation certificateDiv">
-                                    <label for="certificate_number">Certificate No (If applicable)</label>
+                                    <label for="certificate_number">Certificate No <span class="text-red">*</span></label>
                                     <input class="w-full h-12 px-4 mt-2 border-line rounded-lg certificate_number" type="text" placeholder="certificate number" name="certificate_number[]" value="<?php echo htmlspecialchars($row['global_certificate_no']); ?>" />
                                 </div>
                             </div>
@@ -569,7 +571,7 @@ if(!isset($_SESSION['seller_id'])){
                                         <input type="hidden" value="<?php echo $row['s_can_edu_id']?>" name="canadian_edu_id[]"/>
                                         <!-- Level of Education -->
                                         <div class="education_level">
-                                            <label>Level of Education</label>
+                                            <label>Level of Education <span class="text-red">*</span></label>
                                             <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="canadian_level_of_education[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));">
                                                 <option value="" <?php echo ($row['can_level_of_education'] == '') ? 'selected' : ''; ?>>Select Level of Education</option>
                                                 <option value="Less than high school" <?php echo ($row['can_level_of_education'] == 'Less than high school') ? 'selected' : ''; ?>>Less than high school</option>
@@ -584,7 +586,7 @@ if(!isset($_SESSION['seller_id'])){
 
                                         <!-- Field of Study -->
                                         <div class="education_level">
-                                            <label>Field of Study</label>
+                                            <label>Field of Study <span class="text-red">*</span></label>
                                             <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="canadian_field_of_study[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));">
                                                 <option value="" <?php echo ($row['can_field_of_study'] == '') ? 'selected' : ''; ?>>Select Field of Study</option>
                                                 <?php
@@ -602,7 +604,7 @@ if(!isset($_SESSION['seller_id'])){
 
                                         <!-- College/University -->
                                         <div class="education_level">
-                                            <label>College/University</label>
+                                            <label>College/University <span class="text-red">*</span></label>
                                             <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="college[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));">
                                                 <option value="" <?php echo ($row['can_college'] == '') ? 'selected' : ''; ?>>Select College/University</option>
                                                 <?php
@@ -620,7 +622,7 @@ if(!isset($_SESSION['seller_id'])){
 
                                         <!-- Location -->
                                         <div class="education_level">
-                                            <label>Location</label>
+                                            <label>Location <span class="text-red">*</span></label>
                                             <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="canadian_study_location[]">
                                                 <option value="" <?php echo ($row['can_location'] == '') ? 'selected' : ''; ?>>Select City</option>
                                                 <?php
@@ -638,7 +640,7 @@ if(!isset($_SESSION['seller_id'])){
 
                                         <!-- GPA -->
                                         <div class="jobLocation">
-                                            <label for="jobLocation">GPA</label>
+                                            <label for="jobLocation">GPA <span class="text-red">*</span></label>
                                             <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="10" name="canadian_gpa[]" value="<?php echo htmlspecialchars($row['can_gpa']); ?>"/>
                                         </div>
 
@@ -655,7 +657,7 @@ if(!isset($_SESSION['seller_id'])){
 
                                         <!-- Certificate number input (initially hidden) -->
                                         <div class="jobLocation certificateDivCanadian">
-                                            <label for="certificate_number">Certificate No (If applicable)</label>
+                                            <label for="certificate_number">Certificate No <span class="text-red">*</span></label>
                                             <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="certificate number" name="canadian_certificate_number[]" value="<?php echo htmlspecialchars($row['canadian_certificate_number']); ?>" />
                                         </div>
                                     </div>
@@ -690,7 +692,7 @@ if(!isset($_SESSION['seller_id'])){
                                     <input type="hidden" value="<?php echo $row['seller_experience_id'];?>" name="seller_exp_id[]"/>
                                     <div class="grid sm:grid-cols-3 gap-3">
                                     <div class="education_level">
-                                        <label>Industry</label>
+                                        <label>Industry <span class="text-red">*</span></label>
                                         <select id="industry" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="industry[]" required>
                                             <option selected>Select Industry</option>
                                             <?php
@@ -704,13 +706,13 @@ if(!isset($_SESSION['seller_id'])){
                                         </select>
                                     </div>
                                     <div class="education_level">
-                                        <label>Sub Industry</label>
+                                        <label>Sub Industry <span class="text-red">*</span></label>
                                         <select id="subindustry" class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="sub_industry[]" required>
                                             <option value="<?php echo $row['sub_industry'];?>" selected><?php echo $row['sub_industry'];?></option>
                                         </select>
                                     </div>
                                     <div class="education_level">
-                                        <label>Country</label>
+                                        <label>Country <span class="text-red">*</span></label>
                                         <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="countries[]">
                                             <option disabled selected>Please Select Country</option>
                                             <?php
@@ -724,26 +726,26 @@ if(!isset($_SESSION['seller_id'])){
                                         </select>
                                     </div>
                                     <div class="jobLocation">
-                                        <label>Job Title</label>
+                                        <label>Job Title <span class="text-red">*</span></label>
                                         <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Software Engineer" name="job_designation[]" value="<?php echo htmlspecialchars($row['job_designation']); ?>" required />
                                     </div>
                                     <div class="jobLocation">
-                                        <label>Company Name</label>
+                                        <label>Company Name <span class="text-red">*</span></label>
                                         <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="Company Name" name="company_name[]" value="<?php echo htmlspecialchars($row['company_name']); ?>" required />
                                     </div>
 
                                     <div class="jobLocation">
-                                        <label>Company Website Link</label>
+                                        <label>Company Website Link <span class="text-red">*</span></label>
                                         <input class="w-full h-12 px-4 mt-2 border-line rounded-lg company-website" type="text" placeholder="www.abc.com or https://abc.com" name="company_website[]" value="<?php echo htmlspecialchars($row['company_website']); ?>" required />
                                         <small class="website-error-message text-red-500 hidden">Invalid website format. Please enter a valid URL (e.g., https://example.com or www.example.com).</small>
                                     </div>
 
                                     <div class="jobLocation">
-                                        <label>Start Date</label>
+                                        <label>Start Date <span class="text-red">*</span></label>
                                         <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" name="start_date[]" value="<?php echo htmlspecialchars($row['start_date']); ?>" required />
                                     </div>
                                     <div class="jobLocation">
-                                        <label>End Date</label>
+                                        <label>End Date <span class="text-red">*</span></label>
                                         <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" name="end_date[]" value="<?php echo htmlspecialchars($row['end_date']); ?>" required />
                                     </div>
                                     <div class="jobLocation">
@@ -755,7 +757,7 @@ if(!isset($_SESSION['seller_id'])){
                                     if($row['accomplishment_one_status'] == 0){
                                         ?>
                                         <div class="jobLocation">
-                                            <label>Accomplishments</label>
+                                            <label>Accomplishments <span class="text-red">*</span></label>
                                             <textarea class="w-full h-12 px-4 mt-2 border-line rounded-lg" required name="accomplishment[]"><?php echo htmlspecialchars($row['accomplishment']); ?></textarea>
                                         </div>
                                         <?php
@@ -782,10 +784,10 @@ if(!isset($_SESSION['seller_id'])){
                                 if($row['job_experience_status'] == 0){
                                     ?>
                                     <hr class="mt-5 mb-5">
-                                    <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5">Work Experience Verification:</h2>
+                                    <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5">Work Period Verification:</h2>
                                     <div class="grid sm:grid-cols-3 gap-3">
                                         <div class="jobLocation">
-                                            <label>Reference Type</label>
+                                            <label>Reference Type </label>
                                             <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="reporting_manager_job[]">
                                                 <option>Please Select Reference Type</option>
                                                 <option value="HR" <?php if ($row['reporting_manager_job'] == 'HR') echo "selected";?>>HR</option>
@@ -812,7 +814,7 @@ if(!isset($_SESSION['seller_id'])){
                                     ?>
 
                                     <hr class="mt-5 mb-5">
-                                    <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5">Reference:</h2>
+                                    <h2 style="font-size: 30px; font-weight: bold" class="mt-5 mb-5">Accomplishment Verification:</h2>
                                     <div class="grid sm:grid-cols-3 gap-3">
                                         <div class="jobLocation">
                                             <label>Reference Type</label>
@@ -860,17 +862,17 @@ if(!isset($_SESSION['seller_id'])){
                         <div class="grid sm:grid-cols-3 gap-3">
                             <input type="hidden" value="<?php echo $row['seller_career_id']?>" name="seller_career_id"/>
                             <div class="jobLocation">
-                                <label for="jobLocation">Role</label>
+                                <label for="jobLocation">Role <span class="text-red">*</span></label>
                                 <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="Enter career role" name="career_role" value="<?php echo htmlspecialchars($row['career_role']); ?>" required />
                             </div>
 
                             <div class="jobLocation">
-                                <label for="jobLocation">Industry</label>
+                                <label for="jobLocation">Industry <span class="text-red">*</span></label>
                                 <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="Enter career industry" name="career_industry" value="<?php echo htmlspecialchars($row['career_industry']); ?>" required />
                             </div>
 
                             <div class="jobLocation">
-                                <label for="jobLocation">NOC Number</label>
+                                <label for="jobLocation">NOC Number <span class="text-red">*</span></label>
                                 <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity))" name="noc_number" required>
                                     <option selected>Please select NOC</option>
                                     <?php
