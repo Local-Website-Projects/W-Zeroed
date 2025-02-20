@@ -33,10 +33,6 @@ if(!isset($_SESSION['seller_id'])) {
 
     <div class="dashboard_profile scrollbar_custom w-full bg-surface" style="height: 100vh;">
         <div class="container h-fit max-sm:py-8">
-            <button class="btn_open_popup btn_menu_dashboard flex items-center gap-2 min-[1400px]:hidden" data-type="menu_dashboard">
-                <span class="ph ph-squares-four text-xl"></span>
-                <strong class="text-button">Menu</strong>
-            </button>
             <?php
             $fetch_profile = $db_handle->runQuery("select first_name, last_name, city, state, country, contact_email, contact_no,profile_image,country_code from seller_personal_information where user_id = {$_SESSION['seller_id']}");
             ?>

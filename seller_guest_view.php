@@ -53,10 +53,6 @@ if(isset($_GET['seller'])){
 
     <div class="dashboard_profile scrollbar_custom w-full bg-surface">
         <div class="container h-fit lg:pt-15 lg:pb-30 max-lg:py-12 max-sm:py-8">
-            <button class="btn_open_popup btn_menu_dashboard flex items-center gap-2 min-[1400px]:hidden" data-type="menu_dashboard">
-                <span class="ph ph-squares-four text-xl"></span>
-                <strong class="text-button">Menu</strong>
-            </button>
             <?php
             $fetch_profile = $db_handle->runQuery("select first_name, last_name, city, state, country, contact_email, contact_no,profile_image,country_code from seller_personal_information where user_id = '$seller'");
             ?>
