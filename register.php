@@ -3,7 +3,7 @@ session_start();
 if(isset($_SESSION['seller_id'])){
     echo "
     <script>
-    window.location.href = 'Seller-Profile';
+    window.location.href = 'IHM';
     </script>
     ";
 }

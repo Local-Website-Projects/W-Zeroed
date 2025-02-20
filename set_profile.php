@@ -408,19 +408,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                         <div class="contactemail">
                             <label for="contactemail">Contact Email <span class="text-red">*</span></label>
-                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="contact_email" type="text" placeholder="enter contact email" name="contact_email" required />
+                            <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="contact_email" type="text" placeholder="Enter contact email" name="contact_email" required />
                         </div>
                         <div class="jobLocation">
                             <label for="jobLocation">Job preferred location <span class="text-red">*</span></label>
                             <input class="w-full h-12 px-4 mt-2 border-line rounded-lg"
                                    id="jobLocation"
                                    type="text"
-                                   placeholder="Search job preferred location"
-                                   list="locationList"
+                                   placeholder="Enter job preferred location"
                                    autocomplete="off"
                                    name="preferred_job_location"
                                    required />
-                            <datalist id="locationList">
+                            <!--<datalist id="locationList">
                                 <option value="Open for relocation"></option>
                                 <option value="Alberta"></option>
                                 <option value="British Columbia"></option>
@@ -435,7 +434,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <option value="Quebec"></option>
                                 <option value="Saskatchewan"></option>
                                 <option value="Yukon"></option>
-                            </datalist>
+                            </datalist>-->
                         </div>
                     </div>
 
@@ -477,8 +476,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                             <!-- GPA -->
                             <div class="jobLocation">
-                                <label for="jobLocation">GPA <span class="text-red">*</span></label>
-                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="10" name="global_gpa[]" required />
+                                <label for="jobLocation">GPA</label>
+                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="10" name="global_gpa[]"/>
                             </div>
 
                             <!-- College/University Name -->
@@ -489,8 +488,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                             <!-- Credential Accreditation -->
                             <div class="education_level">
-                                <label>Credential Accreditation <span class="text-red">*</span></label>
-                                <select class="w-full h-12 px-4 mt-2 border-line rounded-lg accreditation" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="accreditation[]" required>
+                                <label>Credential Accreditation</label>
+                                <select class="w-full h-12 px-4 mt-2 border-line rounded-lg accreditation" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="accreditation[]">
                                     <option selected value="N/A">N/A</option>
                                     <option value="WES">WES</option>
                                     <option value="Alberta">Alberta</option>
@@ -499,7 +498,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                             <!-- Certificate number input (initially hidden) -->
                             <div class="jobLocation certificateDiv" style="display: none;">
-                                <label for="certificate_number">Certificate No <span class="text-red">*</span></label>
+                                <label for="certificate_number">Certificate No</label>
                                 <input class="w-full h-12 px-4 mt-2 border-line rounded-lg certificate_number" type="text" placeholder="certificate number" name="certificate_number[]" />
                             </div>
 
@@ -577,19 +576,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     </select>
                                 </div>
                                 <div class="jobLocation">
-                                    <label for="jobLocation">GPA <span class="text-red">*</span></label>
+                                    <label for="jobLocation">GPA</label>
                                     <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="10" name="canadian_gpa[]" disabled/>
                                 </div>
                                 <div class="education_level">
-                                    <label>Credential Accreditation <span class="text-red">*</span></label>
-                                    <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="canadian_accreditation[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required disabled>
+                                    <label>Credential Accreditation</label>
+                                    <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="canadian_accreditation[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" disabled>
                                         <option selected value="N/A">N/A</option>
                                         <option value="WES">WES</option>
                                         <option value="Alberta">Alberta</option>
                                     </select>
                                 </div>
                                 <div class="jobLocation certificateDivCanadian" style="display: none;">
-                                    <label for="certificate_number">Certificate No <span class="text-red">*</span></label>
+                                    <label for="certificate_number">Certificate No</label>
                                     <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="certificate number" name="canadian_certificate_number[]" disabled/>
                                 </div>
                             </div>
@@ -603,7 +602,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
                     <!--skills section starts-->
-                    <h5 class="heading5 mt-5">Skills</h5>
+                    <h5 class="heading5 mt-5">Skill Mapping</h5>
                     <div class="grid sm:grid-cols-4 gap-3">
                         <!-- First set of core skills and sub-skills -->
                         <div class="education_level col-span-1">
@@ -628,6 +627,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div id="subSkillsList1" type="hidden"></div>
                             <div class="selected-tags" id="selectedTags1"></div>
                         </div>
+                    </div>
+                    <div class="grid sm:grid-cols-4 gap-3">
+                        <!-- Button to toggle the form visibility -->
+                        <button type="button" class="w-full h-12 px-4 mt-2 button-main -border mt-5" id="add_subskill">Add New Sub Skill</button>
+
+                        <!-- The form is initially hidden using the 'hidden' class -->
+                        <span class="mt-5 grid sm:grid-cols-3 gap-3 col-span-3 hidden" id="subskill_add_form" style="width: 100%; justify-content: space-between;">
+                            <div class="flex-1">
+                                <label>Enter new subskill <span class="text-red">*</span></label>
+                                <input id="coreSkillId" class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="hidden" name="core_skill_id" required/>
+                            </div>
+                            <div class="flex-1">
+                                <input id="newSubSkill" class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" name="new_sub_skill" placeholder="Enter subskill" required/>
+                            </div>
+                            <div class="flex-1">
+                                <button type="button" id="addSubSkillButton" class="w-full h-12 px-4 button-main -border mt-2">Add</button>
+                            </div>
+                        </span>
                     </div>
                     <div class="grid sm:grid-cols-4 gap-3 mt-4">
                         <!-- Second set of core skills and sub-skills -->
@@ -654,6 +671,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div id="subSkillsList2" type="hidden"></div>
                         </div>
                     </div>
+                    <div class="grid sm:grid-cols-4 gap-3">
+                        <!-- Button to toggle the form visibility -->
+                        <button type="button" class="w-full h-12 px-4 mt-2 button-main -border mt-5" id="add_subskill_2">Add New Sub Skill</button>
+
+                        <!-- The form is initially hidden using the 'hidden' class -->
+                        <span class="mt-5 grid sm:grid-cols-3 gap-3 col-span-3 hidden" id="subskill_add_form_2" style="width: 100%; justify-content: space-between;">
+                            <div class="flex-1">
+                                <label>Enter new subskill <span class="text-red">*</span></label>
+                                <input id="coreSkillId2" class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="hidden" name="core_skill_id" required/>
+                            </div>
+                            <div class="flex-1">
+                                <input id="newSubSkill2" class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" name="new_sub_skill" placeholder="Enter subskill" required/>
+                            </div>
+                            <div class="flex-1">
+                                <button type="button" id="addSubSkillButton2" class="w-full h-12 px-4 button-main -border mt-2">Add</button>
+                            </div>
+                        </span>
+                    </div>
                     <div class="grid sm:grid-cols-4 gap-3 mt-4">
                         <!-- Third set of core skills and sub-skills -->
                         <div class="education_level col-span-1">
@@ -679,6 +714,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div id="subSkillsList3" type="hidden"></div>
                         </div>
                     </div>
+                    <div class="grid sm:grid-cols-4 gap-3">
+                        <!-- Button to toggle the form visibility -->
+                        <button type="button" class="w-full h-12 px-4 mt-2 button-main -border mt-5" id="add_subskill_3">Add New Sub Skill</button>
+
+                        <!-- The form is initially hidden using the 'hidden' class -->
+                        <span class="mt-5 grid sm:grid-cols-3 gap-3 col-span-3 hidden" id="subskill_add_form_3" style="width: 100%; justify-content: space-between;">
+                            <div class="flex-1">
+                                <label>Enter new subskill <span class="text-red">*</span></label>
+                                <input id="coreSkillId3" class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="hidden" name="core_skill_id" required/>
+                            </div>
+                            <div class="flex-1">
+                                <input id="newSubSkill3" class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" name="new_sub_skill" placeholder="Enter subskill" required/>
+                            </div>
+                            <div class="flex-1">
+                                <button type="button" id="addSubSkillButton3" class="w-full h-12 px-4 button-main -border mt-2">Add</button>
+                            </div>
+                        </span>
+                    </div>
+
+
+
+
 
                     <!-- Work Experience Section Wrapper -->
                     <div id="experience-container">
@@ -737,7 +794,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" name="end_date[]" id="endDate" required />
                                 </div>
                                 <div class="jobLocation">
-                                    <label>Working till now?</label>
+                                    <label>Present</label>
                                     <input type="checkbox" class="px-4 mt-2 border-line rounded-lg" name="till_date[]" id="tillDateCheckbox" value="1"> Yes
                                 </div>
                                 <div class="jobLocation">
@@ -1297,6 +1354,151 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <?php include ('include/script_new.php');?>
 
+<script>
+    $(document).ready(function() {
+        // Toggle form visibility when the button is clicked
+        $('#add_subskill').on('click', function() {
+            // Get the selected core skill value
+            const coreSkillId = $('#coreSkills1').val();
+            if (!coreSkillId) {
+                alert('Please select a core skill first.');
+                return;
+            }
+
+            // Set the core skill ID in the hidden input field
+            $('#coreSkillId').val(coreSkillId);
+
+            // Toggle the form visibility
+            $('#subskill_add_form').toggleClass('hidden visible');
+        });
+
+        // Handle the "Add" button click
+        $('#addSubSkillButton').on('click', function() {
+            const coreSkillId = $('#coreSkillId').val();
+            const newSubSkill = $('#newSubSkill').val();
+
+            if (!coreSkillId || !newSubSkill) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            // Send data to the server using AJAX
+            $.ajax({
+                url: 'insert_subskill.php',
+                type: 'POST',
+                data: {
+                    core_skill_id: coreSkillId,
+                    new_sub_skill: newSubSkill
+                },
+                success: function(response) {
+                    alert('Sub skill added successfully!');
+                    $('#newSubSkill').val(''); // Clear the input field
+                    $('#subskill_add_form').addClass('hidden'); // Hide the form
+                },
+                error: function(xhr, status, error) {
+                    alert('An error occurred while adding the sub skill.');
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    });
+
+    $(document).ready(function() {
+        // Toggle form visibility when the button is clicked
+        $('#add_subskill_2').on('click', function() {
+            // Get the selected core skill value
+            const coreSkillId = $('#coreSkills2').val();
+            if (!coreSkillId) {
+                alert('Please select a core skill first.');
+                return;
+            }
+
+            // Set the core skill ID in the hidden input field
+            $('#coreSkillId2').val(coreSkillId);
+
+            // Toggle the form visibility
+            $('#subskill_add_form_2').toggleClass('hidden visible');
+        });
+
+        // Handle the "Add" button click
+        $('#addSubSkillButton2').on('click', function() {
+            const coreSkillId = $('#coreSkillId2').val();
+            const newSubSkill = $('#newSubSkill2').val();
+
+            if (!coreSkillId || !newSubSkill) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            // Send data to the server using AJAX
+            $.ajax({
+                url: 'insert_subskill.php',
+                type: 'POST',
+                data: {
+                    core_skill_id: coreSkillId,
+                    new_sub_skill: newSubSkill
+                },
+                success: function(response) {
+                    alert('Sub skill added successfully!');
+                    $('#newSubSkill2').val(''); // Clear the input field
+                    $('#subskill_add_form_2').addClass('hidden'); // Hide the form
+                },
+                error: function(xhr, status, error) {
+                    alert('An error occurred while adding the sub skill.');
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    });
+
+    $(document).ready(function() {
+        // Toggle form visibility when the button is clicked
+        $('#add_subskill_3').on('click', function() {
+            // Get the selected core skill value
+            const coreSkillId = $('#coreSkills3').val();
+            if (!coreSkillId) {
+                alert('Please select a core skill first.');
+                return;
+            }
+
+            // Set the core skill ID in the hidden input field
+            $('#coreSkillId3').val(coreSkillId);
+
+            // Toggle the form visibility
+            $('#subskill_add_form_3').toggleClass('hidden visible');
+        });
+
+        // Handle the "Add" button click
+        $('#addSubSkillButton3').on('click', function() {
+            const coreSkillId = $('#coreSkillId3').val();
+            const newSubSkill = $('#newSubSkill3').val();
+
+            if (!coreSkillId || !newSubSkill) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            // Send data to the server using AJAX
+            $.ajax({
+                url: 'insert_subskill.php',
+                type: 'POST',
+                data: {
+                    core_skill_id: coreSkillId,
+                    new_sub_skill: newSubSkill
+                },
+                success: function(response) {
+                    alert('Sub skill added successfully!');
+                    $('#newSubSkill3').val(''); // Clear the input field
+                    $('#subskill_add_form_3').addClass('hidden'); // Hide the form
+                },
+                error: function(xhr, status, error) {
+                    alert('An error occurred while adding the sub skill.');
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    });
+</script>
 
 <!--js for appending global education field-->
 <script>
@@ -1601,14 +1803,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </script>
 
 <script>
-    function extractDomain(website) {
-        website = website.replace(/^https?:\/\//, '').replace(/^www\./, '');
-        return website.split('/')[0];
-    }
-
-    function isValidWebsite(website) {
-        const regex = /^(https:\/\/|www\.)[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\/\S*)?$/;
-        return regex.test(website);
+    function countWords(text) {
+        return text.trim().split(/\s+/).filter(word => word.length > 0).length;
     }
 
     function applyValidation(section) {
@@ -1635,6 +1831,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 errorMessage.removeClass('hidden');
             } else {
                 errorMessage.addClass('hidden');
+            }
+        });
+
+        // Bind word count validation to the accomplishments fields
+        section.find('textarea[name^="accomplishment"]').on('input', function () {
+            const text = $(this).val().trim();
+            const wordCount = countWords(text);
+
+            if (wordCount > 14) {
+                alert("You can only enter up to 14 words in the accomplishments field.");
+                // Truncate the text to 14 words
+                const truncatedText = text.split(/\s+/).slice(0, 14).join(' ');
+                $(this).val(truncatedText);
             }
         });
     }

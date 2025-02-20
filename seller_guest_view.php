@@ -156,7 +156,7 @@ if(isset($_GET['seller'])){
                                             $end_date = $fetch_exp[$i]['end_date'];
 
                                             if ($end_date == '0000-00-00') {
-                                                echo ' Still Working';
+                                                echo ' Present';
                                             } else {
                                                 $date = new DateTime($end_date);
                                                 echo $date->format('M, Y');
@@ -164,7 +164,17 @@ if(isset($_GET['seller'])){
                                             ?></span>
                                     </div>
                                     <strong style="color: #00c5ff;" class="position text-button"><?php echo $fetch_exp[$i]['company_name'];?></strong>
-                                    <a href="<?php echo $fetch_exp[$i]['company_website'];?>" target="_blank"><p class="desc text-secondary mt-1" style="color: #00c5ff;"><?php echo $fetch_exp[$i]['company_website'];?></p></a>
+                                    <a href="
+                                    <?php
+                                    $url = $fetch_exp[$i]['company_website'];
+                                    if (!filter_var($url, FILTER_VALIDATE_URL)) {
+                                        // If the URL doesn't start with http:// or https://, prepend https://
+                                        if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
+                                            $url = "https://" . $url;
+                                        }
+                                    }
+                                    echo $url;
+                                    ?>" target="_blank"><p class="desc text-secondary mt-1" style="color: #00c5ff;"><?php echo $fetch_exp[$i]['company_website'];?></p></a>
                                     <?php
                                     if($fetch_exp[$i]['accomplishment'] != null){
                                         ?>
@@ -337,7 +347,7 @@ if(isset($_GET['seller'])){
                         <!--<button type="button" class="w-full h-12 px-4 mt-2 button-main -border mt-5" onclick="copyURL()">Copy URL</button>-->
                         <script>
                             function copyURL() {
-                                navigator.clipboard.writeText("www.zeroed.one/Seller-Guest-View?seller=<?php
+                                navigator.clipboard.writeText("www.zeroed.one/IHM-View?seller=<?php
                                     $fetch_exp = $db_handle->runQuery("SELECT * FROM `sellers` where seller_id = '$seller'");
                                     $fetch_exp_no = $db_handle->numRows("SELECT * FROM `sellers` where seller_id = '$seller'");
                                     for ($i=0; $i<$fetch_exp_no; $i++) {
@@ -401,7 +411,7 @@ if(isset($_GET['seller'])){
 
                 <script>
                     function copyURL() {
-                        navigator.clipboard.writeText("https://zeroed.one/Seller-Guest-View?seller=<?php
+                        navigator.clipboard.writeText("https://zeroed.one/IHM-View?seller=<?php
                             $fetch_exp = $db_handle->runQuery("SELECT * FROM `sellers` where seller_id = '$seller'");
                             $fetch_exp_no = $db_handle->numRows("SELECT * FROM `sellers` where seller_id = '$seller'");
                             for ($i=0; $i<$fetch_exp_no; $i++) {

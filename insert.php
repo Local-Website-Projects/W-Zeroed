@@ -348,7 +348,7 @@ if(isset($_POST['set_profile'])){
         $db_handle->commitTransaction();
         echo "<script>
         document.cookie = 'alert = 3;';
-        window.location.href='Seller-Profile';
+        window.location.href='IHM';
     </script>";
     } catch (Exception $e) {
         $db_handle->rollbackTransaction();
@@ -435,12 +435,12 @@ if(isset($_POST['send_seller_email'])){
                  if($insert){
                      echo "<script>
                      document.cookie = 'alert = 3;';
-                     window.location.href='Seller-Guest-View?seller=" . urlencode($seller_unique) . "';
+                     window.location.href='IHM-View?seller=" . urlencode($seller_unique) . "';
                      </script>";
                  } else {
                      echo "<script>
                      document.cookie = 'alert = 5;';
-                     window.location.href='Seller-Guest-View?seller=" . urlencode($seller_unique) . "';
+                     window.location.href='IHM-View?seller=" . urlencode($seller_unique) . "';
                      </script>";
                  }
              }

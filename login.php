@@ -4,11 +4,12 @@ require_once('config/dbConfig.php');
 $db_handle = new DBController();
 date_default_timezone_set("Asia/Dhaka");
 $inserted_at = date("Y-m-d H:i:s");
+$flag = 0;
 
 if(isset($_SESSION['seller_id'])){
     echo "
     <script>
-    window.location.href = 'Seller-Profile';
+    window.location.href = 'IHM';
     </script>
     ";
 }
@@ -25,7 +26,7 @@ if(isset($_POST['login'])){
         if($check_value == 1){
            echo "<script>
                 document.cookie = 'alert = 1;';
-                window.location.href='Seller-Profile';
+                window.location.href='IHM';
                 </script>";
         } else {
            echo "<script>
@@ -34,10 +35,7 @@ if(isset($_POST['login'])){
                 </script>";
         }
     }else {
-        echo "<script>
-                document.cookie = 'alert = 6;';
-                window.location.href='Login';
-                </script>";
+        $flag = 1;
     }
 }
 
@@ -84,9 +82,18 @@ if(isset($_POST['login'])){
                                     <label>Password*</label>
                                     <input type="password" name="password" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" autocomplete="off" required />
                                 </div>
+                                <?php
+                                if($flag == 1){
+                                    ?>
+                                    <span style="color: red; line-height: 3">Wrong email or password</span>
+                                    <?php
+                                }
+                                ?>
+
                                 <div class="flex items-center justify-between mt-6">
                                     <a class="text-primary hover:underline" href="Forget-Password">Forgot password?</a>
                                 </div>
+
                                 <div class="block-button mt-6">
                                     <button class="button-main bg-primary w-full text-center" type="submit" name="login">Login</button>
                                 </div>

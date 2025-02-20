@@ -80,7 +80,7 @@ if(isset($_GET['job'])){
         if ($mail->send()) {
                 echo "<script>
                      document.cookie = 'alert = 3;';
-                     window.location.href ='Seller-Profile';
+                     window.location.href ='IHM';
                      </script>";
 
         }

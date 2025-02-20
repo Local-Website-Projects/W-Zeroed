@@ -21,17 +21,16 @@ if(!isset($_SESSION['seller_id'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Zeroed - Job Board & Freelance Marketplace" />
     <title>Zeroed - Edit Profile</title>
-    <?php include ('include/css.php');?>
 
     <!-- jQuery (Required for Select2) -->
     <!-- jQuery (required for Select2) -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <!-- Select2 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <!-- Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
+    <?php include ('include/css.php');?>
     <style>
         .sub-skill-item {
             padding: 10px;
@@ -405,8 +404,8 @@ if(!isset($_SESSION['seller_id'])){
                     $count_skills = $db_handle->numRows("SELECT * FROM `seller_core_skills` WHERE user_id={$_SESSION['seller_id']}");
                     if($count_skills <= 2){
                         ?>
-                    <h5 class="heading5 mt-5">Add Skills</h5>
-                    <div class="grid sm:grid-cols-4 gap-3">
+                    <h5 class="heading5 mt-5">Skill Mapping</h5>
+                    <div class="grid sm:grid-cols-1 gap-3">
                         <form method="post" action="Insert" enctype="multipart/form-data">
                         <!-- First set of core skills and sub-skills -->
                         <div class="education_level col-span-1">
@@ -425,12 +424,30 @@ if(!isset($_SESSION['seller_id'])){
                         </div>
                         <div class="education_level col-span-1">
                             <div id="subSkillsLabel1" style="display: none;">
-                                <label>Sub Skills 1</label>
+                                <label>Sub Skills</label>
                             </div>
                             <input id="selectedSubSkills1" type="hidden" name="sub_skills_one"/>
                             <div id="subSkillsList1" type="hidden"></div>
                             <div class="selected-tags" id="selectedTags1"></div>
                         </div>
+                            <div class="grid sm:grid-cols-4 gap-3">
+                                <!-- Button to toggle the form visibility -->
+                                <button type="button" class="w-full h-12 px-4 mt-2 button-main -border mt-5" id="add_subskill">Add New Sub Skill</button>
+
+                                <!-- The form is initially hidden using the 'hidden' class -->
+                                <span class="mt-5 grid sm:grid-cols-3 gap-3 col-span-3 hidden" id="subskill_add_form" style="width: 100%; justify-content: space-between;">
+                                    <div class="flex-1">
+                                        <label>Enter new subskill <span class="text-red">*</span></label>
+                                        <input id="coreSkillId" class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="hidden" name="core_skill_id" required/>
+                                    </div>
+                                    <div class="flex-1">
+                                        <input id="newSubSkill" class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" name="new_sub_skill" placeholder="Enter subskill" required/>
+                                    </div>
+                                    <div class="flex-1">
+                                        <button type="button" id="addSubSkillButton" class="w-full h-12 px-4 button-main -border mt-2">Add</button>
+                                    </div>
+                                </span>
+                            </div>
                         <div class="flex items-center col-span-full gap-5 mt-5">
                             <button class="button-main" type="submit" name="add_skill">Add Skills</button>
                         </div>
@@ -440,7 +457,7 @@ if(!isset($_SESSION['seller_id'])){
                         }
                         ?>
                     <form>
-                        <h5 class="heading5 mt-5">Delete Skills</h5>
+                        <h5 class="heading5 mt-5">Delete Skill Mapping</h5>
                         <div class="grid grid-cols-1 gap-3">
                             <!-- First set of core skills and sub-skills -->
                             <div class="education_level col-span-1">
@@ -512,8 +529,8 @@ if(!isset($_SESSION['seller_id'])){
 
                                 <!-- GPA -->
                                 <div class="jobLocation">
-                                    <label for="jobLocation">GPA <span class="text-red">*</span></label>
-                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="10" name="global_gpa[]" value="<?php echo htmlspecialchars($row['global_gpa']); ?>" required />
+                                    <label for="jobLocation">GPA</label>
+                                    <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="jobLocation" type="text" placeholder="10" name="global_gpa[]" value="<?php echo htmlspecialchars($row['global_gpa']); ?>" />
                                 </div>
 
                                 <!-- College/University Name -->
@@ -524,8 +541,8 @@ if(!isset($_SESSION['seller_id'])){
 
                                 <!-- Credential Accreditation -->
                                 <div class="education_level">
-                                    <label>Credential Accreditation <span class="text-red">*</span></label>
-                                    <select class="w-full h-12 px-4 mt-2 border-line rounded-lg accreditation" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="accreditation[]" required>
+                                    <label>Credential Accreditation</label>
+                                    <select class="w-full h-12 px-4 mt-2 border-line rounded-lg accreditation" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" name="accreditation[]">
                                         <option value="" <?php echo ($row['global_accreditation'] == '') ? 'selected' : ''; ?>>Select Credential Accreditation</option>
                                         <option value="N/A" <?php echo ($row['global_accreditation'] == 'N/A') ? 'selected' : ''; ?>>N/A</option>
                                         <option value="WES" <?php echo ($row['global_accreditation'] == 'WES') ? 'selected' : ''; ?>>WES</option>
@@ -535,7 +552,7 @@ if(!isset($_SESSION['seller_id'])){
 
                                 <!-- Certificate number input (initially hidden) -->
                                 <div class="jobLocation certificateDiv">
-                                    <label for="certificate_number">Certificate No <span class="text-red">*</span></label>
+                                    <label for="certificate_number">Certificate No </label>
                                     <input class="w-full h-12 px-4 mt-2 border-line rounded-lg certificate_number" type="text" placeholder="certificate number" name="certificate_number[]" value="<?php echo htmlspecialchars($row['global_certificate_no']); ?>" />
                                 </div>
                             </div>
@@ -640,14 +657,14 @@ if(!isset($_SESSION['seller_id'])){
 
                                         <!-- GPA -->
                                         <div class="jobLocation">
-                                            <label for="jobLocation">GPA <span class="text-red">*</span></label>
+                                            <label for="jobLocation">GPA</label>
                                             <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="10" name="canadian_gpa[]" value="<?php echo htmlspecialchars($row['can_gpa']); ?>"/>
                                         </div>
 
                                         <!-- Credential Accreditation -->
                                         <div class="education_level">
-                                            <label>Credential Accreditation <span class="text-red">*</span></label>
-                                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="canadian_accreditation[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));" required>
+                                            <label>Credential Accreditation</label>
+                                            <select class="w-full h-12 px-4 mt-2 border-line rounded-lg" name="canadian_accreditation[]" style="border: 1px solid rgb(228 228 228 / var(--tw-border-opacity));">
                                                 <option value="" <?php echo ($row['canadian_accreditation'] == '') ? 'selected' : ''; ?>>Select Credential Accreditation</option>
                                                 <option value="N/A" <?php echo ($row['canadian_accreditation'] == 'N/A') ? 'selected' : ''; ?>>N/A</option>
                                                 <option value="WES" <?php echo ($row['canadian_accreditation'] == 'WES') ? 'selected' : ''; ?>>WES</option>
@@ -657,7 +674,7 @@ if(!isset($_SESSION['seller_id'])){
 
                                         <!-- Certificate number input (initially hidden) -->
                                         <div class="jobLocation certificateDivCanadian">
-                                            <label for="certificate_number">Certificate No <span class="text-red">*</span></label>
+                                            <label for="certificate_number">Certificate No</label>
                                             <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" placeholder="certificate number" name="canadian_certificate_number[]" value="<?php echo htmlspecialchars($row['canadian_certificate_number']); ?>" />
                                         </div>
                                     </div>
@@ -749,7 +766,7 @@ if(!isset($_SESSION['seller_id'])){
                                         <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" name="end_date[]" value="<?php echo htmlspecialchars($row['end_date']); ?>" required />
                                     </div>
                                     <div class="jobLocation">
-                                        <label>Working till now?</label>
+                                        <label>Present</label>
                                         <input type="checkbox" class="px-4 mt-2 border-line rounded-lg" name="till_date[]" id="tillDateCheckbox" value="1"> Yes
                                     </div>
                                     <?php
@@ -906,6 +923,57 @@ if(!isset($_SESSION['seller_id'])){
 <?php include ('include/mobile_menu.php');?>
 
 <?php include ('include/script_new.php');?>
+
+
+<script>
+    $(document).ready(function() {
+        // Toggle form visibility when the button is clicked
+        $('#add_subskill').on('click', function() {
+            // Get the selected core skill value
+            const coreSkillId = $('#coreSkills1').val();
+            if (!coreSkillId) {
+                alert('Please select a core skill first.');
+                return;
+            }
+
+            // Set the core skill ID in the hidden input field
+            $('#coreSkillId').val(coreSkillId);
+
+            // Toggle the form visibility
+            $('#subskill_add_form').toggleClass('hidden visible');
+        });
+
+        // Handle the "Add" button click
+        $('#addSubSkillButton').on('click', function() {
+            const coreSkillId = $('#coreSkillId').val();
+            const newSubSkill = $('#newSubSkill').val();
+
+            if (!coreSkillId || !newSubSkill) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            // Send data to the server using AJAX
+            $.ajax({
+                url: 'insert_subskill.php',
+                type: 'POST',
+                data: {
+                    core_skill_id: coreSkillId,
+                    new_sub_skill: newSubSkill
+                },
+                success: function(response) {
+                    alert('Sub skill added successfully!');
+                    $('#newSubSkill').val(''); // Clear the input field
+                    $('#subskill_add_form').addClass('hidden'); // Hide the form
+                },
+                error: function(xhr, status, error) {
+                    alert('An error occurred while adding the sub skill.');
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    });
+</script>
 
 <!--js for appending global education field-->
 <script>

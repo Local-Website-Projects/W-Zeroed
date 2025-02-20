@@ -332,7 +332,7 @@ if(isset($_GET['seller'])){
                     <button type="button" class="w-full h-12 px-4 mt-2 button-main -border mt-5" onclick="copyURL()">Copy URL</button>
                     <script>
                         function copyURL() {
-                            navigator.clipboard.writeText("www.www.zeroed.one/Seller-Guest-View?seller=<?php
+                            navigator.clipboard.writeText("www.www.zeroed.one/IHM-View?seller=<?php
                                 $fetch_exp = $db_handle->runQuery("SELECT * FROM `sellers` where seller_id = '$seller'");
                                 $fetch_exp_no = $db_handle->numRows("SELECT * FROM `sellers` where seller_id = '$seller'");
                                 for ($i=0; $i<$fetch_exp_no; $i++) {
@@ -394,7 +394,7 @@ if(isset($_GET['seller'])){
 
             <script>
                 function copyURL() {
-                    navigator.clipboard.writeText("https://zeroed.one/Seller-Guest-View?seller=<?php
+                    navigator.clipboard.writeText("https://zeroed.one/IHM-View?seller=<?php
                         $fetch_exp = $db_handle->runQuery("SELECT * FROM `sellers` where seller_id = {$_SESSION['seller_id']}");
                         $fetch_exp_no = $db_handle->numRows("SELECT * FROM `sellers` where seller_id = {$_SESSION['seller_id']}");
                         for ($i=0; $i<$fetch_exp_no; $i++) {

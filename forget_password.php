@@ -8,7 +8,7 @@ $inserted_at = date("Y-m-d H:i:s");
 if(isset($_SESSION['seller_id'])){
     echo "
     <script>
-    window.location.href = 'Seller-Profile';
+    window.location.href = 'IHM';
     </script>
     ";
 }
@@ -25,7 +25,7 @@ if(isset($_POST['login'])){
         if($check_value == 1){
             echo "<script>
                 document.cookie = 'alert = 1;';
-                window.location.href='Seller-Profile';
+                window.location.href='IHM';
                 </script>";
         } else {
             echo "<script>
