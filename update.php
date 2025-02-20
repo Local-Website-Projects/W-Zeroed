@@ -175,6 +175,24 @@ if(isset($_POST['update_career'])){
     }
 }
 
+if(isset($_POST['update_video'])){
+    $seller_career_id = $db_handle->checkValue($_POST['seller_career_id']);
+    $videoSrc = $db_handle->checkValue($_POST['videoSrc']);
+
+    $update_video = $db_handle->insertQuery("UPDATE `seller_video` SET `video_src`='$videoSrc',`updated_at`='$inserted_at' WHERE `user_id`='$seller_career_id'");
+    if($update_video){
+        echo "<script>
+                     document.cookie = 'alert = 3;';
+                    window.location.href = 'Edit-Profile';
+                     </script>";
+    } else {
+        echo "<script>
+                     document.cookie = 'alert = 5;';
+                     window.location.href = 'Edit-Profile';
+                     </script>";
+    }
+}
+
 if(isset($_GET['dlt_id'])){
     $id = $_GET['dlt_id'];
     $fetch_skill_id = $db_handle->runQuery("select core_skill from seller_core_skills where s_core_skill_id = '$id'");

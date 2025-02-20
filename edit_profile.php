@@ -931,6 +931,565 @@ if(!isset($_SESSION['seller_id'])){
                         <button class="button-main" type="submit" name="update_career" id="publishButton">Update Career Goal</button>
                     </div>
                 </form>
+
+
+                <h5 class="heading5 mt-5">Video Section</h5>
+                <form action="Update" method="post">
+                    <input type="hidden" value="<?php echo $row['seller_career_id']?>" name="seller_career_id"/>
+                    <div class="grid sm:grid-cols-3 gap-3">
+                        <!-- Trigger Button -->
+                        <button type="button" class="w-full h-12 px-4 mt-2 button-main -border mt-5"
+                                onclick="document.getElementById('modal').classList.remove('hidden')">Add Video <span class="text-red">*</span></button>
+
+                        <div id="alert" class="bg-success text-white p-4 rounded-lg shadow-lg flex items-center justify-between space-x-4 hidden" style="height: 52px;margin-top: 18px;">
+                            <span id="messageSuccess"></span>
+                            <button onclick="dismissAlert()" class="text-white font-bold text-xl" type="button">&times;</button>
+                        </div>
+
+                        <script>
+                            function dismissAlert() {
+                                document.getElementById('alert').style.display = 'none';
+                            }
+                        </script>
+
+
+                        <!-- Modal -->
+                        <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center" style="z-index: 50">
+                            <div class="bg-white rounded-2xl shadow-xl max-w-2xl w-full p-6 overflow-y-auto max-h-[90vh]">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h2 class="text-2xl font-bold">🎥 Video Recording Tips</h2>
+                                    <button class="text-red-500 text-xl" type="button" onclick="document.getElementById('modal').classList.add('hidden')">
+                                        &times;</button>
+                                </div>
+
+                                <div class="space-y-4" id="content">
+                                    <h3 class="text-xl font-semibold">📋 Preparation Checklist:</h3>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>📷 Use a good quality camera (smartphone or HD webcam).</li>
+                                        <li>💡 Ensure good lighting, avoid backlighting.</li>
+                                        <li>🖼️ Keep your background clean and professional.</li>
+                                        <li>📹 Use a stable surface or tripod for steady shots.</li>
+                                        <li>👔 Dress appropriately for your industry.</li>
+                                        <li>🎯 Position the camera at eye level with good posture.</li>
+                                        <li>🎙️ Ensure clear audio, use an external mic if possible.</li>
+                                        <li>📝 Practice speaking naturally instead of reading a script.</li>
+                                        <li>😊 Smile and maintain positive body language.</li>
+                                        <li>⏳ Keep the video concise (1-2 minutes).</li>
+                                    </ul>
+
+                                    <div id="moreContent" class="hidden">
+                                        <h3 class="text-xl font-semibold">🎬 Video Structure:</h3>
+
+                                        <div>
+                                            <h4 class="font-bold">👋 Introduction (10-15 seconds)</h4>
+                                            <p>Start with a warm introduction and confidently present yourself.</p>
+                                            <p class="italic">Example: "Hi, my name is [Your Name], and I’m a [Your Profession/Industry]."</p>
+                                        </div>
+
+                                        <div>
+                                            <h4 class="font-bold">🚀 Key Highlights (30-45 seconds)</h4>
+                                            <p>Highlight key skills, achievements, or recent education.</p>
+                                            <p class="italic">Example: "I specialize in [Skill 1, Skill 2, Skill 3]."</p>
+                                        </div>
+
+                                        <div>
+                                            <h4 class="font-bold">🎯 Closing & Call to Action (15-20 seconds)</h4>
+                                            <p>Express enthusiasm and invite engagement.</p>
+                                            <p class="italic">Example: "I’m excited about roles in [Industry] and eager to contribute my skills."</p>
+                                        </div>
+
+                                        <h3 class="text-xl font-semibold">✔️ Final Tips:</h3>
+                                        <ul class="list-disc pl-5 space-y-2">
+                                            <li>Practice a few times before recording to feel comfortable.</li>
+                                            <li>Keep your tone friendly, professional, and engaging.</li>
+                                            <li>Be authentic—it helps you stand out!</li>
+                                        </ul>
+
+                                        <h3 class="text-xl font-semibold">🎥 Additional Video Recording Tips:</h3>
+                                        <ul class="list-disc pl-5 space-y-2">
+                                            <li>🎬 Record in landscape mode for a professional look.</li>
+                                            <li>🔇 Turn off notifications to avoid interruptions during recording.</li>
+                                            <li>⏱️ Pause briefly before and after speaking to allow for smooth editing.</li>
+                                            <li>📏 Maintain an appropriate distance from the camera (arm's length works well).</li>
+                                            <li>🌟 Show your personality to create a memorable and engaging video.</li>
+                                        </ul>
+                                    </div>
+
+                                    <button type="button" id="showMoreBtn" class="text-blue-600 font-semibold" onclick="toggleContent()">Show More</button>
+
+                                    <!-- Audio Files Section -->
+                                    <div class="mt-6">
+                                        <h3 class="text-xl font-semibold">🎧 Instruction Audio Files:</h3>
+                                        <div class="space-y-4">
+                                            <div>
+                                                <h4 class="font-bold">Tips on how to record: </h4>
+                                                <audio controls style="width: 100%">
+                                                    <source src="assets/audio/Tips%20on%20how%20to%20record%20record.mp3" type="audio/mp3">
+                                                    Your browser does not support the audio element.
+                                                </audio>
+                                            </div>
+                                            <div>
+                                                <h4 class="font-bold">Tips on Intro Video Format: </h4>
+                                                <audio controls style="width: 100%">
+                                                    <source src="assets/audio/Tips%20on%20Intro%20Video%20Format.mp3" type="audio/mp3">
+                                                    Your browser does not support the audio element.
+                                                </audio>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Video Upload/Recording Section -->
+                                    <div class="mt-6 space-y-4">
+                                        <h3 class="text-xl font-semibold">📹 Video Options:</h3>
+                                        <div class="flex justify-end space-x-4">
+                                            <button id="openUploadModal" type="button" class="w-full h-12 px-4 mt-2 button-main -border mt-5">Upload Video</button>
+                                            <button id="openRecordModal" type="button" class="w-full h-12 px-4 mt-2 button-main -border mt-5">Record Video</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="videoSrc" id="videoSrc" value="">
+
+                        <!-- Upload Video Modal -->
+                        <div id="uploadModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50" style="z-index: 55">
+                            <div class="bg-white rounded-2xl shadow-lg p-6 w-96 relative">
+                                <h2 class="text-2xl font-semibold mb-4">Upload Video</h2>
+                                <input type="file" id="video-file" accept="video/*" class="block w-full text-gray-700 border border-gray-300 rounded-lg p-2 mb-4" />
+
+                                <button id="closeUploadModal" type="button" class="absolute top-2 right-2 text-gray-400 hover:text-gray-800 text-xl">&times;</button>
+
+                                <div class="flex justify-end space-x-2">
+                                    <button type="button" class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400" onclick="closeModal('uploadModal')">Cancel</button>
+                                    <button id="uploadButton" type="button" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600" disabled>Upload</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Upload Progress Bar -->
+                        <div id="progressContainer" class="fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50 hidden" style="z-index:1000;">
+                            <div class="w-full bg-gray-200 rounded-lg relative">
+                                <div id="progressBar" class="h-9" style="width: 100%;background: #00c5ff;border-radius: 0;"></div>
+                                <span id="progressText" class="absolute inset-0 flex items-center justify-center text-sm font-semibold text-black" style="">100%</span>
+                            </div>
+                        </div>
+
+                        <!-- Record Video Modal -->
+                        <div id="recordModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50" style="z-index: 55">
+                            <div class="bg-white rounded-2xl shadow-lg p-6 w-96 relative">
+                                <h2 class="text-2xl font-semibold mb-4">Record Video for 2 Minutes</h2>
+                                <video id="webcam" class="w-full h-48 bg-gray-200 rounded mb-4" autoplay muted></video>
+
+                                <div id="timer">02:00</div>
+                                <video id="video-player" controls style="display:none;margin-bottom: 30px;" autoplay muted></video>
+
+                                <button id="closeRecordModal" type="button" class="absolute top-2 right-2 text-gray-400 hover:text-gray-800 text-xl">&times;</button>
+
+                                <div class="flex justify-end space-x-2">
+                                    <button type="button" class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400" onclick="closeModal('recordModal')">Cancel</button>
+                                    <button id="start-recording" type="button" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">Start Recording</button>
+                                    <button id="pause-recording" type="button" class="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600" style="display:none;">Pause</button>
+                                    <button id="resume-recording" type="button" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600" style="display:none;">Resume</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Full-page Spinner -->
+                        <div id="spinner" class="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center hidden" style="z-index: 100">
+                            <div class="spinner-border animate-spin inline-block w-16 h-16 border-4 border-t-4 border-white rounded-full" role="status">
+                                <span class="visually-hidden">.</span>
+                            </div>
+                        </div>
+
+
+                        <script>
+                            const spinner = document.getElementById('spinner');
+                            // Modal Triggers
+                            document.getElementById('openUploadModal').addEventListener('click', () => openModal('uploadModal'));
+                            document.getElementById('openRecordModal').addEventListener('click', () => {
+                                openModal('recordModal');
+                                startWebcam(); // Start the webcam when the record modal opens
+                            });
+
+                            // Close Buttons
+                            document.getElementById('closeUploadModal').addEventListener('click', () => closeModal('uploadModal'));
+                            document.getElementById('closeRecordModal').addEventListener('click', () => closeModal('recordModal'));
+
+                            // Open & Close Modal Functions
+                            function openModal(id) {
+                                document.getElementById(id).classList.remove('hidden');
+                                document.getElementById(id).classList.add('flex');
+                            }
+
+                            function toggleContent(){
+                                const moreContent = document.getElementById('moreContent');
+                                const showMoreBtn = document.getElementById('showMoreBtn');
+
+                                if (moreContent.classList.contains('hidden')) {
+                                    moreContent.classList.remove('hidden');
+                                    showMoreBtn.textContent = 'Show Less';
+                                } else {
+                                    moreContent.classList.add('hidden');
+                                    showMoreBtn.textContent = 'Show More';
+                                }
+                            }
+
+                            function closeModal(id) {
+                                document.getElementById(id).classList.add('hidden');
+                                document.getElementById(id).classList.remove('flex');
+                            }
+
+                            // Handle file input change and enable the upload button
+                            document.getElementById("video-file").addEventListener("change", function () {
+                                const fileInput = this;
+                                const uploadButton = document.getElementById("uploadButton");
+
+                                if (fileInput.files.length > 0) {
+                                    const file = fileInput.files[0];
+                                    const allowedTypes = ["video/mp4", "video/webm"];
+
+                                    if (allowedTypes.includes(file.type)) {
+                                        uploadButton.disabled = false;
+                                    } else {
+                                        uploadButton.disabled = true;
+                                        alert("Please select an MP4 or WebM file.");
+                                        fileInput.value = ""; // Clear the invalid file
+                                    }
+                                } else {
+                                    uploadButton.disabled = true;
+                                }
+                            });
+
+
+                            // When upload button is clicked, show progress bar and start upload
+                            document.getElementById('uploadButton').addEventListener('click', function () {
+                                // Show progress modal
+                                openModal('uploadModal');
+                                document.getElementById('messageSuccess').innerHTML="";
+
+                                const fileInput = document.getElementById('video-file');
+                                const file = fileInput ? fileInput.files[0] : null;
+
+                                if (file) {
+                                    // Show the progress bar and reset its value
+                                    document.getElementById('progressContainer').classList.remove('hidden');
+                                    document.getElementById('progressBar').style.width = "0%";
+                                    document.getElementById('progressText').textContent = "0%";
+
+                                    // Generate a random number between 1 and 1000 for the filename
+                                    const randomNum = Math.floor(Math.random() * 1000) + 1;
+                                    const currentDateTime = new Date().toISOString().replace(/[^\w\s]/gi, '_');
+                                    const newFileName = `${randomNum}_${currentDateTime}.mp4`;
+
+                                    const formData = new FormData();
+                                    formData.append('video', file, newFileName);
+
+                                    // AJAX request with progress tracking
+                                    $.ajax({
+                                        url: 'upload.php',
+                                        type: 'POST',
+                                        data: formData,
+                                        contentType: false,
+                                        processData: false,
+                                        xhr: function () {
+                                            const xhr = new window.XMLHttpRequest();
+                                            xhr.upload.addEventListener("progress", function (event) {
+                                                if (event.lengthComputable) {
+                                                    const percentComplete = Math.round((event.loaded / event.total) * 100);
+                                                    document.getElementById('progressBar').style.width = percentComplete + "%";
+                                                    document.getElementById('progressText').textContent = percentComplete + "%";
+                                                }
+                                            }, false);
+                                            return xhr;
+                                        },
+                                        success: function (response) {
+                                            console.log('File uploaded successfully!');
+                                            alert('File uploaded successfully!');
+                                            document.getElementById('videoSrc').value = newFileName;
+
+                                            // Set progress bar to 100% on success
+                                            document.getElementById('progressBar').style.width = "100%";
+                                            document.getElementById('progressText').textContent = "100%";
+
+
+                                            document.getElementById('progressContainer').classList.add('hidden');
+                                            document.getElementById('alert').classList.remove('hidden');
+                                            document.getElementById('messageSuccess').innerHTML="Video Uploaded Successfully.";
+
+                                        },
+                                        error: function (jqXHR, textStatus, errorThrown) {
+                                            console.log('Error uploading file: ' + errorThrown);
+                                            alert('Error uploading file.');
+
+                                            // Hide progress bar on error as well
+                                            document.getElementById('progressContainer').classList.add('hidden');
+                                        }
+                                    });
+                                } else {
+                                    alert('Please select a file to upload.');
+                                }
+                            });
+
+
+                            let isRecording = false;  // To track recording state
+                            let isPaused = false;  // To track if the recording is paused
+                            let mediaRecorder;
+                            let recordedChunks = [];
+                            let stream;
+                            let timerInterval;
+                            let countdown = 120;  // 2 minutes
+                            let currentTime = countdown;
+
+                            // Function to start recording
+                            document.getElementById('start-recording').addEventListener('click', function () {
+                                if (!isRecording) {
+                                    resetRecordingState();  // Reset previous recordings
+                                    if (mediaRecorder && mediaRecorder.state === 'inactive') {
+                                        isRecording = true;
+                                        this.textContent = "Stop Recording";  // Change to "Stop Recording"
+                                        this.classList.remove("bg-green-500");
+                                        this.classList.add("bg-red-500", "hover:bg-red-600");
+                                        document.getElementById('pause-recording').style.display = 'inline-block';  // Show Pause Button
+                                        document.getElementById('resume-recording').style.display = 'none';  // Hide Resume Button
+                                        setTimeout(() => {
+                                            mediaRecorder.start();
+                                            startTimer();
+                                        }, 1000);
+                                    }
+                                } else {
+                                    stopRecording();  // Stop if already recording
+                                }
+                            });
+
+                            // Function to pause recording
+                            document.getElementById('pause-recording').addEventListener('click', function () {
+                                if (mediaRecorder && mediaRecorder.state === 'recording') {
+                                    mediaRecorder.pause();  // Pause the media recording
+                                    isPaused = true;
+                                    clearInterval(timerInterval);  // Stop the timer
+
+                                    // Show the Resume Button and Hide the Pause Button
+                                    document.getElementById('pause-recording').style.display = 'none';
+                                    document.getElementById('resume-recording').style.display = 'inline-block';
+                                }
+                            });
+
+                            // Function to resume recording
+                            document.getElementById('resume-recording').addEventListener('click', function () {
+                                if (mediaRecorder && mediaRecorder.state === 'paused') {
+                                    mediaRecorder.resume();  // Resume the media recording
+                                    isPaused = false;
+                                    startTimer();  // Resume the timer
+
+                                    // Show the Pause Button and Hide the Resume Button
+                                    document.getElementById('pause-recording').style.display = 'inline-block';
+                                    document.getElementById('resume-recording').style.display = 'none';
+                                }
+                            });
+
+
+                            // Log chunks during recording
+                            /*mediaRecorder.ondataavailable = function (event) {
+                                if (event.data.size > 0) {
+                                    console.log('Recording chunk:', event.data);
+                                    recordedChunks.push(event.data);  // Push each chunk into the array
+                                }
+                            };*/
+
+                            // Log when the recording stops
+                            mediaRecorder.onstop = function () {
+                                console.log('Recording stopped');
+                                if (recordedChunks.length > 0) {
+                                    console.log('Recorded Chunks:', recordedChunks);
+                                    const blob = new Blob(recordedChunks, { type: 'video/webm' });
+                                    console.log('Blob created:', blob);
+                                } else {
+                                    console.log('No recorded data.');
+                                }
+                            };
+
+                            // Call stopRecording when you're ready to stop recording
+                            // Function to stop recording
+                            function stopRecording() {
+                                document.getElementById('messageSuccess').innerHTML="";
+                                if (mediaRecorder && mediaRecorder.state === 'recording') {
+                                    mediaRecorder.stop();
+                                    stopWebcam();
+                                    clearInterval(timerInterval); // Stop the countdown
+                                    document.getElementById('start-recording').textContent = "Start Recording";  // Reset the button text
+                                    document.getElementById('start-recording').classList.remove("bg-red-500", "hover:bg-red-600");
+                                    document.getElementById('start-recording').classList.add("bg-green-500", "hover:bg-green-600");
+                                    isRecording = false;
+
+                                    // Hide Pause and Resume buttons
+                                    document.getElementById('pause-recording').style.display = 'none';
+                                    document.getElementById('resume-recording').style.display = 'none';
+
+                                    // Show progress bar and reset its value before starting upload
+                                    document.getElementById('progressContainer').classList.remove('hidden');  // Make progress bar visible
+                                    document.getElementById('progressBar').style.width = "0%";
+                                    document.getElementById('progressText').textContent = "0%";
+
+                                    // Simulate progress from 0% to 100% over 5 seconds (5000 milliseconds)
+                                    let progress = 0; // Initial progress
+                                    const interval = setInterval(function () {
+                                        progress += 2; // Increase progress by 2% every interval
+                                        document.getElementById('progressBar').style.width = progress + "%";
+                                        document.getElementById('progressText').textContent = progress + "%";
+
+                                        if (progress >= 100) {
+                                            clearInterval(interval);  // Stop interval once we reach 100%
+                                        }
+                                    }, 50); // Every 50 milliseconds (100% / 5 seconds = 2% per 50ms)
+
+
+                                    // Hide progress bar after successful upload
+                                    setTimeout(function() {
+                                        document.getElementById('progressContainer').classList.add('hidden');  // Hide progress bar
+                                    }, 10000);  // Hide after 10 seconds
+
+                                    const blob = new Blob(recordedChunks, { type: 'video/webm' }); // Keep MIME type as webm
+                                    const fileName = generateFileName(); // Filename generator function
+                                    document.getElementById('videoSrc').value = fileName;
+
+
+                                    // Check if there are recorded chunks to upload
+                                    if (recordedChunks.length > 0) {
+
+
+                                        const formData = new FormData();
+                                        formData.append('video', blob, fileName); // Append video blob with the filename
+
+                                        // AJAX request to upload the video
+                                        $.ajax({
+                                            url: 'upload.php',  // PHP script to handle the upload (adjust URL as needed)
+                                            type: 'POST',
+                                            data: formData,
+                                            contentType: false,
+                                            processData: false,
+                                            success: function (response) {
+                                                console.log('Response from server:', response); // Log the response
+                                                alert('File uploaded successfully!');  // Show success alert
+                                            },
+                                            error: function (jqXHR, textStatus, errorThrown) {
+                                                console.log('Error uploading file: ' + errorThrown);
+                                                alert('Error uploading file!');  // Show error alert
+                                            }
+                                        });
+                                    } else {
+                                        console.log('No data recorded to upload.');
+                                    }
+                                }
+
+                                document.getElementById('alert').classList.remove('hidden');
+                                document.getElementById('messageSuccess').innerHTML="Video Uploaded Successfully.";
+                            }
+
+
+
+                            // Function to generate a unique filename
+                            function generateFileName() {
+                                const randomNum = Math.floor(Math.random() * 1000) + 1;  // Generate random number for uniqueness
+                                const timestamp = new Date().toISOString().replace(/[^\w\s]/gi, '_');  // Format timestamp
+                                return `${randomNum}_${timestamp}_recording.webm`;  // Return formatted filename
+                            }
+
+                            // Function to start the countdown timer
+                            function startTimer() {
+                                timerInterval = setInterval(function () {
+                                    if (!isPaused) {
+                                        countdown--;
+                                    }
+
+                                    let minutes = Math.floor(countdown / 60);
+                                    let seconds = countdown % 60;
+                                    document.getElementById('timer').innerText = `${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+
+                                    if (countdown <= 0) {
+                                        clearInterval(timerInterval);
+                                        stopRecording();  // Stop recording automatically when the timer hits 0
+                                    }
+                                }, 1000);
+                            }
+
+                            // Function to reset the recording state (useful for stopping or restarting)
+                            function resetRecordingState() {
+                                countdown = currentTime;
+                                recordedChunks = [];
+                                const videoPlayer = document.getElementById('video-player');
+                                videoPlayer.style.display = 'none';
+                                videoPlayer.src = '';
+                                if (isRecording) {
+                                    stopRecording();
+                                }
+                                startWebcam();
+                            }
+
+                            // Webcam setup (same as before)
+                            function startWebcam() {
+                                navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+                                    .then(function (mediaStream) {
+                                        stream = mediaStream;
+                                        const videoElement = document.getElementById('webcam');
+                                        videoElement.srcObject = stream;
+                                        videoElement.style.display = 'block';
+
+                                        const mimeType = 'video/webm';
+                                        mediaRecorder = new MediaRecorder(stream, { mimeType: mimeType });
+                                        mediaRecorder.ondataavailable = function (event) {
+                                            recordedChunks.push(event.data);
+                                        };
+                                        mediaRecorder.onstop = function () {
+                                            // Upload the file after stopping the recording
+                                            const blob = new Blob(recordedChunks, { type: mimeType });
+                                            if (blob.size > 0) {
+                                                const formData = new FormData();
+                                                const fileName = generateFileName();
+                                                formData.append('video', blob, fileName);
+
+                                                // AJAX to upload the recorded video
+                                                $.ajax({
+                                                    url: 'upload.php',  // PHP script to handle the upload
+                                                    type: 'POST',
+                                                    data: formData,
+                                                    contentType: false,
+                                                    processData: false,
+                                                    success: function(response) {
+                                                        console.log(response);
+                                                        alert('Upload successful!');
+                                                    },
+                                                    error: function(error) {
+                                                        alert('Error uploading the file');
+                                                    }
+                                                });
+                                            }
+                                        };
+                                    })
+                                    .catch(function (err) {
+                                        console.error("Error accessing webcam: ", err);
+                                        alert('There was an issue accessing the webcam or microphone.');
+                                    });
+                            }
+
+                            function stopWebcam() {
+                                const videoElement = document.getElementById('webcam');
+                                const stream = videoElement.srcObject;
+                                if (stream) {
+                                    const tracks = stream.getTracks();
+                                    tracks.forEach(track => track.stop());
+                                    videoElement.srcObject = null;
+                                }
+                            }
+                        </script>
+                    </div>
+                    <!--reset and submit section starts here-->
+                    <div class="flex items-center col-span-full gap-5 mt-5">
+                        <button class="button-main" type="submit" name="update_video" id="update_video">Update Video</button>
+                    </div>
+                </form>
+
             </div>
         </div>
         <?php include ('include/dashboard_footer.php');?>

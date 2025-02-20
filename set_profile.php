@@ -1304,10 +1304,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         document.getElementById('progressContainer').classList.add('hidden');  // Hide progress bar
                                     }, 10000);  // Hide after 10 seconds
 
+                                    const blob = new Blob(recordedChunks, { type: 'video/webm' }); // Keep MIME type as webm
+                                    const fileName = generateFileName(); // Filename generator function
+                                    document.getElementById('videoSrc').value = fileName;
+
+
                                     // Check if there are recorded chunks to upload
                                     if (recordedChunks.length > 0) {
-                                        const blob = new Blob(recordedChunks, { type: 'video/webm' }); // Keep MIME type as webm
-                                        const fileName = generateFileName(); // Filename generator function
+
 
                                         const formData = new FormData();
                                         formData.append('video', blob, fileName); // Append video blob with the filename
