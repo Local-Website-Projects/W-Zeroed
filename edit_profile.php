@@ -1861,7 +1861,13 @@ if(!isset($_SESSION['seller_id'])){
         return regex.test(website);
     }
 
+    function countWords(text) {
+        return text.trim().split(/\s+/).filter(word => word.length > 0).length;
+    }
+
     function applyValidation(section) {
+
+
         // Bind validation to the company website field
         section.find('.company-website').on('input', function () {
             const website = $(this).val().trim();
@@ -1885,6 +1891,18 @@ if(!isset($_SESSION['seller_id'])){
                 errorMessage.removeClass('hidden');
             } else {
                 errorMessage.addClass('hidden');
+            }
+        });
+
+        section.find('textarea[name^="accomplishment"]').on('input', function () {
+            const text = $(this).val().trim();
+            const wordCount = countWords(text);
+
+            if (wordCount > 14) {
+                alert("You can only enter up to 14 words in the accomplishments field.");
+                // Truncate the text to 14 words
+                const truncatedText = text.split(/\s+/).slice(0, 14).join(' ');
+                $(this).val(truncatedText);
             }
         });
     }

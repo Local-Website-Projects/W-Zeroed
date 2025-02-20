@@ -656,10 +656,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <span class="mt-5 grid sm:grid-cols-3 gap-3 col-span-3 hidden" id="subskill_add_form" style="width: 100%; justify-content: space-between;">
                             <div class="flex-1">
                                 <label>Enter new subskill <span class="text-red">*</span></label>
-                                <input id="coreSkillId" class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="hidden" name="core_skill_id" required/>
+                                <input id="coreSkillId" class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="hidden" name="core_skill_id"/>
                             </div>
                             <div class="flex-1">
-                                <input id="newSubSkill" class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" name="new_sub_skill" placeholder="Enter subskill" required/>
+                                <input id="newSubSkill" class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" name="new_sub_skill" placeholder="Enter subskill"/>
                             </div>
                             <div class="flex-1">
                                 <button type="button" id="addSubSkillButton" class="w-full h-12 px-4 button-main -border mt-2">Add</button>
@@ -699,10 +699,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <span class="mt-5 grid sm:grid-cols-3 gap-3 col-span-3 hidden" id="subskill_add_form_2" style="width: 100%; justify-content: space-between;">
                             <div class="flex-1">
                                 <label>Enter new subskill <span class="text-red">*</span></label>
-                                <input id="coreSkillId2" class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="hidden" name="core_skill_id" required/>
+                                <input id="coreSkillId2" class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="hidden" name="core_skill_id"/>
                             </div>
                             <div class="flex-1">
-                                <input id="newSubSkill2" class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" name="new_sub_skill" placeholder="Enter subskill" required/>
+                                <input id="newSubSkill2" class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" name="new_sub_skill" placeholder="Enter subskill"/>
                             </div>
                             <div class="flex-1">
                                 <button type="button" id="addSubSkillButton2" class="w-full h-12 px-4 button-main -border mt-2">Add</button>
@@ -742,10 +742,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <span class="mt-5 grid sm:grid-cols-3 gap-3 col-span-3 hidden" id="subskill_add_form_3" style="width: 100%; justify-content: space-between;">
                             <div class="flex-1">
                                 <label>Enter new subskill <span class="text-red">*</span></label>
-                                <input id="coreSkillId3" class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="hidden" name="core_skill_id" required/>
+                                <input id="coreSkillId3" class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="hidden" name="core_skill_id"/>
                             </div>
                             <div class="flex-1">
-                                <input id="newSubSkill3" class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" name="new_sub_skill" placeholder="Enter subskill" required/>
+                                <input id="newSubSkill3" class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" name="new_sub_skill" placeholder="Enter subskill"/>
                             </div>
                             <div class="flex-1">
                                 <button type="button" id="addSubSkillButton3" class="w-full h-12 px-4 button-main -border mt-2">Add</button>
@@ -1934,6 +1934,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </script>
 
 <script>
+    function extractDomain(website) {
+        website = website.replace(/^https?:\/\//, '').replace(/^www\./, '');
+        return website.split('/')[0];
+    }
+
+    function isValidWebsite(website) {
+        const regex = /^(https:\/\/|www\.)[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\/\S*)?$/;
+        return regex.test(website);
+    }
+
     function countWords(text) {
         return text.trim().split(/\s+/).filter(word => word.length > 0).length;
     }
@@ -1965,7 +1975,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         });
 
-        // Bind word count validation to the accomplishments fields
         section.find('textarea[name^="accomplishment"]').on('input', function () {
             const text = $(this).val().trim();
             const wordCount = countWords(text);
@@ -1980,35 +1989,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     $(document).ready(function () {
-        // Apply validation to the initial fields
-        applyValidation($('.experience-section').first());
+        // Apply validation to all existing experience sections on page load
+        $('.experience-section').each(function () {
+            applyValidation($(this));
+        });
 
-        // Add new experience section
-        $("#addExperience").click(function (e) {
-            e.preventDefault();
-            let newExperience = $(".experience-section").first().clone();
+        // Bind the "Present" checkbox event handler to the document level
+        $(document).on('change', '#tillDateCheckbox', function () {
+            const endDateInput = $(this).closest('.experience-section').find('#endDate');
+            if ($(this).is(':checked')) {
+                endDateInput.prop('disabled', true);
+            } else {
+                endDateInput.prop('disabled', false);
+            }
+        });
 
-            // Clear all input fields and error messages
-            newExperience.find("input, textarea, select").val("");
-            newExperience.find('.error-message, .website-error-message').addClass('hidden');
-
+        // If you're dynamically adding new sections, reapply validation to the new fields
+        $(document).on('click', '#addExperience', function () {
+            const newSection = $('.experience-section').first().clone();
+            newSection.find('input').val(''); // Clear input values in the new section
+            newSection.find('.error-message').addClass('hidden'); // Hide error messages in the new section
             // Remove any existing "Remove" buttons from the clone
-            newExperience.find('.remove-experience').remove();
+            newSection.find('.remove-experience').remove();
 
             // Add a new "Remove" button only to the cloned section
-            newExperience.append('<button class="remove-experience w-full h-10 mt-4 bg-red-500 text-white rounded-lg">Remove</button>');
-
-            // Append the new experience section
-            $("#experience-container").append(newExperience);
-
-            // Apply validation to the new fields
-            applyValidation(newExperience);
+            newSection.append('<button class="remove-experience w-full h-10 mt-4 bg-red-500 text-white rounded-lg">Remove</button>');
+            newSection.find('#endDate').prop('disabled', false); // Ensure the end date is enabled by default
+            $('#experience-container').append(newSection);
+            applyValidation(newSection); // Apply validation to the new section
+            $(document).on('click', '.remove-experience', function () {
+                newSection.remove();
+            });
         });
 
-        // Remove the specific experience section on clicking the "Remove" button
-        $(document).on('click', '.remove-experience', function () {
-            $(this).closest('.experience-section').remove();
-        });
     });
 </script>
 
