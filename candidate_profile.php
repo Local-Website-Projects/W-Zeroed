@@ -48,20 +48,20 @@ if(!isset($_SESSION['seller_id'])) {
                             <li class="jobs_item px-6 py-5 rounded-lg bg-white shadow-md duration-300 hover:shadow-xl" style="background: #00c5ff;">
                                 <div class="jobs_info flex gap-4 w-full border-b border-line" style="border: unset">
                                     <div class="jobs_content flex items-center justify-between gap-2 w-full">
-                                        <a href="#" class="jobs_detail flex flex-col gap-0.5 duration-300 hover:text-primary">
+                                        <div class="jobs_detail flex-col gap-0.5 duration-300 hover:text-primary">
                                             <h5 class="heading5"><?php echo $fetch_profile[0]['first_name'].' '.$fetch_profile[0]['last_name'];?></h5>
                                             <div class="flex flex-wrap items-center gap-5 gap-y-1">
                                                 <div class="jobs_address -style-1" style="color: #fff">
                                                     <span class="ph ph-map-pin text-lg"></span>
                                                     <span class="address caption1 align-top"><?php echo $fetch_profile[0]['city'].' '.$fetch_profile[0]['state'].', '.$fetch_profile[0]['country'];?></span>
                                                 </div>
-                                                <div class="jobs_date" style="color: #fff">
+                                                <div class="jobs_date" style="color: #fff;font-size: 12px">
                                                     <span class="ph ph-phone text-lg"></span>
-                                                    <span class="date caption1 align-top"><?php echo $fetch_profile[0]['country_code']; ?> <?php echo $fetch_profile[0]['contact_no'];?></span>
+                                                    <span class="date caption1 align-top"><a href="callto:<?php echo $fetch_profile[0]['contact_no'];?>"><?php echo $fetch_profile[0]['country_code']; ?> <?php echo $fetch_profile[0]['contact_no'];?></a></span>
                                                 </div>
-                                                <div class="jobs_date" style="color: #fff">
+                                                <div class="jobs_date" style="color: #fff;font-size: 12px">
                                                     <span class="ph ph-envelope-simple-open text-lg"></span>
-                                                    <span class="date caption1 align-top"><?php echo $fetch_profile[0]['contact_email'];?></span>
+                                                    <span class="date caption1 align-top"><a href="mailto:<?php echo $fetch_profile[0]['contact_email'];?>"><?php echo $fetch_profile[0]['contact_email'];?></a></span>
                                                 </div>
                                             </div>
                                         </a>

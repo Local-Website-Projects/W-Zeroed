@@ -71,6 +71,26 @@ if(!isset($_SESSION['seller_id'])){
         .remove_btn:hover {
             background-color: #ff1a1a;
         }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 26px;
+            position: absolute;
+            top: 18px;
+            right: 1px;
+            width: 20px;
+        }
+
+        .select2-container--default .select2-selection--single {
+            margin-top: 8px !important;
+            height: 47px !important;
+            border: 1px solid #e4e4e4 !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #444;
+            line-height: 28px;
+            margin-top: 7px !important;
+        }
     </style>
 </head>
 

@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Check if there's no error
         if ($fileError === 0) {
             $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
-            $allowed = ['mp4'];
+            $allowed = ['webm', 'mp4'];  // Allow both webm and mp4 extensions
 
             // Check if the file extension is allowed
             if (in_array(strtolower($fileExt), $allowed)) {
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     echo "Failed to upload the file.";
                 }
             } else {
-                echo "Invalid file type. Only MP4 files are allowed.";
+                echo "Invalid file type. Only WebM and MP4 files are allowed.";
             }
         } else {
             echo "Error uploading the file. Error code: " . $fileError;
@@ -41,4 +41,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
-

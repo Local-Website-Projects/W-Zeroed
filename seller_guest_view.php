@@ -68,23 +68,23 @@ if(isset($_GET['seller'])){
                         <li class="jobs_item px-6 py-5 rounded-lg bg-white shadow-md duration-300 hover:shadow-xl" style="background: #00c5ff;">
                             <div class="jobs_info flex gap-4 w-full border-b border-line" style="border: unset">
                                 <div class="jobs_content flex items-center justify-between gap-2 w-full">
-                                    <a href="#" class="jobs_detail flex flex-col gap-0.5 duration-300 hover:text-primary">
+                                    <div  class="jobs_detail flex-col gap-0.5 duration-300 hover:text-primary">
                                         <h5 class="heading5"><?php echo $fetch_profile[0]['first_name'].' '.$fetch_profile[0]['last_name'];?></h5>
                                         <div class="flex flex-wrap items-center gap-5 gap-y-1">
                                             <div class="jobs_address -style-1" style="color: #fff">
                                                 <span class="ph ph-map-pin text-lg"></span>
                                                 <span class="address caption1 align-top"><?php echo $fetch_profile[0]['city'].' '.$fetch_profile[0]['state'].', '.$fetch_profile[0]['country'];?></span>
                                             </div>
-                                            <div class="jobs_date" style="color: #fff">
+                                            <div class="jobs_date" style="color: #fff;font-size: 12px">
                                                 <span class="ph ph-phone text-lg"></span>
-                                                <span class="date caption1 align-top"><?php echo $fetch_profile[0]['country_code']; ?> <?php echo $fetch_profile[0]['contact_no'];?></span>
+                                                <span class="date caption1 align-top"><a href="callto:<?php echo $fetch_profile[0]['contact_no'];?>"><?php echo $fetch_profile[0]['country_code']; ?> <?php echo $fetch_profile[0]['contact_no'];?></a></span>
                                             </div>
-                                            <div class="jobs_date" style="color: #fff">
+                                            <div class="jobs_date" style="color: #fff;font-size: 12px">
                                                 <span class="ph ph-envelope-simple-open text-lg"></span>
-                                                <span class="date caption1 align-top"><?php echo $fetch_profile[0]['contact_email'];?></span>
+                                                <span class="date caption1 align-top"><a href="mailto:<?php echo $fetch_profile[0]['contact_email'];?>"><?php echo $fetch_profile[0]['contact_email'];?></a></span>
                                             </div>
                                         </div>
-                                    </a>
+                                    </div>
                                 </div>
                                 <a href="#" class="overflow-hidden flex-shrink-0 w-32 h-32">
                                     <img src="<?php echo $fetch_profile[0]['profile_image'];?>" alt="seller profile image" class="jobs_avatar w-full h-full object-cover">
@@ -375,7 +375,27 @@ if(isset($_GET['seller'])){
                             }
                             ?>
                         </div>
-                        <div class="list_social mt-7.5 rounded-lg bg-white shadow-sm">
+
+                    </div>
+                </div>
+
+                <!-- Button to Open Popup -->
+                <button id="openPopup" class="fixed bottom-5 right-5 z-[1000] bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 15h6M21 12c0 4.418-4.03 8-9 8-1.61 0-3.14-.385-4.45-1.06L3 21l1.16-4.69C2.84 15.135 3 13.596 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                    </svg>
+                </button>
+
+
+                <!-- Popup Container -->
+                <div id="popupContainer" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000] hidden">
+                    <!-- Popup Box -->
+                    <div class="relative bg-white w-full max-w-lg p-8 rounded-lg shadow-lg">
+                        <!-- Close Button -->
+                        <button id="closePopup" class="absolute top-3 right-3 text-gray-600 hover:text-gray-900 text-2xl">&times;</button>
+
+                        <!-- Contact Form -->
+                        <div class="list_social rounded-lg">
                             <form class="form_change grid grid-cols-2 gap-5 w-full p-10 rounded-lg bg-white shadow-sm" action="Insert" method="POST">
                                 <div class="email col-span-full flex flex-col">
                                     <label for="full_name" class="w-fit">Your Name: <span class="text-red">*</span></label>
@@ -408,6 +428,23 @@ if(isset($_GET['seller'])){
                         </div>
                     </div>
                 </div>
+
+                <!-- JavaScript for Popup Toggle -->
+                <script>
+                    document.getElementById('openPopup').addEventListener('click', function() {
+                        document.getElementById('popupContainer').classList.remove('hidden');
+                    });
+
+                    document.getElementById('closePopup').addEventListener('click', function() {
+                        document.getElementById('popupContainer').classList.add('hidden');
+                    });
+
+                    document.getElementById('popupContainer').addEventListener('click', function(event) {
+                        if (event.target === this) {
+                            this.classList.add('hidden');
+                        }
+                    });
+                </script>
 
                 <script>
                     function copyURL() {
