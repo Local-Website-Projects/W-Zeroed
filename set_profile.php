@@ -1567,7 +1567,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <!--canadian education-->
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Function to toggle certificateDivCanadian visibility
         function toggleCertificateField(selectElement) {
             const selectedValue = $(selectElement).val();
@@ -1584,14 +1584,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $('#canadianEducationSection select').select2();
 
         // Toggle button functionality
-        $('#canadianEducationSection .toggle_btn').on('click', function() {
+        $(document).on('click', '.toggle_btn', function () {
             const educationFields = $(this).closest('.educationSection').find('.educationFields');
-            educationFields.find('select, input').prop('disabled', function(i, val) {
+            educationFields.find('select, input').prop('disabled', function (i, val) {
                 return !val;
             });
         });
 
-        // Add Another Education button functionality
         $('#addCanadianEducation').on('click', function() {
             const newEducationSection = $('#canadianEducationSection .educationSection').first().clone();
             newEducationSection.find('select, input').prop('disabled', true); // Disable fields initially
@@ -1614,19 +1613,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $('#canadianEducationSection select').select2(); // Reinitialize Select2 for new fields
         });
 
+
         // Hide remove button for the initial section
         $('#canadianEducationSection .educationSection').first().find('.remove_btn').hide();
 
         // Handle certificate field visibility for the initial section
-        $('#canadianEducationSection select[name="canadian_accreditation[]"]').on('change', function() {
+        $('#canadianEducationSection select[name="canadian_accreditation[]"]').on('change', function () {
             toggleCertificateField(this);
         });
 
         // Initialize certificate field visibility on page load
-        $('#canadianEducationSection select[name="canadian_accreditation[]"]').each(function() {
+        $('#canadianEducationSection select[name="canadian_accreditation[]"]').each(function () {
             toggleCertificateField(this);
         });
     });
+
 </script>
 
 

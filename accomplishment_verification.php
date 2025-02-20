@@ -85,24 +85,35 @@ if(isset($_POST['accomplishment_three'])){
             <div class="container flex items-center justify-center">
                 <div class="content sm:w-[448px] w-full">
                     <h3 class="heading3 text-center" style="font-size: 24px">Verify Accomplishment</h3>
-                    <form class="mt-5 mb-5" action="" method="post">
-                        <p>1. <?php echo $fech_data[0]['accomplishment'];?></p>
-                        <?php
-                        if($fech_data[0]['accomplishment_one_status'] == '1'){
-                            ?>
-                            <i class="ph ph-seal-check"></i>
-                            <?php
-                        } else {
-                            ?>
-                            <div class="flex flex-wrap gap-4 mt-5">
-                                <button type="submit" name="accomplishment_one" class="button-main -border">Verify Accomplishment</button>
-                            </div>
-                            <?php
-                        }
+
+                    <?php
+                    if($fech_data[0]['accomplishment'] != null){
                         ?>
-                    </form>
+                        <form class="mt-5 mb-5" action="" method="post">
+                            <p>1. <?php echo $fech_data[0]['accomplishment'];?></p>
+                            <?php
+                            if($fech_data[0]['accomplishment_one_status'] == '1'){
+                                ?>
+                                <i class="ph ph-seal-check"></i>
+                                <?php
+                            } else {
+                                ?>
+                                <div class="flex flex-wrap gap-4 mt-5">
+                                    <button type="submit" name="accomplishment_one" class="button-main -border">Verify Accomplishment</button>
+                                </div>
+                                <?php
+                            }
+                            ?>
+                        </form>
+                        <?php
+                    }
+                    ?>
+
+                    <?php
+                    if($fech_data[0]['accomplishment_two'] != null){
+                    ?>
                     <form class="mt-5 mb-5" action="" method="post">
-                        <p>2. <?php echo $fech_data[0]['accomplishment'];?></p>
+                        <p>2. <?php echo $fech_data[0]['accomplishment_two'];?></p>
                         <?php
                         if($fech_data[0]['accomplishment_two_status'] == '1'){
                             ?>
@@ -117,8 +128,14 @@ if(isset($_POST['accomplishment_three'])){
                         }
                         ?>
                     </form>
+                        <?php
+                    }
+                    ?>
+                    <?php
+                    if($fech_data[0]['accomplishment_three'] != null){
+                    ?>
                     <form class="mt-5 mb-5" action="" method="post">
-                        <p>3. <?php echo $fech_data[0]['accomplishment_two'];?></p>
+                        <p>3. <?php echo $fech_data[0]['accomplishment_three'];?></p>
                         <?php
                         if($fech_data[0]['accomplishment_three_status'] == '1'){
                             ?>
@@ -134,7 +151,9 @@ if(isset($_POST['accomplishment_three'])){
                         ?>
 
                     </form>
-
+                        <?php
+                    }
+                    ?>
                     <p>Please close this window when you are done.</p>
                 </div>
             </div>

@@ -458,10 +458,10 @@ if(!isset($_SESSION['seller_id'])){
                                 <span class="mt-5 grid sm:grid-cols-3 gap-3 col-span-3 hidden" id="subskill_add_form" style="width: 100%; justify-content: space-between;">
                                     <div class="flex-1">
                                         <label>Enter new subskill <span class="text-red">*</span></label>
-                                        <input id="coreSkillId" class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="hidden" name="core_skill_id" required/>
+                                        <input id="coreSkillId" class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="hidden" name="core_skill_id"/>
                                     </div>
                                     <div class="flex-1">
-                                        <input id="newSubSkill" class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" name="new_sub_skill" placeholder="Enter subskill" required/>
+                                        <input id="newSubSkill" class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="text" name="new_sub_skill" placeholder="Enter subskill"/>
                                     </div>
                                     <div class="flex-1">
                                         <button type="button" id="addSubSkillButton" class="w-full h-12 px-4 button-main -border mt-2">Add</button>
@@ -783,7 +783,7 @@ if(!isset($_SESSION['seller_id'])){
                                     </div>
                                     <div class="jobLocation">
                                         <label>End Date <span class="text-red">*</span></label>
-                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" name="end_date[]" value="<?php echo htmlspecialchars($row['end_date']); ?>" required />
+                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" type="date" name="end_date[]" value="<?php echo htmlspecialchars($row['end_date']); ?>"/>
                                     </div>
                                     <div class="jobLocation">
                                         <label>Present</label>
@@ -1866,8 +1866,6 @@ if(!isset($_SESSION['seller_id'])){
     }
 
     function applyValidation(section) {
-
-
         // Bind validation to the company website field
         section.find('.company-website').on('input', function () {
             const website = $(this).val().trim();
@@ -1913,14 +1911,34 @@ if(!isset($_SESSION['seller_id'])){
             applyValidation($(this));
         });
 
+        // Bind the "Present" checkbox event handler to the document level
+        $(document).on('change', '#tillDateCheckbox', function () {
+            const endDateInput = $(this).closest('.experience-section').find('#endDate');
+            if ($(this).is(':checked')) {
+                endDateInput.prop('disabled', true);
+            } else {
+                endDateInput.prop('disabled', false);
+            }
+        });
+
         // If you're dynamically adding new sections, reapply validation to the new fields
-        $(document).on('click', '#add-experience', function () {
+        $(document).on('click', '#addExperience', function () {
             const newSection = $('.experience-section').first().clone();
             newSection.find('input').val(''); // Clear input values in the new section
             newSection.find('.error-message').addClass('hidden'); // Hide error messages in the new section
+            // Remove any existing "Remove" buttons from the clone
+            newSection.find('.remove-experience').remove();
+
+            // Add a new "Remove" button only to the cloned section
+            newSection.append('<button class="remove-experience w-full h-10 mt-4 bg-red-500 text-white rounded-lg">Remove</button>');
+            newSection.find('#endDate').prop('disabled', false); // Ensure the end date is enabled by default
             $('#experience-container').append(newSection);
             applyValidation(newSection); // Apply validation to the new section
+            $(document).on('click', '.remove-experience', function () {
+                newSection.remove();
+            });
         });
+
     });
 </script>
 
